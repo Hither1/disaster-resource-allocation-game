@@ -1,0 +1,443 @@
+2024-01-21 03:41:17,359 INFO    StreamThr :83794 [internal.py:wandb_internal():86] W&B internal server running at pid: 83794, started at: 2024-01-21 03:41:17.358291
+2024-01-21 03:41:17,360 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status
+2024-01-21 03:41:17,362 INFO    WriterThread:83794 [datastore.py:open_for_write():87] open: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/run-aelcpdv9.wandb
+2024-01-21 03:41:17,363 DEBUG   SenderThread:83794 [sender.py:send():382] send: header
+2024-01-21 03:41:17,384 DEBUG   SenderThread:83794 [sender.py:send():382] send: run
+2024-01-21 03:41:20,372 INFO    SenderThread:83794 [dir_watcher.py:__init__():211] watching files in: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files
+2024-01-21 03:41:20,372 INFO    SenderThread:83794 [sender.py:_start_run_threads():1136] run started: aelcpdv9 with start time 1705779677.357576
+2024-01-21 03:41:20,379 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: check_version
+2024-01-21 03:41:20,379 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: check_version
+2024-01-21 03:41:23,141 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:41:23,143 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: run_start
+2024-01-21 03:41:23,149 DEBUG   HandlerThread:83794 [system_info.py:__init__():27] System info init
+2024-01-21 03:41:23,150 DEBUG   HandlerThread:83794 [system_info.py:__init__():42] System info init done
+2024-01-21 03:41:23,150 INFO    HandlerThread:83794 [system_monitor.py:start():194] Starting system monitor
+2024-01-21 03:41:23,150 INFO    SystemMonitor:83794 [system_monitor.py:_start():158] Starting system asset monitoring threads
+2024-01-21 03:41:23,150 INFO    HandlerThread:83794 [system_monitor.py:probe():214] Collecting system info
+2024-01-21 03:41:23,150 INFO    SystemMonitor:83794 [interfaces.py:start():190] Started cpu monitoring
+2024-01-21 03:41:23,151 DEBUG   HandlerThread:83794 [system_info.py:probe():151] Probing system
+2024-01-21 03:41:23,151 INFO    SystemMonitor:83794 [interfaces.py:start():190] Started disk monitoring
+2024-01-21 03:41:23,152 INFO    SystemMonitor:83794 [interfaces.py:start():190] Started gpuapple monitoring
+2024-01-21 03:41:23,154 INFO    SystemMonitor:83794 [interfaces.py:start():190] Started memory monitoring
+2024-01-21 03:41:23,155 INFO    SystemMonitor:83794 [interfaces.py:start():190] Started network monitoring
+2024-01-21 03:41:23,160 DEBUG   HandlerThread:83794 [system_info.py:_probe_git():136] Probing git
+2024-01-21 03:41:23,186 DEBUG   HandlerThread:83794 [system_info.py:_probe_git():144] Probing git done
+2024-01-21 03:41:23,186 DEBUG   HandlerThread:83794 [system_info.py:probe():199] Probing system done
+2024-01-21 03:41:23,186 DEBUG   HandlerThread:83794 [system_monitor.py:probe():223] {'os': 'macOS-13.2.1-arm64-arm-64bit', 'python': '3.9.18', 'heartbeatAt': '2024-01-20T19:41:23.152105', 'startedAt': '2024-01-20T19:41:17.354510', 'docker': None, 'cuda': None, 'args': ('--env', 'RA', '--model', 'ToM2C', '--workers', '6', '--norm-reward'), 'state': 'running', 'program': '/Users/suhuangyuan/DRA/main.py', 'codePathLocal': 'main.py', 'codePath': 'main.py', 'git': {'remote': 'git@github.com:Hither1/DRA.git', 'commit': 'f62b44b4268f087957510e98676af8dc4dcc3c75'}, 'email': 'suhither@gmail.com', 'root': '/Users/suhuangyuan/DRA', 'host': 'gens-MacBook-Pro.local', 'username': 'suhuangyuan', 'executable': '/Users/suhuangyuan/miniconda3/envs/resource/bin/python', 'cpu_count': 10, 'cpu_count_logical': 10, 'disk': {'/': {'total': 460.4317207336426, 'used': 12.228080749511719}}, 'gpuapple': {'type': 'arm', 'vendor': 'Apple'}, 'memory': {'total': 16.0}}
+2024-01-21 03:41:23,186 INFO    HandlerThread:83794 [system_monitor.py:probe():224] Finished collecting system info
+2024-01-21 03:41:23,186 INFO    HandlerThread:83794 [system_monitor.py:probe():227] Publishing system info
+2024-01-21 03:41:23,186 DEBUG   HandlerThread:83794 [system_info.py:_save_conda():208] Saving list of conda packages installed into the current environment
+2024-01-21 03:41:23,388 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/conda-environment.yaml
+2024-01-21 03:41:24,392 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/conda-environment.yaml
+2024-01-21 03:41:24,448 DEBUG   HandlerThread:83794 [system_info.py:_save_conda():220] Saving conda packages done
+2024-01-21 03:41:24,448 DEBUG   HandlerThread:83794 [system_info.py:_save_code():45] Saving code
+2024-01-21 03:41:24,463 DEBUG   HandlerThread:83794 [system_info.py:_save_code():66] Saving code done
+2024-01-21 03:41:24,464 DEBUG   HandlerThread:83794 [system_info.py:_save_patches():83] Saving git patches
+2024-01-21 03:41:24,674 DEBUG   HandlerThread:83794 [system_info.py:_save_patches():125] Saving git patches done
+2024-01-21 03:41:24,675 INFO    HandlerThread:83794 [system_monitor.py:probe():229] Finished publishing system info
+2024-01-21 03:41:24,678 DEBUG   SenderThread:83794 [sender.py:send():382] send: files
+2024-01-21 03:41:24,679 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-metadata.json with policy now
+2024-01-21 03:41:24,679 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file code/main.py with policy now
+2024-01-21 03:41:24,679 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file diff.patch with policy now
+2024-01-21 03:41:24,681 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: python_packages
+2024-01-21 03:41:24,682 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-21 03:41:24,682 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: python_packages
+2024-01-21 03:41:24,682 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-21 03:41:24,686 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: stop_status
+2024-01-21 03:41:25,393 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/diff.patch
+2024-01-21 03:41:25,393 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/code/main.py
+2024-01-21 03:41:25,393 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-metadata.json
+2024-01-21 03:41:25,393 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/requirements.txt
+2024-01-21 03:41:25,393 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/code
+2024-01-21 03:41:27,105 DEBUG   SenderThread:83794 [sender.py:send():382] send: telemetry
+2024-01-21 03:41:27,404 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:41:28,262 INFO    wandb-upload_0:83794 [upload_job.py:push():131] Uploaded file /var/folders/72/mvwhplb93ms91mvl36q329qh0000gn/T/tmpbscsyt81wandb/yso5uzce-wandb-metadata.json
+2024-01-21 03:41:29,122 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:41:29,411 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:41:30,052 INFO    wandb-upload_1:83794 [upload_job.py:push():131] Uploaded file /var/folders/72/mvwhplb93ms91mvl36q329qh0000gn/T/tmpbscsyt81wandb/z6h200op-code/main.py
+2024-01-21 03:41:30,583 INFO    wandb-upload_2:83794 [upload_job.py:push():131] Uploaded file /var/folders/72/mvwhplb93ms91mvl36q329qh0000gn/T/tmpbscsyt81wandb/qsevvzfk-diff.patch
+2024-01-21 03:41:31,422 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:41:31,737 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:41:31,737 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:41:33,433 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:41:34,185 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:41:35,442 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:41:37,013 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:41:37,014 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:41:37,014 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:41:37,015 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:41:37,015 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:41:37,450 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:41:39,444 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:41:39,459 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:41:39,776 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-21 03:41:39,809 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-21 03:41:39,810 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: stop_status
+2024-01-21 03:41:41,468 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:41:41,778 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:41:41,779 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:41:41,779 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:41:41,780 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:41:41,780 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:41:42,469 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:41:43,473 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:41:45,331 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:41:45,481 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:41:46,819 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:41:46,821 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:41:46,821 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:41:46,823 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:41:46,824 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:41:47,485 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:41:47,485 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:41:51,171 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:41:51,501 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:41:51,981 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:41:51,981 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:41:51,982 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:41:51,982 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:41:51,982 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:41:52,507 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/config.yaml
+2024-01-21 03:41:52,507 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:41:53,512 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:41:54,700 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-21 03:41:54,700 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: stop_status
+2024-01-21 03:41:54,707 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-21 03:41:55,520 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:41:56,578 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:41:56,579 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:41:56,580 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:41:56,580 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:41:56,580 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:41:57,530 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:41:57,531 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:41:57,584 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:41:59,540 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:01,600 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:01,601 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:01,602 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:42:01,602 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:42:01,603 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:42:02,551 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:42:02,605 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:42:03,558 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:05,568 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:06,064 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:06,066 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:06,066 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:42:06,066 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:42:06,067 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:42:06,572 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:42:07,577 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:08,073 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:42:09,585 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:09,708 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-21 03:42:09,709 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: stop_status
+2024-01-21 03:42:09,715 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-21 03:42:10,748 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:10,749 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:10,749 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:42:10,749 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:42:10,750 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:42:11,591 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:11,592 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:42:13,287 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:42:15,608 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:15,758 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:15,759 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:15,760 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:42:15,760 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:42:15,760 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:42:16,614 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:42:17,616 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:19,223 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:42:19,627 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:20,732 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:20,733 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:20,733 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:42:20,733 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:42:20,734 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:42:21,636 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:21,637 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:42:23,161 DEBUG   SystemMonitor:83794 [system_monitor.py:_start():172] Starting system metrics aggregation loop
+2024-01-21 03:42:23,166 DEBUG   SenderThread:83794 [sender.py:send():382] send: telemetry
+2024-01-21 03:42:23,167 DEBUG   SenderThread:83794 [sender.py:send():382] send: stats
+2024-01-21 03:42:24,487 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:42:24,731 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-21 03:42:24,756 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-21 03:42:25,234 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: stop_status
+2024-01-21 03:42:25,655 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:25,655 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/config.yaml
+2024-01-21 03:42:26,036 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:26,036 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:26,037 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:42:26,037 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:42:26,038 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:42:26,660 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:42:27,662 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:29,675 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:30,698 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:42:31,332 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:31,332 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:31,332 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:42:31,333 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:42:31,333 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:42:31,684 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:31,684 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:42:35,701 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:36,065 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:42:36,404 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:36,404 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:36,405 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:42:36,406 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:42:36,406 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:42:36,702 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:42:37,707 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:39,718 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:39,738 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-21 03:42:39,764 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-21 03:42:39,764 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: stop_status
+2024-01-21 03:42:41,152 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:42:41,152 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:41,153 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:41,154 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:42:41,154 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:42:41,155 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:42:41,730 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:42:43,738 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:45,749 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:45,851 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:45,852 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:45,853 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:42:45,853 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:42:45,853 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:42:46,755 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:42:46,855 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:42:47,759 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:49,771 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:50,554 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:50,555 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:50,557 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:42:50,557 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:42:50,558 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:42:50,777 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:42:51,782 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:52,562 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:42:53,169 DEBUG   SenderThread:83794 [sender.py:send():382] send: stats
+2024-01-21 03:42:54,761 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-21 03:42:54,768 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-21 03:42:54,768 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: stop_status
+2024-01-21 03:42:55,755 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:55,755 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:42:55,805 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:55,936 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:42:55,936 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:42:55,937 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:42:56,812 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:42:57,814 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:42:57,946 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:42:59,824 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:00,214 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:00,215 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:00,215 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:43:00,215 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:43:00,216 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:43:00,826 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:43:01,829 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:03,712 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:43:03,836 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:05,290 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:05,290 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:05,290 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:43:05,290 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:43:05,291 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:43:05,851 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:05,851 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:43:08,845 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:43:09,775 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-21 03:43:09,786 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-21 03:43:09,791 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: stop_status
+2024-01-21 03:43:09,875 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:10,407 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:10,407 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:10,444 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:43:10,445 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:43:10,445 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:43:10,880 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:43:11,887 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:13,899 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:14,074 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:43:15,896 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:15,897 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:43:15,897 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:43:15,899 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:43:15,900 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:15,912 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:43:17,923 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:19,515 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:43:19,935 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:20,993 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:20,995 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:20,995 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:43:20,995 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:43:20,996 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:43:21,947 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:21,947 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:43:23,198 DEBUG   SenderThread:83794 [sender.py:send():382] send: stats
+2024-01-21 03:43:24,794 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-21 03:43:24,820 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:43:24,828 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-21 03:43:24,828 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: stop_status
+2024-01-21 03:43:25,965 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:26,574 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:26,575 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:26,577 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:43:26,577 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:43:26,578 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:43:26,971 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:43:27,976 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:29,984 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:30,058 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:43:31,138 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:31,139 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:31,139 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:43:31,140 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:43:31,140 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:43:31,995 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:31,996 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:43:34,003 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:35,422 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:43:35,878 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:35,880 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:35,880 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:43:35,880 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:43:35,881 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:43:36,013 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:43:38,023 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:39,809 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: internal_messages
+2024-01-21 03:43:39,823 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: stop_status
+2024-01-21 03:43:39,824 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: stop_status
+2024-01-21 03:43:40,035 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:40,456 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:43:41,043 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:41,045 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:41,045 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:43:41,045 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:43:41,045 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:43:42,041 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:42,041 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:43:45,526 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:43:45,527 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:45,528 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: partial_history
+2024-01-21 03:43:45,529 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:43:45,529 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:43:45,530 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:43:46,059 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:46,059 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:43:48,066 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:49,084 DEBUG   SenderThread:83794 [sender.py:send():382] send: exit
+2024-01-21 03:43:49,084 INFO    SenderThread:83794 [sender.py:send_exit():589] handling exit code: 1
+2024-01-21 03:43:49,085 INFO    SenderThread:83794 [sender.py:send_exit():591] handling runtime: 145
+2024-01-21 03:43:49,085 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:43:49,085 INFO    SenderThread:83794 [sender.py:send_exit():597] send defer
+2024-01-21 03:43:49,086 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: defer
+2024-01-21 03:43:49,086 INFO    HandlerThread:83794 [handler.py:handle_request_defer():172] handle defer: 0
+2024-01-21 03:43:49,087 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: defer
+2024-01-21 03:43:49,087 INFO    SenderThread:83794 [sender.py:send_request_defer():613] handle sender defer: 0
+2024-01-21 03:43:49,087 INFO    SenderThread:83794 [sender.py:transition_state():617] send defer: 1
+2024-01-21 03:43:49,087 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: defer
+2024-01-21 03:43:49,087 INFO    HandlerThread:83794 [handler.py:handle_request_defer():172] handle defer: 1
+2024-01-21 03:43:49,088 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: defer
+2024-01-21 03:43:49,088 INFO    SenderThread:83794 [sender.py:send_request_defer():613] handle sender defer: 1
+2024-01-21 03:43:49,088 INFO    SenderThread:83794 [sender.py:transition_state():617] send defer: 2
+2024-01-21 03:43:49,088 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: defer
+2024-01-21 03:43:49,088 INFO    HandlerThread:83794 [handler.py:handle_request_defer():172] handle defer: 2
+2024-01-21 03:43:49,089 INFO    HandlerThread:83794 [system_monitor.py:finish():203] Stopping system monitor
+2024-01-21 03:43:49,090 DEBUG   SystemMonitor:83794 [system_monitor.py:_start():179] Finished system metrics aggregation loop
+2024-01-21 03:43:49,091 DEBUG   SystemMonitor:83794 [system_monitor.py:_start():183] Publishing last batch of metrics
+2024-01-21 03:43:49,092 INFO    HandlerThread:83794 [interfaces.py:finish():202] Joined cpu monitor
+2024-01-21 03:43:49,092 INFO    HandlerThread:83794 [interfaces.py:finish():202] Joined disk monitor
+2024-01-21 03:43:49,092 INFO    HandlerThread:83794 [interfaces.py:finish():202] Joined gpuapple monitor
+2024-01-21 03:43:49,092 INFO    HandlerThread:83794 [interfaces.py:finish():202] Joined memory monitor
+2024-01-21 03:43:49,093 INFO    HandlerThread:83794 [interfaces.py:finish():202] Joined network monitor
+2024-01-21 03:43:49,093 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: defer
+2024-01-21 03:43:49,093 INFO    SenderThread:83794 [sender.py:send_request_defer():613] handle sender defer: 2
+2024-01-21 03:43:49,093 INFO    SenderThread:83794 [sender.py:transition_state():617] send defer: 3
+2024-01-21 03:43:49,093 DEBUG   SenderThread:83794 [sender.py:send():382] send: stats
+2024-01-21 03:43:49,093 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: defer
+2024-01-21 03:43:49,093 INFO    HandlerThread:83794 [handler.py:handle_request_defer():172] handle defer: 3
+2024-01-21 03:43:49,094 DEBUG   SenderThread:83794 [sender.py:send():382] send: history
+2024-01-21 03:43:49,094 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: summary_record
+2024-01-21 03:43:49,095 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:43:49,095 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: defer
+2024-01-21 03:43:49,095 INFO    SenderThread:83794 [sender.py:send_request_defer():613] handle sender defer: 3
+2024-01-21 03:43:49,095 INFO    SenderThread:83794 [sender.py:transition_state():617] send defer: 4
+2024-01-21 03:43:49,096 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: defer
+2024-01-21 03:43:49,096 INFO    HandlerThread:83794 [handler.py:handle_request_defer():172] handle defer: 4
+2024-01-21 03:43:49,096 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: defer
+2024-01-21 03:43:49,096 INFO    SenderThread:83794 [sender.py:send_request_defer():613] handle sender defer: 4
+2024-01-21 03:43:49,096 INFO    SenderThread:83794 [sender.py:transition_state():617] send defer: 5
+2024-01-21 03:43:49,096 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: defer
+2024-01-21 03:43:49,096 INFO    HandlerThread:83794 [handler.py:handle_request_defer():172] handle defer: 5
+2024-01-21 03:43:49,097 DEBUG   SenderThread:83794 [sender.py:send():382] send: summary
+2024-01-21 03:43:49,097 INFO    SenderThread:83794 [sender.py:_save_file():1403] saving file wandb-summary.json with policy end
+2024-01-21 03:43:49,097 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: defer
+2024-01-21 03:43:49,097 INFO    SenderThread:83794 [sender.py:send_request_defer():613] handle sender defer: 5
+2024-01-21 03:43:49,097 INFO    SenderThread:83794 [sender.py:transition_state():617] send defer: 6
+2024-01-21 03:43:49,097 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: defer
+2024-01-21 03:43:49,097 INFO    HandlerThread:83794 [handler.py:handle_request_defer():172] handle defer: 6
+2024-01-21 03:43:49,097 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: defer
+2024-01-21 03:43:49,097 INFO    SenderThread:83794 [sender.py:send_request_defer():613] handle sender defer: 6
+2024-01-21 03:43:49,097 INFO    SenderThread:83794 [sender.py:transition_state():617] send defer: 7
+2024-01-21 03:43:49,097 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: status_report
+2024-01-21 03:43:49,097 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: defer
+2024-01-21 03:43:49,098 INFO    HandlerThread:83794 [handler.py:handle_request_defer():172] handle defer: 7
+2024-01-21 03:43:49,098 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: defer
+2024-01-21 03:43:49,098 INFO    SenderThread:83794 [sender.py:send_request_defer():613] handle sender defer: 7
+2024-01-21 03:43:50,080 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:50,080 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:43:50,089 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: poll_exit
+2024-01-21 03:43:51,480 INFO    SenderThread:83794 [sender.py:transition_state():617] send defer: 8
+2024-01-21 03:43:51,481 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: poll_exit
+2024-01-21 03:43:51,481 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: defer
+2024-01-21 03:43:51,481 INFO    HandlerThread:83794 [handler.py:handle_request_defer():172] handle defer: 8
+2024-01-21 03:43:51,482 DEBUG   SenderThread:83794 [sender.py:send_request():409] send_request: defer
+2024-01-21 03:43:51,482 INFO    SenderThread:83794 [sender.py:send_request_defer():613] handle sender defer: 8
+2024-01-21 03:43:51,482 INFO    SenderThread:83794 [job_builder.py:build():296] Attempting to build job artifact
+2024-01-21 03:43:51,483 INFO    SenderThread:83794 [job_builder.py:_get_source_type():426] is repo sourced job
+2024-01-21 03:43:51,541 INFO    SenderThread:83794 [job_builder.py:build():402] adding wandb-job metadata file
+2024-01-21 03:43:51,544 INFO    SenderThread:83794 [sender.py:transition_state():617] send defer: 9
+2024-01-21 03:43:51,545 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: defer
+2024-01-21 03:43:51,545 DEBUG   SenderThread:83794 [sender.py:send():382] send: artifact
+2024-01-21 03:43:51,545 INFO    HandlerThread:83794 [handler.py:handle_request_defer():172] handle defer: 9
+2024-01-21 03:43:52,089 INFO    Thread-12 :83794 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:43:52,096 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: poll_exit
+2024-01-21 03:43:57,122 DEBUG   HandlerThread:83794 [handler.py:handle_request():146] handle_request: keepalive
+2024-01-21 03:43:58,117 INFO    wandb-upload_1:83794 [upload_job.py:push():86] Skipped uploading /Users/suhuangyuan/Library/Application Support/wandb/artifacts/staging/tmpazxk7ybt
+2024-01-21 03:43:58,117 INFO    wandb-upload_2:83794 [upload_job.py:push():86] Skipped uploading /Users/suhuangyuan/Library/Application Support/wandb/artifacts/staging/tmp11ndn9bs
+2024-01-21 03:43:58,969 WARNING StreamThr :83794 [internal.py:is_dead():414] Internal process exiting, parent pid 83764 disappeared
+2024-01-21 03:43:58,969 ERROR   StreamThr :83794 [internal.py:wandb_internal():152] Internal process shutdown.
+2024-01-21 03:43:59,128 INFO    WriterThread:83794 [datastore.py:close():296] close: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/run-aelcpdv9.wandb
+2024-01-21 03:43:59,129 INFO    HandlerThread:83794 [handler.py:finish():869] shutting down handler
+2024-01-21 03:44:02,188 INFO    wandb-upload_0:83794 [upload_job.py:push():89] Uploaded file /Users/suhuangyuan/Library/Application Support/wandb/artifacts/staging/tmp9772_wc5
+2024-01-21 03:44:08,295 INFO    SenderThread:83794 [sender.py:send_artifact():1494] sent artifact job-git_github.com_Hither1_DRA.git_main.py - {'id': 'QXJ0aWZhY3Q6Njk3OTIxNzQ1', 'state': 'PENDING', 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjEzMTU0NDk4Mw==', 'latestArtifact': {'id': 'QXJ0aWZhY3Q6Njk3OTIwMTI5', 'versionIndex': 98}}}
+2024-01-21 03:44:08,296 INFO    SenderThread:83794 [sender.py:finish():1572] shutting down sender
+2024-01-21 03:44:08,296 INFO    SenderThread:83794 [dir_watcher.py:finish():358] shutting down directory watcher
+2024-01-21 03:44:09,156 INFO    SenderThread:83794 [dir_watcher.py:finish():388] scan: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files
+2024-01-21 03:44:09,157 INFO    SenderThread:83794 [dir_watcher.py:finish():402] scan save: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/diff.patch diff.patch
+2024-01-21 03:44:09,157 INFO    SenderThread:83794 [dir_watcher.py:finish():402] scan save: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/requirements.txt requirements.txt
+2024-01-21 03:44:09,157 INFO    SenderThread:83794 [dir_watcher.py:finish():402] scan save: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log output.log
+2024-01-21 03:44:09,159 INFO    SenderThread:83794 [dir_watcher.py:finish():402] scan save: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/config.yaml config.yaml
+2024-01-21 03:44:09,162 INFO    SenderThread:83794 [dir_watcher.py:finish():402] scan save: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json wandb-summary.json
+2024-01-21 03:44:09,162 INFO    SenderThread:83794 [dir_watcher.py:finish():402] scan save: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/conda-environment.yaml conda-environment.yaml
+2024-01-21 03:44:09,166 INFO    SenderThread:83794 [dir_watcher.py:finish():402] scan save: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-metadata.json wandb-metadata.json
+2024-01-21 03:44:09,171 INFO    SenderThread:83794 [dir_watcher.py:finish():402] scan save: /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/code/main.py code/main.py
+2024-01-21 03:44:09,174 INFO    SenderThread:83794 [file_pusher.py:finish():175] shutting down file pusher
+2024-01-21 03:44:09,174 INFO    SenderThread:83794 [file_pusher.py:join():181] waiting for file pusher
+2024-01-21 03:44:11,508 INFO    wandb-upload_0:83794 [upload_job.py:push():131] Uploaded file /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/output.log
+2024-01-21 03:44:12,646 INFO    wandb-upload_4:83794 [upload_job.py:push():131] Uploaded file /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/conda-environment.yaml
+2024-01-21 03:44:14,782 INFO    wandb-upload_3:83794 [upload_job.py:push():131] Uploaded file /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/wandb-summary.json
+2024-01-21 03:44:14,846 INFO    wandb-upload_2:83794 [upload_job.py:push():131] Uploaded file /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/config.yaml
+2024-01-21 03:44:14,951 INFO    wandb-upload_1:83794 [upload_job.py:push():131] Uploaded file /Users/suhuangyuan/DRA/wandb/run-20240121_034117-aelcpdv9/files/requirements.txt
+2024-01-21 03:44:15,216 INFO    SenderThread:83794 [file_stream.py:finish():595] file stream finish called
+2024-01-21 03:44:16,219 INFO    SenderThread:83794 [file_stream.py:finish():599] file stream finish is done

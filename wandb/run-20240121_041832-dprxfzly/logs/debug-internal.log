@@ -1,0 +1,21 @@
+2024-01-21 04:18:32,607 INFO    StreamThr :92440 [internal.py:wandb_internal():86] W&B internal server running at pid: 92440, started at: 2024-01-21 04:18:32.606922
+2024-01-21 04:18:32,609 DEBUG   HandlerThread:92440 [handler.py:handle_request():146] handle_request: status
+2024-01-21 04:18:32,610 INFO    WriterThread:92440 [datastore.py:open_for_write():87] open: /Users/suhuangyuan/DRA/wandb/run-20240121_041832-dprxfzly/run-dprxfzly.wandb
+2024-01-21 04:18:32,613 DEBUG   SenderThread:92440 [sender.py:send():382] send: header
+2024-01-21 04:18:32,636 DEBUG   SenderThread:92440 [sender.py:send():382] send: run
+2024-01-21 04:18:35,785 INFO    SenderThread:92440 [dir_watcher.py:__init__():211] watching files in: /Users/suhuangyuan/DRA/wandb/run-20240121_041832-dprxfzly/files
+2024-01-21 04:18:35,785 INFO    SenderThread:92440 [sender.py:_start_run_threads():1136] run started: dprxfzly with start time 1705781912.606689
+2024-01-21 04:18:35,790 DEBUG   HandlerThread:92440 [handler.py:handle_request():146] handle_request: check_version
+2024-01-21 04:18:35,791 DEBUG   SenderThread:92440 [sender.py:send_request():409] send_request: check_version
+2024-01-21 04:18:36,132 DEBUG   HandlerThread:92440 [handler.py:handle_request():146] handle_request: shutdown
+2024-01-21 04:18:36,132 INFO    HandlerThread:92440 [handler.py:finish():869] shutting down handler
+2024-01-21 04:18:36,796 INFO    WriterThread:92440 [datastore.py:close():296] close: /Users/suhuangyuan/DRA/wandb/run-20240121_041832-dprxfzly/run-dprxfzly.wandb
+2024-01-21 04:18:38,624 INFO    SenderThread:92440 [sender.py:finish():1572] shutting down sender
+2024-01-21 04:18:38,624 INFO    SenderThread:92440 [dir_watcher.py:finish():358] shutting down directory watcher
+2024-01-21 04:18:38,798 INFO    SenderThread:92440 [dir_watcher.py:finish():388] scan: /Users/suhuangyuan/DRA/wandb/run-20240121_041832-dprxfzly/files
+2024-01-21 04:18:38,799 INFO    SenderThread:92440 [dir_watcher.py:finish():402] scan save: /Users/suhuangyuan/DRA/wandb/run-20240121_041832-dprxfzly/files/config.yaml config.yaml
+2024-01-21 04:18:38,799 INFO    SenderThread:92440 [file_pusher.py:finish():175] shutting down file pusher
+2024-01-21 04:18:38,799 INFO    SenderThread:92440 [file_pusher.py:join():181] waiting for file pusher
+2024-01-21 04:18:42,672 INFO    wandb-upload_0:92440 [upload_job.py:push():131] Uploaded file /Users/suhuangyuan/DRA/wandb/run-20240121_041832-dprxfzly/files/config.yaml
+2024-01-21 04:18:43,335 INFO    SenderThread:92440 [file_stream.py:finish():595] file stream finish called
+2024-01-21 04:18:45,911 INFO    SenderThread:92440 [file_stream.py:finish():599] file stream finish is done

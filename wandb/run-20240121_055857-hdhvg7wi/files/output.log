@@ -1,0 +1,73 @@
+obs <crafter.objects.Shelter object at 0x13c493610> [39.  0.  0.  0. 39.  0.  0.  0.  7.  0.  0.  0.]
+obs <crafter.objects.Warehouse object at 0x13c493a90> [42.  0.  0.  0. 33.  0.  0.  0.  9.  0.  0.  0.]
+obs <crafter.objects.Station object at 0x13c493880> [9. 0. 0. 0. 9. 0. 0. 0. 8. 0. 0. 0.]
+obs <crafter.objects.Shelter object at 0x13c493610> [39.  0.  0.  0. 39.  0.  0.  0. 12.  0.  0.  0.]
+obs <crafter.objects.Warehouse object at 0x13c493a90> [41.  0.  0.  0. 40.  0.  0.  0.  9.  0.  0.  0.]
+obs <crafter.objects.Station object at 0x13c493880> [ 9.  0.  0.  0.  9.  0.  0.  0. 12.  0.  0.  0.]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+training start after waiting for 0.0023298263549804688 seconds
+19 rew tensor(0.6923, dtype=torch.float64) delta_t tensor(0.7807, dtype=torch.float64)
+19 gae_duplicate tensor(0.5479, dtype=torch.float64) tensor(-15.3479, dtype=torch.float64, grad_fn=<SumBackward0>)
+18 rew tensor(0.7195, dtype=torch.float64) delta_t tensor(0.7990, dtype=torch.float64)
+18 gae_duplicate tensor(0.6430, dtype=torch.float64) tensor(-17.2797, dtype=torch.float64, grad_fn=<SumBackward0>)
+17 rew tensor(0.7502, dtype=torch.float64) delta_t tensor(0.8298, dtype=torch.float64)
+17 gae_duplicate tensor(0.6821, dtype=torch.float64) tensor(-18.1196, dtype=torch.float64, grad_fn=<SumBackward0>)
+16 rew tensor(0.7854, dtype=torch.float64) delta_t tensor(0.8649, dtype=torch.float64)
+16 gae_duplicate tensor(0.7198, dtype=torch.float64) tensor(-18.8437, dtype=torch.float64, grad_fn=<SumBackward0>)
+15 rew tensor(0.8263, dtype=torch.float64) delta_t tensor(0.9058, dtype=torch.float64)
+15 gae_duplicate tensor(0.7625, dtype=torch.float64) tensor(-19.7795, dtype=torch.float64, grad_fn=<SumBackward0>)
+14 rew tensor(0.8745, dtype=torch.float64) delta_t tensor(0.9541, dtype=torch.float64)
+14 gae_duplicate tensor(0.8124, dtype=torch.float64) tensor(-20.6843, dtype=torch.float64, grad_fn=<SumBackward0>)
+13 rew tensor(0.9330, dtype=torch.float64) delta_t tensor(1.0125, dtype=torch.float64)
+13 gae_duplicate tensor(0.8718, dtype=torch.float64) tensor(-21.8043, dtype=torch.float64, grad_fn=<SumBackward0>)
+12 rew tensor(1.0058, dtype=torch.float64) delta_t tensor(1.0853, dtype=torch.float64)
+12 gae_duplicate tensor(0.9439, dtype=torch.float64) tensor(-23.6654, dtype=torch.float64, grad_fn=<SumBackward0>)
+11 rew tensor(1.1006, dtype=torch.float64) delta_t tensor(1.1802, dtype=torch.float64)
+11 gae_duplicate tensor(0.9925, dtype=torch.float64) tensor(-25.5174, dtype=torch.float64, grad_fn=<SumBackward0>)
+10 rew tensor(1.2326, dtype=torch.float64) delta_t tensor(1.2377, dtype=torch.float64)
+10 gae_duplicate tensor(0.9138, dtype=torch.float64) tensor(-26.8693, dtype=torch.float64, grad_fn=<SumBackward0>)
+9 rew tensor(-0.5949, dtype=torch.float64) delta_t tensor(-0.5776, dtype=torch.float64)
+9 gae_duplicate tensor(-1.6599, dtype=torch.float64) tensor(8.7363, dtype=torch.float64, grad_fn=<SumBackward0>)
+8 rew tensor(-0.2177, dtype=torch.float64) delta_t tensor(-0.2004, dtype=torch.float64)
+8 gae_duplicate tensor(-1.4068, dtype=torch.float64) tensor(4.7640, dtype=torch.float64, grad_fn=<SumBackward0>)
+7 rew tensor(-0.2440, dtype=torch.float64) delta_t tensor(-0.2255, dtype=torch.float64)
+7 gae_duplicate tensor(-1.6897, dtype=torch.float64) tensor(4.9929, dtype=torch.float64, grad_fn=<SumBackward0>)
+6 rew tensor(-0.2277, dtype=torch.float64) delta_t tensor(-0.1697, dtype=torch.float64)
+6 gae_duplicate tensor(-0.8268, dtype=torch.float64) tensor(3.9110, dtype=torch.float64, grad_fn=<SumBackward0>)
+5 rew tensor(-0.2337, dtype=torch.float64) delta_t tensor(-0.1849, dtype=torch.float64)
+5 gae_duplicate tensor(-1.0597, dtype=torch.float64) tensor(3.9727, dtype=torch.float64, grad_fn=<SumBackward0>)
+4 rew tensor(-1.1817, dtype=torch.float64) delta_t tensor(-1.2592, dtype=torch.float64)
+4 gae_duplicate tensor(-2.0560, dtype=torch.float64) tensor(25.4004, dtype=torch.float64, grad_fn=<SumBackward0>)
+3 rew tensor(0.6769, dtype=torch.float64) delta_t tensor(0.6390, dtype=torch.float64)
+3 gae_duplicate tensor(-0.2483, dtype=torch.float64) tensor(-10.1683, dtype=torch.float64, grad_fn=<SumBackward0>)
+2 rew tensor(0.0515, dtype=torch.float64) delta_t tensor(0.1103, dtype=torch.float64)
+2 gae_duplicate tensor(-0.6767, dtype=torch.float64) tensor(-3.1200, dtype=torch.float64, grad_fn=<SumBackward0>)
+policy loss:9052.7333984375
+value loss:168.15025329589844
+entropies:355.8038024902344
+Policy training finished
+---------------------
+gamma: 0.1
+/Users/suhuangyuan/DRA/ToM2C/shared_optim.py:155: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha) (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/utils/python_arg_parser.cpp:1420.)
+  exp_avg.mul_(beta1).add_(1 - beta1, grad)
+Process Process-9:
+Traceback (most recent call last):
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/suhuangyuan/DRA/ToM2C/train.py", line 453, in train
+    if train_modes[rank] != -10:
+  File "<string>", line 2, in __getitem__
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/managers.py", line 809, in _callmethod
+    conn.send((self._id, methodname, args, kwds))
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/connection.py", line 206, in send
+    self._send_bytes(_ForkingPickler.dumps(obj))
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/reduction.py", line 51, in dumps
+    cls(buf, protocol).dump(obj)
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/reduction.py", line 41, in __init__
+    self.dispatch_table.update(self._extra_reducers)
+KeyboardInterrupt

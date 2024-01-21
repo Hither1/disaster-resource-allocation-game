@@ -1,0 +1,9 @@
+obs <crafter.objects.Shelter object at 0x13605c580> 0 [39.  0.  0.  0. 39.  0.  0.  0. 19.  0.  0.  0.]
+obs <crafter.objects.Warehouse object at 0x1226bbe20> 0 [40.  0.  0.  0. 38.  0.  0.  0.  9.  0.  0.  0.]
+obs <crafter.objects.Station object at 0x136062100> 0 [ 9.  0.  0.  0.  9.  0.  0.  0. 10.  0.  0.  0.]
+obs <crafter.objects.Shelter object at 0x13605c580> 0 [39.  0.  0.  0. 39.  0.  0.  0. 21.  0.  0.  0.]
+obs <crafter.objects.Warehouse object at 0x1226bbe20> 0 [38.  0.  0.  0. 41.  0.  0.  0.  9.  0.  0.  0.]
+obs <crafter.objects.Station object at 0x136062100> 0 [9. 0. 0. 0. 9. 0. 0. 0. 9. 0. 0. 0.]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+waiting too long for workers
+train modes: [-1, -1, -1, -1, -1, -1]

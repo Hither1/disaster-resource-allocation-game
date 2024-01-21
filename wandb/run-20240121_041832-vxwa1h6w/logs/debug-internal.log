@@ -1,0 +1,21 @@
+2024-01-21 04:18:32,607 INFO    StreamThr :92446 [internal.py:wandb_internal():86] W&B internal server running at pid: 92446, started at: 2024-01-21 04:18:32.607100
+2024-01-21 04:18:32,609 DEBUG   HandlerThread:92446 [handler.py:handle_request():146] handle_request: status
+2024-01-21 04:18:32,612 INFO    WriterThread:92446 [datastore.py:open_for_write():87] open: /Users/suhuangyuan/DRA/wandb/run-20240121_041832-vxwa1h6w/run-vxwa1h6w.wandb
+2024-01-21 04:18:32,613 DEBUG   SenderThread:92446 [sender.py:send():382] send: header
+2024-01-21 04:18:32,633 DEBUG   SenderThread:92446 [sender.py:send():382] send: run
+2024-01-21 04:18:35,795 INFO    SenderThread:92446 [dir_watcher.py:__init__():211] watching files in: /Users/suhuangyuan/DRA/wandb/run-20240121_041832-vxwa1h6w/files
+2024-01-21 04:18:35,796 INFO    SenderThread:92446 [sender.py:_start_run_threads():1136] run started: vxwa1h6w with start time 1705781912.607299
+2024-01-21 04:18:35,800 DEBUG   HandlerThread:92446 [handler.py:handle_request():146] handle_request: check_version
+2024-01-21 04:18:35,800 DEBUG   SenderThread:92446 [sender.py:send_request():409] send_request: check_version
+2024-01-21 04:18:36,128 DEBUG   HandlerThread:92446 [handler.py:handle_request():146] handle_request: shutdown
+2024-01-21 04:18:36,129 INFO    HandlerThread:92446 [handler.py:finish():869] shutting down handler
+2024-01-21 04:18:36,805 INFO    WriterThread:92446 [datastore.py:close():296] close: /Users/suhuangyuan/DRA/wandb/run-20240121_041832-vxwa1h6w/run-vxwa1h6w.wandb
+2024-01-21 04:18:38,634 INFO    SenderThread:92446 [sender.py:finish():1572] shutting down sender
+2024-01-21 04:18:38,634 INFO    SenderThread:92446 [dir_watcher.py:finish():358] shutting down directory watcher
+2024-01-21 04:18:38,802 INFO    SenderThread:92446 [dir_watcher.py:finish():388] scan: /Users/suhuangyuan/DRA/wandb/run-20240121_041832-vxwa1h6w/files
+2024-01-21 04:18:38,802 INFO    SenderThread:92446 [dir_watcher.py:finish():402] scan save: /Users/suhuangyuan/DRA/wandb/run-20240121_041832-vxwa1h6w/files/config.yaml config.yaml
+2024-01-21 04:18:38,803 INFO    SenderThread:92446 [file_pusher.py:finish():175] shutting down file pusher
+2024-01-21 04:18:38,803 INFO    SenderThread:92446 [file_pusher.py:join():181] waiting for file pusher
+2024-01-21 04:18:42,686 INFO    wandb-upload_0:92446 [upload_job.py:push():131] Uploaded file /Users/suhuangyuan/DRA/wandb/run-20240121_041832-vxwa1h6w/files/config.yaml
+2024-01-21 04:18:43,337 INFO    SenderThread:92446 [file_stream.py:finish():595] file stream finish called
+2024-01-21 04:18:45,911 INFO    SenderThread:92446 [file_stream.py:finish():599] file stream finish is done

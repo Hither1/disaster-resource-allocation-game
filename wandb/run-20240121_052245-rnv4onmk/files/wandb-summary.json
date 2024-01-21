@@ -1,0 +1,1 @@
+{"_wandb": {"runtime": 6}, "train/policy_loss_sum": 7291.3525390625, "_timestamp": 1705785775.904178, "train/value_loss_sum": 114.79727172851562, "train/Sparsity_loss_sum": 8.45118236541748, "train/entropies_sum": 355.8193359375, "train/gamma": 0.1, "train/action_correct_rate": 0.2222222238779068, "_runtime": 10.391148805618286, "_step": 120}

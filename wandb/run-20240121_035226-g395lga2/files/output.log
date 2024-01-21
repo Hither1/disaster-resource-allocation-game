@@ -1,0 +1,1005 @@
+True
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0 13  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 39  0  0 40  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 11  0]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0  9  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 39  0  0 40  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 10  0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+obs_space.shape (3, 2, 9) lstm_out 32
+feature_dim 62 lstm_out 32
+2024-01-21 03:52:34,113 : lr: 0.001
+2024-01-21 03:52:34,113 : gamma: 0.1
+2024-01-21 03:52:34,113 : gamma_rate: 0.002
+2024-01-21 03:52:34,113 : gamma_final: 0.9
+2024-01-21 03:52:34,114 : tau: 1.0
+2024-01-21 03:52:34,114 : entropy: 0.005
+2024-01-21 03:52:34,114 : grad_entropy: 1.0
+2024-01-21 03:52:34,114 : seed: 1
+2024-01-21 03:52:34,114 : workers: 6
+2024-01-21 03:52:34,114 : A2C_steps: 20
+2024-01-21 03:52:34,114 : env_steps: 20
+2024-01-21 03:52:34,114 : start_eps: 2000
+2024-01-21 03:52:34,114 : ToM_train_loops: 1
+2024-01-21 03:52:34,114 : policy_train_loops: 1
+2024-01-21 03:52:34,114 : test_eps: 20
+2024-01-21 03:52:34,114 : ToM_frozen: 5
+2024-01-21 03:52:34,114 : env: RA
+2024-01-21 03:52:34,114 : optimizer: Adam
+2024-01-21 03:52:34,114 : amsgrad: True
+2024-01-21 03:52:34,114 : load_model_dir: None
+2024-01-21 03:52:34,114 : load_executor_dir: None
+2024-01-21 03:52:34,114 : log_dir: logs/RA/Jan21_03-52
+2024-01-21 03:52:34,114 : model: ToM2C
+2024-01-21 03:52:34,114 : gpu_id: [-1]
+2024-01-21 03:52:34,114 : norm_reward: True
+2024-01-21 03:52:34,114 : train_comm: False
+2024-01-21 03:52:34,114 : random_target: True
+2024-01-21 03:52:34,114 : mask_actions: False
+2024-01-21 03:52:34,115 : mask: False
+2024-01-21 03:52:34,115 : render: False
+2024-01-21 03:52:34,115 : fix: False
+2024-01-21 03:52:34,115 : shared_optimizer: True
+2024-01-21 03:52:34,115 : train_mode: -1
+2024-01-21 03:52:34,115 : lstm_out: 32
+2024-01-21 03:52:34,115 : sleep_time: 0
+2024-01-21 03:52:34,115 : max_step: 3000000
+2024-01-21 03:52:34,115 : render_save: False
+2024-01-21 03:52:34,115 : num_agents: -1
+2024-01-21 03:52:34,115 : num_targets: -1
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0  8  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 41  0  0 40  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 15  0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+Day: 1 [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 18 8 31 31
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+out_requests ['Shelter->Station: Please send 4 staff']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 31  0  0 31  0  0  8  4]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 15  0]
+Day: 2 [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 21 36 23 23
+[0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1]
+out_requests ['Shelter->Station: Please send 8 staff', 'Shelter->Warehouse: Please send 7 food 7 drink ']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 23  7  0 23  7  0 25  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 1 0]
+Day: 3 [3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] 23 36 7 7
+[0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0]
+out_requests ['Shelter->Warehouse: Please send 8 food 8 drink ']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0  7  8  0  7  8  0 25  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 1 0]
+Day: 4 [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0] 24 32 0 0
+[0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 10 staff', 'Shelter->Warehouse: Please send 38 food 38 drink ', '4 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0  0 38  0  0 38  0 21 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 5 0]
+Day: 5 [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0] 25 30 10 10
+[0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 5 staff', 'Shelter->Warehouse: Please send 7 food 7 drink ', '2 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 10  7  0 10  7  0 21 14]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 6 0]
+Day: 6 [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 2.0, 2.0, 1.0, 1.0, 1.0, 0, 0] 19 21 0 0
+[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 5 staff', 'Shelter->Warehouse: Please send 41 food 41 drink ', '9 staff is returning to station']
+out_requests ['5 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0  0 41  0  0 41  0 12 19]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  4  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 20  0]
+Day: 7 [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 3.0, 3.0, 2.0, 2.0, 2.0, 1.0, 0] 19 14 20 20
+[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+out_requests ['Shelter->Station: Please send 3 staff', 'Shelter->Warehouse: Please send 6 food 6 drink ', '7 staff is returning to station']
+out_requests ['2 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 20  6  0 20  6  0  5 22]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  2  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 29  0]
+Day: 8 [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 4.0, 4.0, 3.0, 3.0, 3.0, 2.0, 0] 12 7 12 12
+[2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+out_requests ['Shelter->Station: Please send 6 staff', 'Shelter->Warehouse: Please send 25 food 25 drink ', '7 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 12 25  0 12 25  0  6 24]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  1  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 33  0]
+Day: 9 [5.0, 5.0, 4.0, 4.0, 4.0, 3.0, 1.0] 4 6 30 30
+[0, 0, 0, 0, 0, 0, 2]
+out_requests ['Shelter->Warehouse: Please send 7 food 7 drink ', '4 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 30  7  0 30  7  0  6 22]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 30  0]
+Day: 10 [5.0, 5.0, 5.0, 4.0, 2.0] 2 4 32 32
+[0, 0, 0, 0, 2]
+out_requests ['2 staff is returning to station']
+out_requests ['Warehouse->Station: Please send 1 staff']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  4 22]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  1]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 27  0]
+Day: 11 [5.0, 3.0] -1 3 30 30
+[0, 2]
+out_requests ['Shelter->Warehouse: Please send 3 food 3 drink ', '1 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 30  3  0 30  3  0  3 22]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 5 0]
+Day: 12 [4.0] -2 3 32 32
+[2]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  3 22]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 5 0]
+Day: 13 [5.0] -2 3 31 31
+[2]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 31  0  0 31  0  0  3 22]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 5 0]
+Day: 14 [] -3 2 31 31
+[]
+out_requests ['1 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 31  0  0 31  0  0  2 22]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 6 0]
+Day: 15 [] -3 2 31 31
+[]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 31  0  0 31  0  0  2 22]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 6 0]
+Day: 16 [] -3 2 31 31
+[]
+out_requests ['23 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 31  0  0 31  0  0  2 22]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  2  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 29  0]
+Day: 17 [] -3 2 31 31
+[]
+out_requests ['12 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 31  0  0 31  0  0  2 22]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 37  0]
+Day: 18 [] -3 1 31 31
+[]
+out_requests ['1 staff is returning to station']
+out_requests ['Warehouse->Station: Please send 1 staff', '6 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 31  0  0 31  0  0  1 22]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  1]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 32  0]
+Day: 19 [] -3 1 31 31
+[]
+out_requests ['3 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 31  0  0 31  0  0  1 22]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 13  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 27  0]
+Day: 20 [] -3 0 31 31
+[]
+out_requests ['1 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 31  0  0 31  0  0  0 22]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 12  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 27  0]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0 11  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 37  0  0 43  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 12  0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0  9  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 39  0  0 39  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 11  0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+Day: 1 [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0] 13 9 30 30
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1]
+out_requests ['Shelter->Station: Please send 3 staff']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 30  0  0 30  0  0  9  3]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 11  0]
+Day: 2 [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0, 0, 0, 0, 0, 0] 15 29 21 21
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 1, 1]
+out_requests ['Shelter->Station: Please send 9 staff', 'Shelter->Warehouse: Please send 9 food 9 drink ']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 21  9  0 21  9  0 25  2]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 1 0]
+Day: 3 [3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] 17 29 13 13
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 1, 1, 0, 0]
+out_requests ['Shelter->Warehouse: Please send 9 food 9 drink ']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 13  9  0 13  9  0 25  2]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 1 0]
+Day: 4 [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 1.0, 1.0, 1.0] 20 24 2 2
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 2 staff', 'Shelter->Warehouse: Please send 25 food 25 drink ', '5 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0  2 25  0  2 25  0 20  4]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 6 0]
+Day: 5 [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 2.0, 2.0, 2.0, 1.0] 21 22 6 6
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 8 staff', 'Shelter->Warehouse: Please send 23 food 23 drink ', '2 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0  6 23  0  6 23  0 20 11]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 7 0]
+Day: 6 [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 3.0, 3.0, 3.0, 2.0, 1.0, 1.0] 14 15 15 15
+[2, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 2 staff', 'Shelter->Warehouse: Please send 22 food 22 drink ', '7 staff is returning to station']
+out_requests ['5 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 15 22  0 15 22  0 13 13]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  4  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 19  0]
+Day: 7 [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 4.0, 4.0, 4.0, 3.0, 2.0, 2.0] 14 11 23 23
+[2, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Warehouse: Please send 7 food 7 drink ', '4 staff is returning to station']
+out_requests ['2 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 23  7  0 23  7  0  9 13]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  2  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 25  0]
+Day: 8 [5.0, 5.0, 5.0, 4.0, 3.0, 3.0] 6 7 24 24
+[0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 4 staff', 'Shelter->Warehouse: Please send 14 food 14 drink ', '4 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 24 14  0 24 14  0  5 17]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  1  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 30  0]
+Day: 9 [5.0, 4.0, 4.0] 3 17 35 35
+[0, 0, 0]
+out_requests ['2 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 35  0  0 35  0  0 17 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 26  0]
+Day: 10 [5.0, 5.0] 2 15 33 33
+[0, 0]
+out_requests ['2 staff is returning to station']
+out_requests ['Warehouse->Station: Please send 1 staff']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 15 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  1]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 27  0]
+Day: 11 [] 0 14 33 33
+[]
+out_requests ['1 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 14 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 10  0]
+Day: 12 [] 0 13 33 33
+[]
+out_requests ['1 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 13 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 11  0]
+Day: 13 [] 0 12 33 33
+[]
+out_requests ['1 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 12 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 12  0]
+Day: 14 [] 0 12 33 33
+[]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 12 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 12  0]
+Day: 15 [] 0 12 33 33
+[]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 12 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 12  0]
+Day: 16 [] 0 12 33 33
+[]
+out_requests ['18 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 12 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  7  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 30  0]
+Day: 17 [] 0 12 33 33
+[]
+out_requests ['9 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 12 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 34  0]
+Day: 18 [] 0 12 33 33
+[]
+out_requests ['Warehouse->Station: Please send 1 staff', '5 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 12 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  1]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 30  0]
+Day: 19 [] 0 6 33 33
+[]
+out_requests ['6 staff is returning to station']
+out_requests ['2 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0  6 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 22  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 26  0]
+Day: 20 [] 0 3 33 33
+[]
+out_requests ['3 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0  3 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 21  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 29  0]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0  8  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 42  0  0 42  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 13  0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0 10  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 37  0  0 37  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 14  0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+Day: 1 [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0] 14 10 29 29
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1]
+out_requests ['Shelter->Station: Please send 2 staff']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 29  0  0 29  0  0 10  2]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 14  0]
+Day: 2 [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0, 0, 0, 0, 0, 0] 16 36 19 19
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 1, 1]
+out_requests ['Shelter->Station: Please send 10 staff', 'Shelter->Warehouse: Please send 11 food 11 drink ']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 19 11  0 19 11  0 25  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 1 0]
+Day: 3 [3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] 18 36 12 12
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 1, 1, 0, 0]
+out_requests ['Shelter->Warehouse: Please send 10 food 10 drink ']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 12 10  0 12 10  0 25  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 1 0]
+Day: 4 [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 1.0, 1.0] 20 31 2 2
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 1, 1, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 5 staff', 'Shelter->Warehouse: Please send 26 food 26 drink ', '5 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0  2 26  0  2 26  0 20  5]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 6 0]
+Day: 5 [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 2.0, 2.0, 1.0, 1.0] 22 28 6 6
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 7 staff', 'Shelter->Warehouse: Please send 22 food 22 drink ', '3 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0  6 22  0  6 22  0 19 11]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 8 0]
+Day: 6 [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 3.0, 3.0, 2.0, 2.0, 1.0] 13 22 15 15
+[2, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 4 staff', 'Shelter->Warehouse: Please send 24 food 24 drink ', '6 staff is returning to station']
+out_requests ['5 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 15 24  0 15 24  0 13 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  4  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 19  0]
+Day: 7 [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 4.0, 4.0, 3.0, 3.0, 2.0] 13 18 26 26
+[2, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Warehouse: Please send 4 food 4 drink ', '4 staff is returning to station']
+out_requests ['2 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 26  4  0 26  4  0  9 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  2  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 25  0]
+Day: 8 [5.0, 5.0, 4.0, 4.0, 3.0] 5 13 25 25
+[0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 1 staff', 'Shelter->Warehouse: Please send 13 food 13 drink ', '5 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 25 13  0 25 13  0  4 16]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  1  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 31  0]
+Day: 9 [5.0, 5.0, 4.0] 3 18 35 35
+[0, 0, 0]
+out_requests ['2 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 35  0  0 35  0  0 18  8]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 26  0]
+Day: 10 [5.0] 1 17 34 34
+[0]
+out_requests ['1 staff is returning to station']
+out_requests ['Warehouse->Station: Please send 1 staff']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0 17  8]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  1]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 26  0]
+Day: 11 [] 0 16 34 34
+[]
+out_requests ['1 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0 16  8]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 10  0]
+Day: 12 [] 0 12 34 34
+[]
+out_requests ['4 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0 12  8]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 14  0]
+Day: 13 [] 0 10 34 34
+[]
+out_requests ['2 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0 10  8]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 16  0]
+Day: 14 [] 0 8 34 34
+[]
+out_requests ['2 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0  8  8]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 18  0]
+Day: 15 [] 0 7 34 34
+[]
+out_requests ['1 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0  7  8]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 19  0]
+Day: 16 [] 0 7 34 34
+[]
+out_requests ['17 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0  7  8]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  8  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 36  0]
+Day: 17 [] 0 7 34 34
+[]
+out_requests ['9 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0  7  8]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 34  0]
+Day: 18 [] 0 7 34 34
+[]
+out_requests ['Warehouse->Station: Please send 1 staff', '4 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0  7  8]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  1]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 29  0]
+Day: 19 [] 0 4 34 34
+[]
+out_requests ['3 staff is returning to station']
+out_requests ['2 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0  4  8]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 15  0]
+Day: 20 [] 0 2 34 34
+[]
+out_requests ['2 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0  2  8]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 24  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 18  0]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0 10  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 37  0  0 36  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 12  0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0 11  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 40  0  0 36  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 13  0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+Day: 1 [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0] 14 11 28 28
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1]
+out_requests ['Shelter->Station: Please send 1 staff']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 28  0  0 28  0  0 11  1]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 13  0]
+Day: 2 [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0, 0, 0, 0, 0, 0] 17 35 17 17
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 1, 1, 1]
+out_requests ['Shelter->Station: Please send 11 staff', 'Shelter->Warehouse: Please send 13 food 13 drink ']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 17 13  0 17 13  0 25  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 1 0]
+Day: 3 [3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] 19 35 11 11
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 1, 1, 1, 0, 0]
+out_requests ['Shelter->Warehouse: Please send 11 food 11 drink ']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 11 11  0 11 11  0 25  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 1 0]
+Day: 4 [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 1.0, 1.0, 1.0] 22 29 0 0
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 6 staff', 'Shelter->Warehouse: Please send 27 food 27 drink ', '6 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0  0 27  0  0 27  0 19  6]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 7 0]
+Day: 5 [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 2.0, 2.0, 2.0, 1.0, 1.0] 24 26 3 3
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 9 staff', 'Shelter->Warehouse: Please send 25 food 25 drink ', '3 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0  3 25  0  3 25  0 18 14]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 9 0]
+Day: 6 [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 3.0, 3.0, 3.0, 2.0, 2.0, 1.0] 14 19 14 14
+[2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 4 staff', 'Shelter->Warehouse: Please send 26 food 26 drink ', '7 staff is returning to station']
+out_requests ['5 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 14 26  0 14 26  0 11 18]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  4  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 21  0]
+Day: 7 [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 4.0, 4.0, 4.0, 3.0, 3.0, 2.0] 14 15 26 26
+[2, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Warehouse: Please send 4 food 4 drink ', '4 staff is returning to station']
+out_requests ['2 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 26  4  0 26  4  0  7 18]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  2  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 27  0]
+Day: 8 [5.0, 5.0, 5.0, 4.0, 4.0, 3.0] 6 10 24 24
+[0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 1 staff', 'Shelter->Warehouse: Please send 14 food 14 drink ', '5 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 24 14  0 24 14  0  2 19]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  1  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 31  0]
+Day: 9 [5.0, 5.0, 4.0] 3 17 35 35
+[0, 0, 0]
+out_requests ['3 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 35  0  0 35  0  0 17 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 26  0]
+Day: 10 [5.0] 1 16 34 34
+[0]
+out_requests ['1 staff is returning to station']
+out_requests ['Warehouse->Station: Please send 1 staff']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0 16 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  1]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 26  0]
+Day: 11 [] 0 15 34 34
+[]
+out_requests ['1 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0 15 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 9 0]
+Day: 12 [] 0 13 34 34
+[]
+out_requests ['2 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0 13 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 11  0]
+Day: 13 [] 0 12 34 34
+[]
+out_requests ['1 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0 12 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 12  0]
+Day: 14 [] 0 11 34 34
+[]
+out_requests ['1 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0 11 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 13  0]
+Day: 15 [] 0 10 34 34
+[]
+out_requests ['1 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0 10 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 14  0]
+Day: 16 [] 0 10 34 34
+[]
+out_requests ['18 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0 10 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  7  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 32  0]
+Day: 17 [] 0 10 34 34
+[]
+out_requests ['9 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0 10 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 34  0]
+Day: 18 [] 0 10 34 34
+[]
+out_requests ['Warehouse->Station: Please send 1 staff', '5 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0 10 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  1]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 30  0]
+Day: 19 [] 0 5 34 34
+[]
+out_requests ['5 staff is returning to station']
+out_requests ['2 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0  5 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 23  0]
+Day: 20 [] 0 2 34 34
+[]
+out_requests ['3 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0  2 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 24  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 27  0]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0  8  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 42  0  0 40  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 14  0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0  8  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 38  0  0 40  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 8 0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+Day: 1 [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0] 10 8 31 31
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
+out_requests ['Shelter->Station: Please send 4 staff']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 31  0  0 31  0  0  8  4]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 8 0]
+Day: 2 [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0, 0, 0] 11 22 23 23
+[0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1]
+out_requests ['Shelter->Station: Please send 8 staff', 'Shelter->Warehouse: Please send 7 food 7 drink ']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 23  7  0 23  7  0 22  5]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 1 0]
+Day: 3 [3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 1.0, 1.0, 1.0, 1.0, 1.0] 13 22 17 17
+[0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1, 0, 0]
+out_requests ['Shelter->Warehouse: Please send 8 food 8 drink ']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 17  8  0 17  8  0 22  5]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 1 0]
+Day: 4 [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 2.0, 2.0, 2.0, 2.0, 2.0, 1.0, 1.0] 15 18 10 10
+[0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1, 0, 0, 0, 0]
+out_requests ['Shelter->Warehouse: Please send 18 food 18 drink ', '4 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 10 18  0 10 18  0 18  5]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 5 0]
+Day: 5 [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 3.0, 3.0, 3.0, 3.0, 3.0, 2.0, 2.0, 1.0, 1.0] 17 16 11 11
+[0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 4 staff', 'Shelter->Warehouse: Please send 17 food 17 drink ', '2 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 11 17  0 11 17  0 16  9]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 7 0]
+Day: 6 [4.0, 4.0, 4.0, 4.0, 4.0, 3.0, 3.0, 2.0, 2.0, 1.0, 1.0, 1.0, 1.0] 13 13 15 15
+[2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 4 staff', 'Shelter->Warehouse: Please send 19 food 19 drink ', '5 staff is returning to station']
+out_requests ['5 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 15 19  0 15 19  0 13 12]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  4  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 16  0]
+Day: 7 [5.0, 5.0, 5.0, 5.0, 5.0, 4.0, 4.0, 3.0, 3.0, 2.0, 2.0, 2.0, 2.0] 13 9 21 21
+[2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Warehouse: Please send 9 food 9 drink ', '4 staff is returning to station']
+out_requests ['2 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 21  9  0 21  9  0  9 12]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  2  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 22  0]
+Day: 8 [5.0, 5.0, 4.0, 4.0, 3.0, 3.0, 3.0, 3.0] 8 5 22 22
+[0, 0, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 4 staff', 'Shelter->Warehouse: Please send 13 food 13 drink ', '4 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 22 13  0 22 13  0  5 16]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  1  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 27  0]
+Day: 9 [5.0, 5.0, 4.0, 4.0, 4.0, 3.0] 6 15 30 30
+[0, 0, 0, 0, 0, 1]
+out_requests ['Shelter->Warehouse: Please send 3 food 3 drink ', '2 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 30  3  0 30  3  0 15 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 24  0]
+Day: 10 [5.0, 5.0, 5.0, 4.0] 4 13 29 29
+[0, 0, 0, 1]
+out_requests ['Shelter->Warehouse: Please send 2 food 2 drink ', '2 staff is returning to station']
+out_requests ['Warehouse->Station: Please send 1 staff']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 29  2  0 29  2  0 13 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  1]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 26  0]
+Day: 11 [5.0] 1 12 30 30
+[1]
+out_requests ['Shelter->Warehouse: Please send 3 food 3 drink ', '1 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 30  3  0 30  3  0 12 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 11  0]
+Day: 12 [] 0 12 33 33
+[]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 12 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 11  0]
+Day: 13 [] 0 12 33 33
+[]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 12 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 11  0]
+Day: 14 [] 0 12 33 33
+[]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 12 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 11  0]
+Day: 15 [] 0 12 33 33
+[]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 12 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 11  0]
+Day: 16 [] 0 12 33 33
+[]
+out_requests ['16 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 12 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 27  0]
+Day: 17 [] 0 12 33 33
+[]
+out_requests ['8 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 12 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  1  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 33  0]
+Day: 18 [] 0 12 33 33
+[]
+out_requests ['4 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0 12 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 29  0]
+Day: 19 [] 0 6 33 33
+[]
+out_requests ['6 staff is returning to station']
+out_requests ['Warehouse->Station: Please send 1 staff', '2 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0  6 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  1]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 33  0]
+Day: 20 [] 0 3 33 33
+[]
+out_requests ['3 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 33  0  0 33  0  0  3 10]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 10  0]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0 12  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 42  0  0 39  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 14  0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0 11  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 41  0  0 36  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 9 0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+Day: 1 [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0] 14 11 28 28
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1]
+out_requests ['Shelter->Station: Please send 1 staff']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 28  0  0 28  0  0 11  1]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 9 0]
+Day: 2 [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0, 0, 0, 0, 0] 16 27 17 17
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 1, 1]
+out_requests ['Shelter->Station: Please send 11 staff', 'Shelter->Warehouse: Please send 13 food 13 drink ']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 17 13  0 17 13  0 25  4]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 1 0]
+Day: 3 [3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] 18 27 12 12
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 1, 1, 0, 0]
+out_requests ['Shelter->Warehouse: Please send 11 food 11 drink ']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 12 11  0 12 11  0 25  4]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 1 0]
+Day: 4 [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 1.0, 1.0] 20 21 3 3
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 1, 1, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 1 staff', 'Shelter->Warehouse: Please send 25 food 25 drink ', '6 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0  3 25  0  3 25  0 19  5]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 7 0]
+Day: 5 [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 2.0, 2.0, 1.0, 0] 22 18 7 7
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 1]
+out_requests ['Shelter->Station: Please send 8 staff', 'Shelter->Warehouse: Please send 22 food 22 drink ', '3 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0  7 22  0  7 22  0 18 12]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 9 0]
+Day: 6 [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 3.0, 3.0, 2.0, 1.0, 1.0] 12 12 17 17
+[2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 1, 0]
+out_requests ['Shelter->Station: Please send 3 staff', 'Shelter->Warehouse: Please send 22 food 22 drink ', '6 staff is returning to station']
+out_requests ['5 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 17 22  0 17 22  0 12 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  4  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 20  0]
+Day: 7 [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 4.0, 4.0, 3.0, 2.0, 2.0] 12 9 27 27
+[2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 1, 0]
+out_requests ['Shelter->Warehouse: Please send 3 food 3 drink ', '3 staff is returning to station']
+out_requests ['2 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 27  3  0 27  3  0  9 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  2  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 25  0]
+Day: 8 [5.0, 5.0, 4.0, 3.0, 3.0] 5 4 25 25
+[0, 0, 0, 1, 0]
+out_requests ['Shelter->Warehouse: Please send 12 food 12 drink ', '5 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 25 12  0 25 12  0  4 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  1  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 31  0]
+Day: 9 [5.0, 4.0, 4.0] 3 2 34 34
+[0, 1, 0]
+out_requests ['2 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 34  0  0 34  0  0  2 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 28  0]
+Day: 10 [5.0, 5.0] 2 1 32 32
+[1, 0]
+out_requests ['1 staff is returning to station']
+out_requests ['Warehouse->Station: Please send 1 staff']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  1 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  1]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 26  0]
+Day: 11 [] 0 0 32 32
+[]
+out_requests ['1 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  0 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 2 0]
+Day: 12 [] 0 0 32 32
+[]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  0 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 2 0]
+Day: 13 [] 0 0 32 32
+[]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  0 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 2 0]
+Day: 14 [] 0 0 32 32
+[]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  0 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 2 0]
+Day: 15 [] 0 0 32 32
+[]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  0 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 2 0]
+Day: 16 [] 0 0 32 32
+[]
+out_requests ['25 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  0 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 27  0]
+Day: 17 [] 0 0 32 32
+[]
+out_requests ['Warehouse->Station: Please send 1 staff', '13 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  0 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  1]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 38  0]
+Day: 18 [] 0 0 32 32
+[]
+out_requests ['6 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  0 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  6  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 31  0]
+Day: 19 [] 0 0 32 32
+[]
+out_requests ['3 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  0 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  3  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 28  0]
+Day: 20 [] 0 0 32 32
+[]
+out_requests ['2 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  0 15]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  1  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 27  0]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0  8  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 41  0  0 40  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 11  0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0  8  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 40  0  0 38  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 11  0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+Day: 1 [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0, 0, 0, 0, 0, 0, 0] 15 8 31 31
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1]
+out_requests ['Shelter->Station: Please send 4 staff']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 31  0  0 31  0  0  8  4]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 11  0]
+Day: 2 [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 17 28 23 23
+[0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 1, 1]
+out_requests ['Shelter->Station: Please send 8 staff', 'Shelter->Warehouse: Please send 7 food 7 drink ']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 23  7  0 23  7  0 25  2]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 1 0]
+Day: 3 [3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] 20 28 10 10
+[0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 1, 1, 0, 0, 0]
+out_requests ['Shelter->Warehouse: Please send 8 food 8 drink ']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 10  8  0 10  8  0 25  2]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 1 0]
+Day: 4 [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 1.0, 1.0, 0] 21 24 0 0
+[0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 1, 1, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 5 staff', 'Shelter->Warehouse: Please send 32 food 32 drink ', '4 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0  0 32  0  0 32  0 21  7]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 5 0]
+Day: 5 [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 2.0, 2.0, 1.0, 1.0, 1.0] 23 22 9 9
+[0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 5 staff', 'Shelter->Warehouse: Please send 16 food 16 drink ', '2 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0  9 16  0  9 16  0 21 11]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 6 0]
+Day: 6 [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 3.0, 3.0, 2.0, 2.0, 2.0, 1.0, 1.0] 17 14 8 8
+[2, 2, 2, 2, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+out_requests ['Shelter->Station: Please send 3 staff', 'Shelter->Warehouse: Please send 28 food 28 drink ', '8 staff is returning to station']
+out_requests ['5 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0  8 28  0  8 28  0 13 14]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  4  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 19  0]
+Day: 7 [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 4.0, 4.0, 3.0, 3.0, 2.0, 1.0, 1.0] 17 9 22 22
+[2, 2, 2, 2, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1]
+out_requests ['Shelter->Station: Please send 2 staff', 'Shelter->Warehouse: Please send 11 food 11 drink ', '5 staff is returning to station']
+out_requests ['2 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 22 11  0 22 11  0  8 16]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  2  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 26  0]
+Day: 8 [5.0, 5.0, 4.0, 4.0, 3.0, 2.0, 2.0] 7 12 26 26
+[0, 0, 0, 0, 1, 1, 1]
+out_requests ['Shelter->Station: Please send 2 staff', 'Shelter->Warehouse: Please send 11 food 11 drink ', '4 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 26 11  0 26 11  0 12 14]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  1  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 27  0]
+Day: 9 [5.0, 5.0, 4.0, 3.0, 3.0] 5 13 32 32
+[0, 0, 1, 1, 1]
+out_requests ['3 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0 13 12]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 29  0]
+Day: 10 [5.0, 4.0, 4.0] 3 12 29 29
+[1, 1, 1]
+out_requests ['Shelter->Warehouse: Please send 3 food 3 drink ', '1 staff is returning to station']
+out_requests ['Warehouse->Station: Please send 1 staff']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 29  3  0 29  3  0 12 12]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  1]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 26  0]
+Day: 11 [5.0, 5.0] 2 11 30 30
+[1, 1]
+out_requests ['Shelter->Warehouse: Please send 1 food 1 drink ', '1 staff is returning to station']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 30  1  0 30  1  0 11 12]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 7 0]
+Day: 12 [] 0 11 31 31
+[]
+out_requests ['Shelter->Warehouse: Please send 1 food 1 drink ']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 31  1  0 31  1  0 11 12]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 7 0]
+Day: 13 [] 0 11 32 32
+[]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0 11 12]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 7 0]
+Day: 14 [] 0 11 32 32
+[]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0 11 12]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 7 0]
+Day: 15 [] 0 11 32 32
+[]
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0 11 12]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 25  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [0 9 0 0 9 0 0 7 0]
+Day: 16 [] 0 10 32 32
+[]
+out_requests ['1 staff is returning to station']
+out_requests ['20 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0 10 12]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  5  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 28  0]
+Day: 17 [] 0 10 32 32
+[]
+out_requests ['10 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0 10 12]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 35  0]
+Day: 18 [] 0 7 32 32
+[]
+out_requests ['3 staff is returning to station']
+out_requests ['Warehouse->Station: Please send 1 staff', '5 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  7 12]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0  0  1]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 33  0]
+Day: 19 [] 0 3 32 32
+[]
+out_requests ['4 staff is returning to station']
+out_requests ['3 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  3 12]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 15  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 31  0]
+Day: 20 [] 0 1 32 32
+[]
+out_requests ['2 staff is returning to station']
+out_requests ['1 staff is returning to the station.']
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 32  0  0 32  0  0  1 12]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 60  0  0 60  0  0 14  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 28  0]
+Process Process-8:
+Traceback (most recent call last):
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/suhuangyuan/DRA/ToM2C/test.py", line 69, in test
+    player.reset()
+  File "/Users/suhuangyuan/DRA/ToM2C/player_util.py", line 191, in reset
+    obs = self.env.reset()
+  File "/Users/suhuangyuan/DRA/ToM2C/environment.py", line 121, in reset
+    obs_n = self.env.reset()
+  File "/Users/suhuangyuan/DRA/crafter/env.py", line 135, in reset
+    worldgen.generate_world(self.world, self.players)
+  File "/Users/suhuangyuan/DRA/crafter/worldgen.py", line 27, in generate_world
+    _set_material(world, (x, y), player, tunnels, simplex)
+  File "/Users/suhuangyuan/DRA/crafter/worldgen.py", line 52, in _set_material
+    elif simplex(x / 5, 2 * y, 7, 3) > 0.4:  # vertical tunnle
+  File "/Users/suhuangyuan/DRA/crafter/worldgen.py", line 99, in _simplex
+    noise = simplex.noise3(x / size, y / size, z)
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/site-packages/opensimplex/api.py", line 168, in noise3
+    return _noise3(x, y, z, self._perm, self._perm_grad_index3)
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/site-packages/opensimplex/internals.py", line 646, in _noise3
+    value += attn2 * attn2 * _extrapolate3(perm, perm_grad_index3, xsb + 0, ysb + 1, zsb + 0, dx2, dy2, dz2)
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/site-packages/opensimplex/internals.py", line 58, in _extrapolate3
+    index = perm_grad_index3[(perm[(perm[xsb & 0xFF] + ysb) & 0xFF] + zsb) & 0xFF]
+KeyboardInterrupt
+obs <crafter.objects.Shelter object at 0x13c56daf0> [ 0 39  0  0 39  0  0  9  0]
+obs <crafter.objects.Warehouse object at 0x13c559520> [ 0 41  0  0 41  0  0  9  0]
+obs <crafter.objects.Station object at 0x13c5599d0> [ 0  9  0  0  9  0  0 11  0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}

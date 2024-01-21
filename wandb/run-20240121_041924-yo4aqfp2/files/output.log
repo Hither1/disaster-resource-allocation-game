@@ -1,0 +1,80 @@
+True
+obs <crafter.objects.Shelter object at 0x16cfcbaf0> [39  0 39  0 12  0]
+obs <crafter.objects.Warehouse object at 0x16cfcb940> [40  0 38  0  9  0]
+obs <crafter.objects.Station object at 0x16cfc0790> [9 0 9 0 9 0]
+obs <crafter.objects.Shelter object at 0x16cfcbaf0> [39  0 39  0  7  0]
+obs <crafter.objects.Warehouse object at 0x16cfcb940> [41  0 44  0  9  0]
+obs <crafter.objects.Station object at 0x16cfc0790> [ 9  0  9  0 13  0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+obs_space.shape (3, 3, 9) lstm_out 32
+feature_dim 62 lstm_out 32
+obs <crafter.objects.Shelter object at 0x16cfcbaf0> [39  0 39  0 10  0]
+obs <crafter.objects.Warehouse object at 0x16cfcb940> [41  0 42  0  9  0]
+obs <crafter.objects.Station object at 0x16cfc0790> [ 9  0  9  0 11  0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+2024-01-21 04:19:33,568 : lr: 0.001
+2024-01-21 04:19:33,568 : gamma: 0.1
+2024-01-21 04:19:33,568 : gamma_rate: 0.002
+2024-01-21 04:19:33,568 : gamma_final: 0.9
+2024-01-21 04:19:33,568 : tau: 1.0
+2024-01-21 04:19:33,568 : entropy: 0.005
+2024-01-21 04:19:33,569 : grad_entropy: 1.0
+2024-01-21 04:19:33,569 : seed: 1
+2024-01-21 04:19:33,569 : workers: 6
+2024-01-21 04:19:33,569 : A2C_steps: 20
+2024-01-21 04:19:33,569 : env_steps: 20
+2024-01-21 04:19:33,569 : start_eps: 2000
+2024-01-21 04:19:33,569 : ToM_train_loops: 1
+2024-01-21 04:19:33,569 : policy_train_loops: 1
+2024-01-21 04:19:33,569 : test_eps: 20
+2024-01-21 04:19:33,569 : ToM_frozen: 5
+2024-01-21 04:19:33,569 : env: RA
+2024-01-21 04:19:33,569 : optimizer: Adam
+2024-01-21 04:19:33,569 : amsgrad: True
+2024-01-21 04:19:33,569 : load_model_dir: None
+2024-01-21 04:19:33,569 : load_executor_dir: None
+2024-01-21 04:19:33,569 : log_dir: logs/RA/Jan21_04-19
+2024-01-21 04:19:33,569 : model: ToM2C
+2024-01-21 04:19:33,569 : gpu_id: [-1]
+2024-01-21 04:19:33,569 : norm_reward: True
+2024-01-21 04:19:33,569 : train_comm: False
+2024-01-21 04:19:33,569 : random_target: True
+2024-01-21 04:19:33,569 : mask_actions: False
+2024-01-21 04:19:33,569 : mask: False
+2024-01-21 04:19:33,569 : render: False
+2024-01-21 04:19:33,569 : fix: False
+2024-01-21 04:19:33,569 : shared_optimizer: True
+2024-01-21 04:19:33,569 : train_mode: -1
+2024-01-21 04:19:33,570 : lstm_out: 32
+2024-01-21 04:19:33,570 : sleep_time: 0
+2024-01-21 04:19:33,570 : max_step: 3000000
+2024-01-21 04:19:33,570 : render_save: False
+2024-01-21 04:19:33,570 : num_agents: -1
+2024-01-21 04:19:33,570 : num_targets: -1
+Process Process-8:
+Traceback (most recent call last):
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/suhuangyuan/DRA/ToM2C/test.py", line 83, in test
+    player.action_test()
+  File "/Users/suhuangyuan/DRA/ToM2C/player_util.py", line 152, in action_test
+    self.model(self.state, self.hself, self.hToM, True, available_actions=available_actions)
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/Users/suhuangyuan/DRA/ToM2C/model_ra.py", line 751, in forward
+    feature_target = self.encoder(multi_obs)  # [batch_size, num_agents, num_both, feature_dim]
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/Users/suhuangyuan/DRA/ToM2C/model_ra.py", line 182, in forward
+    feature = self.features(x)
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/site-packages/torch/nn/modules/container.py", line 204, in forward
+    input = module(input)
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/site-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (9x6 and 9x32)

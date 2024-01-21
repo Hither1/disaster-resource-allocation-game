@@ -1,0 +1,60 @@
+2024-01-21 02:17:04,823 : lr: 0.001
+2024-01-21 02:17:04,823 : gamma: 0.8
+2024-01-21 02:17:04,823 : gamma_rate: 0.002
+2024-01-21 02:17:04,824 : gamma_final: 0.9
+2024-01-21 02:17:04,824 : tau: 1.0
+2024-01-21 02:17:04,824 : entropy: 0.005
+2024-01-21 02:17:04,824 : grad_entropy: 1.0
+2024-01-21 02:17:04,824 : seed: 1
+2024-01-21 02:17:04,824 : workers: 1
+2024-01-21 02:17:04,824 : A2C_steps: 20
+2024-01-21 02:17:04,824 : env_steps: 20
+2024-01-21 02:17:04,824 : start_eps: 2000
+2024-01-21 02:17:04,824 : ToM_train_loops: 1
+2024-01-21 02:17:04,824 : policy_train_loops: 1
+2024-01-21 02:17:04,824 : test_eps: 20
+2024-01-21 02:17:04,824 : ToM_frozen: 5
+2024-01-21 02:17:04,824 : env: RA
+2024-01-21 02:17:04,824 : optimizer: Adam
+2024-01-21 02:17:04,824 : amsgrad: True
+2024-01-21 02:17:04,824 : load_model_dir: None
+2024-01-21 02:17:04,824 : load_executor_dir: None
+2024-01-21 02:17:04,824 : log_dir: logs/RA/Jan21_02-16
+2024-01-21 02:17:04,825 : model: ToM2C
+2024-01-21 02:17:04,825 : gpu_id: [-1]
+2024-01-21 02:17:04,825 : norm_reward: True
+2024-01-21 02:17:04,825 : train_comm: False
+2024-01-21 02:17:04,825 : random_target: True
+2024-01-21 02:17:04,825 : mask_actions: False
+2024-01-21 02:17:04,825 : mask: False
+2024-01-21 02:17:04,825 : render: False
+2024-01-21 02:17:04,825 : fix: False
+2024-01-21 02:17:04,825 : shared_optimizer: True
+2024-01-21 02:17:04,825 : train_mode: -1
+2024-01-21 02:17:04,825 : lstm_out: 32
+2024-01-21 02:17:04,825 : sleep_time: 0
+2024-01-21 02:17:04,825 : max_step: 3000000
+2024-01-21 02:17:04,825 : render_save: False
+2024-01-21 02:17:04,825 : num_agents: -1
+2024-01-21 02:17:04,825 : num_targets: -1
+2024-01-21 02:18:36,550 : Time 00h 01m 29s, ave eps reward [-243.7 -243.7 -243.7], ave eps length 20.0, reward step [-12.18 -12.18 -12.18], FPS 8.77, mean reward -243.7, std reward 29.57887759871899, AG 0.0
+2024-01-21 02:20:06,824 : Time 00h 02m 59s, ave eps reward [-231.25 -231.25 -231.25], ave eps length 20.0, reward step [-11.56 -11.56 -11.56], FPS 9.34, mean reward -231.25, std reward 30.094642380330754, AG 0.0
+2024-01-21 02:21:37,085 : Time 00h 04m 30s, ave eps reward [-233.75 -233.75 -233.75], ave eps length 20.0, reward step [-11.69 -11.69 -11.69], FPS 8.76, mean reward -233.75, std reward 23.05618138374176, AG 0.0
+2024-01-21 02:23:06,705 : Time 00h 05m 59s, ave eps reward [-269.3 -269.3 -269.3], ave eps length 20.0, reward step [-13.46 -13.46 -13.46], FPS 8.76, mean reward -269.3, std reward 51.2221631718146, AG 0.0
+2024-01-21 02:24:35,870 : Time 00h 07m 28s, ave eps reward [-291.8 -291.8 -291.8], ave eps length 20.0, reward step [-14.59 -14.59 -14.59], FPS 8.69, mean reward -291.8, std reward 41.51698447623575, AG 0.0
+2024-01-21 02:26:04,976 : Time 00h 08m 57s, ave eps reward [-239.25 -239.25 -239.25], ave eps length 20.0, reward step [-11.96 -11.96 -11.96], FPS 9.08, mean reward -239.25, std reward 33.521448357730605, AG 0.0
+2024-01-21 02:27:34,640 : Time 00h 10m 27s, ave eps reward [-245.35 -245.35 -245.35], ave eps length 20.0, reward step [-12.27 -12.27 -12.27], FPS 9.29, mean reward -245.35, std reward 30.99076475339065, AG 0.0
+2024-01-21 02:29:03,470 : Time 00h 11m 56s, ave eps reward [-247.85 -247.85 -247.85], ave eps length 20.0, reward step [-12.39 -12.39 -12.39], FPS 8.91, mean reward -247.85, std reward 28.50662203769503, AG 0.0
+2024-01-21 02:30:32,902 : Time 00h 13m 25s, ave eps reward [-255.55 -255.55 -255.55], ave eps length 20.0, reward step [-12.78 -12.78 -12.78], FPS 8.67, mean reward -255.55, std reward 32.771138216424525, AG 0.0
+2024-01-21 02:32:01,833 : Time 00h 14m 54s, ave eps reward [-246.15 -246.15 -246.15], ave eps length 20.0, reward step [-12.31 -12.31 -12.31], FPS 8.54, mean reward -246.15, std reward 29.645024877709247, AG 0.0
+2024-01-21 02:33:30,511 : Time 00h 16m 23s, ave eps reward [-240.45 -240.45 -240.45], ave eps length 20.0, reward step [-12.02 -12.02 -12.02], FPS 9.29, mean reward -240.45, std reward 28.120232929333998, AG 0.0
+2024-01-21 02:34:59,265 : Time 00h 17m 52s, ave eps reward [-246.05 -246.05 -246.05], ave eps length 20.0, reward step [-12.3 -12.3 -12.3], FPS 8.5, mean reward -246.05, std reward 33.87547047643767, AG 0.0
+2024-01-21 02:36:28,290 : Time 00h 19m 21s, ave eps reward [-238.9 -238.9 -238.9], ave eps length 20.0, reward step [-11.94 -11.94 -11.94], FPS 8.72, mean reward -238.9, std reward 37.53518349495577, AG 0.0
+2024-01-21 02:37:56,717 : Time 00h 20m 49s, ave eps reward [-250.3 -250.3 -250.3], ave eps length 20.0, reward step [-12.52 -12.52 -12.52], FPS 8.5, mean reward -250.3, std reward 29.53489461636862, AG 0.0
+2024-01-21 02:39:25,346 : Time 00h 22m 18s, ave eps reward [-242.2 -242.2 -242.2], ave eps length 20.0, reward step [-12.11 -12.11 -12.11], FPS 8.97, mean reward -242.2, std reward 26.513392842109063, AG 0.0
+2024-01-21 02:40:53,715 : Time 00h 23m 46s, ave eps reward [-243.4 -243.4 -243.4], ave eps length 20.0, reward step [-12.17 -12.17 -12.17], FPS 8.9, mean reward -243.4, std reward 34.74967625748476, AG 0.0
+2024-01-21 02:42:22,635 : Time 00h 25m 15s, ave eps reward [-243.95 -243.95 -243.95], ave eps length 20.0, reward step [-12.2 -12.2 -12.2], FPS 8.41, mean reward -243.95, std reward 27.29006229380945, AG 0.0
+2024-01-21 02:43:52,463 : Time 00h 26m 45s, ave eps reward [-249.85 -249.85 -249.85], ave eps length 20.0, reward step [-12.49 -12.49 -12.49], FPS 8.67, mean reward -249.85, std reward 32.24945735977584, AG 0.0
+2024-01-21 02:45:21,937 : Time 00h 28m 14s, ave eps reward [-257.25 -257.25 -257.25], ave eps length 20.0, reward step [-12.86 -12.86 -12.86], FPS 9.27, mean reward -257.25, std reward 19.09679292446771, AG 0.0
+2024-01-21 02:46:51,226 : Time 00h 29m 44s, ave eps reward [-245.75 -245.75 -245.75], ave eps length 20.0, reward step [-12.29 -12.29 -12.29], FPS 9.34, mean reward -245.75, std reward 35.02552640575156, AG 0.0
+2024-01-21 02:48:20,595 : Time 00h 31m 13s, ave eps reward [-250.55 -250.55 -250.55], ave eps length 20.0, reward step [-12.53 -12.53 -12.53], FPS 9.05, mean reward -250.55, std reward 33.53874624967368, AG 0.0

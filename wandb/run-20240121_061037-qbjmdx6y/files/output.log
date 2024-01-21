@@ -1,0 +1,381 @@
+obs <crafter.objects.Shelter object at 0x13f0978e0> [39.  0.  0.  0. 39.  0.  0.  0.  9.  0.  0.  0.]
+obs <crafter.objects.Warehouse object at 0x10f4fbb20> [39.  0.  0.  0. 39.  0.  0.  0.  9.  0.  0.  0.]
+obs <crafter.objects.Station object at 0x13f0aeee0> [ 9.  0.  0.  0.  9.  0.  0.  0. 12.  0.  0.  0.]
+obs <crafter.objects.Shelter object at 0x13f0978e0> [39.  0.  0.  0. 39.  0.  0.  0. 14.  0.  0.  0.]
+obs <crafter.objects.Warehouse object at 0x10f4fbb20> [40.  0.  0.  0. 42.  0.  0.  0.  9.  0.  0.  0.]
+obs <crafter.objects.Station object at 0x13f0aeee0> [ 9.  0.  0.  0.  9.  0.  0.  0. 12.  0.  0.  0.]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+training start after waiting for 0.004741191864013672 seconds
+19 rew tensor(0.9146, dtype=torch.float64) delta_t tensor(1.0779, dtype=torch.float64)
+19 gae_duplicate tensor(0.9798, dtype=torch.float64) tensor(-21.2105, dtype=torch.float64, grad_fn=<SumBackward0>)
+18 rew tensor(0.9502, dtype=torch.float64) delta_t tensor(1.0944, dtype=torch.float64)
+18 gae_duplicate tensor(1.0972, dtype=torch.float64) tensor(-23.7009, dtype=torch.float64, grad_fn=<SumBackward0>)
+17 rew tensor(0.9925, dtype=torch.float64) delta_t tensor(1.0987, dtype=torch.float64)
+17 gae_duplicate tensor(1.1110, dtype=torch.float64) tensor(-24.0691, dtype=torch.float64, grad_fn=<SumBackward0>)
+16 rew tensor(1.0238, dtype=torch.float64) delta_t tensor(1.1116, dtype=torch.float64)
+16 gae_duplicate tensor(1.0685, dtype=torch.float64) tensor(-24.1637, dtype=torch.float64, grad_fn=<SumBackward0>)
+15 rew tensor(1.0242, dtype=torch.float64) delta_t tensor(1.1722, dtype=torch.float64)
+15 gae_duplicate tensor(0.9173, dtype=torch.float64) tensor(-25.6329, dtype=torch.float64, grad_fn=<SumBackward0>)
+14 rew tensor(1.2175, dtype=torch.float64) delta_t tensor(1.3693, dtype=torch.float64)
+14 gae_duplicate tensor(1.3087, dtype=torch.float64) tensor(-29.3491, dtype=torch.float64, grad_fn=<SumBackward0>)
+13 rew tensor(1.2939, dtype=torch.float64) delta_t tensor(1.3959, dtype=torch.float64)
+13 gae_duplicate tensor(1.3821, dtype=torch.float64) tensor(-30.0291, dtype=torch.float64, grad_fn=<SumBackward0>)
+12 rew tensor(1.4569, dtype=torch.float64) delta_t tensor(1.5641, dtype=torch.float64)
+12 gae_duplicate tensor(1.6150, dtype=torch.float64) tensor(-34.0556, dtype=torch.float64, grad_fn=<SumBackward0>)
+11 rew tensor(1.5568, dtype=torch.float64) delta_t tensor(1.6967, dtype=torch.float64)
+11 gae_duplicate tensor(1.7275, dtype=torch.float64) tensor(-36.9354, dtype=torch.float64, grad_fn=<SumBackward0>)
+10 rew tensor(1.2391, dtype=torch.float64) delta_t tensor(1.3233, dtype=torch.float64)
+10 gae_duplicate tensor(0.5477, dtype=torch.float64) tensor(-29.5794, dtype=torch.float64, grad_fn=<SumBackward0>)
+9 rew tensor(1.1369, dtype=torch.float64) delta_t tensor(1.2355, dtype=torch.float64)
+9 gae_duplicate tensor(0.0322, dtype=torch.float64) tensor(-27.4432, dtype=torch.float64, grad_fn=<SumBackward0>)
+8 rew tensor(0.8065, dtype=torch.float64) delta_t tensor(0.8269, dtype=torch.float64)
+8 gae_duplicate tensor(-1.7852, dtype=torch.float64) tensor(-18.7580, dtype=torch.float64, grad_fn=<SumBackward0>)
+7 rew tensor(0.4489, dtype=torch.float64) delta_t tensor(0.4422, dtype=torch.float64)
+7 gae_duplicate tensor(-1.4915, dtype=torch.float64) tensor(-10.4679, dtype=torch.float64, grad_fn=<SumBackward0>)
+6 rew tensor(0.3110, dtype=torch.float64) delta_t tensor(0.3934, dtype=torch.float64)
+6 gae_duplicate tensor(-0.9337, dtype=torch.float64) tensor(-8.9197, dtype=torch.float64, grad_fn=<SumBackward0>)
+5 rew tensor(-0.0507, dtype=torch.float64) delta_t tensor(0.0200, dtype=torch.float64)
+5 gae_duplicate tensor(-0.4640, dtype=torch.float64) tensor(-1.2824, dtype=torch.float64, grad_fn=<SumBackward0>)
+4 rew tensor(-0.6377, dtype=torch.float64) delta_t tensor(-0.5569, dtype=torch.float64)
+4 gae_duplicate tensor(-1.2342, dtype=torch.float64) tensor(10.8939, dtype=torch.float64, grad_fn=<SumBackward0>)
+3 rew tensor(-1.0368, dtype=torch.float64) delta_t tensor(-0.9275, dtype=torch.float64)
+3 gae_duplicate tensor(-1.1201, dtype=torch.float64) tensor(19.3921, dtype=torch.float64, grad_fn=<SumBackward0>)
+2 rew tensor(-1.1307, dtype=torch.float64) delta_t tensor(-1.0809, dtype=torch.float64)
+2 gae_duplicate tensor(-1.2579, dtype=torch.float64) tensor(23.1673, dtype=torch.float64, grad_fn=<SumBackward0>)
+policy loss:15679.689453125
+value loss:290.1277770996094
+entropies:355.77532958984375
+Policy training finished
+---------------------
+gamma: 0.1
+/Users/suhuangyuan/DRA/ToM2C/shared_optim.py:155: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha) (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/utils/python_arg_parser.cpp:1420.)
+  exp_avg.mul_(beta1).add_(1 - beta1, grad)
+training start after waiting for 4.977889060974121 seconds
+19 rew tensor(0.7545, dtype=torch.float64) delta_t tensor(0.7807, dtype=torch.float64)
+19 gae_duplicate tensor(0.5553, dtype=torch.float64) tensor(-15.3310, dtype=torch.float64, grad_fn=<SumBackward0>)
+18 rew tensor(0.7148, dtype=torch.float64) delta_t tensor(0.6973, dtype=torch.float64)
+18 gae_duplicate tensor(0.5134, dtype=torch.float64) tensor(-15.7412, dtype=torch.float64, grad_fn=<SumBackward0>)
+17 rew tensor(0.5762, dtype=torch.float64) delta_t tensor(0.5409, dtype=torch.float64)
+17 gae_duplicate tensor(0.2822, dtype=torch.float64) tensor(-11.9713, dtype=torch.float64, grad_fn=<SumBackward0>)
+16 rew tensor(0.5155, dtype=torch.float64) delta_t tensor(0.5105, dtype=torch.float64)
+16 gae_duplicate tensor(0.2808, dtype=torch.float64) tensor(-11.4209, dtype=torch.float64, grad_fn=<SumBackward0>)
+15 rew tensor(0.6393, dtype=torch.float64) delta_t tensor(0.6547, dtype=torch.float64)
+15 gae_duplicate tensor(0.2556, dtype=torch.float64) tensor(-13.8315, dtype=torch.float64, grad_fn=<SumBackward0>)
+14 rew tensor(0.8945, dtype=torch.float64) delta_t tensor(0.9489, dtype=torch.float64)
+14 gae_duplicate tensor(0.7079, dtype=torch.float64) tensor(-20.2208, dtype=torch.float64, grad_fn=<SumBackward0>)
+13 rew tensor(0.9191, dtype=torch.float64) delta_t tensor(1.0194, dtype=torch.float64)
+13 gae_duplicate tensor(0.9655, dtype=torch.float64) tensor(-22.6366, dtype=torch.float64, grad_fn=<SumBackward0>)
+12 rew tensor(0.9461, dtype=torch.float64) delta_t tensor(1.0267, dtype=torch.float64)
+12 gae_duplicate tensor(0.7371, dtype=torch.float64) tensor(-23.0677, dtype=torch.float64, grad_fn=<SumBackward0>)
+11 rew tensor(0.9663, dtype=torch.float64) delta_t tensor(1.0216, dtype=torch.float64)
+11 gae_duplicate tensor(0.8345, dtype=torch.float64) tensor(-22.7191, dtype=torch.float64, grad_fn=<SumBackward0>)
+10 rew tensor(0.9608, dtype=torch.float64) delta_t tensor(1.0315, dtype=torch.float64)
+10 gae_duplicate tensor(0.8305, dtype=torch.float64) tensor(-22.5277, dtype=torch.float64, grad_fn=<SumBackward0>)
+9 rew tensor(-1.0687, dtype=torch.float64) delta_t tensor(-1.0104, dtype=torch.float64)
+9 gae_duplicate tensor(-1.6896, dtype=torch.float64) tensor(18.2298, dtype=torch.float64, grad_fn=<SumBackward0>)
+8 rew tensor(-0.4904, dtype=torch.float64) delta_t tensor(-0.4827, dtype=torch.float64)
+8 gae_duplicate tensor(-1.4595, dtype=torch.float64) tensor(11.3608, dtype=torch.float64, grad_fn=<SumBackward0>)
+7 rew tensor(-0.4189, dtype=torch.float64) delta_t tensor(-0.4822, dtype=torch.float64)
+7 gae_duplicate tensor(-1.3674, dtype=torch.float64) tensor(10.6333, dtype=torch.float64, grad_fn=<SumBackward0>)
+6 rew tensor(-1.4208, dtype=torch.float64) delta_t tensor(-1.4260, dtype=torch.float64)
+6 gae_duplicate tensor(-2.8192, dtype=torch.float64) tensor(29.9968, dtype=torch.float64, grad_fn=<SumBackward0>)
+5 rew tensor(-1.3029, dtype=torch.float64) delta_t tensor(-1.2659, dtype=torch.float64)
+5 gae_duplicate tensor(-3.0539, dtype=torch.float64) tensor(27.8984, dtype=torch.float64, grad_fn=<SumBackward0>)
+4 rew tensor(-2.4798, dtype=torch.float64) delta_t tensor(-2.4648, dtype=torch.float64)
+4 gae_duplicate tensor(-4.4958, dtype=torch.float64) tensor(51.7092, dtype=torch.float64, grad_fn=<SumBackward0>)
+3 rew tensor(-0.6525, dtype=torch.float64) delta_t tensor(-0.6587, dtype=torch.float64)
+3 gae_duplicate tensor(-1.6028, dtype=torch.float64) tensor(18.3866, dtype=torch.float64, grad_fn=<SumBackward0>)
+2 rew tensor(-0.6441, dtype=torch.float64) delta_t tensor(-0.6208, dtype=torch.float64)
+2 gae_duplicate tensor(-1.2707, dtype=torch.float64) tensor(14.1681, dtype=torch.float64, grad_fn=<SumBackward0>)
+policy loss:-253.3617706298828
+value loss:260.61968994140625
+entropies:355.31646728515625
+Policy training finished
+---------------------
+gamma: 0.1
+training start after waiting for 5.583970069885254 seconds
+19 rew tensor(0.7869, dtype=torch.float64) delta_t tensor(0.7762, dtype=torch.float64)
+19 gae_duplicate tensor(0.6686, dtype=torch.float64) tensor(-15.2683, dtype=torch.float64, grad_fn=<SumBackward0>)
+18 rew tensor(0.7622, dtype=torch.float64) delta_t tensor(0.7297, dtype=torch.float64)
+18 gae_duplicate tensor(0.6270, dtype=torch.float64) tensor(-16.5109, dtype=torch.float64, grad_fn=<SumBackward0>)
+17 rew tensor(0.6931, dtype=torch.float64) delta_t tensor(0.6545, dtype=torch.float64)
+17 gae_duplicate tensor(0.3509, dtype=torch.float64) tensor(-13.9712, dtype=torch.float64, grad_fn=<SumBackward0>)
+16 rew tensor(0.7571, dtype=torch.float64) delta_t tensor(0.6991, dtype=torch.float64)
+16 gae_duplicate tensor(0.2090, dtype=torch.float64) tensor(-15.2108, dtype=torch.float64, grad_fn=<SumBackward0>)
+15 rew tensor(0.8719, dtype=torch.float64) delta_t tensor(0.8551, dtype=torch.float64)
+15 gae_duplicate tensor(0.7677, dtype=torch.float64) tensor(-18.5516, dtype=torch.float64, grad_fn=<SumBackward0>)
+14 rew tensor(0.8862, dtype=torch.float64) delta_t tensor(0.8966, dtype=torch.float64)
+14 gae_duplicate tensor(0.7775, dtype=torch.float64) tensor(-19.2396, dtype=torch.float64, grad_fn=<SumBackward0>)
+13 rew tensor(0.8835, dtype=torch.float64) delta_t tensor(0.8810, dtype=torch.float64)
+13 gae_duplicate tensor(0.7115, dtype=torch.float64) tensor(-18.9578, dtype=torch.float64, grad_fn=<SumBackward0>)
+12 rew tensor(0.8842, dtype=torch.float64) delta_t tensor(0.8065, dtype=torch.float64)
+12 gae_duplicate tensor(0.6610, dtype=torch.float64) tensor(-18.1465, dtype=torch.float64, grad_fn=<SumBackward0>)
+11 rew tensor(0.8356, dtype=torch.float64) delta_t tensor(0.8505, dtype=torch.float64)
+11 gae_duplicate tensor(0.7205, dtype=torch.float64) tensor(-18.6502, dtype=torch.float64, grad_fn=<SumBackward0>)
+10 rew tensor(0.4550, dtype=torch.float64) delta_t tensor(0.4567, dtype=torch.float64)
+10 gae_duplicate tensor(-0.5831, dtype=torch.float64) tensor(-10.6753, dtype=torch.float64, grad_fn=<SumBackward0>)
+9 rew tensor(-0.3463, dtype=torch.float64) delta_t tensor(-0.3851, dtype=torch.float64)
+9 gae_duplicate tensor(-2.0940, dtype=torch.float64) tensor(6.5396, dtype=torch.float64, grad_fn=<SumBackward0>)
+8 rew tensor(-0.3020, dtype=torch.float64) delta_t tensor(-0.3459, dtype=torch.float64)
+8 gae_duplicate tensor(-1.6270, dtype=torch.float64) tensor(7.2400, dtype=torch.float64, grad_fn=<SumBackward0>)
+7 rew tensor(-0.4280, dtype=torch.float64) delta_t tensor(-0.5515, dtype=torch.float64)
+7 gae_duplicate tensor(-1.8756, dtype=torch.float64) tensor(11.0293, dtype=torch.float64, grad_fn=<SumBackward0>)
+6 rew tensor(-0.6741, dtype=torch.float64) delta_t tensor(-0.7224, dtype=torch.float64)
+6 gae_duplicate tensor(-2.2599, dtype=torch.float64) tensor(15.4970, dtype=torch.float64, grad_fn=<SumBackward0>)
+5 rew tensor(-1.0859, dtype=torch.float64) delta_t tensor(-1.0864, dtype=torch.float64)
+5 gae_duplicate tensor(-2.2162, dtype=torch.float64) tensor(22.9861, dtype=torch.float64, grad_fn=<SumBackward0>)
+4 rew tensor(-1.1968, dtype=torch.float64) delta_t tensor(-1.1940, dtype=torch.float64)
+4 gae_duplicate tensor(-4.6979, dtype=torch.float64) tensor(25.6857, dtype=torch.float64, grad_fn=<SumBackward0>)
+3 rew tensor(-0.7778, dtype=torch.float64) delta_t tensor(-0.7895, dtype=torch.float64)
+3 gae_duplicate tensor(-1.5343, dtype=torch.float64) tensor(18.0951, dtype=torch.float64, grad_fn=<SumBackward0>)
+2 rew tensor(-0.7157, dtype=torch.float64) delta_t tensor(-0.7250, dtype=torch.float64)
+2 gae_duplicate tensor(-1.5212, dtype=torch.float64) tensor(16.0783, dtype=torch.float64, grad_fn=<SumBackward0>)
+policy loss:2173.836181640625
+value loss:179.85647583007812
+entropies:354.9680480957031
+Policy training finished
+---------------------
+gamma: 0.1
+training start after waiting for 5.041888952255249 seconds
+19 rew tensor(0.7723, dtype=torch.float64) delta_t tensor(0.6458, dtype=torch.float64)
+19 gae_duplicate tensor(0.3980, dtype=torch.float64) tensor(-13.1328, dtype=torch.float64, grad_fn=<SumBackward0>)
+18 rew tensor(0.7444, dtype=torch.float64) delta_t tensor(0.5800, dtype=torch.float64)
+18 gae_duplicate tensor(0.3529, dtype=torch.float64) tensor(-12.6639, dtype=torch.float64, grad_fn=<SumBackward0>)
+17 rew tensor(0.6787, dtype=torch.float64) delta_t tensor(0.4988, dtype=torch.float64)
+17 gae_duplicate tensor(0.1505, dtype=torch.float64) tensor(-11.1293, dtype=torch.float64, grad_fn=<SumBackward0>)
+16 rew tensor(0.6876, dtype=torch.float64) delta_t tensor(0.5151, dtype=torch.float64)
+16 gae_duplicate tensor(0.1219, dtype=torch.float64) tensor(-11.5726, dtype=torch.float64, grad_fn=<SumBackward0>)
+15 rew tensor(0.7610, dtype=torch.float64) delta_t tensor(0.6210, dtype=torch.float64)
+15 gae_duplicate tensor(0.0770, dtype=torch.float64) tensor(-13.0927, dtype=torch.float64, grad_fn=<SumBackward0>)
+14 rew tensor(0.8537, dtype=torch.float64) delta_t tensor(0.7599, dtype=torch.float64)
+14 gae_duplicate tensor(0.5554, dtype=torch.float64) tensor(-16.3824, dtype=torch.float64, grad_fn=<SumBackward0>)
+13 rew tensor(0.8638, dtype=torch.float64) delta_t tensor(0.7818, dtype=torch.float64)
+13 gae_duplicate tensor(0.6031, dtype=torch.float64) tensor(-17.3173, dtype=torch.float64, grad_fn=<SumBackward0>)
+12 rew tensor(0.8744, dtype=torch.float64) delta_t tensor(0.7530, dtype=torch.float64)
+12 gae_duplicate tensor(0.7418, dtype=torch.float64) tensor(-16.5659, dtype=torch.float64, grad_fn=<SumBackward0>)
+11 rew tensor(0.8789, dtype=torch.float64) delta_t tensor(0.7730, dtype=torch.float64)
+11 gae_duplicate tensor(0.6769, dtype=torch.float64) tensor(-17.2473, dtype=torch.float64, grad_fn=<SumBackward0>)
+10 rew tensor(0.8191, dtype=torch.float64) delta_t tensor(0.7257, dtype=torch.float64)
+10 gae_duplicate tensor(0.6869, dtype=torch.float64) tensor(-15.9785, dtype=torch.float64, grad_fn=<SumBackward0>)
+9 rew tensor(-0.0414, dtype=torch.float64) delta_t tensor(-0.1322, dtype=torch.float64)
+9 gae_duplicate tensor(-1.3994, dtype=torch.float64) tensor(0.9262, dtype=torch.float64, grad_fn=<SumBackward0>)
+8 rew tensor(-0.1289, dtype=torch.float64) delta_t tensor(-0.2823, dtype=torch.float64)
+8 gae_duplicate tensor(-1.0398, dtype=torch.float64) tensor(5.8755, dtype=torch.float64, grad_fn=<SumBackward0>)
+7 rew tensor(-0.4599, dtype=torch.float64) delta_t tensor(-0.6451, dtype=torch.float64)
+7 gae_duplicate tensor(-1.7315, dtype=torch.float64) tensor(13.1280, dtype=torch.float64, grad_fn=<SumBackward0>)
+6 rew tensor(-1.0055, dtype=torch.float64) delta_t tensor(-1.0871, dtype=torch.float64)
+6 gae_duplicate tensor(-2.1365, dtype=torch.float64) tensor(22.6529, dtype=torch.float64, grad_fn=<SumBackward0>)
+5 rew tensor(-1.1215, dtype=torch.float64) delta_t tensor(-1.1845, dtype=torch.float64)
+5 gae_duplicate tensor(-2.1319, dtype=torch.float64) tensor(26.5903, dtype=torch.float64, grad_fn=<SumBackward0>)
+4 rew tensor(-1.9561, dtype=torch.float64) delta_t tensor(-1.9528, dtype=torch.float64)
+4 gae_duplicate tensor(-4.9402, dtype=torch.float64) tensor(39.2832, dtype=torch.float64, grad_fn=<SumBackward0>)
+3 rew tensor(-0.6822, dtype=torch.float64) delta_t tensor(-0.7072, dtype=torch.float64)
+3 gae_duplicate tensor(-1.5261, dtype=torch.float64) tensor(17.9261, dtype=torch.float64, grad_fn=<SumBackward0>)
+2 rew tensor(-0.6474, dtype=torch.float64) delta_t tensor(-0.7582, dtype=torch.float64)
+2 gae_duplicate tensor(-1.6015, dtype=torch.float64) tensor(16.5069, dtype=torch.float64, grad_fn=<SumBackward0>)
+policy loss:22.735107421875
+value loss:197.7057342529297
+entropies:354.519287109375
+Policy training finished
+---------------------
+gamma: 0.1
+training start after waiting for 4.854405164718628 seconds
+19 rew tensor(0.7366, dtype=torch.float64) delta_t tensor(0.4971, dtype=torch.float64)
+19 gae_duplicate tensor(0.2040, dtype=torch.float64) tensor(-10.0040, dtype=torch.float64, grad_fn=<SumBackward0>)
+18 rew tensor(0.6947, dtype=torch.float64) delta_t tensor(0.4551, dtype=torch.float64)
+18 gae_duplicate tensor(0.1427, dtype=torch.float64) tensor(-9.8151, dtype=torch.float64, grad_fn=<SumBackward0>)
+17 rew tensor(0.5947, dtype=torch.float64) delta_t tensor(0.3278, dtype=torch.float64)
+17 gae_duplicate tensor(-0.0854, dtype=torch.float64) tensor(-7.1667, dtype=torch.float64, grad_fn=<SumBackward0>)
+16 rew tensor(0.7032, dtype=torch.float64) delta_t tensor(0.4344, dtype=torch.float64)
+16 gae_duplicate tensor(0.2243, dtype=torch.float64) tensor(-9.4037, dtype=torch.float64, grad_fn=<SumBackward0>)
+15 rew tensor(0.5952, dtype=torch.float64) delta_t tensor(0.3449, dtype=torch.float64)
+15 gae_duplicate tensor(-0.0955, dtype=torch.float64) tensor(-7.9178, dtype=torch.float64, grad_fn=<SumBackward0>)
+14 rew tensor(0.8180, dtype=torch.float64) delta_t tensor(0.6745, dtype=torch.float64)
+14 gae_duplicate tensor(0.5122, dtype=torch.float64) tensor(-14.8130, dtype=torch.float64, grad_fn=<SumBackward0>)
+13 rew tensor(0.8254, dtype=torch.float64) delta_t tensor(0.5545, dtype=torch.float64)
+13 gae_duplicate tensor(0.4380, dtype=torch.float64) tensor(-11.8308, dtype=torch.float64, grad_fn=<SumBackward0>)
+12 rew tensor(0.8331, dtype=torch.float64) delta_t tensor(0.7433, dtype=torch.float64)
+12 gae_duplicate tensor(0.5556, dtype=torch.float64) tensor(-15.6423, dtype=torch.float64, grad_fn=<SumBackward0>)
+11 rew tensor(0.8073, dtype=torch.float64) delta_t tensor(0.6146, dtype=torch.float64)
+11 gae_duplicate tensor(0.5477, dtype=torch.float64) tensor(-14.1976, dtype=torch.float64, grad_fn=<SumBackward0>)
+10 rew tensor(0.7642, dtype=torch.float64) delta_t tensor(0.5804, dtype=torch.float64)
+10 gae_duplicate tensor(0.3529, dtype=torch.float64) tensor(-12.4404, dtype=torch.float64, grad_fn=<SumBackward0>)
+9 rew tensor(-0.9357, dtype=torch.float64) delta_t tensor(-1.0952, dtype=torch.float64)
+9 gae_duplicate tensor(-3.3696, dtype=torch.float64) tensor(20.9591, dtype=torch.float64, grad_fn=<SumBackward0>)
+8 rew tensor(-0.2434, dtype=torch.float64) delta_t tensor(-0.4696, dtype=torch.float64)
+8 gae_duplicate tensor(-1.2467, dtype=torch.float64) tensor(11.1290, dtype=torch.float64, grad_fn=<SumBackward0>)
+7 rew tensor(-0.3863, dtype=torch.float64) delta_t tensor(-0.6250, dtype=torch.float64)
+7 gae_duplicate tensor(-1.8612, dtype=torch.float64) tensor(12.7470, dtype=torch.float64, grad_fn=<SumBackward0>)
+6 rew tensor(-0.5803, dtype=torch.float64) delta_t tensor(-0.6756, dtype=torch.float64)
+6 gae_duplicate tensor(-1.5625, dtype=torch.float64) tensor(14.7206, dtype=torch.float64, grad_fn=<SumBackward0>)
+5 rew tensor(-0.7307, dtype=torch.float64) delta_t tensor(-0.8207, dtype=torch.float64)
+5 gae_duplicate tensor(-1.5091, dtype=torch.float64) tensor(17.9876, dtype=torch.float64, grad_fn=<SumBackward0>)
+4 rew tensor(-2.5155, dtype=torch.float64) delta_t tensor(-2.5435, dtype=torch.float64)
+4 gae_duplicate tensor(-6.9326, dtype=torch.float64) tensor(51.6662, dtype=torch.float64, grad_fn=<SumBackward0>)
+3 rew tensor(-0.7331, dtype=torch.float64) delta_t tensor(-0.7634, dtype=torch.float64)
+3 gae_duplicate tensor(-1.6463, dtype=torch.float64) tensor(20.5237, dtype=torch.float64, grad_fn=<SumBackward0>)
+2 rew tensor(-0.6588, dtype=torch.float64) delta_t tensor(-0.7967, dtype=torch.float64)
+2 gae_duplicate tensor(-1.5883, dtype=torch.float64) tensor(17.6390, dtype=torch.float64, grad_fn=<SumBackward0>)
+policy loss:-3019.306396484375
+value loss:225.72134399414062
+entropies:354.48065185546875
+Policy training finished
+---------------------
+ToM training started
+ToM data loaded
+batch_size =  600
+ToM_loss = tensor(3978.6494)
+ToM Target loss= tensor(3498.9641)
+optimized based on ToM loss
+---------------------
+gamma: 0.1
+training start after waiting for 5.2721850872039795 seconds
+19 rew tensor(0.7356, dtype=torch.float64) delta_t tensor(0.4573, dtype=torch.float64)
+19 gae_duplicate tensor(0.2810, dtype=torch.float64) tensor(-8.7920, dtype=torch.float64, grad_fn=<SumBackward0>)
+18 rew tensor(0.6996, dtype=torch.float64) delta_t tensor(0.4291, dtype=torch.float64)
+18 gae_duplicate tensor(0.1994, dtype=torch.float64) tensor(-9.5902, dtype=torch.float64, grad_fn=<SumBackward0>)
+17 rew tensor(0.6024, dtype=torch.float64) delta_t tensor(0.3028, dtype=torch.float64)
+17 gae_duplicate tensor(-0.0868, dtype=torch.float64) tensor(-7.4609, dtype=torch.float64, grad_fn=<SumBackward0>)
+16 rew tensor(0.6048, dtype=torch.float64) delta_t tensor(0.2916, dtype=torch.float64)
+16 gae_duplicate tensor(0.0323, dtype=torch.float64) tensor(-6.2178, dtype=torch.float64, grad_fn=<SumBackward0>)
+15 rew tensor(0.6153, dtype=torch.float64) delta_t tensor(0.3195, dtype=torch.float64)
+15 gae_duplicate tensor(-0.0765, dtype=torch.float64) tensor(-6.6293, dtype=torch.float64, grad_fn=<SumBackward0>)
+14 rew tensor(0.8131, dtype=torch.float64) delta_t tensor(0.5732, dtype=torch.float64)
+14 gae_duplicate tensor(0.4800, dtype=torch.float64) tensor(-12.1352, dtype=torch.float64, grad_fn=<SumBackward0>)
+13 rew tensor(0.8191, dtype=torch.float64) delta_t tensor(0.5781, dtype=torch.float64)
+13 gae_duplicate tensor(0.5030, dtype=torch.float64) tensor(-12.9135, dtype=torch.float64, grad_fn=<SumBackward0>)
+12 rew tensor(0.8252, dtype=torch.float64) delta_t tensor(0.6746, dtype=torch.float64)
+12 gae_duplicate tensor(0.4902, dtype=torch.float64) tensor(-15.1834, dtype=torch.float64, grad_fn=<SumBackward0>)
+11 rew tensor(0.7751, dtype=torch.float64) delta_t tensor(0.5434, dtype=torch.float64)
+11 gae_duplicate tensor(0.4729, dtype=torch.float64) tensor(-11.9126, dtype=torch.float64, grad_fn=<SumBackward0>)
+10 rew tensor(0.7236, dtype=torch.float64) delta_t tensor(0.5292, dtype=torch.float64)
+10 gae_duplicate tensor(0.2320, dtype=torch.float64) tensor(-11.4405, dtype=torch.float64, grad_fn=<SumBackward0>)
+9 rew tensor(-1.3691, dtype=torch.float64) delta_t tensor(-1.5888, dtype=torch.float64)
+9 gae_duplicate tensor(-3.6600, dtype=torch.float64) tensor(29.7472, dtype=torch.float64, grad_fn=<SumBackward0>)
+8 rew tensor(-0.9253, dtype=torch.float64) delta_t tensor(-1.1576, dtype=torch.float64)
+8 gae_duplicate tensor(-3.1920, dtype=torch.float64) tensor(25.3925, dtype=torch.float64, grad_fn=<SumBackward0>)
+7 rew tensor(0.2260, dtype=torch.float64) delta_t tensor(-0.0373, dtype=torch.float64)
+7 gae_duplicate tensor(-0.9686, dtype=torch.float64) tensor(3.1407, dtype=torch.float64, grad_fn=<SumBackward0>)
+6 rew tensor(-0.5813, dtype=torch.float64) delta_t tensor(-0.7511, dtype=torch.float64)
+6 gae_duplicate tensor(-2.1870, dtype=torch.float64) tensor(14.6183, dtype=torch.float64, grad_fn=<SumBackward0>)
+5 rew tensor(-0.9310, dtype=torch.float64) delta_t tensor(-0.9364, dtype=torch.float64)
+5 gae_duplicate tensor(-2.0607, dtype=torch.float64) tensor(20.6608, dtype=torch.float64, grad_fn=<SumBackward0>)
+4 rew tensor(-1.2336, dtype=torch.float64) delta_t tensor(-1.2202, dtype=torch.float64)
+4 gae_duplicate tensor(-4.1202, dtype=torch.float64) tensor(26.8102, dtype=torch.float64, grad_fn=<SumBackward0>)
+3 rew tensor(-0.7073, dtype=torch.float64) delta_t tensor(-0.7233, dtype=torch.float64)
+3 gae_duplicate tensor(-1.1753, dtype=torch.float64) tensor(16.6421, dtype=torch.float64, grad_fn=<SumBackward0>)
+2 rew tensor(-0.6483, dtype=torch.float64) delta_t tensor(-0.7223, dtype=torch.float64)
+2 gae_duplicate tensor(-1.2074, dtype=torch.float64) tensor(15.5833, dtype=torch.float64, grad_fn=<SumBackward0>)
+policy loss:-2812.948486328125
+value loss:164.5067596435547
+entropies:354.3887634277344
+Policy training finished
+---------------------
+gamma: 0.1
+training start after waiting for 4.815280914306641 seconds
+19 rew tensor(0.7437, dtype=torch.float64) delta_t tensor(0.4557, dtype=torch.float64)
+19 gae_duplicate tensor(0.2556, dtype=torch.float64) tensor(-9.1324, dtype=torch.float64, grad_fn=<SumBackward0>)
+18 rew tensor(0.7113, dtype=torch.float64) delta_t tensor(0.4005, dtype=torch.float64)
+18 gae_duplicate tensor(0.1989, dtype=torch.float64) tensor(-8.6539, dtype=torch.float64, grad_fn=<SumBackward0>)
+17 rew tensor(0.6172, dtype=torch.float64) delta_t tensor(0.2978, dtype=torch.float64)
+17 gae_duplicate tensor(-0.0361, dtype=torch.float64) tensor(-6.4391, dtype=torch.float64, grad_fn=<SumBackward0>)
+16 rew tensor(0.5777, dtype=torch.float64) delta_t tensor(0.2705, dtype=torch.float64)
+16 gae_duplicate tensor(-0.1358, dtype=torch.float64) tensor(-5.9619, dtype=torch.float64, grad_fn=<SumBackward0>)
+15 rew tensor(0.7400, dtype=torch.float64) delta_t tensor(0.4462, dtype=torch.float64)
+15 gae_duplicate tensor(0.2712, dtype=torch.float64) tensor(-8.8874, dtype=torch.float64, grad_fn=<SumBackward0>)
+14 rew tensor(0.8229, dtype=torch.float64) delta_t tensor(0.5800, dtype=torch.float64)
+14 gae_duplicate tensor(0.4116, dtype=torch.float64) tensor(-12.3240, dtype=torch.float64, grad_fn=<SumBackward0>)
+13 rew tensor(0.8109, dtype=torch.float64) delta_t tensor(0.6135, dtype=torch.float64)
+13 gae_duplicate tensor(0.4907, dtype=torch.float64) tensor(-12.9355, dtype=torch.float64, grad_fn=<SumBackward0>)
+12 rew tensor(0.8161, dtype=torch.float64) delta_t tensor(0.5386, dtype=torch.float64)
+12 gae_duplicate tensor(0.4300, dtype=torch.float64) tensor(-12.0593, dtype=torch.float64, grad_fn=<SumBackward0>)
+11 rew tensor(0.7280, dtype=torch.float64) delta_t tensor(0.5684, dtype=torch.float64)
+11 gae_duplicate tensor(0.5589, dtype=torch.float64) tensor(-12.5169, dtype=torch.float64, grad_fn=<SumBackward0>)
+10 rew tensor(0.2402, dtype=torch.float64) delta_t tensor(0.0487, dtype=torch.float64)
+10 gae_duplicate tensor(-0.8539, dtype=torch.float64) tensor(-1.9605, dtype=torch.float64, grad_fn=<SumBackward0>)
+9 rew tensor(-0.2977, dtype=torch.float64) delta_t tensor(-0.4597, dtype=torch.float64)
+9 gae_duplicate tensor(-1.5753, dtype=torch.float64) tensor(9.0008, dtype=torch.float64, grad_fn=<SumBackward0>)
+8 rew tensor(-0.9171, dtype=torch.float64) delta_t tensor(-1.1326, dtype=torch.float64)
+8 gae_duplicate tensor(-2.1384, dtype=torch.float64) tensor(22.9960, dtype=torch.float64, grad_fn=<SumBackward0>)
+7 rew tensor(-0.4685, dtype=torch.float64) delta_t tensor(-0.6738, dtype=torch.float64)
+7 gae_duplicate tensor(-1.4037, dtype=torch.float64) tensor(16.2016, dtype=torch.float64, grad_fn=<SumBackward0>)
+6 rew tensor(-1.0331, dtype=torch.float64) delta_t tensor(-1.2142, dtype=torch.float64)
+6 gae_duplicate tensor(-2.2360, dtype=torch.float64) tensor(25.6385, dtype=torch.float64, grad_fn=<SumBackward0>)
+5 rew tensor(-1.4317, dtype=torch.float64) delta_t tensor(-1.4046, dtype=torch.float64)
+5 gae_duplicate tensor(-3.3159, dtype=torch.float64) tensor(29.4714, dtype=torch.float64, grad_fn=<SumBackward0>)
+4 rew tensor(-1.3635, dtype=torch.float64) delta_t tensor(-1.3043, dtype=torch.float64)
+4 gae_duplicate tensor(-4.5939, dtype=torch.float64) tensor(28.2999, dtype=torch.float64, grad_fn=<SumBackward0>)
+3 rew tensor(-0.6251, dtype=torch.float64) delta_t tensor(-0.6403, dtype=torch.float64)
+3 gae_duplicate tensor(-1.1376, dtype=torch.float64) tensor(15.3740, dtype=torch.float64, grad_fn=<SumBackward0>)
+2 rew tensor(-0.5782, dtype=torch.float64) delta_t tensor(-0.6391, dtype=torch.float64)
+2 gae_duplicate tensor(-1.2728, dtype=torch.float64) tensor(13.6869, dtype=torch.float64, grad_fn=<SumBackward0>)
+policy loss:-3864.8564453125
+value loss:162.6085662841797
+entropies:354.6248779296875
+Policy training finished
+---------------------
+gamma: 0.1
+training start after waiting for 4.560260057449341 seconds
+19 rew tensor(0.7713, dtype=torch.float64) delta_t tensor(0.5134, dtype=torch.float64)
+19 gae_duplicate tensor(0.4498, dtype=torch.float64) tensor(-10.1381, dtype=torch.float64, grad_fn=<SumBackward0>)
+18 rew tensor(0.7581, dtype=torch.float64) delta_t tensor(0.4800, dtype=torch.float64)
+18 gae_duplicate tensor(0.4054, dtype=torch.float64) tensor(-10.2646, dtype=torch.float64, grad_fn=<SumBackward0>)
+17 rew tensor(0.6964, dtype=torch.float64) delta_t tensor(0.4051, dtype=torch.float64)
+17 gae_duplicate tensor(0.2536, dtype=torch.float64) tensor(-8.6120, dtype=torch.float64, grad_fn=<SumBackward0>)
+16 rew tensor(0.5832, dtype=torch.float64) delta_t tensor(0.3182, dtype=torch.float64)
+16 gae_duplicate tensor(-0.0567, dtype=torch.float64) tensor(-7.3294, dtype=torch.float64, grad_fn=<SumBackward0>)
+15 rew tensor(0.7471, dtype=torch.float64) delta_t tensor(0.4875, dtype=torch.float64)
+15 gae_duplicate tensor(-0.0135, dtype=torch.float64) tensor(-10.1595, dtype=torch.float64, grad_fn=<SumBackward0>)
+14 rew tensor(0.8295, dtype=torch.float64) delta_t tensor(0.6051, dtype=torch.float64)
+14 gae_duplicate tensor(0.4306, dtype=torch.float64) tensor(-13.0998, dtype=torch.float64, grad_fn=<SumBackward0>)
+13 rew tensor(0.7990, dtype=torch.float64) delta_t tensor(0.5938, dtype=torch.float64)
+13 gae_duplicate tensor(0.3536, dtype=torch.float64) tensor(-12.5549, dtype=torch.float64, grad_fn=<SumBackward0>)
+12 rew tensor(0.8104, dtype=torch.float64) delta_t tensor(0.5509, dtype=torch.float64)
+12 gae_duplicate tensor(0.4498, dtype=torch.float64) tensor(-12.0013, dtype=torch.float64, grad_fn=<SumBackward0>)
+11 rew tensor(0.7315, dtype=torch.float64) delta_t tensor(0.5699, dtype=torch.float64)
+11 gae_duplicate tensor(0.4676, dtype=torch.float64) tensor(-12.7045, dtype=torch.float64, grad_fn=<SumBackward0>)
+10 rew tensor(0.6218, dtype=torch.float64) delta_t tensor(0.4600, dtype=torch.float64)
+10 gae_duplicate tensor(0.1449, dtype=torch.float64) tensor(-10.3971, dtype=torch.float64, grad_fn=<SumBackward0>)
+9 rew tensor(-0.5022, dtype=torch.float64) delta_t tensor(-0.6344, dtype=torch.float64)
+9 gae_duplicate tensor(-1.3736, dtype=torch.float64) tensor(11.9539, dtype=torch.float64, grad_fn=<SumBackward0>)
+8 rew tensor(-0.6905, dtype=torch.float64) delta_t tensor(-0.8588, dtype=torch.float64)
+8 gae_duplicate tensor(-1.7231, dtype=torch.float64) tensor(18.1869, dtype=torch.float64, grad_fn=<SumBackward0>)
+7 rew tensor(-0.6576, dtype=torch.float64) delta_t tensor(-0.8458, dtype=torch.float64)
+7 gae_duplicate tensor(-2.3379, dtype=torch.float64) tensor(17.5960, dtype=torch.float64, grad_fn=<SumBackward0>)
+6 rew tensor(-1.0362, dtype=torch.float64) delta_t tensor(-1.1040, dtype=torch.float64)
+6 gae_duplicate tensor(-2.9639, dtype=torch.float64) tensor(24.3787, dtype=torch.float64, grad_fn=<SumBackward0>)
+5 rew tensor(-1.3622, dtype=torch.float64) delta_t tensor(-1.2899, dtype=torch.float64)
+5 gae_duplicate tensor(-3.1315, dtype=torch.float64) tensor(27.7239, dtype=torch.float64, grad_fn=<SumBackward0>)
+4 rew tensor(-0.8209, dtype=torch.float64) delta_t tensor(-0.6578, dtype=torch.float64)
+4 gae_duplicate tensor(-2.8959, dtype=torch.float64) tensor(15.6329, dtype=torch.float64, grad_fn=<SumBackward0>)
+3 rew tensor(-0.6483, dtype=torch.float64) delta_t tensor(-0.5531, dtype=torch.float64)
+3 gae_duplicate tensor(-1.2055, dtype=torch.float64) tensor(12.6382, dtype=torch.float64, grad_fn=<SumBackward0>)
+2 rew tensor(-0.5707, dtype=torch.float64) delta_t tensor(-0.5672, dtype=torch.float64)
+2 gae_duplicate tensor(-1.1626, dtype=torch.float64) tensor(12.1103, dtype=torch.float64, grad_fn=<SumBackward0>)
+policy loss:-1875.578369140625
+value loss:144.36383056640625
+entropies:354.69598388671875
+Policy training finished
+---------------------
+gamma: 0.1
+Process Process-9:
+Traceback (most recent call last):
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/suhuangyuan/DRA/ToM2C/train.py", line 453, in train
+    if train_modes[rank] != -10:
+  File "<string>", line 2, in __getitem__
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/managers.py", line 810, in _callmethod
+    kind, result = conn.recv()
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/connection.py", line 250, in recv
+    buf = self._recv_bytes()
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/connection.py", line 414, in _recv_bytes
+    buf = self._recv(4)
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/connection.py", line 379, in _recv
+    chunk = read(handle, remaining)
+KeyboardInterrupt

@@ -1,0 +1,73 @@
+obs <crafter.objects.Shelter object at 0x13da63430> [39.  0.  0.  0. 39.  0.  0.  0.  9.  0.  0.  0.]
+obs <crafter.objects.Warehouse object at 0x11dcfbe50> [40.  0.  0.  0. 41.  0.  0.  0.  9.  0.  0.  0.]
+obs <crafter.objects.Station object at 0x13da693a0> [ 9.  0.  0.  0.  9.  0.  0.  0. 11.  0.  0.  0.]
+obs <crafter.objects.Shelter object at 0x13da63430> [39.  0.  0.  0. 39.  0.  0.  0. 11.  0.  0.  0.]
+obs <crafter.objects.Warehouse object at 0x11dcfbe50> [38.  0.  0.  0. 41.  0.  0.  0.  9.  0.  0.  0.]
+obs <crafter.objects.Station object at 0x13da693a0> [ 9.  0.  0.  0.  9.  0.  0.  0. 11.  0.  0.  0.]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+training start after waiting for 0.002283811569213867 seconds
+19 rew tensor(0.6537, dtype=torch.float64) delta_t tensor(0.6110, dtype=torch.float64)
+19 gae_duplicate tensor(0.0344, dtype=torch.float64) tensor(-12.0021, dtype=torch.float64, grad_fn=<SumBackward0>)
+18 rew tensor(0.6237, dtype=torch.float64) delta_t tensor(0.6065, dtype=torch.float64)
+18 gae_duplicate tensor(0.3588, dtype=torch.float64) tensor(-13.1404, dtype=torch.float64, grad_fn=<SumBackward0>)
+17 rew tensor(0.4817, dtype=torch.float64) delta_t tensor(0.4896, dtype=torch.float64)
+17 gae_duplicate tensor(0.2093, dtype=torch.float64) tensor(-10.9551, dtype=torch.float64, grad_fn=<SumBackward0>)
+16 rew tensor(0.8093, dtype=torch.float64) delta_t tensor(0.8354, dtype=torch.float64)
+16 gae_duplicate tensor(0.5757, dtype=torch.float64) tensor(-17.6234, dtype=torch.float64, grad_fn=<SumBackward0>)
+15 rew tensor(0.1148, dtype=torch.float64) delta_t tensor(0.1136, dtype=torch.float64)
+15 gae_duplicate tensor(-0.1298, dtype=torch.float64) tensor(-4.0729, dtype=torch.float64, grad_fn=<SumBackward0>)
+14 rew tensor(0.8772, dtype=torch.float64) delta_t tensor(0.8769, dtype=torch.float64)
+14 gae_duplicate tensor(0.4929, dtype=torch.float64) tensor(-17.6457, dtype=torch.float64, grad_fn=<SumBackward0>)
+13 rew tensor(0.1563, dtype=torch.float64) delta_t tensor(0.1605, dtype=torch.float64)
+13 gae_duplicate tensor(-0.2301, dtype=torch.float64) tensor(-4.9043, dtype=torch.float64, grad_fn=<SumBackward0>)
+12 rew tensor(0.8290, dtype=torch.float64) delta_t tensor(0.8005, dtype=torch.float64)
+12 gae_duplicate tensor(0.4732, dtype=torch.float64) tensor(-16.3187, dtype=torch.float64, grad_fn=<SumBackward0>)
+11 rew tensor(0.0903, dtype=torch.float64) delta_t tensor(0.0104, dtype=torch.float64)
+11 gae_duplicate tensor(-0.4853, dtype=torch.float64) tensor(-1.8083, dtype=torch.float64, grad_fn=<SumBackward0>)
+10 rew tensor(0.9378, dtype=torch.float64) delta_t tensor(0.9403, dtype=torch.float64)
+10 gae_duplicate tensor(0.6123, dtype=torch.float64) tensor(-18.6181, dtype=torch.float64, grad_fn=<SumBackward0>)
+9 rew tensor(0.1125, dtype=torch.float64) delta_t tensor(-0.0164, dtype=torch.float64)
+9 gae_duplicate tensor(-0.7208, dtype=torch.float64) tensor(-1.6255, dtype=torch.float64, grad_fn=<SumBackward0>)
+8 rew tensor(1.0003, dtype=torch.float64) delta_t tensor(1.0549, dtype=torch.float64)
+8 gae_duplicate tensor(0.5970, dtype=torch.float64) tensor(-20.9601, dtype=torch.float64, grad_fn=<SumBackward0>)
+7 rew tensor(0.1915, dtype=torch.float64) delta_t tensor(0.1174, dtype=torch.float64)
+7 gae_duplicate tensor(-0.7051, dtype=torch.float64) tensor(-4.4606, dtype=torch.float64, grad_fn=<SumBackward0>)
+6 rew tensor(1.0584, dtype=torch.float64) delta_t tensor(0.9590, dtype=torch.float64)
+6 gae_duplicate tensor(0.5754, dtype=torch.float64) tensor(-19.4927, dtype=torch.float64, grad_fn=<SumBackward0>)
+5 rew tensor(0.0690, dtype=torch.float64) delta_t tensor(-0.0353, dtype=torch.float64)
+5 gae_duplicate tensor(-0.9739, dtype=torch.float64) tensor(-1.1353, dtype=torch.float64, grad_fn=<SumBackward0>)
+4 rew tensor(-1.2003, dtype=torch.float64) delta_t tensor(-1.3571, dtype=torch.float64)
+4 gae_duplicate tensor(-1.9874, dtype=torch.float64) tensor(26.9042, dtype=torch.float64, grad_fn=<SumBackward0>)
+3 rew tensor(0.3611, dtype=torch.float64) delta_t tensor(0.1977, dtype=torch.float64)
+3 gae_duplicate tensor(-0.8250, dtype=torch.float64) tensor(-1.3430, dtype=torch.float64, grad_fn=<SumBackward0>)
+2 rew tensor(-0.1818, dtype=torch.float64) delta_t tensor(-0.1268, dtype=torch.float64)
+2 gae_duplicate tensor(-1.0063, dtype=torch.float64) tensor(2.3979, dtype=torch.float64, grad_fn=<SumBackward0>)
+policy loss:7291.3525390625
+value loss:114.79727172851562
+entropies:355.8193359375
+Policy training finished
+---------------------
+gamma: 0.1
+/Users/suhuangyuan/DRA/ToM2C/shared_optim.py:155: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha) (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/utils/python_arg_parser.cpp:1420.)
+  exp_avg.mul_(beta1).add_(1 - beta1, grad)
+Process Process-9:
+Traceback (most recent call last):
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/suhuangyuan/DRA/ToM2C/train.py", line 453, in train
+    if train_modes[rank] != -10:
+  File "<string>", line 2, in __getitem__
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/managers.py", line 810, in _callmethod
+    kind, result = conn.recv()
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/connection.py", line 250, in recv
+    buf = self._recv_bytes()
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/connection.py", line 414, in _recv_bytes
+    buf = self._recv(4)
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/connection.py", line 379, in _recv
+    chunk = read(handle, remaining)
+KeyboardInterrupt

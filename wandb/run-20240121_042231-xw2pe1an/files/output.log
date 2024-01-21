@@ -1,0 +1,25 @@
+obs <crafter.objects.Shelter object at 0x14ca1b4f0> [39  0 39  0  9  0]
+obs <crafter.objects.Warehouse object at 0x139d7bdc0> [42  0 41  0  9  0]
+obs <crafter.objects.Station object at 0x14ca213a0> [ 9  0  9  0 13  0]
+obs <crafter.objects.Shelter object at 0x14ca1b4f0> [39  0 39  0 11  0]
+obs <crafter.objects.Warehouse object at 0x139d7bdc0> [40  0 41  0  9  0]
+obs <crafter.objects.Station object at 0x14ca213a0> [9 0 9 0 9 0]
+{'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0} {'food': 0.0, 'drink': 0.0, 'staff': 0.0}
+Process Process-9:
+Traceback (most recent call last):
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/process.py", line 315, in _bootstrap
+    self.run()
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/Users/suhuangyuan/DRA/ToM2C/train.py", line 453, in train
+    if train_modes[rank] != -10:
+  File "<string>", line 2, in __getitem__
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/managers.py", line 809, in _callmethod
+    conn.send((self._id, methodname, args, kwds))
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/connection.py", line 206, in send
+    self._send_bytes(_ForkingPickler.dumps(obj))
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/connection.py", line 411, in _send_bytes
+    self._send(header + buf)
+  File "/Users/suhuangyuan/miniconda3/envs/resource/lib/python3.9/multiprocessing/connection.py", line 368, in _send
+    n = write(self._handle, buf)
+KeyboardInterrupt

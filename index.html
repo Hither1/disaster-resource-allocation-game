@@ -104,6 +104,78 @@
     <script src="js/jquery-1.10.2.js"></script>
     <!-- <script src="js/bootstrap.js"></script> -->
 
+    <table id="tabgame" v-if="position" cellpadding="10" cellspacing="0" style="width: 1150px;" align="center">
+      <div id="qualtrics-container">
+          <iframe id="frame-qualtrics" src="" height="700px" width="900px"></iframe>
+      </div>
+      <tr id="game-container" class=border align="center">
+          <td>
+              <div style = "text-align: center">
+                  <h2 id="playtime"> Game ends in <span id="time"></span> minutes</h2>
+              </div>
+              <div align="center">
+                  <h3>
+                      <span id="episode"></span> |
+                      <span id="goal"> Points: 0</span> |
+                      <span id="green">Greens: 0</span> |
+                      <span id="yellow">Yellows: 0</span> |
+                      <span id="red">Reds: 0</span> |
+                      <span>
+                          <input type="checkbox" id="full_falcon" name="full_falcon" value="show_falcon"
+                              onclick="showFullView(this)">
+                          <label for="map"> Full view</label>
+                      </span>
+                      <span id="block-map">
+                          <input type="checkbox" id="map" name="map" value="show_map" onclick="showMap(this)">
+                          <label for="map"> Show map</label>
+                      </span>
+                      <span id="instructionsToggle" style="border-color: gray; border-width: 2px; padding: 6px; border-style: solid;cursor:pointer;">Show commands</span>
+                  </h3>
+                  <h3><span id="result"></span></h3>
+                  <form name="frm">
+                      <input type="hidden" id="uid" name="uid" value={{data}} />
+                      <input type="hidden" id="session" name="session" value={{session}} />
+                      <input type="hidden" id="group" name="group" value={{group}} />
+                  </form>
+              </div>
+              
+              <form id="minimap" action="/fullmap/" method="POST">
+                  <input type="hidden" id="uid" name="uid" value={{data}} />
+                  <input type="hidden" id="session" name="session" value={{session}} />
+                  <input type="hidden" id="group" name="group" value={{group}} />
+                  
+                  <div id="sketch-holder">
+                      <!-- <script src="{{ url_for('static', path='js/game.js')}}"></script>
+                      <script src="{{ url_for('static', path='js/cell.js')}}"></script> -->
+                      <script src="{{ url_for('static', path='js/fullgame_wr.js?v=')}}"+DateTime.Now.Ticks></script>
+                      <script src="{{ url_for('static', path='js/cell.js?v=')}}"+DateTime.Now.Ticks></script>
+                  </div>
+
+                  <div align="center">
+                      <h3><span id="total"></span></h3>
+                      <button name="finish" formaction="/completion" id="finish-button" type="submit" class="button">Finish</button>
+                  </div>
+                  <script>
+                      $('#next-button').click(function() {
+                          var id = $('#uid').val();
+                          // var group = $('#group').val();
+                          var sessionId = Number($('#session').val())+1;
+                          $('#session').val(sessionId);
+                          var formAction = $('#next-button').attr('formaction');
+                          // $('#next-button').attr('formaction', formAction + '?uid=' + id + '&session='+(Number(sessionId)));
+                          $('#next-button').attr('formaction', formAction + '?uid=' + id);
+                      });
+                      $( "#finish-button").click(function() {
+                          var id = $('#uid').val();
+                          var formAction = $('#finish-button').attr('formaction');
+                          $('#finish-button').attr('formaction', formAction);
+                      }); 
+                  </script>
+              </form>
+          </td>
+      </tr>
+    </table>
+
     <!-- Custom JavaScript for the Menu Toggle -->
     <script>
     $("#menu-toggle").click(function(e) {

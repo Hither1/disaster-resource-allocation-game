@@ -25,8 +25,7 @@
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
           <li class="sidebar-brand"><a href="#">Menu</a></li>
-          <li><a href="#">Dashboard</a></li>
-          <li><a href="#">Overview</a></li>
+          <li><a href="index.html">Main</a></li>
           <li><a href="Contact.html">Contact</a></li>
         </ul>
       </div>
@@ -129,45 +128,7 @@
                       </span>
                       <span id="instructionsToggle" style="border-color: gray; border-width: 2px; padding: 6px; border-style: solid;cursor:pointer;">Show commands</span>
                   </h3>
-                  <h3><span id="result"></span></h3>
-                  <form name="frm">
-                      <input type="hidden" id="uid" name="uid" value={{data}} />
-                      <input type="hidden" id="session" name="session" value={{session}} />
-                      <input type="hidden" id="group" name="group" value={{group}} />
-                  </form>
               </div>
-              
-              <form id="minimap" action="/fullmap/" method="POST">
-                  <input type="hidden" id="uid" name="uid" value={{data}} />
-                  <input type="hidden" id="session" name="session" value={{session}} />
-                  <input type="hidden" id="group" name="group" value={{group}} />
-                  
-                  <div id="sketch-holder">
-                      <script src="{{ url_for('static', path='js/fullgame_wr.js?v=')}}"+DateTime.Now.Ticks></script>
-                      <script src="{{ url_for('static', path='js/cell.js?v=')}}"+DateTime.Now.Ticks></script>
-                  </div>
-
-                  <div align="center">
-                      <h3><span id="total"></span></h3>
-                      <button name="finish" formaction="/completion" id="finish-button" type="submit" class="button">Finish</button>
-                  </div>
-                  <script>
-                      $('#next-button').click(function() {
-                          var id = $('#uid').val();
-                          // var group = $('#group').val();
-                          var sessionId = Number($('#session').val())+1;
-                          $('#session').val(sessionId);
-                          var formAction = $('#next-button').attr('formaction');
-                          // $('#next-button').attr('formaction', formAction + '?uid=' + id + '&session='+(Number(sessionId)));
-                          $('#next-button').attr('formaction', formAction + '?uid=' + id);
-                      });
-                      $( "#finish-button").click(function() {
-                          var id = $('#uid').val();
-                          var formAction = $('#finish-button').attr('formaction');
-                          $('#finish-button').attr('formaction', formAction);
-                      }); 
-                  </script>
-              </form>
           </td>
       </tr>
     </table>

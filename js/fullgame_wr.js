@@ -283,7 +283,7 @@ socket.on('start_game', function (msg) {
     seconds = seconds < 10 ? "0" + seconds : seconds;
     display.textContent = minutes + ":" + seconds;
     document.getElementById("time").innerHTML = minutes + ":" + seconds;
-    //redraw();
+    // redraw();
 
   });
 
@@ -394,9 +394,9 @@ console.log("VERSION 1.6.0");
 function updateScoreBoard(scores) {
   rescue = scores['green'] * 10 + scores['yellow'] * 30 + scores['red'] * 60;
   document.getElementById('goal').innerHTML = 'Points: ' + rescue.toString();
-  document.getElementById('green').innerHTML = 'Greens: ' + scores['green'].toString();
-  document.getElementById('yellow').innerHTML = 'Yellows: ' + scores['yellow'].toString();
-  document.getElementById('red').innerHTML = 'Reds: ' + scores['red'].toString();
+  document.getElementById('green').innerHTML = 'Food: ' + scores['Food'].toString();
+  document.getElementById('yellow').innerHTML = 'Drink: ' + scores['Drink'].toString();
+  document.getElementById('red').innerHTML = ': ' + scores['Staff'].toString();
 }
 
 

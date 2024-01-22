@@ -1,5 +1,5 @@
 class Agency {
-    constructor( agentNum, config, strategy='bs') {
+    constructor(agentNum, config, strategy='bs', player='computer') {
       this.base_stock = {'food': 2, 'drink': 2, 'staff': 1};
       this.removed = false;
       this.strategy = strategy;
@@ -14,6 +14,7 @@ class Agency {
       this.config = config;
       this.alpha_b = this.config.alpha_b[this.agentNum];
       this.betta_b = this.config.betta_b[this.agentNum];
+      this.player = player;
       
       if (this.config.demandDistribution === 0) {
         this.a_b = (this.config.demandUp[this.agentNum] + this.config.demandLow[this.agentNum]) / 2;

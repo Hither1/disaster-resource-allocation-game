@@ -1,33 +1,87 @@
 import {Shelter, Warehouse, Station} from './objects.js';
 
-export function startGame() {
-    const config = {
-        size: 10,  // Example size value
-        seed: null,  // Example seed value
-        reward: true,  // Example reward value
-        length: 20  // Example length value
+// Import your game logic class (adjust the path accordingly)
+import { Env } from './game_logic.js';
 
-    };
+// Create a variable to hold the game environment
+let gameEnv;
+const config = {
+    size: 10,  // Example size value
+    seed: null,  // Example seed value
+    reward: true,  // Example reward value
+    length: 20,  // Example length value
+    alpha_b: [-0.5, -0.5, -0.5],
+    beta_b: [-0.2, -0.2, -0.2],
+    demandDistribution: 0,
+    demandUp: [16, 8, 6],
+    demandLow: [4, 0, 0],
+    leadRecItemLow: [2,2,2,4],
+    leadRecItemUp: [2,2,2,4],
+    leadRecOrderLow: [2,2,2,0],
+    leadRecOrderUp: [2,2,2,0]
+};
 
-    const env = new Env(
-        config,
-    );
+document.getElementById('startButton').addEventListener('click', function () {
+    gameEnv = new Env({
+       config
+    });
 
-    // Call the reset method to initialize the game environment
-    const initialObservations = env.reset();
+    const initialObservations = gameEnv.reset();
+
+    console.log('Initial Observations:', initialObservations);
+
+    document.getElementById('userInputs').classList.remove('hidden');
+});
+
+const userButtons = document.querySelectorAll('.userButton');
+userButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        if (gameEnv) {
+            const action = button.getAttribute('data-action');
+            gameEnv.handleUserAction(action);
+            console.log('User Action:', action);
+        } else {
+            console.log('Game environment not initialized. Click "Start Game" first.');
+        }
+    });
+});
+
+const userInputBoxes = document.querySelectorAll('.userInput');
+userInputBoxes.forEach(inputBox => {
+    inputBox.addEventListener('input', function () {
+        if (gameEnv) {
+            const input = inputBox.value;
+            const inputIdentifier = inputBox.getAttribute('data-input');
+
+            gameEnv.handleUserInput(inputIdentifier, input);
+
+            console.log(`User Input ${inputIdentifier}:`, input);
+        } else {
+            console.log('Game environment not initialized. Click "Start Game" first.');
+        }
+    });
+});
+
+// export function startGame() {
+    
+
+//     const env = new Env(
+//         config,
+//     );
+
+//     // Call the reset method to initialize the game environment
+//     const initialObservations = env.reset();
 
     
-}
-document.getElementById('startButton').addEventListener('click', startGame);
+// }
+// document.getElementById('startButton').addEventListener('click', startGame);
 
 class Env {
     constructor(config) {
-      
-
       this.config = config;
-      this.shelter = new Shelter('');
-      this.warehouse = new Warehouse('');
-      this.station = new Station('');
+      this.shelter = new Shelter(0, config, player='human');
+      this.warehouse = new Warehouse(1, config);
+      this.station = new Station(2, config);
       this.players = [this.shelter, this.warehouse, this.station];
       this.nAgents = this.players.length;
       this.n = this.nAgents;

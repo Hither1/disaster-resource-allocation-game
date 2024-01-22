@@ -1,7 +1,7 @@
 import {Shelter, Warehouse, Station} from './objects.js';
 
 let gameEnv;
-let gameConfig = {
+const gameConfig = {
     size: 10,  // Example size value
     seed: null,  // Example seed value
     reward: true,  // Example reward value
@@ -48,7 +48,6 @@ userInputBoxes.forEach(inputBox => {
 });
 
 document.getElementById('nextButton').addEventListener('click', function () {
-    // Check if the game environment is initialized
     if (gameEnv) {
         const [observations, rewards, done, info] = gameEnv.step(userInputs);
 
@@ -57,6 +56,9 @@ document.getElementById('nextButton').addEventListener('click', function () {
         console.log('Rewards:', rewards);
         console.log('Done:', done);
         console.log('Info:', info);
+
+        userInputs = {};
+
     } else {
         console.log('Game environment not initialized. Click "Start Game" first.');
     }

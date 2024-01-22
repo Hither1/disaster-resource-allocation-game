@@ -220,7 +220,7 @@ export class Station extends Agency {
         this.inventory = {
             'food': 9,
             'drink': 9,
-            'staff': demand(mean = 12, std_dev = 2),
+            'staff': demand(12, 2),
             'wood': 0,
             'stone': 0,
             'coal': 0

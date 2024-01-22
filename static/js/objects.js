@@ -1,8 +1,5 @@
 class Agency {
-    constructor(world, pos, agentNum, config, strategy='bs') {
-      this.world = world;
-      this.pos = [pos[0], pos[1]];
-      this.random = world.random;
+    constructor( agentNum, config, strategy='bs') {
       this.base_stock = {'food': 2, 'drink': 2, 'staff': 1};
       this.removed = false;
       this.strategy = strategy;
@@ -124,36 +121,6 @@ class Agency {
     }
   
     act() {
-      this.curTime = this.world.currentTime;
-  
-      if (this.curTime === 1) {
-        this.lead_time = [this.config.leadTimeItem, this.config.leadTimeOrder];
-      }
-  
-      if (this.config.leadTimeDistribution === 'exponential') {
-        for (let i = 0; i < 2; i++) {
-          if (this.config.leadTimeUp[this.agentNum] <= this.lead_time[i] && this.lead_time[i] <= this.config.leadTimeLow[this.agentNum]) {
-            this.lead_time[i] = parseInt(
-              this.random.exponential(1 / this.lead_time[i])
-            );
-          } else {
-            this.lead_time[i] = parseInt(
-              this.random.exponential(1 / ((this.config.leadTimeLow[this.agentNum] + this.config.leadTimeUp[this.agentNum]) / 2))
-            );
-          }
-        }
-      } else if (this.config.leadTimeDistribution === 'constant') {
-        this.lead_time = [this.config.leadTimeItem, this.config.leadTimeOrder];
-      }
-  
-      if (this.config.leadTimeDistribution === 'uniform') {
-        for (let i = 0; i < 2; i++) {
-          this.lead_time[i] = this.random.uniform(
-            this.config.leadTimeLow[this.agentNum], this.config.leadTimeUp[this.agentNum]
-          );
-        }
-      }
-  
       if (this.config.demandDistribution === 0) {
         for (let i = 0; i < 3; i++) {
           this.D[i] = Math.abs(
@@ -188,10 +155,9 @@ class Agency {
       }
   
       if (this._communication === 1) {
-        for (let k = 0; k < this.world.agents.length; k++) {
-          const agent = this.world.agents[k];
+        for (let k = 0; k < this.agents.length; k++) {
+          const agent = this.agents[k];
           if (this.agentNum !== k) {
-            const distance = this.world.getDistance(this.pos, agent.pos);
             if (distance <= this.config.communication_distance) {
               this.out_requests = agent.in_requests;
             }
@@ -208,11 +174,9 @@ class Agency {
   }
 
 export class Station extends Agency {
-    constructor(world, pos, agentNum, config) {
-      super(world, pos, agentNum, config);
-      this.world = world;
+    constructor(agentNum, config) {
+      super(agentNum, config);
       this.pos = new Array(pos[0], pos[1]);
-      this.random = world.random;
       this.inventory = {
         'food': 9,
         'drink': 9,
@@ -318,12 +282,8 @@ export class Station extends Agency {
   }
   
 export class Warehouse extends Agency {
-    constructor(world, pos, agentNum, config) {
-      super(world, pos, agentNum, config);
-      this.world = world;
-      this.pos = new Array(pos[0], pos[1]);
-      this.random = world.random;
-      
+    constructor(agentNum, config) {
+      super(agentNum, config);
       this.inventory = {
         'food': time_varying_demand_supply.demand({mean: 40, std_dev: 2}),
         'drink': time_varying_demand_supply.demand({mean: 40, std_dev: 2}),
@@ -441,8 +401,8 @@ export class Warehouse extends Agency {
   }
   
 export class Shelter extends Agency {
-    constructor(world, pos, agentNum, config) {
-      super(world, pos, agentNum, config);
+    constructor(agentNum, config) {
+      super(agentNum, config);
       this.inventory = {
         'health': time_varying_demand_supply.demand({mean: 10, std_dev: 2}),
         'food': 39,

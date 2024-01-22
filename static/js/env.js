@@ -101,7 +101,6 @@ class Env {
   }
 
 function startGame() {
-    // Create a configuration object (adjust this based on your requirements)
     const config = {
         size: 10,  // Example size value
         seed: null,  // Example seed value
@@ -110,21 +109,8 @@ function startGame() {
         // Add other config properties as needed
     };
 
-    // Create a world object (adjust this based on your requirements)
-    const world = {
-        // Example world properties
-        agents: [],  // Example agents array
-        shelter: {
-            base_stock: {
-                // Example base_stock properties
-            }
-        },
-        // Add other world properties as needed
-    };
-
     const env = new Env(
         config,
-        world,
     );
 
     // Call the reset method to initialize the game environment
@@ -132,7 +118,3 @@ function startGame() {
 
     
 }
-
-function startGame(name) {
-    console.log("Hello, " + name + "!");
-  }

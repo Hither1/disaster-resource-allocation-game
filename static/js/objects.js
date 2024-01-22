@@ -169,7 +169,6 @@ class Agency {
 export class Station extends Agency {
     constructor(agentNum, config) {
       super(agentNum, config);
-      this.pos = new Array(pos[0], pos[1]);
       this.inventory = {
         'food': 9,
         'drink': 9,

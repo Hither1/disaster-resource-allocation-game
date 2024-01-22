@@ -41,7 +41,17 @@
           <div class="row">
             <table id="tabgame" v-if="position" cellpadding="10" cellspacing="0" style="width: 1150px;" align="center">
               <div id="qualtrics-container">
-                  <iframe id="frame-qualtrics" src="" height="400px" width="400px"></iframe>
+                  <iframe id="frame-qualtrics" src="" height="400px" width="400px">
+                    <h3>
+                      <span id="episode"></span> |
+                      <span id="goal"> Points: 0</span> |
+                      <span id="food">Food: 0</span> |
+                      <span id="drink">Drink: 0</span> |
+                      <span id="staff">Staff: 0</span> |
+                      
+                      <span id="instructionsToggle" style="border-color: gray; border-width: 2px; padding: 6px; border-style: solid;cursor:pointer;">Show commands</span>
+                  </h3>
+                  </iframe>
               </div>
               <tr id="game-container" class=border align="center">
                   <td>
@@ -49,15 +59,7 @@
                           <h2 id="playtime"> Game ends in <span id="time"></span> minutes</h2>
                       </div>
                       <div align="center">
-                          <h3>
-                              <span id="episode"></span> |
-                              <span id="goal"> Points: 0</span> |
-                              <span id="food">Food: 0</span> |
-                              <span id="drink">Drink: 0</span> |
-                              <span id="staff">Staff: 0</span> |
-                              
-                              <span id="instructionsToggle" style="border-color: gray; border-width: 2px; padding: 6px; border-style: solid;cursor:pointer;">Show commands</span>
-                          </h3>
+                          
                           <h3><span id="result"></span></h3>
                           <form name="frm">
                               <input type="hidden" id="uid" name="uid" value={{data}} />
@@ -73,7 +75,6 @@
                           
                           <div id="sketch-holder">
                               <script src="{{ url_for('static', path='js/fullgame_wr.js?v=')}}"+DateTime.Now.Ticks></script>
-                              <script src="{{ url_for('static', path='js/cell.js?v=')}}"+DateTime.Now.Ticks></script>
                           </div>
         
                           <div align="center">

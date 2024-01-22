@@ -366,17 +366,13 @@ async def gameLoop(roomid, episode):
         await asyncio.sleep(1/60)  # emit rate
         timestamp = time.time() - start_time
         time_left = game_duration - timestamp
-        #state_change = False
 
         while len(roomid_event_queue[roomid]) > 0:
             event = roomid_event_queue[roomid].popleft()
             temp_event = event
             temp_event['process_time'] = time.time()
             roomid_ep_keypresses[roomid][episode].append(temp_event)
-            #state_change = True
-            #temp_event = event
-            #temp_event['timestamp'] = timestamp
-            #roomid_ep_keypresses[roomid][episode].append(temp_event)
+
             # change game state according to event
             uid, agent_coord, rescues = roomid_env[roomid].step(event)
 
@@ -390,7 +386,6 @@ async def gameLoop(roomid, episode):
 
 
             # Clear event queue for next game tick
-
             # Broadcast game state to all clients
             # Includes state_map and scoreboard
 
@@ -405,14 +400,13 @@ async def gameLoop(roomid, episode):
             state_change = True
 
         #if state_change == True:
-
         #    roomid_ep_states[roomid][episode].append({'map': roomid_env[roomid].state_map, 'scoreboard': roomid_scoreboard[roomid], \
         #                                            'players': roomid_players[roomid], 'timestamp': timestamp})
         
 
         # To human players 
         await app.sio.emit('refresh', \
-                            {'map': roomid_env[roomid].state_map, 'scoreboard': roomid_scoreboard[roomid], 
+                            {'scoreboard': roomid_scoreboard[roomid], 
                              'players': roomid_players[roomid], 'remaining_time': time_left}, \
                             room=roomid)
         

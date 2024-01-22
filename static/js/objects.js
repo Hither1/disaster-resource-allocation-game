@@ -13,6 +13,8 @@ class Agency {
       this.agentNum = agentNum;
       this.config = config;
       console.log(config.alpha_b);
+      console.log(config.alpha_b[0]);
+      console.log(this.agentNum);
       this.alpha_b = this.config.alpha_b[this.agentNum];
       this.betta_b = this.config.betta_b[this.agentNum];
       this.mode = mode;

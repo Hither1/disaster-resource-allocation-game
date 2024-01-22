@@ -26,33 +26,34 @@ document.getElementById('startButton').addEventListener('click', function () {
 });
 
 
-const userInputBoxes = document.querySelectorAll('.userInput');
-userInputBoxes.forEach(inputBox => {
-    inputBox.addEventListener('input', function () {
-        if (gameEnv) {
-            const input = inputBox.value;
-            const inputIdentifier = inputBox.getAttribute('data-input');
-
-            gameEnv.handleUserInput(inputIdentifier, input);
-
-            console.log(`User Input ${inputIdentifier}:`, input);
-        } else {
-            console.log('Game environment not initialized. Click "Start Game" first.');
-        }
-    });
-});
-
 document.getElementById('nextButton').addEventListener('click', function () {
     if (gameEnv) {
-        const [observations, rewards, done, info] = gameEnv.step(userInputs);
-
-        // Log updated observations, rewards, and other information
-        console.log('Updated Observations:', observations);
+        // 1. Get user actions
         console.log('Rewards:', rewards);
         console.log('Done:', done);
-        console.log('Info:', info);
 
         userInputs = {};
+
+        const userInputBoxes = document.querySelectorAll('.userInput');
+        userInputBoxes.forEach(inputBox => {
+            inputBox.addEventListener('input', function () {
+            if (gameEnv) {
+                const input = inputBox.value;
+                const inputIdentifier = inputBox.getAttribute('data-input');
+
+                if (!isNaN(inputValue)) {
+                    userInputs[inputType] = inputValue;
+                }
+
+            console.log(`User Input ${inputIdentifier}:`, input);
+            } else {
+                console.log('Game environment not initialized. Click "Start Game" first.');
+            }
+            });
+        });
+
+        // 2. Run env step
+        const [rewards, done] = gameEnv.step(userInputs);
 
     } else {
         console.log('Game environment not initialized. Click "Start Game" first.');
@@ -92,7 +93,7 @@ class Env {
 
     }
   
-    _getReward() {
+    getReward() {
         death = this.shelter.death;
         consumption = this.shelter.consumption + this.shelter.consumption + this.shelter.consumption;
         communication = this.shelter.communication + this.shelter.communication + this.shelter.communication;
@@ -137,20 +138,15 @@ class Env {
         }
       }
   
-      for (const obj of this.world.objects) {
-        if (this._player.distance(obj) < 2 * Math.max(...this._view) && !this.players.includes(obj)) {
-          obj.update();
-        }
-      }
   
-      for (const agent of this.players) {
-        const r = this._getReward(agent);
-        rewardN.push(r);
-      }
-  
+    //   for (const agent of this.players) {
+    //     const r = this._getReward(agent);
+    //     rewardN.push(r);
+    //   }
+      rewardN = this.getReward()
       const done = this._step >= 20;
   
-      return [ rewardN, done];
+      return [rewardN, done];
     }
   
     // .

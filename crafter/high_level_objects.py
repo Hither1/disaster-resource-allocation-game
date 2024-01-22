@@ -85,7 +85,6 @@ class Agency:
     self._communication = 0
     order = {}
     if self.strategy == 'bs':
-      # self.players.action = np.zeros(self.config.actionListLenOpt)
       for resource in self.base_stock.keys():
         if self.config.demandDistribution == 2:
           if self.curTime and self.config.use_initial_BS <= 4:
@@ -119,8 +118,7 @@ class Agency:
     elif self.strategy == 'gpt-4':
       pass
 
-    # TODO: Change this
-    if 'staff' in order.keys():
+    if 'staff' in order.keys(): # TODO: Change this
       if self.name is not 'Station':
         self.out_requests.append(f"{self.name}->Station: Please send {order['staff']} staff")
         self.OO['staff'] += order['staff']
@@ -192,22 +190,17 @@ class Agency:
       curState = np.concatenate((curState, np.array([a])))
     
     return curState.flatten()
+  
 
 class Person:
   def __init__(self, type, health=5):
     super().__init__()
-    self.inventory = {
-        name: info['initial'] for name, info in constants.items.items()}
-    self.achievements = {name: 0 for name in constants.achievements}
-    self.action = 'noop'
-    self.sleeping = False
+    # self.inventory = {
+    #     name: info['initial'] for name, info in constants.items.items()}
     if type == 'injured':
       self._admitted_days = 0
-
     elif type == 'staff':
       pass
-      # self.health = 5
-      # self.health = 0
     self.health = health
     self._last_health = self.health
 
@@ -219,146 +212,10 @@ class Person:
   def update(self):
     target = (self.pos[0] + self.facing[0], self.pos[1] + self.facing[1])
     material, obj = self.world[target]
-    action = self.action
-    if self.sleeping:
-      if self.inventory['energy'] < constants.items['energy']['max']:
-        action = 'sleep'
-      else:
-        self.sleeping = False
-        self.achievements['wake_up'] += 1
-    if action == 'noop':
-      pass
-    elif action.startswith('move_'):
-      self._move(action[len('move_'):])
-    elif action == 'do' and obj:
-      self._do_object(obj)
-    elif action == 'do':
-      self._do_material(target, material)
-    elif action == 'sleep':
-      if self.inventory['energy'] < constants.items['energy']['max']:
-        self.sleeping = True
-    elif action.startswith('place_'):
-      self._place(action[len('place_'):], target, material)
-    elif action.startswith('make_'):
-      self._make(action[len('make_'):])
-    self._update_life_stats()
-    self._degen_or_regen_health()
+
     for name, amount in self.inventory.items():
       maxmium = constants.items[name]['max']
       self.inventory[name] = max(0, min(amount, maxmium))
-
-  def _update_life_stats(self):
-    self._hunger += 0.5 if self.sleeping else 1
-    if self._hunger > 25:
-      self._hunger = 0
-      self.inventory['food'] -= 1
-    self._thirst += 0.5 if self.sleeping else 1
-    if self._thirst > 20:
-      self._thirst = 0
-      self.inventory['drink'] -= 1
-    if self.sleeping:
-      self._fatigue = min(self._fatigue - 1, 0)
-    else:
-      self._fatigue += 1
-    if self._fatigue < -10:
-      self._fatigue = 0
-      self.inventory['energy'] += 1
-    if self._fatigue > 30:
-      self._fatigue = 0
-      self.inventory['energy'] -= 1
-
-  def _degen_or_regen_health(self):
-    necessities = (
-        self.inventory['food'] > 0,
-        self.inventory['drink'] > 0,
-        self.inventory['energy'] > 0 or self.sleeping)
-    if all(necessities):
-      self._recover += 2 if self.sleeping else 1
-    else:
-      self._recover -= 0.5 if self.sleeping else 1
-    if self._recover > 25:
-      self._recover = 0
-      self.health += 1
-    if self._recover < -15:
-      self._recover = 0
-      self.health -= 1
-
-  def _do_object(self, obj):
-    damage = max([
-        1,
-        self.inventory['wood_sword'] and 2,
-        self.inventory['stone_sword'] and 3,
-        self.inventory['iron_sword'] and 5,
-    ])
-    if isinstance(obj, Fence):
-      self.world.remove(obj)
-      self.inventory['fence'] += 1
-      self.achievements['collect_fence'] += 1
-    if isinstance(obj, Zombie):
-      obj.health -= damage
-      if obj.health <= 0:
-        self.achievements['defeat_zombie'] += 1
-    if isinstance(obj, Skeleton):
-      obj.health -= damage
-      if obj.health <= 0:
-        self.achievements['defeat_skeleton'] += 1
-    if isinstance(obj, Cow):
-      obj.health -= damage
-      if obj.health <= 0:
-        self.inventory['food'] += 6
-        self.achievements['eat_cow'] += 1
-        # TODO: Keep track of previous inventory state to do this in a more
-        # general way.
-        self._hunger = 0
-
-  def _do_material(self, target, material):
-    if material == 'water':
-      # TODO: Keep track of previous inventory state to do this in a more
-      # general way.
-      self._thirst = 0
-    info = constants.collect.get(material)
-    if not info:
-      return
-    for name, amount in info['require'].items():
-      if self.inventory[name] < amount:
-        return
-    self.world[target] = info['leaves']
-    if self.random.uniform() <= info.get('probability', 1):
-      for name, amount in info['receive'].items():
-        self.inventory[name] += amount
-        self.achievements[f'collect_{name}'] += 1
-
-  def _place(self, name, target, material):
-    if self.world[target][1]:
-      return
-    info = constants.place[name]
-    if material not in info['where']:
-      return
-    if any(self.inventory[k] < v for k, v in info['uses'].items()):
-      return
-    for item, amount in info['uses'].items():
-      self.inventory[item] -= amount
-    if info['type'] == 'material':
-      self.world[target] = name
-    elif info['type'] == 'object':
-      cls = {
-          'fence': Fence,
-          'plant': Plant,
-      }[name]
-      self.world.add(cls(self.world, target))
-    self.achievements[f'place_{name}'] += 1
-
-  def _make(self, name):
-    nearby, _ = self.world.nearby(self.pos, 1)
-    info = constants.make[name]
-    if not all(util in nearby for util in info['nearby']):
-      return
-    if any(self.inventory[k] < v for k, v in info['uses'].items()):
-      return
-    for item, amount in info['uses'].items():
-      self.inventory[item] -= amount
-    self.inventory[name] += info['gives']
-    self.achievements[f'make_{name}'] += 1
 
 
 class Warehouse(Agency):

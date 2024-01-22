@@ -1,3 +1,26 @@
+class Person {
+    constructor(type, health = 5) {
+      this.inventory = {};
+      this.action = 'noop';
+      this.sleeping = false;
+      this.health = health;
+      this._lastHealth = this.health;
+  
+    //   for (const [name, info] of Object.entries(constants.items)) {
+    //     this.inventory[name] = info.initial;
+    //   }
+  
+      if (type === 'injured') {
+        this._admittedDays = 0;
+      } 
+    }
+  
+    get texture() {
+      return this.sleeping ? 'player-sleep' : undefined;
+    }
+  }
+
+
 class Agency {
     constructor(agentNum, config, strategy='bs', mode='computer') {
       this.base_stock = {'food': 2, 'drink': 2, 'staff': 1};
@@ -56,6 +79,7 @@ class Agency {
   
     _process_requests() {
         if (self.mode === "human"){
+
 
         } else {
             const requests = [];
@@ -120,11 +144,6 @@ class Agency {
       return order;
     }
   
-    _get_resource_requests() {
-      const resourceRequests = this._process_requests();
-      return resourceRequests;
-    }
-  
     act() {
       if (this.config.demandDistribution === 0) {
         for (let i = 0; i < 3; i++) {
@@ -172,8 +191,7 @@ class Agency {
       }
   
       const resourceRequests = this._get_resource_requests();
-      const orders = this._make_orders(goal);
-      this.send_orders(orders);
+      this.out_requests = this._make_orders(goal);
     }
   }
 

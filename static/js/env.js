@@ -1,7 +1,7 @@
 import {Shelter, Warehouse, Station} from './objects.js';
 
 let gameEnv;
-let config = {
+let gameConfig = {
     size: 10,  // Example size value
     seed: null,  // Example seed value
     reward: true,  // Example reward value
@@ -20,7 +20,7 @@ let config = {
 document.getElementById('startButton').addEventListener('click', function () {
     gameEnv = new Env({
         user: userRole,
-        config
+        config: gameConfig
     });
 
     const initialObservations = gameEnv.reset();

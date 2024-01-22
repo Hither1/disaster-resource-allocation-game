@@ -6,7 +6,7 @@ const gameConfig = {
     seed: null,  // Example seed value
     length: 20,  // Example length value
     alpha_b: [-0.5, -0.5, -0.5],
-    beta_b: [-0.2, -0.2, -0.2],
+    betta_b: [-0.2, -0.2, -0.2],
     demandDistribution: 0,
     demandUp: [16, 8, 6],
     demandLow: [4, 0, 0],
@@ -64,7 +64,6 @@ document.getElementById('nextButton').addEventListener('click', function () {
 class Env {
     constructor(user, config) {
       this.config = config;
-      console.log(config.alpha_b);
       this.shelter = new Shelter(0, config);
       this.warehouse = new Warehouse(1, config);
       this.station = new Station(2, config);

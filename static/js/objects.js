@@ -13,8 +13,6 @@ class Agency {
       this.agentNum = agentNum;
       this.config = config;
 
-      console.log(config.alpha_b[0]);
-      console.log(this.agentNum === 0);
       this.alpha_b = this.config.alpha_b[this.agentNum];
       this.betta_b = this.config.betta_b[this.agentNum];
       this.mode = mode;
@@ -227,7 +225,7 @@ export class Station extends Agency {
       this._backorder = 0;
 
       if (self.mode !== 'human') {
-        this._make_decisions_on_requests();
+        this._make_decisions_on_requests(userInputs);
       }
       this.receiveItems();
       this._update_inventory_stats();
@@ -252,7 +250,7 @@ export class Station extends Agency {
       }
     }
   
-    _make_decisions_on_requests(goal) {
+    _make_decisions_on_requests(userInputs) {
       // Part 1:
       this.in_requests = this._process_requests();
       this.in_requests.sort((a, b) => a[0].name.localeCompare(b[0].name));
@@ -277,7 +275,7 @@ export class Station extends Agency {
       this.in_requests = [];
   
       // Part 2: make orders
-      this._make_orders(goal);
+      this._make_orders(userInputs);
     }
   }
   
@@ -324,7 +322,7 @@ export class Warehouse extends Agency {
   
     step(_ste, userInputs) {
         if (this.mode !== 'human') {
-            this._make_decisions_on_requests();
+            this._make_decisions_on_requests(userInputs);
         }
         this.receiveItems();
         this._update_life_stats();
@@ -359,7 +357,7 @@ export class Warehouse extends Agency {
       }
     }
   
-    _make_decisions_on_requests(goal) {
+    _make_decisions_on_requests(userInputs) {
       // Step 1:
       this.in_requests = this._process_requests();
       const resourceDict = {};
@@ -461,7 +459,7 @@ export class Shelter extends Agency {
       }
       
       if (this.mode !== 'human') {
-        this._make_decisions_on_requests();
+        this._make_decisions_on_requests(userInputs);
       }
       this._update_patient_inventory_stats();
       this._update_staff_stats();
@@ -549,7 +547,7 @@ export class Shelter extends Agency {
       }
     }
   
-    _make_decisions_on_requests(goal) {
+    _make_decisions_on_requests(userInputs) {
       // Step 1:
       this.in_requests = this._process_requests();
   
@@ -567,7 +565,7 @@ export class Shelter extends Agency {
       this.in_requests = [];
   
       // Step 2:
-      this._make_orders(goal);
+      this._make_orders(userInputs);
     }
   }
   

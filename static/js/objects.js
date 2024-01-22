@@ -1,5 +1,5 @@
 class Agency {
-    constructor(agentNum, config, strategy='bs', player='computer') {
+    constructor(agentNum, config, strategy='bs', mode='computer') {
       this.base_stock = {'food': 2, 'drink': 2, 'staff': 1};
       this.removed = false;
       this.strategy = strategy;
@@ -14,7 +14,7 @@ class Agency {
       this.config = config;
       this.alpha_b = this.config.alpha_b[this.agentNum];
       this.betta_b = this.config.betta_b[this.agentNum];
-      this.player = player;
+      this.mode = mode;
       
       if (this.config.demandDistribution === 0) {
         this.a_b = (this.config.demandUp[this.agentNum] + this.config.demandLow[this.agentNum]) / 2;
@@ -54,25 +54,28 @@ class Agency {
     }
   
     _process_requests() {
-      const requests = [];
-      for (const request of this.in_requests) {
-        const destination = request[0];
-        const resource = request[1];
-  
-        const inventory = Object.keys(this.inventory);
-        const resources = inventory.filter(word => word.toLowerCase().includes(resource));
-  
-        const quantities = resource.match(/\d+/g);
-  
-        for (let i = 0; i < quantities.length; i++) {
-          const quantity = quantities[i];
-          const requestedResource = resources[i];
-          if (parseInt(quantity) > 0) {
-            requests.push([destination, quantity, requestedResource]);
-          }
+        if (self.mode === "human"){
+
+        } else {
+            const requests = [];
+            for (const request of this.in_requests) {
+                const destination = request[0];
+                const resource = request[1];
+          
+                const inventory = Object.keys(this.inventory);
+                const resources = inventory.filter(word => word.toLowerCase().includes(resource));
+          
+                const quantities = resource.match(/\d+/g);
+          
+                for (let i = 0; i < quantities.length; i++) {
+                  const quantity = quantities[i];
+                  const requestedResource = resources[i];
+                  if (parseInt(quantity) > 0) {
+                    requests.push([destination, quantity, requestedResource]);
+                  }
+                }
+            }
         }
-      }
-      return requests;
     }
   
     _make_orders(goal) {
@@ -168,7 +171,6 @@ class Agency {
       }
   
       const resourceRequests = this._get_resource_requests();
-      const goal = this._calculate_goal(resourceRequests);
       const orders = this._make_orders(goal);
       this.send_orders(orders);
     }

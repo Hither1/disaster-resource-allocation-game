@@ -53,7 +53,12 @@ document.getElementById('nextButton').addEventListener('click', function () {
         });
 
         // 2. Run env step
-        const [rewards, done] = gameEnv.step(userInputs);
+        const [reward, user_food, user_drink, user_staff, done] = gameEnv.step(userInputs);
+
+        document.getElementById('goal').textContent = reward;
+        document.getElementById('food').textContent = user_food;
+        document.getElementById('drink').textContent = user_drink;
+        document.getElementById('staff').textContent = user_staff;
 
     } else {
         console.log('Game environment not initialized. Click "Start Game" first.');
@@ -68,13 +73,16 @@ class Env {
       this.warehouse = new Warehouse(1, config);
       this.station = new Station(2, config);
       if (user === "Shelter") {
+        this.user = this.shelter
         this.shelter.mode = "human";
       } else if (user === "Warehouse") {
+        this.user = this.warehouse
         this.warehouse.mode = "human";
       } else if (user === "Station") {
+        this.user = this.station
         this.station.mode = "human";
       }
-      this.user = user
+      this.user_name = user
       this.players = [this.shelter, this.warehouse, this.station];
       this.nAgents = this.players.length;
       this.n = this.nAgents;
@@ -145,7 +153,7 @@ class Env {
       rewardN = this.getReward()
       const done = this._step >= 20;
   
-      return [rewardN, done];
+      return [rewardN, this.user.inventory['food'], this.user.inventory['drink'], this.user.inventory['staff'], done];
     }
   
     // .

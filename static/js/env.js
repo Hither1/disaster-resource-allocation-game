@@ -33,18 +33,7 @@ document.getElementById('startButton').addEventListener('click', function () {
     document.getElementById('userInputs').classList.remove('hidden');
 });
 
-const userButtons = document.querySelectorAll('.userButton');
-userButtons.forEach(button => {
-    button.addEventListener('click', function () {
-        if (gameEnv) {
-            const action = button.getAttribute('data-action');
-            gameEnv.handleUserAction(action);
-            console.log('User Action:', action);
-        } else {
-            console.log('Game environment not initialized. Click "Start Game" first.');
-        }
-    });
-});
+
 
 const userInputBoxes = document.querySelectorAll('.userInput');
 userInputBoxes.forEach(inputBox => {
@@ -61,6 +50,22 @@ userInputBoxes.forEach(inputBox => {
         }
     });
 });
+
+document.getElementById('nextButton').addEventListener('click', function () {
+    // Check if the game environment is initialized
+    if (gameEnv) {
+        const [observations, rewards, done, info] = gameEnv.step(userInputs);
+
+        // Log updated observations, rewards, and other information
+        console.log('Updated Observations:', observations);
+        console.log('Rewards:', rewards);
+        console.log('Done:', done);
+        console.log('Info:', info);
+    } else {
+        console.log('Game environment not initialized. Click "Start Game" first.');
+    }
+});
+
 
 // export function startGame() {
     

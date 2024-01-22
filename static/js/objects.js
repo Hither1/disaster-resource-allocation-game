@@ -184,7 +184,7 @@ export class Station extends Agency {
       this.inventory = {
         'food': 9,
         'drink': 9,
-        'staff': time_varying_demand_supply.demand(mean = 12, std_dev = 2),
+        'staff': demand(mean = 12, std_dev = 2),
         'wood': 0,
         'stone': 0,
         'coal': 0
@@ -283,8 +283,8 @@ export class Warehouse extends Agency {
     constructor(agentNum, config) {
       super(agentNum, config);
       this.inventory = {
-        'food': time_varying_demand_supply.demand({mean: 40, std_dev: 2}),
-        'drink': time_varying_demand_supply.demand({mean: 40, std_dev: 2}),
+        'food': demand({mean: 40, std_dev: 2}),
+        'drink': demand({mean: 40, std_dev: 2}),
         'staff': 9,
         'wood': 0,
         'stone': 0,
@@ -310,8 +310,8 @@ export class Warehouse extends Agency {
     resetPlayer(T) {
       super.resetPlayer(T);
       this.inventory = {
-        'food': time_varying_demand_supply.demand({mean: 40, std_dev: 2}),
-        'drink': time_varying_demand_supply.demand({mean: 40, std_dev: 2}),
+        'food': demand({mean: 40, std_dev: 2}),
+        'drink': demand({mean: 40, std_dev: 2}),
         'staff': 9,
         'wood': 0,
         'stone': 0,
@@ -398,10 +398,10 @@ export class Shelter extends Agency {
     constructor(agentNum, config) {
       super(agentNum, config);
       this.inventory = {
-        'health': time_varying_demand_supply.demand({mean: 10, std_dev: 2}),
+        'health': demand({mean: 10, std_dev: 2}),
         'food': 39,
         'drink': 39,
-        'staff': time_varying_demand_supply.demand({mean: 20, std_dev: 2}),
+        'staff': demand({mean: 20, std_dev: 2}),
         'death': 0,
         'wood': 0,
         'stone': 0,
@@ -428,10 +428,10 @@ export class Shelter extends Agency {
     resetPlayer(T) {
       super.resetPlayer(T);
       this.inventory = {
-        'health': time_varying_demand_supply.demand({mean: 10, std_dev: 2}),
+        'health': demand({mean: 10, std_dev: 2}),
         'food': 39,
         'drink': 39,
-        'staff': time_varying_demand_supply.demand({mean: 20, std_dev: 2}),
+        'staff': demand({mean: 20, std_dev: 2}),
         'death': 0,
         'wood': 0,
         'stone': 0,
@@ -451,7 +451,7 @@ export class Shelter extends Agency {
       this._helped_people = 0;
       this.receiveItems();
   
-      const new_arrived_injure = time_varying_demand_supply.piecewise_function(this.curTime);
+      const new_arrived_injure = piecewise_function(this.curTime);
       this.inventory['health'] += new_arrived_injure;
   
       for (let i = 0; i < new_arrived_injure; i++) {
@@ -569,4 +569,28 @@ export class Shelter extends Agency {
     }
   }
   
+
+function demand(distribution = 'normal', mean = 0, stdDev = 1) {
+    let numberInitialPatients;
+  
+    if (distribution === 'normal') {
+      numberInitialPatients = Math.random() * stdDev + mean;
+    } else if (distribution === 'poisson') {
+      const lambdaParameter = 3.0;
+      numberInitialPatients = Math.round(Math.exp(-lambdaParameter) * Math.pow(lambdaParameter, Math.random()));
+    } else {
+      const low = 10;
+      const high = 14;
+      numberInitialPatients = Math.random() * (high - low) + low;
+    }
+  
+    return Math.floor(numberInitialPatients);
+  }
+  
+function piecewise_function(x, noise = 'normal') {
+    const mean = (x >= 0 && x <= 2) ? -2 * x + 6 : ((x > 2 && x <= 6) ? 2 : (x > 6) ? 0 : 0);
+    const noiseValue = (noise === 'normal') ? demand(noise) : 0;
+    return mean + noiseValue;
+  }
+
   

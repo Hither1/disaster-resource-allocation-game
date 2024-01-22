@@ -103,16 +103,25 @@ class Agency {
     }
 
     _make_orders(userInputs) {
-        this._communication = 0;
-        const order = {};
+        if (this.mode === 'human') {
+            if (userInputs[0]['food']) {
+                this.out_requests.push(`${this.name}->Warehouse: Please send ${userInputs[0]['food']} food and ${userInputs[0]['drink']} drink`);
+            }
+            if (userInputs[0]['staff']) {
+                this.out_requests.push(`${this.name}->Station: Please send ${userInputs[0]['staff']} staff`);
+            }
+        }
+        else {
+            this._communication = 0;
+            const order = {};
       
-        if (this.strategy === 'bs') {
-          for (const resource in this.base_stock) {
-            if (this.config.demandDistribution === 2) {
-              this.action = this.config.actionListOpt.findIndex((action) =>
-                Math.abs(action - Math.max(0, this.int_bslBaseStock - (this.inventory[resource] + this.OO[resource] - this.AO[resource][this.curTime])))
-              );
-            } else {
+            if (this.strategy === 'bs') {
+                for (const resource in this.base_stock) {
+                if (this.config.demandDistribution === 2) {
+                    this.action = this.config.actionListOpt.findIndex((action) =>
+                    Math.abs(action - Math.max(0, this.int_bslBaseStock - (this.inventory[resource] + this.OO[resource] - this.AO[resource][this.curTime])))
+                );
+                } else {
               this.action = this.config.actionListOpt.findIndex((action) =>
                 Math.abs(action - Math.max(0, this.base_stock[resource] - (this.inventory[resource] + this.OO[resource] - this.AO[resource][this.curTime])))
               );
@@ -162,7 +171,7 @@ class Agency {
       
         this.cumReward = this.gamma * this.cumReward + this.curReward;
         this.curTime += 1;
-      }      
+      }    }  
   
   }
 
@@ -240,27 +249,37 @@ export class Station extends Agency {
   
     _make_decisions_on_requests(userInputs) {
       // Part 1:
-      this.in_requests = this._process_requests();
-      this.in_requests.sort((a, b) => a[0].name.localeCompare(b[0].name));
+      if (this.mode === 'human') {
+        userInputs[1]['staff'].forEach(([requester, quantity]) => {
+            console.log('Object:', object, 'Number:', number);
+                this.AO[resource][this.curTime] = quantity;
+                requester.AS[resource][this.curTime + 1] += quantity;
+                this.inventory[resource] -= quantity;
+          });
+      } else {
+        this.in_requests = this._process_requests();
+        this.in_requests.sort((a, b) => a[0].name.localeCompare(b[0].name));
   
-      for (const request of this.in_requests) {
-        const [requester, quantity, resource] = request;
-        this.AO[resource][this.curTime] = quantity;
+        for (const request of this.in_requests) {
+            const [requester, quantity, resource] = request;
+            this.AO[resource][this.curTime] = quantity;
   
-        const sending_quantity = Math.min(this.inventory[resource], quantity);
+            const sending_quantity = Math.min(this.inventory[resource], quantity);
   
-        for (let i = 0; i < sending_quantity; i++) {
-          if (this.staff_team.length > 0 && this.staff_team[0].health > 4) {
-            this.inventory[resource]--;
-            requester.AS[resource][this.curTime + 1]++;
-            this.staff_team.shift();
-          } else {
+            for (let i = 0; i < sending_quantity; i++) {
+                if (this.staff_team.length > 0 && this.staff_team[0].health > 4) {
+                this.inventory[resource]--;
+                requester.AS[resource][this.curTime + 1]++;
+                this.staff_team.shift();
+            } else {
             break;
-          }
+            }
         }
       }
   
       this.in_requests = [];
+      }
+      
   
       // Part 2: make orders
       this._make_orders(userInputs);
@@ -347,19 +366,25 @@ export class Warehouse extends Agency {
   
     _make_decisions_on_requests(userInputs) {
       // Step 1:
-      this.in_requests = this._process_requests();
-      const resourceDict = {};
+      if (self.mode == 'human') {
+        userInputs.forEach(([requester, quantity]) => {
+            console.log('Object:', object, 'Number:', number);
+
+          });
+      } else {
+        this.in_requests = this._process_requests();
+        const resourceDict = {};
   
-      for (const [requester, quantity, resource] of this.in_requests) {
-        if (!(resource in resourceDict)) {
-          resourceDict[resource] = [];
-        }
+        for (const [requester, quantity, resource] of this.in_requests) {
+            if (!(resource in resourceDict)) {
+                resourceDict[resource] = [];
+            }
         resourceDict[resource].push([requester, parseInt(quantity)]);
-      }
+        }
   
-      for (const [resource, requestsList] of Object.entries(resourceDict)) {
-        const totalQuantity = Math.min(this.inventory[resource], requestsList.reduce((acc, [, quantity]) => acc + quantity, 0));
-        this.AO[resource][this.curTime] = totalQuantity;
+        for (const [resource, requestsList] of Object.entries(resourceDict)) {
+            const totalQuantity = Math.min(this.inventory[resource], requestsList.reduce((acc, [, quantity]) => acc + quantity, 0));
+            this.AO[resource][this.curTime] = totalQuantity;
   
         if (this.inventory[resource] >= totalQuantity) {
           for (const [requester, quantity] of requestsList) {
@@ -376,6 +401,8 @@ export class Warehouse extends Agency {
       }
   
       this.in_requests = [];
+      }
+      
   
       // Step 2:
       this._make_orders(userInputs);

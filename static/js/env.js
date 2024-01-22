@@ -19,7 +19,8 @@ const config = {
 
 document.getElementById('startButton').addEventListener('click', function () {
     gameEnv = new Env({
-       config
+        user: userRole,
+        config
     });
 
     const initialObservations = gameEnv.reset();
@@ -28,7 +29,6 @@ document.getElementById('startButton').addEventListener('click', function () {
 
     document.getElementById('userInputs').classList.remove('hidden');
 });
-
 
 
 const userInputBoxes = document.querySelectorAll('.userInput');
@@ -64,11 +64,18 @@ document.getElementById('nextButton').addEventListener('click', function () {
 
 
 class Env {
-    constructor(config) {
+    constructor(user, config) {
       this.config = config;
-      this.shelter = new Shelter(0, config, player='human');
+      this.shelter = new Shelter(0, config);
       this.warehouse = new Warehouse(1, config);
       this.station = new Station(2, config);
+      if (this.user === "Shelter") {
+        this.shelter.player = "human";
+      } else if (this.user === "Warehouse") {
+        this.warehouse.player = "human";
+      } else if (this.user === "Station") {
+        this.station.player = "human";
+      }
       this.players = [this.shelter, this.warehouse, this.station];
       this.nAgents = this.players.length;
       this.n = this.nAgents;
@@ -96,15 +103,6 @@ class Env {
   
     _getReward() {
       
-    }
-  
-
-    updateAgentState(agent) {
-      if (agent.silent) {
-        agent.state.c = new Array(this.dimC).fill(0);
-      } else {
-        const noise = new Array(agent.action.c.length).fill(0).map(() => Math.random() * agent.cNoise || 0.0);
-      }
     }
   
     step(userInputs) {

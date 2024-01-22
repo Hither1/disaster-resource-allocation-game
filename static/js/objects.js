@@ -12,6 +12,7 @@ class Agency {
       this.c_noise = null;
       this.agentNum = agentNum;
       this.config = config;
+      console.log(config.alpha_b);
       this.alpha_b = this.config.alpha_b[this.agentNum];
       this.betta_b = this.config.betta_b[this.agentNum];
       this.mode = mode;

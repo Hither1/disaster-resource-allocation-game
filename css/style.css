@@ -1,0 +1,294 @@
+html {
+  display: table;
+  margin: auto;
+  margin-top: 15px;
+
+}
+
+body {
+  display: table-cell;
+  margin-top: 10px;
+  vertical-align: middle;
+}
+
+h2,
+h3 {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  color: #555555;
+}
+
+#step,
+#cost {
+  color: #555555;
+}
+
+#sketch-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+tr.border {
+  outline: thin solid;
+}
+
+td {
+  padding-top: 2px;
+  padding-bottom: 0px;
+}
+
+.td-panel {
+  padding: 5px;
+  background-color: #f2f2f2;
+  border-bottom: 0px;
+  font-size: medium;
+}
+
+.button {
+  background-color: #555555;
+  border: none;
+  color: white;
+  padding: 12px 28px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  /* display: inline-block; */
+  display: none;
+}
+
+#qualtrics-container {
+  width: 100%;
+  /* border-radius: 25px; */
+  /* border: 2px solid Black; */
+  /* padding: 5px 5px 5px 5px; */
+  /* margin: 10px 10px 10px 10px; */
+  overflow: visible;
+  /* box-shadow: 5px 5px 2px #888888; */
+  position: relative;
+  display: none;
+}
+
+#game-container {
+  display: none;
+}
+
+#close-button {
+  display: none;
+}
+
+#finish-button {
+  background-color: #555555;
+  border: none;
+  color: white;
+  padding: 12px 28px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  display: none;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 250px;
+  background-color: grey;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 16px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -110px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+#tabgame {
+  /* width: 1000px; */
+  zoom: 98%;
+}
+
+#tab-panel {
+  width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+
+  #tabgame,
+  #tab-panel {
+    zoom: 55%;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+
+  #tabgame,
+  #tab-panel {
+    zoom: 100%;
+  }
+}
+
+.button-record {
+  cursor: pointer;
+  display: block;
+  width: 160px;
+  border: 1px solid black;
+  font-size: 16px;
+  text-align: center;
+  padding-top: 2px;
+  padding-bottom: 4px;
+  color: white;
+  background-color: darkgreen;
+  text-decoration: none;
+}
+
+.left {
+  margin-right: 10px;
+  float: left;
+  width: 160px;
+  padding: 0px;
+}
+
+.right {
+  margin-left: 10px;
+  float: left;
+  width: 160px;
+  padding: 0px;
+}
+
+video {
+  margin-top: 2px;
+  border: 1px solid black;
+}
+
+#scoreboard_box {
+  /* border: 2px solid orange; */
+  /* background-color: black; */
+  height: 60px;
+  overflow: auto;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  overflow: auto;
+  color: orange;
+}
+
+#scoreboardtext {
+  float: left;
+  transform: rotate(-90deg);
+  color: orange;
+  background-color: black;
+}
+
+goal,
+opponent_goal,
+opponent_steps,
+steps {
+  color: orange;
+}
+
+#light {
+  float: right;
+  margin: 0 0 0 0px;
+}
+
+#light_text {
+  float: right;
+}
+
+#viewers {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: right;
+  color: #555555;
+}
+
+.img-with-text {
+  text-align: justify;
+  width: 100;
+}
+
+.img-with-text img {
+  display: block;
+  margin: 0 auto;
+}
+
+.flex-container {
+  display: flex;
+}
+
+/* .flex-child {
+  flex: 1;
+  border: 2px solid orange;
+} */
+
+.flex-child {
+  flex: 1;
+  border: 2px solid rgb(16, 11, 1);
+}
+
+
+.flex-child:first-child {
+  margin-right: 20px;
+  background-color: black;
+  align: center;
+}
+
+.yours {
+  background-color: darkgreen;
+  color: white;
+}
+
+.bar {
+  color: orange;
+}
+
+.bar2 {
+  color: white;
+}
+
+.button-decorated {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e; 
+  border: none;
+  opacity: 0.8;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 20px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button-decorated:hover {opacity: 1}
+
+.left{float:left; width:33%;}
+
+.fa {
+  font-size: 50px;
+  cursor: pointer;
+  user-select: none;
+}
+​
+.fa:hover {
+  color: darkblue;
+}

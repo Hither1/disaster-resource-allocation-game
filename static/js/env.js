@@ -35,7 +35,7 @@ document.getElementById('startButton').addEventListener('click', function () {
 document.getElementById('nextButton').addEventListener('click', function () {
     if (gameEnv) {
         // 1. Get user actions
-        userInputs = {};
+        const userInputs = {};
 
         const userInputBoxes = document.querySelectorAll('.userInput');
         userInputBoxes.forEach(inputBox => {

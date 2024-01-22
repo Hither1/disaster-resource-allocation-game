@@ -189,11 +189,7 @@ export class Station extends Agency {
         'coal': 0
       };
       this.staff_team = Array.from({ length: this.inventory['staff'] }, () => new Person('staff', 5));
-  
-      this.achievements = {};
-      for (const name of constants.achievements) {
-        this.achievements[name] = 0;
-      }
+
       this._backorder = 0;
       this.strategy = 'bs';
     }

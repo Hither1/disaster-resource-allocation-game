@@ -220,7 +220,7 @@ export class Station extends Agency {
       this.staff_team = Array.from({ length: this.inventory['staff'] }, () => new Person('staff', 5));
     }
   
-    step(_step) {
+    step(_step, userInputs) {
       this._backorder = 0;
 
       if (self.mode !== 'human') {
@@ -319,14 +319,14 @@ export class Warehouse extends Agency {
       this.staff_team = Array.from({ length: this.inventory['staff'] }, () => new Person('staff', 5));
     }
   
-    step(_step) {
+    step(_ste, userInputs) {
         if (this.mode !== 'human') {
             this._make_decisions_on_requests();
         }
         this.receiveItems();
         this._update_life_stats();
       
-        this.curReward = -this._backorder - this.communication;
+        // this.curReward = -this._backorder - this.communication;
   
         for (const [name, amount] of Object.entries(this.inventory)) {
             const maxmium = constants.items[name]['max'];
@@ -445,7 +445,7 @@ export class Shelter extends Agency {
       };
     }
   
-    step(_step) {
+    step(_step, userInputs) {
       this.death = 0;
       this._helped_people = 0;
       this.receiveItems();

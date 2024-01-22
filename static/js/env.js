@@ -17,10 +17,10 @@ const gameConfig = {
 };
 
 document.getElementById('startButton').addEventListener('click', function () {
-    gameEnv = new Env({
+    gameEnv = new Env(
         userRole,
         gameConfig
-    });
+    );
 
     document.getElementById('userInputs').classList.remove('hidden');
 });

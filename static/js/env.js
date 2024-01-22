@@ -1,7 +1,7 @@
 import {Shelter, Warehouse, Station} from './objects.js';
 
 let gameEnv;
-const config = {
+let config = {
     size: 10,  // Example size value
     seed: null,  // Example seed value
     reward: true,  // Example reward value
@@ -69,11 +69,11 @@ class Env {
       this.shelter = new Shelter(0, config);
       this.warehouse = new Warehouse(1, config);
       this.station = new Station(2, config);
-      if (this.user === "Shelter") {
+      if (user === "Shelter") {
         this.shelter.player = "human";
-      } else if (this.user === "Warehouse") {
+      } else if (user === "Warehouse") {
         this.warehouse.player = "human";
-      } else if (this.user === "Station") {
+      } else if (user === "Station") {
         this.station.player = "human";
       }
       this.players = [this.shelter, this.warehouse, this.station];

@@ -72,7 +72,6 @@ class Agency {
             this.staff_team.push(new Person('staff', 5));
           }
         }
-        
         this.OO[resource] = Math.max(0, parseInt(this.OO[resource] - this.AS[resource][this.curTime]));
       }
     }
@@ -102,97 +101,69 @@ class Agency {
             }
         }
     }
-  
-    _make_orders(goal) {
-      this.communication = 0;
-      const order = {};
-      if (this.strategy === 'bs') {
-        for (const resource in this.base_stock) {
-          if (this.config.demandDistribution === 2) {
-            if (this.curTime && this.config.use_initial_BS <= 4) {
-              this.action = this.config.actionListOpt[
-                this.config.actionListOpt.findIndex(action =>
-                  Math.abs(action - Math.max(0, this.int_bslBaseStock - (this.inventory[resource] + this.OO[resource] - this.AO[resource][this.curTime])))
-                )
-              ];
-            } else {
-              this.action = this.config.actionListOpt[
-                this.config.actionListOpt.findIndex(action =>
-                  Math.abs(action - Math.max(0, this.base_stock[resource] - (this.inventory[resource] + this.OO[resource] - this.AO[resource][this.curTime])))
-                )
-              ];
-            }
-          } else {
-            this.action = this.config.actionListOpt[
-              this.config.actionListOpt.findIndex(action =>
-                Math.abs(action - Math.max(0, this.base_stock[resource] - (this.inventory[resource] + this.OO[resource] - this.AO[resource][this.curTime])))
-              )
-            ];
-          }
-          order[resource] = this.action;
-        }
-      } else if (this.strategy === 'bsla') {
-        for (const resource in this.base_stock) {
-          this.action = this.config.actionListOpt[
-            this.config.actionListOpt.findIndex(action =>
-              Math.abs(action - Math.max(0, this.base_stock[resource] - (this.inventory[resource] + this.OO[resource] - this.AO[resource][this.curTime])))
-            )
-          ];
-          order[resource] = this.action;
-        }
-      }
-      return order;
-    }
-  
-    act() {
-      if (this.config.demandDistribution === 0) {
-        for (let i = 0; i < 3; i++) {
-          this.D[i] = Math.abs(
-            parseInt(
-              this.random.normal(
-                (this.config.demandUp[this.agentNum] + this.config.demandLow[this.agentNum]) / 2,
-                (this.config.demandUp[this.agentNum] - this.config.demandLow[this.agentNum]) / 6
-              )
-            )
-          );
-        }
-      } else if (this.config.demandDistribution === 1) {
-        for (let i = 0; i < 3; i++) {
-          this.D[i] = Math.abs(
-            parseInt(
-              this.random.exponential(
-                (this.config.demandMu + this.config.demandSigma) / (this.config.demandMu * this.config.demandMu)
-              )
-            )
-          );
-        }
-      }
 
-      for (const resource in this.base_stock) {
-        if (resource === 'drink') {
-          if (this.inventory[resource] <= this.AS[resource][this.curTime]) {
-            if (this.config.outsource_drink) {
-              this.communication = 1;
+    _make_orders(userInputs) {
+        this._communication = 0;
+        const order = {};
+      
+        if (this.strategy === 'bs') {
+          for (const resource in this.base_stock) {
+            if (this.config.demandDistribution === 2) {
+              this.action = this.config.actionListOpt.findIndex((action) =>
+                Math.abs(action - Math.max(0, this.int_bslBaseStock - (this.inventory[resource] + this.OO[resource] - this.AO[resource][this.curTime])))
+              );
+            } else {
+              this.action = this.config.actionListOpt.findIndex((action) =>
+                Math.abs(action - Math.max(0, this.base_stock[resource] - (this.inventory[resource] + this.OO[resource] - this.AO[resource][this.curTime])))
+              );
+            }
+      
+            if (this.action > 0) {
+              order[resource] = this.action;
             }
           }
-        }
-      }
-  
-      if (this.communication === 1) {
-        for (let k = 0; k < this.agents.length; k++) {
-          const agent = this.agents[k];
-          if (this.agentNum !== k) {
-            if (distance <= this.config.communication_distance) {
-              this.out_requests = agent.in_requests;
+        } else if (this.strategy === 'strm') {
+          for (const resource in this.base_stock) {
+            this.action = this.config.actionListOpt.findIndex((action) =>
+              Math.abs(action - Math.max(0, Math.round(this.AO[resource][this.curTime] +
+                this.alpha_b * (this.inventory[resource] - this.a_b) +
+                this.betta_b * (this.OO[resource] - this.b_b))))
+            );
+      
+            if (this.action > 0) {
+              order[resource] = this.action;
             }
           }
+        } else if (this.strategy === 'gpt-4') {
+          // Handle gpt-4 strategy (if needed)
         }
-        this.in_requests = [];
-      }
+      
+        if ('staff' in order) {
+          if (this.name !== 'Station') {
+            this.out_requests.push(`${this.name}->Station: Please send ${order['staff']} staff`);
+            this.OO['staff'] += order['staff'];
+            this._communication += 1;
+          }
+          delete order['staff'];
+        }
+      
+        let request = `${this.name}->Warehouse: Please send `;
+        for (const [resource, quantity] of Object.entries(order)) {
+          if (resource !== 'staff') {
+            this.OO[resource] += quantity;
+            request += `${quantity} ${resource} `;
+          }
+        }
+      
+        if (Object.keys(order).length > 0) {
+          this.out_requests.push(request);
+          this._communication += 1;
+        }
+      
+        this.cumReward = this.gamma * this.cumReward + this.curReward;
+        this.curTime += 1;
+      }      
   
-      const resourceRequests = this._get_resource_requests();
-      this.out_requests = this._make_orders(goal);
-    }
   }
 
 export class Station extends Agency {
@@ -408,7 +379,7 @@ export class Warehouse extends Agency {
       this.in_requests = [];
   
       // Step 2:
-      this._make_orders(goal);
+      this._make_orders(userInputs);
     }
   }
   

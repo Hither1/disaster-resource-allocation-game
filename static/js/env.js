@@ -1,16 +1,15 @@
+import {Shelter, Warehouse, Station} from './objects.js';
+
 class Env {
     constructor(config) {
       this.config = config;
-  
-      this.players = this.world.agents;
+      this.shelter = new Shelter('');
+      this.warehouse = new Warehouse('');
+      this.station = new Station('');
+      this.players = [this.shelter, this.warehouse, this.station];
       this.nAgents = this.players.length;
       this.n = this.nAgents;
       this.numTarget = this.players.length;
-  
-
-
- 
-
   
       this.sharedReward = true;
 
@@ -23,35 +22,20 @@ class Env {
       this.resetCallback(this.world);
       this._updateTime();
   
-      worldgen.generateWorld(this.world, this.players);
-  
       const obsN = [];
       for (const agent of this.players) {
         obsN.push(this._getObs(agent));
       }
   
-      this.world.updateOO();
+      this.updateOO();
       return obsN;
     }
   
-    _getReward(agent) {
-      if (this.rewardCallback === null) {
-        return 0.0;
-      }
-      if (this.sharedReward) {
-        return this.globalRewardCallback(this.world);
-      } else {
-        return this.rewardCallback(agent, this.world);
-      }
+    _getReward() {
+      
     }
   
-    _getObs(agent) {
-      if (this.observationCallback === null) {
-        return Array(0).fill(0);
-      }
-      return this.observationCallback(agent, this.world);
-    }
-  
+
     updateAgentState(agent) {
       if (agent.silent) {
         agent.state.c = new Array(this.dimC).fill(0);
@@ -65,8 +49,6 @@ class Env {
       const obsN = [];
       const rewardN = [];
       const doneN = [];
-      const infoN = { 'n': [] };
-      this._updateTime();
   
       for (const agent of this.players) {
         agent.step(this._step);
@@ -109,13 +91,8 @@ class Env {
       }
   
       const done = this._step >= 20;
-      const info = {
-        'inventory': { ...this.world._player.inventory },
-        'playerPos': { ...this.world._player.pos },
-        'reward': rewardN,
-      };
   
-      return [obsN, rewardN, done, info];
+      return [obsN, rewardN, done];
     }
   
     // .

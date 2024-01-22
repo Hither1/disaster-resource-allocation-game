@@ -22,6 +22,9 @@ document.getElementById('startButton').addEventListener('click', function () {
         gameConfig
     );
 
+    const startButton = document.getElementById('startButton');
+    startButton.style.display = 'none';
+
     document.getElementById('userInputs').classList.remove('hidden');
 });
 
@@ -29,9 +32,6 @@ document.getElementById('startButton').addEventListener('click', function () {
 document.getElementById('nextButton').addEventListener('click', function () {
     if (gameEnv) {
         // 1. Get user actions
-        console.log('Rewards:', rewards);
-        console.log('Done:', done);
-
         userInputs = {};
 
         const userInputBoxes = document.querySelectorAll('.userInput');

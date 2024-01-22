@@ -18,14 +18,11 @@ const gameConfig = {
 };
 
 document.getElementById('startButton').addEventListener('click', function () {
+    console.log(gameConfig);
     gameEnv = new Env({
         user: userRole,
         config: gameConfig
     });
-
-    const initialObservations = gameEnv.reset();
-
-    console.log('Initial Observations:', initialObservations);
 
     document.getElementById('userInputs').classList.remove('hidden');
 });
@@ -84,6 +81,7 @@ class Env {
       this.numTarget = this.players.length;
   
       this.sharedReward = true;
+      this._step = 0;
 
     }
   
@@ -94,13 +92,9 @@ class Env {
       this.resetCallback(this.world);
       this._updateTime();
   
-      const obsN = [];
-      for (const agent of this.players) {
-        obsN.push(this._getObs(agent));
-      }
-  
+
       this.updateOO();
-      return obsN;
+
     }
   
     _getReward() {
@@ -121,10 +115,9 @@ class Env {
       const communications = [];
       for (const requester of this.players) {
 
-
-        if (requester.outRequests.length) {
-          for (const request of requester.outRequests) {
-            communications.push(requester.outRequests);
+        if (requester.out_requests.length) {
+          for (const request of requester.out_requests) {
+            communications.push(requester.out_requests);
   
             if ('return' in request) {
               this.world.station.inventory.staff += parseInt(request.match(/\d+/)[0]);
@@ -139,7 +132,7 @@ class Env {
               }
             }
           }
-          requester.outRequests = [];
+          requester.out_requests = [];
         }
       }
   

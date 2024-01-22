@@ -2,6 +2,8 @@ import {Shelter, Warehouse, Station} from './objects.js';
 
 class Env {
     constructor(config) {
+      
+
       this.config = config;
       this.shelter = new Shelter('');
       this.warehouse = new Warehouse('');

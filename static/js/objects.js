@@ -207,7 +207,7 @@ class Agency {
     }
   }
 
-  class Station extends Agency {
+export class Station extends Agency {
     constructor(world, pos, agentNum, config) {
       super(world, pos, agentNum, config);
       this.world = world;
@@ -317,7 +317,7 @@ class Agency {
     }
   }
   
-  class Warehouse extends Agency {
+export class Warehouse extends Agency {
     constructor(world, pos, agentNum, config) {
       super(world, pos, agentNum, config);
       this.world = world;
@@ -440,7 +440,7 @@ class Agency {
     }
   }
   
-  class Shelter extends Agency {
+export class Shelter extends Agency {
     constructor(world, pos, agentNum, config) {
       super(world, pos, agentNum, config);
       this.inventory = {

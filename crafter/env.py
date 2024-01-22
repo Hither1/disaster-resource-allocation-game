@@ -9,7 +9,7 @@ from gym import spaces
 from multiagent.multi_discrete import MultiDiscrete
 from . import constants
 from . import engine
-from . import low_level_objects
+from . import low_level_objects, high_level_objects
 from . import worldgen
 
 try:
@@ -59,9 +59,7 @@ class Env(BaseClass):
         self._textures, [view[0], item_rows])
     self._chat_view = engine.ChatView([view[0], view[1]])  
     self._sem_view = engine.SemanticView(self.world, [
-        low_level_objects.Player, low_level_objects.Station, low_level_objects.Shelter, low_level_objects.Warehouse,
-        low_level_objects.Cow, 
-        low_level_objects.Skeleton, low_level_objects.Arrow, low_level_objects.Plant])
+        low_level_objects.Player, high_level_objects.Station, high_level_objects.Shelter, high_level_objects.Warehouse])
     self._step = None
     self._player = None
 

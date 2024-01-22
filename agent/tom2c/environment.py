@@ -4,13 +4,7 @@ import time
 import crafter
 
 def create_env(env_id, args, rank=-1):
-    if 'MSMTC' in env_id:
-        import ToM2C.MSMTC.DigitalPose2D as poseEnv
-        env = poseEnv.gym.make(env_id, args)
-        # adjust env steps according to args
-        env.max_steps = args.env_steps
-        return env
-    elif 'CN' in env_id:  
+    if 'CN' in env_id:  
         from multiagent.environment import MultiAgentEnv
         import multiagent.scenarios as scenarios
         scenario_name = args.env
@@ -26,7 +20,7 @@ def create_env(env_id, args, rank=-1):
         from multiagent.environment import MultiAgentEnv
         import multiagent.scenarios as scenarios
         scenario = scenarios.load(args.env + ".py").Scenario()
-        config, unparsed = crafter.config.get_config()
+        config, _ = crafter.config.get_config()
         world = scenario.make_world(config, args.num_agents, args.num_targets)
         
         env = crafter.Env(config, world, scenario.reset_world, scenario.reward, scenario.global_reward, scenario.observation)

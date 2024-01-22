@@ -11,6 +11,7 @@ import wandb
 from setproctitle import setproctitle as ptitle
 
 import json
+
 from .model import build_model
 # from .player_util import Agent
 from .environment import create_env

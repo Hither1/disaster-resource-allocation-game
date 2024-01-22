@@ -1,3 +1,5 @@
+import {constants} from './constants.js';
+
 class Person {
     constructor(type, health = 5) {
       this.inventory = {};

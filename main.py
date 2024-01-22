@@ -6,14 +6,13 @@ import argparse
 from datetime import datetime
 import torch.multiprocessing as mp
 
-from ToM2C.test import test
-from ToM2C.train import train
-from ToM2C.worker import worker
-#from train_new import Policy_train
-from ToM2C.model_ra import build_model
+from agent.tom2c.test import test
+from agent.tom2c.train import train
+from agent.tom2c.worker import worker
+from agent.tom2c.model import build_model
 # from ToM2C.model import build_model
-from ToM2C.environment import create_env
-from ToM2C.shared_optim import SharedRMSprop, SharedAdam
+from agent.tom2c.environment import create_env
+from agent.tom2c.shared_optim import SharedRMSprop, SharedAdam
 
 os.environ["OMP_NUM_THREADS"] = "1"
 

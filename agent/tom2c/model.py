@@ -600,7 +600,7 @@ class ToM2C_multi(torch.nn.Module):
         ToM_msgs = torch.cat((max_prob, msgs),-1)
         #ToM_msgs = self.raise_dim(ToM_msgs)
         # actor_feature = actor_feature + ToM_msgs
-        actor_feature = torch.cat((self_feature,ToM_msgs),-1)
+        actor_feature = torch.cat((self_feature, ToM_msgs),-1)
 
         #actor_feature=torch.cat((GRU_outputs, att_features, max_prob, msgs), -1) #[batch,n,m,dim]
         actor_dim = actor_feature.size()[-1]
@@ -889,9 +889,8 @@ class ToM2C_single(torch.nn.Module):
         # actor_feature = actor_feature + ToM_msgs
         # feature_target = feature_target.reshape(batch_size,num_agents,num_targets,-1)
 
-        # actor_feature = torch.cat((multi_obs, self_feature, other_pos, ToM_msgs), -1)
-        actor_feature = torch.cat((multi_obs, self_feature, other_pos), -1)
-        # actor_feature=torch.cat((GRU_outputs, att_features, max_prob, msgs), -1) #[batch,n,m,dim]
+        actor_feature = torch.cat((multi_obs, self_feature, other_pos, ToM_msgs), -1)
+        # actor_feature = torch.cat((multi_obs, self_feature, other_pos), -1)
         actor_dim = actor_feature.size()[-1]
         critic_feature = torch.sum(actor_feature, 2) #.reshape(batch_size, 1, -1).repeat(1, num_agents, 1) #expand(num_agents, num_agents*actor_dim) #[b,n,dim]
         actor_feature = actor_feature.reshape(batch_size * num_agents, num_targets, actor_dim) #[batch*n*m,dim]

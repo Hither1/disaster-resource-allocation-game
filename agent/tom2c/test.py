@@ -10,7 +10,6 @@ import numpy as np
 import wandb
 
 from .model import build_model
-from .model_ra import build_model
 from .utils import setup_logger
 from .player_util import Agent
 from .environment import create_env

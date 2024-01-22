@@ -367,10 +367,18 @@ export class Warehouse extends Agency {
     _make_decisions_on_requests(userInputs) {
       // Step 1:
       if (self.mode == 'human') {
-        userInputs.forEach(([requester, quantity]) => {
+        userInputs[1]['food'].forEach(([requester, quantity]) => {
             console.log('Object:', object, 'Number:', number);
-
-          });
+            this.AO['food'][this.curTime] = quantity;
+            requester.AS['food'][this.curTime + 1] += quantity;
+            this.inventory['food'] -= quantity;
+        });
+        userInputs[1]['drink'].forEach(([requester, quantity]) => {
+            console.log('Object:', object, 'Number:', number);
+            this.AO['drink'][this.curTime] = quantity;
+            requester.AS['drink'][this.curTime + 1] += quantity;
+            this.inventory['drink'] -= quantity;
+        });
       } else {
         this.in_requests = this._process_requests();
         const resourceDict = {};

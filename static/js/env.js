@@ -100,7 +100,7 @@ class Env {
     // .
   }
 
-function startGame() {
+export function startGame() {
     const config = {
         size: 10,  // Example size value
         seed: null,  // Example seed value

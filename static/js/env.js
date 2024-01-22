@@ -18,7 +18,7 @@ export function startGame() {
 
     
 }
-
+document.getElementById('startButton').addEventListener('click', myFunction);
 class Env {
     constructor(config) {
       

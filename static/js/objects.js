@@ -194,18 +194,8 @@ export class Station extends Agency {
       for (const name of constants.achievements) {
         this.achievements[name] = 0;
       }
-  
-      this.action = 'noop';
-      this.sleeping = false;
-      this._hunger = 0;
-      this._thirst = 0;
-      this._recover = 0;
       this._backorder = 0;
       this.strategy = 'bs';
-    }
-  
-    get texture() {
-      return 'station';
     }
   
     get name() {
@@ -232,6 +222,10 @@ export class Station extends Agency {
   
     step(_step) {
       this._backorder = 0;
+
+      if (self.mode !== 'human') {
+        this._make_decisions_on_requests();
+      }
       this.receiveItems();
       this._update_inventory_stats();
       this.curReward = -this._backorder - this.communication;
@@ -300,15 +294,8 @@ export class Warehouse extends Agency {
   
       this.action = 'noop';
       this.sleeping = false;
-      this._hunger = 0;
-      this._fatigue = 0;
-      this._recover = 0;
       this._backorder = 0;
       this.strategy = 'bs';
-    }
-  
-    get texture() {
-      return 'warehouse';
     }
   
     get name() {
@@ -333,15 +320,18 @@ export class Warehouse extends Agency {
     }
   
     step(_step) {
-      this.receiveItems();
-      this._update_life_stats();
+        if (this.mode !== 'human') {
+            this._make_decisions_on_requests();
+        }
+        this.receiveItems();
+        this._update_life_stats();
       
-      this.curReward = -this._backorder - this.communication;
+        this.curReward = -this._backorder - this.communication;
   
-      for (const [name, amount] of Object.entries(this.inventory)) {
-        const maxmium = constants.items[name]['max'];
-        this.inventory[name] = Math.max(0, Math.min(amount, maxmium));
-      }
+        for (const [name, amount] of Object.entries(this.inventory)) {
+            const maxmium = constants.items[name]['max'];
+            this.inventory[name] = Math.max(0, Math.min(amount, maxmium));
+        }
     }
   
     _update_life_stats() {
@@ -424,28 +414,14 @@ export class Shelter extends Agency {
         'drink': 30,
         'staff': 15
       };
-  
-      this.achievements = {};
-      for (const name of constants.achievements) {
-        this.achievements[name] = 0;
-      }
-  
-      this.action = 'noop';
+
       this._inventory = 0;
       this._injured = [];
       this.death = 0;
     }
   
-    get texture() {
-      return 'hospital';
-    }
-  
     get name() {
       return 'Shelter';
-    }
-  
-    get reward() {
-      return this.curReward;
     }
   
     resetPlayer(T) {
@@ -480,7 +456,10 @@ export class Shelter extends Agency {
       for (let i = 0; i < new_arrived_injure; i++) {
         this.patients.push(new Person('injured', 0));
       }
-  
+      
+      if (this.mode !== 'human') {
+        this._make_decisions_on_requests();
+      }
       this._update_patient_inventory_stats();
       this._update_staff_stats();
   

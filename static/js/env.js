@@ -19,6 +19,7 @@ const gameConfig = {
 
 document.getElementById('startButton').addEventListener('click', function () {
     console.log(gameConfig);
+    console.log(gameConfig.alpha_b);
     gameEnv = new Env({
         user: userRole,
         config: gameConfig

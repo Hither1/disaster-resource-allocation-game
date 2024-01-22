@@ -257,25 +257,20 @@ async def on_ready(sid, *args):
     uid = args[0]['uid']
     roomid = player_roomid[uid]
     episode_num = roomid_episode[roomid]
-
     roomid_cur_ep_players[roomid].add(uid)
 
-
-    if len(roomid_cur_ep_players[roomid]) < max_players_per_room:
-        if uid not in FAILURE_SESSION:
-            # print(msg['uid'], 'calls waiting...')
-            await app.sio.emit('waiting', {'in_game':True, 'max_size':max_players_per_room, 'status':len(roomid_cur_ep_players[roomid])}, room=roomid, to=sid) 
-        else:
-            await app.sio.emit('waiting', {'in_game':False, 'max_size':max_players_per_room, 'status':len(roomid_cur_ep_players[roomid])}, room=roomid, to=sid)
+    # if len(roomid_cur_ep_players[roomid]) < max_players_per_room:
+    #     if uid not in FAILURE_SESSION:
+    #         await app.sio.emit('waiting', {'in_game':True, 'max_size':max_players_per_room, 'status':len(roomid_cur_ep_players[roomid])}, room=roomid, to=sid) 
+    #     else:
+    #         await app.sio.emit('waiting', {'in_game':False, 'max_size':max_players_per_room, 'status':len(roomid_cur_ep_players[roomid])}, room=roomid, to=sid)
     
-    elif len(roomid_cur_ep_players[roomid]) == max_players_per_room and roomid_started[roomid] == False:
-
+    if roomid_started[roomid] == False: # len(roomid_cur_ep_players[roomid]) == max_players_per_room and 
         roomid_started[roomid] = True
         # Initialize map environment, scoreboard, and data trackers
         config, _ = crafter.config.get_config()
         roomid_env[roomid] = crafter.Env(config)
         roomid_scoreboard[roomid] = {'Food':0, 'Drink':0, 'Staff':0}
-        roomid_ep_keypresses[roomid][episode_num] = []
         roomid_ep_states[roomid][episode_num] = []
             
         startGame(roomid)
@@ -292,7 +287,6 @@ def startGame(roomid):
 
     print("game started")
     # Pair all human players with an existing in-game human agent
-    #if len(roomid_env[roomid].humans) == len(roomid_players[roomid]):
     human_i = 0
     bot_i = 0
     for uid, values in roomid_players[roomid].items():

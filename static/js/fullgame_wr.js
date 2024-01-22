@@ -241,7 +241,6 @@ socket.on('start_game', function (msg) {
   episode = msg['episode']
   moveEventInterval = enterEventInterval = 1000 * msg['movement_delay']
   episodeDisplay.textContent = 'Episode: ' + episode;
-  state_map = msg['map']
   rows = state_map.length
   cols = state_map[0].length
   scoreboard = msg['scoreboard']
@@ -262,8 +261,6 @@ socket.on('start_game', function (msg) {
   $('#lobby').hide();
   $('#ready-room').hide();
   
-  //width = (state_map[0].length + 1) * w + 1;
-  //height = (state_map.length + 1) * w + 1;
   width = (state_map[0].length) * w + 1;
   height = (state_map.length) * w + 1;
   var canvas = createCanvas(width, height); //
@@ -272,9 +269,7 @@ socket.on('start_game', function (msg) {
   // emitSocketIO('start', {'uid': uid, 'mission_time': display.textContent, 'event': 'start mission' })
 
   socket.on('refresh', function (msg) {
-    // console.log("Refresh map and scoreboard with updates from server: ", msg);
     updateScoreBoard(msg['scoreboard'])
-    state_map = msg['map']
     time_left = msg['remaining_time']
 
     minutes = (time_left / 60) | 0;
@@ -392,11 +387,11 @@ setupInformationPanelToggle();
 console.log("VERSION 1.6.0");
 
 function updateScoreBoard(scores) {
-  rescue = scores['green'] * 10 + scores['yellow'] * 30 + scores['red'] * 60;
+  rescue = scores['green'] * 10 - scores['food'] - scores['drink'];
   document.getElementById('goal').innerHTML = 'Points: ' + rescue.toString();
-  document.getElementById('green').innerHTML = 'Food: ' + scores['Food'].toString();
-  document.getElementById('yellow').innerHTML = 'Drink: ' + scores['Drink'].toString();
-  document.getElementById('red').innerHTML = ': ' + scores['Staff'].toString();
+  document.getElementById('food').innerHTML = 'Food: ' + scores['food'].toString();
+  document.getElementById('drink').innerHTML = 'Drink: ' + scores['drink'].toString();
+  document.getElementById('staff').innerHTML = 'Staff: ' + scores['staff'].toString();
 }
 
 

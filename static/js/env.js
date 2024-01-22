@@ -112,6 +112,7 @@ class Env {
     step(userInputs) {
       this._step += 1;
       const rewardN = [];
+      userInputs = this.process_userInputs(userInputs);
   
       for (const agent of this.players) {
         if (agent.name === self.user){
@@ -120,8 +121,6 @@ class Env {
             agent.step(this._step);
         }
       }
-
-    
   
       const communications = [];
       for (const requester of this.players) {
@@ -156,7 +155,31 @@ class Env {
   
       return [rewardN, this.user.inventory['food'], this.user.inventory['drink'], this.user.inventory['staff'], done];
     }
-  
+    
+    process_userInputs(userInputs) {
+        const to_return = [{'food': 0, 'drink': 0, 'staff': 0}, {'food': [], 'drink': [], 'staff': []}];
+        const resources = ['food', 'drink', 'staff'];
+        const requesters = ['food', 'drink', 'staff'];
+        Object.entries(userInputs).forEach(([key, value]) => {
+            if (key.includes('request')) { // request
+
+                for (const resource of resources) {
+                    if (key.includes(resource)) {
+                    to_return[0][resource] += value;
+                    }
+                }
+                
+            } else { // send
+
+                for (const requester of requesters) {
+                    if (key.includes(requester)) {
+                    to_return[1][requester].push([requester, value]);
+                    }
+                }
+            }
+          });
+        return to_return;
+    }
     // .
   }
 

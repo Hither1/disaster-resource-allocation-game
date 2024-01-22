@@ -104,10 +104,10 @@ class Agency {
 
     _make_orders(userInputs) {
         if (this.mode === 'human') {
-            if (userInputs[0]['food']) {
+            if (userInputs[0]['food'] > 0) {
                 this.out_requests.push(`${this.name}->Warehouse: Please send ${userInputs[0]['food']} food and ${userInputs[0]['drink']} drink`);
             }
-            if (userInputs[0]['staff']) {
+            if (userInputs[0]['staff'] > 0) {
                 this.out_requests.push(`${this.name}->Station: Please send ${userInputs[0]['staff']} staff`);
             }
         }
@@ -181,7 +181,7 @@ export class Station extends Agency {
       this.inventory = {
         'food': 9,
         'drink': 9,
-        'staff': demand(mean: 12, std_dev: 2),
+        'staff': demand(12, 2),
         'wood': 0,
         'stone': 0,
         'coal': 0

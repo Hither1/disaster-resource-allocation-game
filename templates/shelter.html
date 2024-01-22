@@ -41,7 +41,7 @@
           <div class="row">
             <table id="tabgame" v-if="position" cellpadding="10" cellspacing="0" style="width: 1150px;" align="center">
               <div id="qualtrics-container">
-                  <iframe id="frame-qualtrics" src="" height="700px" width="900px"></iframe>
+                  <iframe id="frame-qualtrics" src="" height="400px" width="400px"></iframe>
               </div>
               <tr id="game-container" class=border align="center">
                   <td>
@@ -56,10 +56,6 @@
                               <span id="drink">Drink: 0</span> |
                               <span id="staff">Staff: 0</span> |
                               
-                              <span id="block-map">
-                                  <input type="checkbox" id="map" name="map" value="show_map" onclick="showMap(this)">
-                                  <label for="map"> Show map</label>
-                              </span>
                               <span id="instructionsToggle" style="border-color: gray; border-width: 2px; padding: 6px; border-style: solid;cursor:pointer;">Show commands</span>
                           </h3>
                           <h3><span id="result"></span></h3>
@@ -90,7 +86,6 @@
                                   var sessionId = Number($('#session').val())+1;
                                   $('#session').val(sessionId);
                                   var formAction = $('#next-button').attr('formaction');
-                                  // $('#next-button').attr('formaction', formAction + '?uid=' + id + '&session='+(Number(sessionId)));
                                   $('#next-button').attr('formaction', formAction + '?uid=' + id);
                               });
                               $( "#finish-button").click(function() {

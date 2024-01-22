@@ -91,17 +91,18 @@
 
           <div id="ready-room" class="text-center" style="display:none">
             <h2>Waiting Room</h2>
-            <div id="not_ready" align = "center">
-                <p>When you are ready to start, please click the "Ready" button. </p> 
-                <button name="ready-button" class="button-decorated" id="ready-button" type="button" onclick="redirectToChooseRolePage()">Start</button>
+            <button name="ready-button" class="button-decorated" id="ready-button" type="button" onclick="redirectToChooseRolePage()">Start</button>
                 <script>
                   function redirectToChooseRolePage() {
                       window.location.href = 'templates/choose_role.html';
                   }
                 </script>
+            <div id="not_ready" align = "center">
+                <p>When you are ready to start, please click the "Ready" button. </p> 
+                
             </div>
           </div>
-          
+
         </div>
       </div>
       

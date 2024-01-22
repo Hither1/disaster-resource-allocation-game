@@ -1,5 +1,13 @@
 import {Shelter, Warehouse, Station} from './objects.js';
 
+const strings = {
+    day1: 'Initial Response: You knew it was coming. This episode is the start of a disaster relief operation. Your team will be managing the initial response. You will receive a separate situation report and task assignment sheet.',
+    day2: 'Scaling Up & Transition of Responsibilities',
+    day3: 'Identify Total Requirements: Identify service delivery requirements for the total operation.',
+    day4: 'Project Anticipated Costs:  In addition to managing the relief operation, for this exercise, you are being asked to project you anticipated costs of direct and support services by completing a budget development worksheet.',
+    day5: 'Closing: In these episodes you will be bringing the relief operation to a close. Staff will be released and facilities returned. As you finish each day of the relief operation, ask your facilitator for the next situation report with information about the operation.'
+  };
+
 let gameEnv;
 const gameConfig = {
     size: 10,  // Example size value
@@ -126,6 +134,13 @@ class Env {
   
     step(userInputs) {
       this._step += 1;
+      const dynamicContentElement = document.getElementById('dynamicContent');
+      if (dynamicContentElement) {
+            dynamicContentElement.innerHTML = `<p>${strings[self._step-1]}</p>`;
+      } else {
+        console.error('Element with ID "dynamicContent" not found.');
+      }
+
       const rewardN = [];
       userInputs = this.process_userInputs(userInputs);
   

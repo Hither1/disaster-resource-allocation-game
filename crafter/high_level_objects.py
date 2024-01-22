@@ -150,7 +150,6 @@ class Agency:
     self.hist2 = []
     self.srdqnBaseStock = []	# this holds the base stock levels that srdqn has came up with. added on Nov 8, 2017
     self.T = T
-    # self.curObservation = self.getCurState(1)  # this function gets the current state of the game
     self.nextObservation = []
     # if self.compTypeTrain == 'srdqn':
     #   self.brain.setInitState(self.curObservation) # sets the initial input of the network

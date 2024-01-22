@@ -174,6 +174,18 @@ class Agency {
         this.cumReward = this.gamma * this.cumReward + this.curReward;
         this.curTime += 1;
       }    }  
+
+      resetPlayer(T) {
+        this.OO = {};
+        this.AS = {};
+        this.AO = {};
+
+        for (const key of Object.keys(this.base_stock)) {
+            this.OO[key] = 0;
+            this.AS[key] = Array.from({ length: T + Math.max(...this.config.leadRecItemUp, this.config.leadRecOrderUp) + 10 }, () => 0);
+            this.AO[key] = Array.from({ length: T + Math.max(...this.config.leadRecItemUp, this.config.leadRecOrderUp) + 10 }, () => 0);
+          }
+      }
   
   }
 
@@ -203,17 +215,17 @@ export class Station extends Agency {
     }
   
     resetPlayer(T) {
-      super.resetPlayer(T);
+        super.resetPlayer(T);
   
-      this.inventory = {
-        'food': 9,
-        'drink': 9,
-        'staff': demand(mean = 12, std_dev = 2),
-        'wood': 0,
-        'stone': 0,
-        'coal': 0
-      };
-      this.staff_team = Array.from({ length: this.inventory['staff'] }, () => new Person('staff', 5));
+        this.inventory = {
+            'food': 9,
+            'drink': 9,
+            'staff': demand(mean = 12, std_dev = 2),
+            'wood': 0,
+            'stone': 0,
+            'coal': 0
+        };
+        this.staff_team = Array.from({ length: this.inventory['staff'] }, () => new Person('staff', 5));
     }
   
     step(_step, userInputs) {

@@ -7,10 +7,10 @@
     <meta name="author" content="Chloe">
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="../static/css/simple-sidebar.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
   </head>
@@ -87,7 +87,6 @@
                           <script>
                               $('#next-button').click(function() {
                                   var id = $('#uid').val();
-                                  // var group = $('#group').val();
                                   var sessionId = Number($('#session').val())+1;
                                   $('#session').val(sessionId);
                                   var formAction = $('#next-button').attr('formaction');

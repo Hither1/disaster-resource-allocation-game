@@ -1,5 +1,24 @@
 import {Shelter, Warehouse, Station} from './objects.js';
 
+export function startGame() {
+    const config = {
+        size: 10,  // Example size value
+        seed: null,  // Example seed value
+        reward: true,  // Example reward value
+        length: 20  // Example length value
+
+    };
+
+    const env = new Env(
+        config,
+    );
+
+    // Call the reset method to initialize the game environment
+    const initialObservations = env.reset();
+
+    
+}
+
 class Env {
     constructor(config) {
       
@@ -100,21 +119,3 @@ class Env {
     // .
   }
 
-export function startGame() {
-    const config = {
-        size: 10,  // Example size value
-        seed: null,  // Example seed value
-        reward: true,  // Example reward value
-        length: 20  // Example length value
-        // Add other config properties as needed
-    };
-
-    const env = new Env(
-        config,
-    );
-
-    // Call the reset method to initialize the game environment
-    const initialObservations = env.reset();
-
-    
-}

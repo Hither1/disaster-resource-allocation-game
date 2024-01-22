@@ -28,16 +28,14 @@ python3 -m pip install crafter  # Install Crafter
 python3 -m pip install pygame   # Needed for human interface
 python3 -m crafter.run_gui      # Start the game
 ```
-
-![Crafter Video](https://github.com/danijar/crafter/raw/main/media/video.gif)
+<!-- 
+![Crafter Video](https://github.com/danijar/crafter/raw/main/media/video.gif) -->
 
 ## Interface
 
 To install Crafter, run `pip3 install crafter`. The environment follows the
 [OpenAI Gym][gym] interface. Observations are images of size (64, 64, 3) and
 outputs are one of 17 categorical actions.
-
-[gym]: https://github.com/openai/gym
 
 ## Evaluation
 

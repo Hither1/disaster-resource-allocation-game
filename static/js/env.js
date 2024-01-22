@@ -25,6 +25,9 @@ document.getElementById('startButton').addEventListener('click', function () {
     const startButton = document.getElementById('startButton');
     startButton.style.display = 'none';
 
+    const startMsg = document.getElementById('startMsg');
+    startMsg.style.display = 'none';
+
     document.getElementById('userInputs').classList.remove('hidden');
 });
 
@@ -60,6 +63,11 @@ document.getElementById('nextButton').addEventListener('click', function () {
         document.getElementById('food').textContent = user_food;
         document.getElementById('drink').textContent = user_drink;
         document.getElementById('staff').textContent = user_staff;
+
+        // 3. If finished
+        if (done) {
+            window.location.href = 'done.html';
+          }
 
     } else {
         console.log('Game environment not initialized. Click "Start Game" first.');

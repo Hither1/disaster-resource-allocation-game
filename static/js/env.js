@@ -4,7 +4,6 @@ let gameEnv;
 const gameConfig = {
     size: 10,  // Example size value
     seed: null,  // Example seed value
-    reward: true,  // Example reward value
     length: 20,  // Example length value
     alpha_b: [-0.5, -0.5, -0.5],
     beta_b: [-0.2, -0.2, -0.2],
@@ -18,7 +17,7 @@ const gameConfig = {
 };
 
 document.getElementById('startButton').addEventListener('click', function () {
-    console.log(gameConfig);
+    // console.log(gameConfig);
     console.log(gameConfig.alpha_b);
     gameEnv = new Env({
         user: userRole,

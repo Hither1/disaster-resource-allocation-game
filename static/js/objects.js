@@ -184,6 +184,8 @@ class Agency {
             this.OO[key] = 0;
             this.AS[key] = Array.from({ length: T + Math.max(...this.config.leadRecItemUp, this.config.leadRecOrderUp) + 10 }, () => 0);
             this.AO[key] = Array.from({ length: T + Math.max(...this.config.leadRecItemUp, this.config.leadRecOrderUp) + 10 }, () => 0);
+            console.log(this.AS[key]);
+            console.log(this.AO[key])
           }
       }
   
@@ -463,9 +465,6 @@ export class Shelter extends Agency {
         'drink': 39,
         'staff': demand(20, 2),
         'death': 0,
-        'wood': 0,
-        'stone': 0,
-        'coal': 0
       };
       this.patients = Array.from({ length: this.inventory['health'] }, () => new Person('injured', 0));
       this.staff_team = Array.from({ length: this.inventory['staff'] }, () => new Person('staff', 5));
@@ -556,7 +555,7 @@ export class Shelter extends Agency {
         this.patients[i]._admitted_days += 1;
       }
   
-      console.log('death', this._death, this.AO['staff'][this.curTime], this.AO['food'][this.curTime], this.AO['drink'][this.curTime]);
+      console.log('death', this.death, this.AO['staff'][this.curTime], this.AO['food'][this.curTime], this.AO['drink'][this.curTime]);
     }
   
     _update_staff_stats() {

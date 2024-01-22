@@ -134,6 +134,8 @@ class Env {
   
     step(userInputs) {
       this._step += 1;
+
+      // Display narratives
       const dynamicContentElement = document.getElementById('dynamicContent');
       if (dynamicContentElement) {
             dynamicContentElement.innerHTML = `<p>${strings[self._step-1]}</p>`;

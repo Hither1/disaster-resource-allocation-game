@@ -379,8 +379,7 @@ function setup() {
   ready_button.addEventListener('click', function(){
     emitSocketIO('ready', {'uid': uid})
   });
-  //noLoop();
-}//end-setup
+}
 
 setupInformationPanelToggle();
 

@@ -13,9 +13,9 @@
     <link href="../static/css/simple-sidebar.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
-    <script src="{{ url_for('static', path='js/p5.min.js')}}"></script>
-    <script src="{{ url_for('static', path='js/p5.dom.min.js')}}"></script>
-    <script src="{{ url_for('static', path='js/p5.sound.min.js')}}"></script>
+    <script src="{{ url_for('static', path='../static/js/p5.min.js')}}"></script>
+    <script src="{{ url_for('static', path='../static/js/p5.dom.min.js')}}"></script>
+    <script src="{{ url_for('static', path='../static/js/p5.sound.min.js')}}"></script>
     <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='css/style.css')}}"> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
 
@@ -104,12 +104,13 @@
                   <p>When you are ready to start, please click the "Ready" button. </p> 
                   <script type="module" src="../static/js/env.js"></script>
                   <script src="../static/js/objects.js"></script>
-                  <button id="startButton" class="button-decorated" id="ready-button" type="button">Ready</button>
+                  <button onclick="startGame()">Start Game</button>
+                  <!-- <button id="startButton" class="button-decorated" id="ready-button" type="button">Ready</button>
                   <script>
                     document.getElementById("startButton").addEventListener("click", function() {
                         startGame();
                     });
-                  </script>
+                  </script> -->
               </div>
             </div>
             

@@ -171,7 +171,6 @@ async def on_disconnect(sid: str, *args, **kwargs):
 async def on_join(sid, *args):
     global player_roomid
     global roomid_players
-    global map_list
     global roomid_ep_states
     global roomid_ep_keypresses
     global roomid_env
@@ -200,7 +199,6 @@ async def on_join(sid, *args):
             roomid_ep_keypresses[roomid] = {}
             roomid_ep_states[roomid] = {}
             roomid_started[roomid] = False
-            
 
         # Otherwise, check for partially-filled rooms and add uid to the earliest partially-filled room
         else:
@@ -248,11 +246,12 @@ async def on_ready(sid, *args):
     global roomid_players
     global player_roomid
     global roomid_episode
-    global map_list
-    global roomid_ep_keypresses
     global roomid_ep_states
     global roomid_started
-    global clear_rates
+    print('roomid_cur_ep_players', roomid_cur_ep_players)
+    print('player_roomid', player_roomid)
+    print('roomid_ep_states', roomid_ep_states)
+    print('roomid_started', roomid_started)
 
     uid = args[0]['uid']
     roomid = player_roomid[uid]

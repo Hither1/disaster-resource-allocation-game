@@ -132,3 +132,7 @@ function startGame() {
 
     
 }
+
+function startGame(name) {
+    console.log("Hello, " + name + "!");
+  }

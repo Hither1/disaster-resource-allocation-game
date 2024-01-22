@@ -67,20 +67,6 @@ document.getElementById('nextButton').addEventListener('click', function () {
 });
 
 
-// export function startGame() {
-    
-
-//     const env = new Env(
-//         config,
-//     );
-
-//     // Call the reset method to initialize the game environment
-//     const initialObservations = env.reset();
-
-    
-// }
-// document.getElementById('startButton').addEventListener('click', startGame);
-
 class Env {
     constructor(config) {
       this.config = config;
@@ -125,7 +111,7 @@ class Env {
       }
     }
   
-    step(action = null) {
+    step(userInputs) {
       this._step += 1;
       const obsN = [];
       const rewardN = [];
@@ -138,6 +124,8 @@ class Env {
   
       const communications = [];
       for (const requester of this.players) {
+
+        
         if (requester.outRequests.length) {
           for (const request of requester.outRequests) {
             communications.push(requester.outRequests);

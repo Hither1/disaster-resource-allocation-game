@@ -1,9 +1,5 @@
 import {Shelter, Warehouse, Station} from './objects.js';
 
-// Import your game logic class (adjust the path accordingly)
-import { Env } from './game_logic.js';
-
-// Create a variable to hold the game environment
 let gameEnv;
 const config = {
     size: 10,  // Example size value
@@ -125,7 +121,7 @@ class Env {
       const communications = [];
       for (const requester of this.players) {
 
-        
+
         if (requester.outRequests.length) {
           for (const request of requester.outRequests) {
             communications.push(requester.outRequests);

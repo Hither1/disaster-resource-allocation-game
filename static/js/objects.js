@@ -251,7 +251,6 @@ export class Station extends Agency {
       // Part 1:
       if (this.mode === 'human') {
         userInputs[1]['staff'].forEach(([requester, quantity]) => {
-            console.log('Object:', object, 'Number:', number);
                 this.AO[resource][this.curTime] = quantity;
                 requester.AS[resource][this.curTime + 1] += quantity;
                 this.inventory[resource] -= quantity;
@@ -368,13 +367,11 @@ export class Warehouse extends Agency {
       // Step 1:
       if (self.mode == 'human') {
         userInputs[1]['food'].forEach(([requester, quantity]) => {
-            console.log('Object:', object, 'Number:', number);
             this.AO['food'][this.curTime] = quantity;
             requester.AS['food'][this.curTime + 1] += quantity;
             this.inventory['food'] -= quantity;
         });
         userInputs[1]['drink'].forEach(([requester, quantity]) => {
-            console.log('Object:', object, 'Number:', number);
             this.AO['drink'][this.curTime] = quantity;
             requester.AS['drink'][this.curTime + 1] += quantity;
             this.inventory['drink'] -= quantity;

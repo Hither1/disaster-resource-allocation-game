@@ -55,6 +55,7 @@ document.getElementById('nextButton').addEventListener('click', function () {
         // 2. Run env step
         const [reward, user_food, user_drink, user_staff, done] = gameEnv.step(userInputs);
 
+        document.getElementById('day').textContent = this._step;
         document.getElementById('goal').textContent = reward;
         document.getElementById('food').textContent = user_food;
         document.getElementById('drink').textContent = user_drink;

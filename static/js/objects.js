@@ -7,7 +7,7 @@ class Agency {
       this.out_requests = [];
       this.staff_team = [];
       this.gamma = 0.95;
-      this._communication = 0;
+      this.communication = 0;
       this.u_noise = null;
       this.c_noise = null;
       this.agentNum = agentNum;
@@ -76,7 +76,7 @@ class Agency {
     }
   
     _make_orders(goal) {
-      this._communication = 0;
+      this.communication = 0;
       const order = {};
       if (this.strategy === 'bs') {
         for (const resource in this.base_stock) {
@@ -149,13 +149,13 @@ class Agency {
         if (resource === 'drink') {
           if (this.inventory[resource] <= this.AS[resource][this.curTime]) {
             if (this.config.outsource_drink) {
-              this._communication = 1;
+              this.communication = 1;
             }
           }
         }
       }
   
-      if (this._communication === 1) {
+      if (this.communication === 1) {
         for (let k = 0; k < this.agents.length; k++) {
           const agent = this.agents[k];
           if (this.agentNum !== k) {
@@ -232,7 +232,7 @@ export class Station extends Agency {
       this._backorder = 0;
       this.receiveItems();
       this._update_inventory_stats();
-      this.curReward = -this._backorder - this._communication;
+      this.curReward = -this._backorder - this.communication;
   
       for (const [name, amount] of Object.entries(this.inventory)) {
         const maxmium = constants.items[name]['max'];
@@ -334,7 +334,7 @@ export class Warehouse extends Agency {
       this.receiveItems();
       this._update_life_stats();
       
-      this.curReward = -this._backorder - this._communication;
+      this.curReward = -this._backorder - this.communication;
   
       for (const [name, amount] of Object.entries(this.inventory)) {
         const maxmium = constants.items[name]['max'];
@@ -431,7 +431,7 @@ export class Shelter extends Agency {
       this.action = 'noop';
       this._inventory = 0;
       this._injured = [];
-      this._death = 0;
+      this.death = 0;
     }
   
     get texture() {
@@ -468,7 +468,7 @@ export class Shelter extends Agency {
     }
   
     step(_step) {
-      this._death = 0;
+      this.death = 0;
       this._helped_people = 0;
       this.receiveItems();
   
@@ -482,7 +482,7 @@ export class Shelter extends Agency {
       this._update_patient_inventory_stats();
       this._update_staff_stats();
   
-      this.curReward = -this._death - this._communication;
+      this.curReward = -this.death - this.communication;
   
       for (const [name, amount] of Object.entries(this.inventory)) {
         const maxmium = constants.items[name]['max'];

@@ -65,6 +65,7 @@ document.getElementById('nextButton').addEventListener('click', function () {
 class Env {
     constructor(user, config) {
       this.config = config;
+      console.log(config.alpha_b);
       this.shelter = new Shelter(0, config);
       this.warehouse = new Warehouse(1, config);
       this.station = new Station(2, config);
@@ -98,12 +99,15 @@ class Env {
     }
   
     _getReward() {
-      
+        death = this.shelter.death;
+        consumption = this.shelter.consumption + this.shelter.consumption + this.shelter.consumption;
+        communication = this.shelter.communication + this.shelter.communication + this.shelter.communication;
+
+        return death + consumption + communication
     }
   
     step(userInputs) {
       this._step += 1;
-      const obsN = [];
       const rewardN = [];
       const doneN = [];
   
@@ -143,14 +147,13 @@ class Env {
       }
   
       for (const agent of this.players) {
-        obsN.push(this._getObs(agent));
         const r = this._getReward(agent);
         rewardN.push(r);
       }
   
       const done = this._step >= 20;
   
-      return [obsN, rewardN, done];
+      return [ rewardN, done];
     }
   
     // .

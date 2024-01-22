@@ -81,6 +81,10 @@ class Env {
       this.shelter = new Shelter(0, config);
       this.warehouse = new Warehouse(1, config);
       this.station = new Station(2, config);
+      this.shelter.resetPlayer(100);
+      this.warehouse.resetPlayer(100);
+      this.station.resetPlayer(100);
+
       if (user === "Shelter") {
         this.user = this.shelter
         this.shelter.mode = "human";
@@ -106,6 +110,9 @@ class Env {
       this._episode += 1;
       this._step = 0;
       this.updateOO();
+      this.shelter.resetPlayer(100);
+      this.warehouse.resetPlayer(100);
+      this.station.resetPlayer(100);
 
     }
   

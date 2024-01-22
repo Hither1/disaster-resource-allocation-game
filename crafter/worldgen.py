@@ -4,7 +4,8 @@ import numpy as np
 import opensimplex
 
 from . import constants
-from . import objects
+from . import low_level_objects
+from . import high_level_objects
 
 
 # def generate_world(world, player):

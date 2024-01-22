@@ -1,0 +1,155 @@
+class Env {
+    constructor(config) {
+      this.config = config;
+  
+      this.players = this.world.agents;
+      this.nAgents = this.players.length;
+      this.n = this.nAgents;
+      this.numTarget = this.players.length;
+  
+
+
+ 
+
+  
+      this.sharedReward = true;
+
+    }
+  
+    reset() {
+      this._episode += 1;
+      this._step = 0;
+      this.world.reset(seed = hash((this._seed, this._episode)) % (2 ** 31 - 1));
+      this.resetCallback(this.world);
+      this._updateTime();
+  
+      worldgen.generateWorld(this.world, this.players);
+  
+      const obsN = [];
+      for (const agent of this.players) {
+        obsN.push(this._getObs(agent));
+      }
+  
+      this.world.updateOO();
+      return obsN;
+    }
+  
+    _getReward(agent) {
+      if (this.rewardCallback === null) {
+        return 0.0;
+      }
+      if (this.sharedReward) {
+        return this.globalRewardCallback(this.world);
+      } else {
+        return this.rewardCallback(agent, this.world);
+      }
+    }
+  
+    _getObs(agent) {
+      if (this.observationCallback === null) {
+        return Array(0).fill(0);
+      }
+      return this.observationCallback(agent, this.world);
+    }
+  
+    updateAgentState(agent) {
+      if (agent.silent) {
+        agent.state.c = new Array(this.dimC).fill(0);
+      } else {
+        const noise = new Array(agent.action.c.length).fill(0).map(() => Math.random() * agent.cNoise || 0.0);
+      }
+    }
+  
+    step(action = null) {
+      this._step += 1;
+      const obsN = [];
+      const rewardN = [];
+      const doneN = [];
+      const infoN = { 'n': [] };
+      this._updateTime();
+  
+      for (const agent of this.players) {
+        agent.step(this._step);
+        this.updateAgentState(agent);
+      }
+  
+      const communications = [];
+      for (const requester of this.players) {
+        if (requester.outRequests.length) {
+          for (const request of requester.outRequests) {
+            communications.push(requester.outRequests);
+  
+            if ('return' in request) {
+              this.world.station.inventory.staff += parseInt(request.match(/\d+/)[0]);
+            } else {
+              const requestee = request.split('->')[1].split(':')[0];
+              if (requestee === 'Warehouse') {
+                this.world.warehouse.inRequests.push([requester, request.split(': ')[1]]);
+              } else if (requestee === 'Station') {
+                this.world.station.inRequests.push([requester, request.split(': ')[1]]);
+              } else {
+                this.world.shelter.inRequests.push([requester, request.split(': ')[1]]);
+              }
+            }
+          }
+          requester.outRequests = [];
+        }
+      }
+  
+      for (const obj of this.world.objects) {
+        if (this._player.distance(obj) < 2 * Math.max(...this._view) && !this.players.includes(obj)) {
+          obj.update();
+        }
+      }
+  
+      for (const agent of this.players) {
+        obsN.push(this._getObs(agent));
+        const r = this._getReward(agent);
+        rewardN.push(r);
+      }
+  
+      const done = this._step >= 20;
+      const info = {
+        'inventory': { ...this.world._player.inventory },
+        'playerPos': { ...this.world._player.pos },
+        'reward': rewardN,
+      };
+  
+      return [obsN, rewardN, done, info];
+    }
+  
+    // .
+  }
+
+function startGame() {
+    // Create a configuration object (adjust this based on your requirements)
+    const config = {
+        size: 10,  // Example size value
+        seed: null,  // Example seed value
+        reward: true,  // Example reward value
+        length: 20  // Example length value
+        // Add other config properties as needed
+    };
+
+    // Create a world object (adjust this based on your requirements)
+    const world = {
+        // Example world properties
+        agents: [],  // Example agents array
+        shelter: {
+            base_stock: {
+                // Example base_stock properties
+            }
+        },
+        // Add other world properties as needed
+    };
+
+    const env = new Env(
+        config,
+        world,
+    );
+
+    // Call the reset method to initialize the game environment
+    const initialObservations = env.reset();
+
+    
+}

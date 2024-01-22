@@ -9,11 +9,9 @@ from gym import spaces
 from multiagent.multi_discrete import MultiDiscrete
 from . import constants
 from . import engine
-from . import objects
+from . import low_level_objects
 from . import worldgen
 
-
-# Gym is an optional dependency.
 try:
   import gym
   DiscreteSpace = gym.spaces.Discrete
@@ -61,9 +59,9 @@ class Env(BaseClass):
         self._textures, [view[0], item_rows])
     self._chat_view = engine.ChatView([view[0], view[1]])  
     self._sem_view = engine.SemanticView(self.world, [
-        objects.Player, objects.Station, objects.Shelter, objects.Warehouse,
-        objects.Cow, 
-        objects.Skeleton, objects.Arrow, objects.Plant])
+        low_level_objects.Player, low_level_objects.Station, low_level_objects.Shelter, low_level_objects.Warehouse,
+        low_level_objects.Cow, 
+        low_level_objects.Skeleton, low_level_objects.Arrow, low_level_objects.Plant])
     self._step = None
     self._player = None
 
@@ -268,17 +266,17 @@ class Env(BaseClass):
   def _balance_chunk(self, chunk, objs):
     light = self.world.daylight
     self._balance_object(
-        chunk, objs, objects.Zombie, 'grass', 6, 0, 0.3, 0.4,
-        lambda pos: objects.Zombie(self.world, pos, self._player),
+        chunk, objs, low_level_objects.Zombie, 'grass', 6, 0, 0.3, 0.4,
+        lambda pos: low_level_objects.Zombie(self.world, pos, self._player),
         lambda num, space: (
             0 if space < 50 else 3.5 - 3 * light, 3.5 - 3 * light))
     self._balance_object(
-        chunk, objs, objects.Skeleton, 'path', 7, 7, 0.1, 0.1,
-        lambda pos: objects.Skeleton(self.world, pos, self._player),
+        chunk, objs, low_level_objects.Skeleton, 'path', 7, 7, 0.1, 0.1,
+        lambda pos: low_level_objects.Skeleton(self.world, pos, self._player),
         lambda num, space: (0 if space < 6 else 1, 2))
     self._balance_object(
-        chunk, objs, objects.Cow, 'grass', 5, 5, 0.01, 0.1,
-        lambda pos: objects.Cow(self.world, pos),
+        chunk, objs, low_level_objects.Cow, 'grass', 5, 5, 0.01, 0.1,
+        lambda pos: low_level_objects.Cow(self.world, pos),
         lambda num, space: (0 if space < 30 else 1, 1.5 + light))
 
   def _balance_object(

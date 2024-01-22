@@ -80,13 +80,8 @@
                           <input type="hidden" id="group" name="group" value={{group}} />
                           
                           <div id="sketch-holder">
-                              <script src="{{ url_for('static', path='js/fullgame_wr.js?v=')}}"+DateTime.Now.Ticks></script>
+                              <script src="{{ url_for('static', path='js/env.js?v=')}}"+DateTime.Now.Ticks></script>
                           </div>
-        
-                          <!-- <div align="center">
-                              <h3><span id="total"></span></h3>
-                              <button name="finish" formaction="/completion" id="finish-button" type="submit" class="button">Finish</button>
-                          </div> -->
 
 
                           <script>
@@ -111,7 +106,13 @@
             <div id="ready-room" class="text-center">
               <div id="not_ready" align = "center">
                   <p>When you are ready to start, please click the "Ready" button. </p> 
-                  <button name="ready-button" class="button-decorated" id="ready-button" type="button">Ready</button>
+                  <button name="startButton" class="button-decorated" id="ready-button" type="button">Ready</button>
+                  <script src="your_game_logic.js"></script>
+                  <script>
+                    document.getElementById("startButton").addEventListener("click", function() {
+                        startGame();
+                    });
+                </script>
               </div>
             </div>
             

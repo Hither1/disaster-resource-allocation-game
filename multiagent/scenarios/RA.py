@@ -2,7 +2,7 @@ import numpy as np
 from multiagent.core import Agent, Landmark
 from multiagent.scenario import BaseScenario
 import random
-from crafter import engine, constants, objects
+from crafter import engine, constants, low_level_objects, high_level_objects
 from random import randint
 
 class Scenario(BaseScenario):
@@ -29,13 +29,13 @@ class Scenario(BaseScenario):
 
         world.landmarks = [] 
         # add agents
-        world.shelter = objects.Shelter(world, (28, 28), 0, config)
-        world.warehouse = objects.Warehouse(world, (28, 32), 1, config)
-        world.station = objects.Station(world, (32, 28), 2, config)
+        world.shelter = high_level_objects.Shelter(world, (28, 28), 0, config)
+        world.warehouse = high_level_objects.Warehouse(world, (28, 32), 1, config)
+        world.station = high_level_objects.Station(world, (32, 28), 2, config)
 
         world.agents = [world.shelter, world.warehouse, world.station]
 
-        world._player = objects.Player(world, (32, 32))
+        world._player = low_level_objects.Player(world, (32, 32))
         world.add(world._player)
         for i, agent in enumerate(world.agents):
             world.add(agent)

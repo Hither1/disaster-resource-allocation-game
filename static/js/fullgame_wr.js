@@ -278,8 +278,6 @@ socket.on('start_game', function (msg) {
     seconds = seconds < 10 ? "0" + seconds : seconds;
     display.textContent = minutes + ":" + seconds;
     document.getElementById("time").innerHTML = minutes + ":" + seconds;
-    // redraw();
-
   });
 
 
@@ -305,12 +303,12 @@ function setupInformationPanelToggle(){
 
 socket.on('end_episode', function(msg) {
   episode = msg['episode']
-    //isGameOver = true;
+    // isGameOver = true;
     clearInterval(timeout);
     clearInterval(intervalRecordData);
     clearInterval(intervalEmitSocket);
     console.log("Episode over");
-    //timeDisplay.textContent = "GAME OVER !";
+    // timeDisplay.textContent = "GAME OVER !";
     $('#ready-room').show();
     $('#tab-panel').hide();
     $('#tabgame').hide();

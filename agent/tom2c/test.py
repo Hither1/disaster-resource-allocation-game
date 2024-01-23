@@ -79,7 +79,8 @@ def test(args, shared_model, optimizer, optimizer_ToM, train_modes, n_iters):
             ToM_acc = 0
             ToM_target_acc = 0
             while True:
-                player.action_test()
+                
+                player.action_test(n_iter)
                 fps_counter += 1
                 reward_sum_ep += player.reward
                 print('reward_sum_ep', reward_sum_ep)

@@ -475,11 +475,9 @@ def train(args, shared_model, optimizer_Policy, optimizer_ToM, train_modes, n_it
                 optimize_Policy(state, real_actions, reward, masks, available_actions, args, params, optimizer_Policy, shared_model, device_share, env)
             
             # action_correct_rate = torch.eq(actions[:, 0, :], torch.tensor([[0]]))
-            action_0 = actions[:, 0, :]
-            action_1 = actions[:, 1, :]
-            action_2 = actions[:, 2, :]
             
-            print('actions', actions)
+            
+            
             # log training information
             n_steps = sum(n_iters)  # global_steps_count
             wandb.log({'train/policy_loss_sum': policy_loss.sum()}, step=n_steps)
@@ -487,9 +485,7 @@ def train(args, shared_model, optimizer_Policy, optimizer_ToM, train_modes, n_it
             wandb.log({'train/Sparsity_loss_sum': Sparsity_loss.sum()}, step=n_steps)
             wandb.log({'train/entropies_sum': entropies_sum.sum()}, step=n_steps)
             wandb.log({'train/gamma': args.gamma}, step=n_steps)
-            wandb.log({'train/action_0': action_0.float().mean()}, step=n_steps)
-            wandb.log({'train/action_1': action_1.float().mean()}, step=n_steps)
-            wandb.log({'train/action_2': action_2.float().mean()}, step=n_steps)
+            
             print("policy loss:{}".format(policy_loss.sum().data))
             print("value loss:{}".format(value_loss.sum().data))
             print("entropies:{}".format(entropies_sum.sum().data))

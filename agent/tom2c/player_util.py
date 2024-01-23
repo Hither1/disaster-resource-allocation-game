@@ -7,6 +7,7 @@ import numpy as np
 from torch.autograd import Variable
 import json
 from .utils import ensure_shared_grads
+import wandb
 
 class Agent(object):
     def __init__(self, model, env, args, state, device):
@@ -138,7 +139,7 @@ class Agent(object):
         if self.env_step >= self.env.max_steps:
             self.done = True
 
-    def action_test(self):
+    def action_test(self, n_iter):
         if self.args.mask_actions:
             available_actions = self.get_available_actions()
         else:
@@ -150,6 +151,14 @@ class Agent(object):
             if 'RA' in self.args.env:
                 value_multi, actions, entropy, log_prob, hn_self, hn_ToM, ToM_goals, edge_logits, comm_edges, probs, real_cover, ToM_target_cover=\
                     self.model(self.state, self.hself, self.hToM, True, available_actions=available_actions)
+                print('actions', actions.shape, actions)
+                action_0 = actions[:, 0, :]
+                action_1 = actions[:, 1, :]
+                action_2 = actions[:, 2, :]
+                wandb.log({'test/action_0': action_0.float().mean()}, step=n_iter)
+                wandb.log({'test/action_1': action_1.float().mean()}, step=n_iter)
+                wandb.log({'test/action_2': action_2.float().mean()}, step=n_iter)
+
             else:
                 value_multi, actions, entropy, log_prob, hn_self, hn_ToM, ToM_goals, edge_logits, comm_edges, probs, real_cover, ToM_target_cover=\
                     self.model(self.state, self.hself, self.hToM, self.poses, self.mask, True, available_actions=available_actions)

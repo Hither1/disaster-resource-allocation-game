@@ -184,8 +184,10 @@ class Agency {
             this.AS[key] = Array.from({ length: T + Math.max(...this.config.leadRecItemUp, this.config.leadRecOrderUp) + 10 }, () => 0);
             this.AO[key] = Array.from({ length: T + Math.max(...this.config.leadRecItemUp, this.config.leadRecOrderUp) + 10 }, () => 0);
             console.log('AS', this.AS[key]);
-            console.log('AO', this.AO[key])
-            console.log('miao', Math.max(...this.config.leadRecItemUp, this.config.leadRecOrderUp))
+            console.log('AO', this.AO[key]);
+            console.log('miao0', this.config.leadRecItemUp)
+            console.log('miao1', this.config.leadRecOrderUp)
+            console.log('miao2', Math.max(...this.config.leadRecItemUp, this.config.leadRecOrderUp))
           }
       }
   

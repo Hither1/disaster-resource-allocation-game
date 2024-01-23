@@ -701,9 +701,9 @@ class ToM2C_single(torch.nn.Module):
             nn.LeakyReLU(),
         )
         feature_dim = self.num_agents * self.pose_dim + 3 + lstm_out # TODO: change hard-coded numbers
-        # create actor & critic
+
         print('feature_dim', feature_dim, 'lstm_out', lstm_out)
-        feature_dim -= 3
+        # feature_dim -= 3
         self.actor = PolicyNet_Single(feature_dim, spaces.Discrete(2), head_name, device)
 
         # centralized training

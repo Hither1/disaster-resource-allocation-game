@@ -4,7 +4,7 @@ from . import constants
 from . import engine
 from . import time_varying_demand_supply
  
-
+STDDEV = 1
 class Agency:
   """
   Base class for decision-making agency.
@@ -230,8 +230,8 @@ class Warehouse(Agency):
     self.pos = np.array(pos)
     self.random = world.random
 
-    self.inventory = {'food': time_varying_demand_supply.demand(mean=40, std_dev=2), 
-                      'drink': time_varying_demand_supply.demand(mean=40, std_dev=2), 
+    self.inventory = {'food': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
+                      'drink': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
                       'staff': 9, 
                       'wood': 0, 
                       'stone': 0, 
@@ -260,8 +260,8 @@ class Warehouse(Agency):
   
   def resetPlayer(self, T):
     super().resetPlayer(T)
-    self.inventory = {'food': time_varying_demand_supply.demand(mean=40, std_dev=2), 
-                      'drink': time_varying_demand_supply.demand(mean=40, std_dev=2), 
+    self.inventory = {'food': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
+                      'drink': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
                       'staff': 9, 
                       'wood': 0, 
                       'stone': 0, 
@@ -333,24 +333,22 @@ class Warehouse(Agency):
 class Shelter(Agency):
   def __init__(self, world, pos, agentNum, config):
     super().__init__(world, pos, agentNum, config)
-    # self.inventory = {name: info['initial'] for name, info in constants.items.items()}
     
-    self.inventory = {'health': time_varying_demand_supply.demand(mean=10, std_dev = 2), 
+    self.inventory = {'health': time_varying_demand_supply.demand(mean=10, std_dev=STDDEV), 
                       'food': 39, 
                       'drink': 39, 
-                      'staff': time_varying_demand_supply.demand(mean=20, std_dev=2), 
+                      'staff': time_varying_demand_supply.demand(mean=20, std_dev=STDDEV), 
                       'death': 0,
                       'wood': 0, 
                       'stone': 0, 
                       'coal': 0}
     self.patients = [Person('injured', 0) for _ in range(self.inventory['health'])]
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
-    self.base_stock = {'food': 30, 
-                      'drink': 30, 
-                      'staff': 15, 
-                      }
+    # self.base_stock = {'food': 30, 
+    #                   'drink': 30, 
+    #                   'staff': 15, 
+    #                   }
     
-    self.achievements = {name: 0 for name in constants.achievements}
     self.action = 'noop'
     # self._last_health = self.health
     self._inventory = 0
@@ -371,10 +369,10 @@ class Shelter(Agency):
   
   def resetPlayer(self, T):
     super().resetPlayer(T)
-    self.inventory = {'health': time_varying_demand_supply.demand(mean=10, std_dev=2), 
+    self.inventory = {'health': time_varying_demand_supply.demand(mean=10, std_dev=STDDEV), 
                       'food': 39, 
                       'drink': 39, 
-                      'staff': time_varying_demand_supply.demand(mean=20, std_dev=2), 
+                      'staff': time_varying_demand_supply.demand(mean=20, std_dev=STDDEV), 
                       'death': 0,
                       'wood': 0, 
                       'stone': 0, 
@@ -513,7 +511,7 @@ class Station(Agency):
     self.random = world.random
     self.inventory = {'food': 9, 
                       'drink': 9, 
-                      'staff': time_varying_demand_supply.demand(mean=12, std_dev=2), 
+                      'staff': time_varying_demand_supply.demand(mean=12, std_dev=STDDEV), 
                       'wood': 0, 
                       'stone': 0, 
                       'coal': 0}
@@ -545,7 +543,7 @@ class Station(Agency):
     
     self.inventory = {'food': 9, 
                       'drink': 9, 
-                      'staff': time_varying_demand_supply.demand(mean=12, std_dev=2), 
+                      'staff': time_varying_demand_supply.demand(mean=12, std_dev=STDDEV), 
                       'wood': 0, 
                       'stone': 0, 
                       'coal': 0}

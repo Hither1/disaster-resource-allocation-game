@@ -82,7 +82,6 @@ def optimize_ToM(state, masks, available_actions, args, params, optimizer_ToM, s
                 if "RA" in args.env:
                     value_multi, actions, entropy, log_prob, hn_self, hn_ToM, ToM_goal, edge_logits, comm_edges, probs, real_cover, ToM_target_cover =\
                         shared_model(state[:, step].to(device_share), hself, h_ToM, available_actions=available_action)
-                    # print('ToM_target_cover', ToM_target_cover.shape, 'real_cover', real_cover.shape)
                     ToM_target_loss += mse_loss(ToM_target_cover.float(), real_cover.float())
                 else:
                     value_multi, actions, entropy, log_prob, hn_self, hn_ToM, ToM_goal, edge_logits, comm_edges, probs, real_cover, ToM_target_cover =\
@@ -240,16 +239,14 @@ def optimize_Policy(state, real_actions, reward, masks, available_actions, args,
                 value_loss = value_loss + 0.5 * advantage.pow(2)
                 # Generalized Advantage Estimataion
                 delta_t = rewards[i] + args.gamma * values[i + 1].data - values[i].data
-                print(i, 'rew', rewards[i].mean(), 'delta_t', delta_t.mean())
                 gae = gae * args.gamma * args.tau + delta_t
-
                 if "MSMTC" in args.env:
                     gae_duplicate = gae.unsqueeze(2).repeat(1,1,num_targets,1)
                     policy_loss = policy_loss - (w_entropies * entropies[i]) - (log_probs[i] * gae_duplicate)
                 elif "CN" in args.env or "RA" in args.env:
                     gae_duplicate = gae
                     if policy_loss.sum() == 0: policy_loss = torch.zeros(1).to(device_share)
-                    print(i, 'gae_duplicate', gae_duplicate.min(), (log_probs[i] * gae_duplicate).sum())
+
                     policy_loss = policy_loss - (w_entropies * entropies[i].sum()) - (log_probs[i] * gae_duplicate).sum()
 
                 entropies_sum += entropies[i].sum()
@@ -477,8 +474,12 @@ def train(args, shared_model, optimizer_Policy, optimizer_ToM, train_modes, n_it
             policy_loss, value_loss, Sparsity_loss, entropies_sum, actions =\
                 optimize_Policy(state, real_actions, reward, masks, available_actions, args, params, optimizer_Policy, shared_model, device_share, env)
             
-            action_correct_rate = torch.eq(actions[:, 0, :], torch.tensor([[0]]))
-
+            # action_correct_rate = torch.eq(actions[:, 0, :], torch.tensor([[0]]))
+            action_0 = actions[:, 0, :]
+            action_1 = actions[:, 1, :]
+            action_2 = actions[:, 2, :]
+            
+            print('actions', actions)
             # log training information
             n_steps = sum(n_iters)  # global_steps_count
             wandb.log({'train/policy_loss_sum': policy_loss.sum()}, step=n_steps)
@@ -486,7 +487,9 @@ def train(args, shared_model, optimizer_Policy, optimizer_ToM, train_modes, n_it
             wandb.log({'train/Sparsity_loss_sum': Sparsity_loss.sum()}, step=n_steps)
             wandb.log({'train/entropies_sum': entropies_sum.sum()}, step=n_steps)
             wandb.log({'train/gamma': args.gamma}, step=n_steps)
-            wandb.log({'train/action_correct_rate': action_correct_rate.float().mean()}, step=n_steps)
+            wandb.log({'train/action_0': action_0.float().mean()}, step=n_steps)
+            wandb.log({'train/action_1': action_1.float().mean()}, step=n_steps)
+            wandb.log({'train/action_2': action_2.float().mean()}, step=n_steps)
             print("policy loss:{}".format(policy_loss.sum().data))
             print("value loss:{}".format(value_loss.sum().data))
             print("entropies:{}".format(entropies_sum.sum().data))

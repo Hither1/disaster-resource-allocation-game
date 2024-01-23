@@ -176,5 +176,5 @@ def start():
 
 
 if __name__=='__main__':
-    os.environ["WANDB_MODE"] = "disabled"
+    # os.environ["WANDB_MODE"] = "disabled"
     start()

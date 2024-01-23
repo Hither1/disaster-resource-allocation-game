@@ -103,7 +103,6 @@ class Agent(object):
         state_multi, reward, self.done, self.info = self.env.step(actions_env)#,obstacle=True)
         # reward_multi = reward.repeat(self.num_agents) # all agents share the same reward
         reward_multi = reward
-        print('reward_multi', reward_multi)
 
         self.reward_org = reward_multi.copy()
 
@@ -174,10 +173,9 @@ class Agent(object):
             self.ToM_target_acc = torch.mean((real_cover==ToM_cover)[real_cover].float())
             self.random_ToM_acc = torch.mean((random_ToM_goal==real_goal)[real_cover].float())
             self.random_ToM_target_acc = torch.mean((real_cover==random_ToM_cover)[real_cover].float())
-            #print(torch.mean(ToM_goal.float()))
+            # print(torch.mean(ToM_goal.float()))
             '''
         state_multi, self.reward, self.done, self.info = self.env.step(actions)#, obstacle=True)
-        print('self.reward', self.reward)
         if isinstance(self.done, list): self.done = np.sum(self.done)
         self.state = torch.from_numpy(np.array(state_multi)).float().to(self.device)
         self.eps_len += 1
@@ -214,7 +212,6 @@ class Agent(object):
         return self
 
     def reward_normalizer(self, reward):
-        print('reward', reward)
         reward = np.array(reward)
         self.num_steps += 1
         if self.num_steps == 1:

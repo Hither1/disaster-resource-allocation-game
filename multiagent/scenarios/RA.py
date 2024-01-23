@@ -105,7 +105,7 @@ class Scenario(BaseScenario):
         global reward
         """
         rew = 0
-        self.comm_weight, self.cons_weight = 0.5, 0.5
+        self.comm_weight, self.cons_weight = 1., 0.5
         for agent in world.agents:
             rew += - self.comm_weight * agent._communication
             rew += - self.cons_weight * agent.consumption

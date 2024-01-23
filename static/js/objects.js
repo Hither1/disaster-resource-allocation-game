@@ -79,10 +79,7 @@ class Agency {
     }
   
     _process_requests() {
-        if (self.mode === "human"){
 
-
-        } else {
             const requests = [];
             for (const request of this.in_requests) {
                 const destination = request[0];
@@ -101,7 +98,9 @@ class Agency {
                   }
                 }
             }
-        }
+        
+
+        return requests
     }
 
     _make_orders(userInputs) {
@@ -186,6 +185,7 @@ class Agency {
             this.AO[key] = Array.from({ length: T + Math.max(...this.config.leadRecItemUp, this.config.leadRecOrderUp) + 10 }, () => 0);
             console.log('AS', this.AS[key]);
             console.log('AO', this.AO[key])
+            console.log('miao', Math.max(...this.config.leadRecItemUp, this.config.leadRecOrderUp))
           }
       }
   

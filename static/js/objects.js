@@ -184,8 +184,8 @@ class Agency {
             this.OO[key] = 0;
             this.AS[key] = Array.from({ length: T + Math.max(...this.config.leadRecItemUp, this.config.leadRecOrderUp) + 10 }, () => 0);
             this.AO[key] = Array.from({ length: T + Math.max(...this.config.leadRecItemUp, this.config.leadRecOrderUp) + 10 }, () => 0);
-            console.log(this.AS[key]);
-            console.log(this.AO[key])
+            console.log('AS', this.AS[key]);
+            console.log('AO', this.AO[key])
           }
       }
   
@@ -391,7 +391,8 @@ export class Warehouse extends Agency {
       } else {
         this.in_requests = this._process_requests();
         const resourceDict = {};
-  
+        console.log('this in_requests')
+        console.log(this.in_requests)
         for (const [requester, quantity, resource] of this.in_requests) {
             if (!(resource in resourceDict)) {
                 resourceDict[resource] = [];

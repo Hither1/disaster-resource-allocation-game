@@ -258,14 +258,14 @@ function updateConfig(config) {
     config.c_h = [config.ch1, config.ch2, config.ch3, config.ch4];
     config.c_p = [config.cp1, config.cp2, config.cp3, config.cp4];
 
-    config.stateDim = getStateDim(config); // Number of elements in the state description - Depends on ifUseASAO
+    // config.stateDim = getStateDim(config); // Number of elements in the state description - Depends on ifUseASAO
     Math.seedrandom(config.seed);
-    setSavedDimentionPerBrain(config); // set the parameters of pre_trained model.
-    fillnodes(config); // create the structure of network nodes
-    getAuxiliaryLeadtimeInitialValues(config);
-    fixLeadTimeManufacturer(config);
-    fillLeadtimeInitialValues(config);
-    setStermanParameters(config);
+    // setSavedDimentionPerBrain(config); // set the parameters of pre_trained model.
+    // fillnodes(config);
+    // getAuxiliaryLeadtimeInitialValues(config);
+    // fixLeadTimeManufacturer(config);
+    // fillLeadtimeInitialValues(config);
+    // setStermanParameters(config);
 
     return config;
 }

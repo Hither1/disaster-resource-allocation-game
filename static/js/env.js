@@ -138,6 +138,7 @@ class Env {
 
       // Display narratives
       const dynamicContentElement = document.getElementById('dynamicContent');
+      console.log('checking my strings', strings[self._step-1])
       if (dynamicContentElement) {
             dynamicContentElement.innerHTML = `<p>${strings[self._step-1]}</p>`;
       } else {

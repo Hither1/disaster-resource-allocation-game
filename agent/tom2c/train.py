@@ -120,7 +120,7 @@ def optimize_ToM(state, masks, available_actions, args, params, optimizer_ToM, s
             # print('ToM_prob', ToM_prob.shape, 'real_prob', real_prob.shape)
             ToM_loss += KL_criterion(ToM_prob.log(), real_prob)
             
-            loss = torch.tensor(0) #ToM_loss + 0.5 * ToM_target_loss
+            loss = ToM_loss + 0.5 * ToM_target_loss
             loss = loss/(count)
             shared_model.zero_grad()
             # loss.backward()

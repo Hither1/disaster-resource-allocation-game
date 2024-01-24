@@ -100,10 +100,10 @@ class Agency:
         else:
           # self.action[np.argmin(np.abs(np.array(self.config.actionListOpt)-\
 					# 			max(0, (self.base_stock[resource] - (self.inventory[resource] + self.OO - self.AO[self.curTime]))) ))] 
-          self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)-\
-							max(0, (self.base_stock[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
           # self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)-\
-					# 		max(0, (goal[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
+					# 		max(0, (self.base_stock[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
+          self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)-\
+							max(0, (goal[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
           
         if self.action > 0: order[resource] = self.action
 

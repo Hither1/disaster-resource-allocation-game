@@ -79,7 +79,6 @@ class Agency {
     }
   
     _process_requests() {
-
             const requests = [];
             console.log('in process', this.in_requests)
             for (const request of this.in_requests) {
@@ -334,7 +333,6 @@ export class Warehouse extends Agency {
         // this.curReward = -this._backorder - this.communication;
   
         for (const [name, amount] of Object.entries(this.inventory)) {
-            console.log(name, constants.items[name]);
             const maxmium = constants.items[name]['max'];
             this.inventory[name] = Math.max(0, Math.min(amount, maxmium));
         }
@@ -379,7 +377,7 @@ export class Warehouse extends Agency {
         this.in_requests = this._process_requests();
         const resourceDict = {};
 
-        console.log(this.in_requests)
+        console.log('warehouse', this.in_requests)
         for (const [requester, quantity, resource] of this.in_requests) {
             if (!(resource in resourceDict)) {
                 resourceDict[resource] = [];

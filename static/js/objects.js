@@ -81,6 +81,7 @@ class Agency {
     _process_requests() {
 
             const requests = [];
+            console.log('in process', this.in_requests)
             for (const request of this.in_requests) {
                 const destination = request[0];
                 const resource = request[1];

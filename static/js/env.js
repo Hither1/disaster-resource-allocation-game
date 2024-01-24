@@ -25,7 +25,7 @@ const gameConfig = {
 };
 
 document.getElementById('startButton').addEventListener('click', function () {
-    gameConfig = updateConfig(gameConfig);
+    const gameConfig = updateConfig(gameConfig);
     gameEnv = new Env(
         userRole,
         gameConfig

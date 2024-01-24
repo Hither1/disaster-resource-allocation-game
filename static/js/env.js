@@ -9,7 +9,7 @@ const strings = {
   };
 
 let gameEnv;
-const gameConfig = {
+let gameConfig = {
     size: 10,  // Example size value
     seed: null,  // Example seed value
     length: 20,  // Example length value
@@ -25,7 +25,7 @@ const gameConfig = {
 };
 
 document.getElementById('startButton').addEventListener('click', function () {
-    const gameConfig = updateConfig(gameConfig);
+    gameConfig = updateConfig(gameConfig);
     gameEnv = new Env(
         userRole,
         gameConfig

@@ -329,9 +329,6 @@ export class Warehouse extends Agency {
         'food': demand(40, 2),
         'drink': demand(40, 2),
         'staff': 9,
-        'wood': 0,
-        'stone': 0,
-        'coal': 0
       };
       this.staff_team = Array.from({ length: this.inventory['staff'] }, () => new Person('staff', 5));
     }

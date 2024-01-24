@@ -259,7 +259,7 @@ function updateConfig(config) {
     config.c_p = [config.cp1, config.cp2, config.cp3, config.cp4];
 
     // config.stateDim = getStateDim(config); // Number of elements in the state description - Depends on ifUseASAO
-    Math.seedrandom(config.seed);
+    // Math.seedrandom(config.seed);
     // setSavedDimentionPerBrain(config); // set the parameters of pre_trained model.
     // fillnodes(config);
     // getAuxiliaryLeadtimeInitialValues(config);

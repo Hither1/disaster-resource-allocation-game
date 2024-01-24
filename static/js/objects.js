@@ -224,9 +224,7 @@ export class Station extends Agency {
     step(_step, userInputs) {
       this._backorder = 0;
 
-
       this._make_decisions_on_requests(userInputs);
-
       this.receiveItems();
       this._update_inventory_stats();
       this.curReward = -this._backorder - this.communication;

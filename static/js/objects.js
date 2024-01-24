@@ -391,7 +391,7 @@ export class Warehouse extends Agency {
       } else {
         this.in_requests = this._process_requests();
         const resourceDict = {};
-        console.log('this in_requests')
+
         console.log(this.in_requests)
         for (const [requester, quantity, resource] of this.in_requests) {
             if (!(resource in resourceDict)) {

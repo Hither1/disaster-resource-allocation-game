@@ -216,6 +216,19 @@ class Env {
     // .
   }
 
+function buildActionList(config) {
+    const aDiv = 1; // difference in the action list
+    let actions;
+
+    if (config.fixedAction) {
+        actions = Array.from({ length: Math.ceil((config.actionMax + 1) / aDiv) }, (_, i) => i * aDiv); // If you put the second argument =11, creates an action list from 0..xx
+    } else {
+        actions = Array.from({ length: Math.ceil((config.actionUp - config.actionLow + 1) / aDiv) }, (_, i) => config.actionLow + i * aDiv);
+    }
+
+    return actions;
+}
+
 
 function updateConfig(config) {
     config.actionList = buildActionList(config); // The list of the available actions

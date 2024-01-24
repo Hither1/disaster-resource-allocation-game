@@ -148,11 +148,7 @@ class Env {
       userInputs = this.process_userInputs(userInputs);
   
       for (const agent of this.players) {
-        if (agent.name === self.user){
             agent.step(this._step, userInputs);
-        } else {
-            agent.step(this._step);
-        }
       }
   
       const communications = [];

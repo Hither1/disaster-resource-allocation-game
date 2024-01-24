@@ -165,11 +165,11 @@ class Env {
             } else {
               const requestee = request.split('->')[1].split(':')[0];
               if (requestee === 'Warehouse') {
-                this.world.warehouse.inRequests.push([requester, request.split(': ')[1]]);
+                this.world.warehouse.in_requests.push([requester, request.split(': ')[1]]);
               } else if (requestee === 'Station') {
-                this.world.station.inRequests.push([requester, request.split(': ')[1]]);
+                this.world.station.in_requests.push([requester, request.split(': ')[1]]);
               } else {
-                this.world.shelter.inRequests.push([requester, request.split(': ')[1]]);
+                this.world.shelter.in_requests.push([requester, request.split(': ')[1]]);
               }
             }
           }

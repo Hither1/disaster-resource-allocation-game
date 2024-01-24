@@ -196,9 +196,6 @@ export class Station extends Agency {
         'food': 9,
         'drink': 9,
         'staff': demand(12, 2),
-        'wood': 0,
-        'stone': 0,
-        'coal': 0
       };
       this.staff_team = Array.from({ length: this.inventory['staff'] }, () => new Person('staff', 5));
 
@@ -221,9 +218,6 @@ export class Station extends Agency {
             'food': 9,
             'drink': 9,
             'staff': demand(12, 2),
-            'wood': 0,
-            'stone': 0,
-            'coal': 0
         };
         this.staff_team = Array.from({ length: this.inventory['staff'] }, () => new Person('staff', 5));
     }
@@ -302,9 +296,6 @@ export class Warehouse extends Agency {
         'food': demand(40, 2),
         'drink': demand(40, 2),
         'staff': 9,
-        'wood': 0,
-        'stone': 0,
-        'coal': 0
       };
   
       this.staff_team = Array.from({ length: this.inventory['staff'] }, () => new Person('staff', 5));
@@ -432,9 +423,6 @@ export class Shelter extends Agency {
         'drink': 39,
         'staff': demand(10, 2),
         'death': 0,
-        'wood': 0,
-        'stone': 0,
-        'coal': 0
       };
   
       this.patients = Array.from({ length: this.inventory['health'] }, () => new Person('injured', 0));

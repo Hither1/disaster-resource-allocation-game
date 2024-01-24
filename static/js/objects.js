@@ -526,7 +526,7 @@ export class Shelter extends Agency {
       for (let i = 0; i < this.patients.length; i++) {
         if (this.patients[i]._admitted_days >= 5 && this.patients[i].health < 2) {
           this.inventory['death'] += 1;
-          this._death += 1;
+          this.death += 1;
           this.inventory['health'] -= 1;
         }
       }

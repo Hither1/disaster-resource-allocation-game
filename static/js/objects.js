@@ -458,6 +458,7 @@ export class Shelter extends Agency {
         'drink': 30,
         'staff': 15
       };
+      this.death = 0;
     }
   
     step(_step, userInputs) {

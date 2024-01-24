@@ -224,9 +224,9 @@ export class Station extends Agency {
     step(_step, userInputs) {
       this._backorder = 0;
 
-      if (self.mode !== 'human') {
-        this._make_decisions_on_requests(userInputs);
-      }
+
+      this._make_decisions_on_requests(userInputs);
+
       this.receiveItems();
       this._update_inventory_stats();
       this.curReward = -this._backorder - this.communication;
@@ -472,9 +472,8 @@ export class Shelter extends Agency {
         this.patients.push(new Person('injured', 0));
       }
       
-      if (this.mode !== 'human') {
-        this._make_decisions_on_requests(userInputs);
-      }
+
+      this._make_decisions_on_requests(userInputs);
       this._update_patient_inventory_stats();
       this._update_staff_stats();
   

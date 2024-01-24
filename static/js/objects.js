@@ -184,8 +184,6 @@ class Agency {
             this.OO[key] = 0;
             this.AS[key] = Array.from({ length: T + Math.max(...this.config.leadRecItemUp) + Math.max(...this.config.leadRecOrderUp) + 10 }, () => 0);
             this.AO[key] = Array.from({ length: T + Math.max(...this.config.leadRecItemUp) + Math.max(...this.config.leadRecOrderUp) + 10 }, () => 0);
-            console.log('AS', this.AS[key]);
-            console.log('AO', this.AO[key]);
           }
       }
   
@@ -348,6 +346,7 @@ export class Warehouse extends Agency {
         // this.curReward = -this._backorder - this.communication;
   
         for (const [name, amount] of Object.entries(this.inventory)) {
+            console.log(name, constants.items[name]);
             const maxmium = constants.items[name]['max'];
             this.inventory[name] = Math.max(0, Math.min(amount, maxmium));
         }

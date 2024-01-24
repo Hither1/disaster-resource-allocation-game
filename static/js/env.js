@@ -247,13 +247,13 @@ function updateConfig(config) {
     config.agentTypes = ['dnn', 'dnn', 'dnn', 'dnn'];
     config.saveFigInt = [config.saveFigIntLow, config.saveFigIntUp];
 
-    if (config.gameConfig === 0) {
-        config.NoAgent = Math.min(config.NoAgent, config.agentTypes.length);
-        config.agentTypes = [config.agent_type1, config.agent_type2, config.agent_type3, config.agent_type4];
-    } else {
-        config.NoAgent = 4;
-        setAgentType(config); // set the agent brain types according to ifFourDNNtrain, ...
-    }
+    // if (config.gameConfig === 0) {
+    //     config.NoAgent = Math.min(config.NoAgent, config.agentTypes.length);
+    //     config.agentTypes = [config.agent_type1, config.agent_type2, config.agent_type3, config.agent_type4];
+    // } else {
+    //     config.NoAgent = 4;
+    //     setAgentType(config); // set the agent brain types according to ifFourDNNtrain, ...
+    // }
 
     config.c_h = [config.ch1, config.ch2, config.ch3, config.ch4];
     config.c_p = [config.cp1, config.cp2, config.cp3, config.cp4];

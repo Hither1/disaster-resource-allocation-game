@@ -425,11 +425,7 @@ export class Shelter extends Agency {
   
       this.patients = Array.from({ length: this.inventory['health'] }, () => new Person('injured', 0));
       this.staff_team = Array.from({ length: this.inventory['staff'] }, () => new Person('staff', 5));
-      console.log('------');
-      console.log(this.inventory['health']);
-      console.log(this.inventory['staff']);
-      console.log(this.patients);
-      console.log(this.staff_team);
+
       this.base_stock = {
         'food': 30,
         'drink': 30,
@@ -543,7 +539,8 @@ export class Shelter extends Agency {
         this.AO['drink'][this.curTime] += 2;
         this.patients[i]._admitted_days += 1;
       }
-  
+      console.log('death', this.AO)
+      console.log('death', this.AO['staff'])
       console.log('death', this.death, this.AO['staff'][this.curTime], this.AO['food'][this.curTime], this.AO['drink'][this.curTime]);
     }
   

@@ -25,6 +25,7 @@ const gameConfig = {
 };
 
 document.getElementById('startButton').addEventListener('click', function () {
+    gameConfig = updateConfig(gameConfig);
     gameEnv = new Env(
         userRole,
         gameConfig
@@ -214,4 +215,46 @@ class Env {
     }
     // .
   }
+
+
+function updateConfig(config) {
+    config.actionList = buildActionList(config); // The list of the available actions
+    config.actionListLen = config.actionList.length; // the length of the action list
+    
+    // set_optimal(config)
+    config.f = [config.f1, config.f2, config.f3, config.f4]; // [6.4, 2.88, 2.08, 0.8]
+
+    config.actionListLen = config.actionList.length;
+    if (config.demandDistribution === 0) {
+        config.actionListOpt = Array.from({ length: Math.max(config.actionUp * 30 + 1, 3 * config.f.reduce((acc, val) => acc + val, 0)) }, (_, i) => i);
+    } else {
+        config.actionListOpt = Array.from({ length: Math.max(config.actionUp * 30 + 1, 7 * config.f.reduce((acc, val) => acc + val, 0)) }, (_, i) => i);
+    }
+    config.actionListLenOpt = config.actionListOpt.length;
+    config.agentTypes = ['dnn', 'dnn', 'dnn', 'dnn'];
+    config.saveFigInt = [config.saveFigIntLow, config.saveFigIntUp];
+
+    if (config.gameConfig === 0) {
+        config.NoAgent = Math.min(config.NoAgent, config.agentTypes.length);
+        config.agentTypes = [config.agent_type1, config.agent_type2, config.agent_type3, config.agent_type4];
+    } else {
+        config.NoAgent = 4;
+        setAgentType(config); // set the agent brain types according to ifFourDNNtrain, ...
+    }
+
+    config.c_h = [config.ch1, config.ch2, config.ch3, config.ch4];
+    config.c_p = [config.cp1, config.cp2, config.cp3, config.cp4];
+
+    config.stateDim = getStateDim(config); // Number of elements in the state description - Depends on ifUseASAO
+    Math.seedrandom(config.seed);
+    setSavedDimentionPerBrain(config); // set the parameters of pre_trained model.
+    fillnodes(config); // create the structure of network nodes
+    getAuxiliaryLeadtimeInitialValues(config);
+    fixLeadTimeManufacturer(config);
+    fillLeadtimeInitialValues(config);
+    setStermanParameters(config);
+
+    return config;
+}
+
 

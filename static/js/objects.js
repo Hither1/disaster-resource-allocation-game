@@ -541,6 +541,8 @@ export class Shelter extends Agency {
       }
       console.log('death', this.AO)
       console.log('death', this.AO['staff'])
+      console.log( this.curTime)
+
       console.log('death', this.death, this.AO['staff'][this.curTime], this.AO['food'][this.curTime], this.AO['drink'][this.curTime]);
     }
   

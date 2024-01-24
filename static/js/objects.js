@@ -185,7 +185,6 @@ class Agency {
             this.AO[key] = Array.from({ length: T + Math.max(...this.config.leadRecItemUp) + Math.max(...this.config.leadRecOrderUp) + 10 }, () => 0);
           }
       }
-  
   }
 
 export class Station extends Agency {
@@ -360,7 +359,7 @@ export class Warehouse extends Agency {
   
     _make_decisions_on_requests(userInputs) {
       // Step 1:
-      if (self.mode == 'human') {
+      if (this.mode == 'human') {
         userInputs[1]['food'].forEach(([requester, quantity]) => {
             this.AO['food'][this.curTime] = quantity;
             requester.AS['food'][this.curTime + 1] += quantity;

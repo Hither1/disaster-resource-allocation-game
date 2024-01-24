@@ -138,9 +138,9 @@ class Env {
 
       // Display narratives
       const dynamicContentElement = document.getElementById('dynamicContent');
-      console.log('checking my strings', strings[self._step-1])
+      console.log('checking my strings', strings, , strings[this._step-1])
       if (dynamicContentElement) {
-            dynamicContentElement.innerHTML = `<p>${strings[self._step-1]}</p>`;
+            dynamicContentElement.innerHTML = `<p>${strings[this._step-1]}</p>`;
       } else {
         console.error('Element with ID "dynamicContent" not found.');
       }

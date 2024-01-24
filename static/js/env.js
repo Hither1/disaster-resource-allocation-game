@@ -93,7 +93,7 @@ class Env {
       this.shelter.resetPlayer(100);
       this.warehouse.resetPlayer(100);
       this.station.resetPlayer(100);
-
+    console.log('user', user);
       if (user === "Shelter") {
         this.user = this.shelter
         this.shelter.mode = "human";

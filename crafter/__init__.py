@@ -16,3 +16,24 @@ try:
       kwargs={'reward': False})
 except ImportError:
   pass
+
+
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+import socketio
+import asyncio
+
+
+#asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+app = FastAPI()
+
+sio = socketio.AsyncServer(cors_allowed_origins='*', async_mode = 'asgi')
+app.mount("/socket.io", socketio.ASGIApp(sio))
+
+#app.mount("/static", StaticFiles(directory="./mission/static"), name="static")
+
+app.mount("/static", StaticFiles(directory="./crafter/static"), name="static")
+templates = Jinja2Templates(directory="./crafter/templates")
+
+from crafter import main

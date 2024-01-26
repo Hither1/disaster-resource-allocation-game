@@ -24,20 +24,42 @@ let gameConfig = {
     leadRecOrderUp: [2,2,2,0]
 };
 
+function setup() {
+  // showFullView(chkFull);
+  console.log("Client socket: ", socket.id);
+  console.log('Client player id:', uid);
+  emitSocketIO('join_room', {'uid': uid, 'agent_type': "human"});
+
+  // load images
+  // medicImg = loadImage("https://cdn-icons.flaticon.com/png/512/2371/premium/2371329.png?token=exp=1646427991~hmac=66091d24f0f77d7e5a90a48fd33dc6d9");
+  medicImg = loadImage("https://raw.githubusercontent.com/ngocntkt/visualization-map/master/aid.png");
+  engineerImg = loadImage("https://raw.githubusercontent.com/ngocntkt/visualization-map/master/hammer2.png");
+
+  // episodeDisplay.textContent = 'Episode: ' + episode;
+  var canvas = createCanvas(0, 0);
+
+  $('#ready-room').show()
+  const ready_button = document.getElementById('ready-button');
+  ready_button.addEventListener('click', function(){
+    emitSocketIO('ready', {'uid': uid})
+  });
+}
+
 document.getElementById('startButton').addEventListener('click', function () {
-    gameConfig = updateConfig(gameConfig);
-    gameEnv = new Env(
-        userRole,
-        gameConfig
-    );
+  emitSocketIO('ready', {'uid': uid});
+    // gameConfig = updateConfig(gameConfig);
+    // gameEnv = new Env(
+    //     userRole,
+    //     gameConfig
+    // );
 
-    const startButton = document.getElementById('startButton');
-    startButton.style.display = 'none';
+    // const startButton = document.getElementById('startButton');
+    // startButton.style.display = 'none';
 
-    const startMsg = document.getElementById('startMsg');
-    startMsg.style.display = 'none';
+    // const startMsg = document.getElementById('startMsg');
+    // startMsg.style.display = 'none';
 
-    document.getElementById('userInputs').classList.remove('hidden');
+    // document.getElementById('userInputs').classList.remove('hidden');
 });
 
 
@@ -130,7 +152,7 @@ class Env {
         consumption = this.shelter.consumption + this.shelter.consumption + this.shelter.consumption;
         communication = this.shelter.communication + this.shelter.communication + this.shelter.communication;
 
-        return death + consumption + communication
+        return 10 * death + consumption + communication
     }
   
     step(userInputs) {

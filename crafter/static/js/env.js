@@ -45,21 +45,37 @@ function setup() {
   });
 }
 
+function emitSocketIO(endpoint, value){
+  try {
+    if (socket) {
+        socket.emit(endpoint, value, withTimeout(
+            () => {},
+            () => {
+              socketIOBuffer.push({endpoint: endpoint,value: value})
+             }, 1000));
+    } else {
+      socketIOBuffer.push({endpoint: endpoint,value: value})
+    }
+  }catch (e){
+    socketIOBuffer.push({endpoint: endpoint,value: value})
+  }
+}
+
 document.getElementById('startButton').addEventListener('click', function () {
   emitSocketIO('ready', {'uid': uid});
-    // gameConfig = updateConfig(gameConfig);
-    // gameEnv = new Env(
-    //     userRole,
-    //     gameConfig
-    // );
+    gameConfig = updateConfig(gameConfig);
+    gameEnv = new Env(
+        userRole,
+        gameConfig
+    );
 
-    // const startButton = document.getElementById('startButton');
-    // startButton.style.display = 'none';
+    const startButton = document.getElementById('startButton');
+    startButton.style.display = 'none';
 
-    // const startMsg = document.getElementById('startMsg');
-    // startMsg.style.display = 'none';
+    const startMsg = document.getElementById('startMsg');
+    startMsg.style.display = 'none';
 
-    // document.getElementById('userInputs').classList.remove('hidden');
+    document.getElementById('userInputs').classList.remove('hidden');
 });
 
 

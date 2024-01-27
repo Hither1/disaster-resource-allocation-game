@@ -3,9 +3,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 user = "root"
-password = "1234"
+password = "711511912"
 host = "localhost:3306"
-db_name = "team_minimap_bot"
+db_name = "DRA_game_db"
 
 
 DATABASE_URL = 'mysql+mysqlconnector://%s:%s@%s/%s?charset=utf8' % (

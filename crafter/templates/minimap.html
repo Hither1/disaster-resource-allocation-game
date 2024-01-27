@@ -1,0 +1,164 @@
+<script type="text/javascript">
+  window.history.pushState(null, "", window.location.href);
+  window.onpopstate = function () {
+      window.history.pushState(null, "", window.location.href);
+  };
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-sparkline@2.4.0/jquery.sparkline.min.js"></script>
+  <style>
+      svg+svg {
+          margin-left: 20px;
+      }
+
+      .sparkline {
+          fill: none;
+      }
+
+      .sparkline--red {
+          stroke: #dc2b33;
+      }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js"
+      integrity="sha512-+fimYMd9ssJlAt7SKeLD8bemPKamAAomwky9niJe6clQ5CD3xDVHvdNbgfr7NSJAQdhZxpTs0t68H4urqYbQog=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/epoch/0.8.4/js/epoch.min.js"
+      integrity="sha512-OQUukBdyDPDSyD0Bul5eNAdMKjOu1xTrK7oCnNnrdtHAx7BqH93ZXpwLMu91YICvfW3Sl/asx5xrVW1Jw38BPw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/epoch/0.8.4/css/epoch.min.css"
+      integrity="sha512-vg5Y7XDOfPBY8A7drxCyYMoBGxqL/5cvxfBuUgqcfvz6y8q7/rLT+LpxVxbljx33aNZwH4BbiQIO8zgtvCCkUQ=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="{{ url_for('static', path='js/p5.min.js')}}"></script>
+  <script src="{{ url_for('static', path='js/p5.dom.min.js')}}"></script>
+  <script src="{{ url_for('static', path='js/p5.sound.min.js')}}"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='css/style.css')}}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script> -->
+  <title>Team Minimap</title>
+</head>
+
+<body>
+  <p hidden id="ip"></p>
+  <table id="tab-panel" cellpadding="10" cellspacing="0" align="center" style="display:none; width: 1150px;">
+      <tr>
+          <td class="td-panel">
+              <center>
+                  <img src="{{ url_for('static', path='img/command.png')}}" style="width:85%" alt="Commands panel">
+              </center>
+          </td>
+
+      </tr>
+  </table>
+
+  <table id="tabgame" v-if="position" cellpadding="10" cellspacing="0" style="width: 1150px;" align="center">
+      <div id="qualtrics-container">
+          <iframe id="frame-qualtrics" src="" height="700px" width="900px"></iframe>
+      </div>
+      <tr id="game-container" class=border align="center">
+          <td>
+              <div style = "text-align: center">
+                  <h2 id="playtime"> Game ends in <span id="time"></span> minutes</h2>
+              </div>
+              <div align="center">
+                  <h3>
+                      <span id="episode"></span> |
+                      <span id="goal"> Points: 0</span> |
+                      <span id="green">Greens: 0</span> |
+                      <span id="yellow">Yellows: 0</span> |
+                      <span id="red">Reds: 0</span> |
+                      <span>
+                          <input type="checkbox" id="full_falcon" name="full_falcon" value="show_falcon"
+                              onclick="showFullView(this)">
+                          <label for="map"> Full view</label>
+                      </span>
+                      <span id="block-map">
+                          <input type="checkbox" id="map" name="map" value="show_map" onclick="showMap(this)">
+                          <label for="map"> Show map</label>
+                      </span>
+                      <span id="instructionsToggle" style="border-color: gray; border-width: 2px; padding: 6px; border-style: solid;cursor:pointer;">Show commands</span>
+                  </h3>
+                  <h3><span id="result"></span></h3>
+                  <form name="frm">
+                      <input type="hidden" id="uid" name="uid" value={{data}} />
+                      <input type="hidden" id="session" name="session" value={{session}} />
+                      <input type="hidden" id="group" name="group" value={{group}} />
+                  </form>
+              </div>
+              
+              <form id="minimap" action="/fullmap/" method="POST">
+                  <input type="hidden" id="uid" name="uid" value={{data}} />
+                  <input type="hidden" id="session" name="session" value={{session}} />
+                  <input type="hidden" id="group" name="group" value={{group}} />
+                  
+                  <div id="sketch-holder">
+                      <script src="{{ url_for('static', path='js/fullgame_wr.js?v=')}}"+DateTime.Now.Ticks></script>
+                      <script src="{{ url_for('static', path='js/cell.js?v=')}}"+DateTime.Now.Ticks></script>
+                  </div>
+
+                  <div align="center">
+                      <h3><span id="total"></span></h3>
+                      <button name="finish" formaction="/completion" id="finish-button" type="submit" class="button">Finish</button>
+                  </div>
+                  <script>
+                      $('#next-button').click(function() {
+                          var id = $('#uid').val();
+                          var sessionId = Number($('#session').val())+1;
+                          $('#session').val(sessionId);
+                          var formAction = $('#next-button').attr('formaction');
+                          $('#next-button').attr('formaction', formAction + '?uid=' + id);
+                      });
+                      $( "#finish-button").click(function() {
+                          var id = $('#uid').val();
+                          var formAction = $('#finish-button').attr('formaction');
+                          $('#finish-button').attr('formaction', formAction);
+                      }); 
+                  </script>
+              </form>
+          </td>
+      </tr>
+  </table>
+
+  <div id="ready-room" class="text-center" style="display:none">
+      <h2>Waiting Room</h2>
+      <div id="not_ready" align = "center">
+          <p>When you are ready to start, please click the "Ready" button. </p> 
+          <button name="ready-button" class="button-decorated" id="ready-button" type="button">Ready</button>
+      </div>
+  </div>
+  
+
+  <div id="lobby" class="text-center" style="display:none">
+      <div id="finding_partner">
+          <p>Now you will play with other players who will be your teammates. All rewards will be shared equally between the teammates. </p>
+          <p>Please wait while we find you teammates (this will take at most 10 minutes). </p> 
+          <hr/>
+          <div align="center">
+              <h2>Time: <span id="elapsed"></span></h2>
+              <h2>Waiting for all players to be ready: <span id="status"></span></h2>
+              <h3>Searching <span id="ellipses">...</span></h3>
+              <br/>
+          </div>
+      </div>
+      <br/>
+      <div id="error-exit" style="display:none">
+          <p> You will be redirected to the end of the study. </p>
+      </div>
+  </div>
+
+  <div id="notification", class="text-center" style="display:none">
+      <br/><br/>
+      <h2>GAME OVER!</h2>
+      <br/>
+      <h3><span id="notification-content">You are going to move to the next episode in a few seconds.</span></h3>
+  </div>
+
+</body>
+
+</html>

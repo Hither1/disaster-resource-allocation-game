@@ -6,7 +6,7 @@ from crafter import engine, constants, low_level_objects, high_level_objects
 from random import randint
 
 class Scenario(BaseScenario):
-    def make_world(self, config, num_agents, num_targets):
+    def make_world(self, config, num_agents=-1, num_targets=-1):
         self.config = config
         world = engine.World(config.area, constants.materials, (12, 12))
         # set any world properties first

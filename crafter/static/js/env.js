@@ -1,5 +1,5 @@
 import {Shelter, Warehouse, Station} from './objects.js';
-
+let socketIOBuffer = [];
 const strings = [
     'Initial Response: You knew it was coming. This episode is the start of a disaster relief operation. Your team will be managing the initial response. You will receive a separate situation report and task assignment sheet.',
     'Scaling Up & Transition of Responsibilities',
@@ -24,27 +24,6 @@ let gameConfig = {
     leadRecOrderUp: [2,2,2,0]
 };
 
-function setup() {
-  // showFullView(chkFull);
-  console.log("Client socket: ", socket.id);
-  console.log('Client player id:', uid);
-  emitSocketIO('join_room', {'uid': uid, 'agent_type': "human"});
-
-  // load images
-  // medicImg = loadImage("https://cdn-icons.flaticon.com/png/512/2371/premium/2371329.png?token=exp=1646427991~hmac=66091d24f0f77d7e5a90a48fd33dc6d9");
-  medicImg = loadImage("https://raw.githubusercontent.com/ngocntkt/visualization-map/master/aid.png");
-  engineerImg = loadImage("https://raw.githubusercontent.com/ngocntkt/visualization-map/master/hammer2.png");
-
-  // episodeDisplay.textContent = 'Episode: ' + episode;
-  var canvas = createCanvas(0, 0);
-
-  $('#ready-room').show()
-  const ready_button = document.getElementById('ready-button');
-  ready_button.addEventListener('click', function(){
-    emitSocketIO('ready', {'uid': uid})
-  });
-}
-
 function emitSocketIO(endpoint, value){
   try {
     if (socket) {
@@ -63,63 +42,24 @@ function emitSocketIO(endpoint, value){
 
 document.getElementById('startButton').addEventListener('click', function () {
   emitSocketIO('ready', {'uid': uid});
-    gameConfig = updateConfig(gameConfig);
-    gameEnv = new Env(
-        userRole,
-        gameConfig
-    );
+  console.log('Emitted');
+    // gameConfig = updateConfig(gameConfig);
+    // gameEnv = new Env(
+    //     userRole,
+    //     gameConfig
+    // );
 
-    const startButton = document.getElementById('startButton');
-    startButton.style.display = 'none';
+    // const startButton = document.getElementById('startButton');
+    // startButton.style.display = 'none';
 
-    const startMsg = document.getElementById('startMsg');
-    startMsg.style.display = 'none';
+    // const startMsg = document.getElementById('startMsg');
+    // startMsg.style.display = 'none';
 
-    document.getElementById('userInputs').classList.remove('hidden');
+    // document.getElementById('userInputs').classList.remove('hidden');
 });
 
 
-document.getElementById('nextButton').addEventListener('click', function () {
-    if (gameEnv) {
-        // 1. Get user actions
-        const userInputs = {};
 
-        const userInputBoxes = document.querySelectorAll('.userInput');
-        userInputBoxes.forEach(inputBox => {
-            inputBox.addEventListener('input', function () {
-            if (gameEnv) {
-                const input = inputBox.value;
-                const inputIdentifier = inputBox.getAttribute('data-input');
-
-                if (!isNaN(inputValue)) {
-                    userInputs[inputType] = inputValue;
-                }
-
-            console.log(`User Input ${inputIdentifier}:`, input);
-            } else {
-                console.log('Game environment not initialized. Click "Start Game" first.');
-            }
-            });
-        });
-
-        // 2. Run env step
-        const [reward, user_food, user_drink, user_staff, done] = gameEnv.step(userInputs);
-
-        document.getElementById('day').textContent = this._step;
-        document.getElementById('goal').textContent = reward;
-        document.getElementById('food').textContent = user_food;
-        document.getElementById('drink').textContent = user_drink;
-        document.getElementById('staff').textContent = user_staff;
-
-        // 3. If finished
-        if (done) {
-            window.location.href = 'done.html';
-          }
-
-    } else {
-        console.log('Game environment not initialized. Click "Start Game" first.');
-    }
-});
 
 
 class Env {
@@ -131,7 +71,7 @@ class Env {
       this.shelter.resetPlayer(100);
       this.warehouse.resetPlayer(100);
       this.station.resetPlayer(100);
-    console.log('user', user);
+
       if (user === "Shelter") {
         this.user = this.shelter
         this.shelter.mode = "human";
@@ -213,7 +153,6 @@ class Env {
         }
       }
   
-  
     //   for (const agent of this.players) {
     //     const r = this._getReward(agent);
     //     rewardN.push(r);
@@ -221,7 +160,7 @@ class Env {
       rewardN = this.getReward()
       const done = this._step >= 20;
   
-      return [rewardN, this.user.inventory['food'], this.user.inventory['drink'], this.user.inventory['staff'], done];
+      return [rewardN, this.shelter.inventory['food'], this.warehouse.inventory['drink'], this.user.inventory['staff'], done];
     }
     
     process_userInputs(userInputs) {

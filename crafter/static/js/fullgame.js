@@ -12,6 +12,7 @@ var agentDirX;
 var agentDirY;
 var curX, curY;
 
+// uid from url?
 const uid = document.getElementById("uid").value;
 var groupID;
 
@@ -36,7 +37,6 @@ var rescue = 0;
 const timeDisplay = document.querySelector('#playtime');
 var display = document.querySelector('#time');
 
-// var episode=0;
 var episode = document.getElementById("session").value;
 var maxEpisode;
 const episodeDisplay = document.getElementById('episode');
@@ -67,12 +67,9 @@ let socketIOBuffer = [];
 let effortHis = [], skillHis = [], efficiencyHis = [];
 var tedChart = null;
 
-
 // waiting room
-var lobbyWaitTime = 10 * 60 * 1000; //wait 10 minutes
 window.intervalID = -1;
 window.ellipses = -1
-window.lobbyTimeout = -1;
 
 window.onload = function () {
   showFullView(chkFull);
@@ -150,8 +147,6 @@ socket.on("disconnect", (reason) => {
       alert('The connection is not stable.');
     }
   });
-  // isGameOver = true;
-  //emitSocketIO('periodic call', { "pid": playerId, "x": agentX, "y": agentY, 'mission_time': display.textContent, 'event': '' })
   if (reason === "io server disconnect") {
     // the disconnection was initiated by the server, you need to reconnect manually
     console.log('Io server disconnect')
@@ -171,7 +166,6 @@ socket.on("connect", () => {
 });
 
 socket.on('end_lobby', function (msg) {
-  // Display join game timeout text
   $("#finding_partner").text(
     "We were unable to find you a partner."
   );
@@ -194,7 +188,6 @@ socket.on('waiting', function (data) {
   $('#tabgame').hide();
   $('#ready-room').hide();
   $('#lobby').show();
-  // console.log('Data status: ', parseInt(data['status']));
   $('#status').text(data['status'] + " / " + data['max_size']);
   if (parseInt(data['status']) != 0) {
     if (window.intervalID === -1) {
@@ -233,7 +226,6 @@ startWaitTimer();
 
 socket.on('start_game', function (msg) {
   showElement("game-container");
-  
   gameStarted = true;
 
   episode = msg['episode']
@@ -261,10 +253,8 @@ socket.on('start_game', function (msg) {
   
   width = (state_map[0].length) * w + 1;
   height = (state_map.length) * w + 1;
-  var canvas = createCanvas(width, height); //
+  var canvas = createCanvas(width, height); 
   canvas.parent('sketch-holder');
-  // Need to address agentX and agentY
-  // emitSocketIO('start', {'uid': uid, 'mission_time': display.textContent, 'event': 'start mission' })
 
   socket.on('refresh', function (msg) {
     updateScoreBoard(msg['scoreboard'])
@@ -301,7 +291,6 @@ function setupInformationPanelToggle(){
 
 socket.on('end_episode', function(msg) {
   episode = msg['episode']
-    // isGameOver = true;
     clearInterval(timeout);
     clearInterval(intervalRecordData);
     clearInterval(intervalEmitSocket);
@@ -320,13 +309,11 @@ socket.on('end_game', function(msg) {
     clearInterval(intervalEmitSocket);
   
     console.log("Game over");
-    //timeDisplay.textContent = "GAME OVER !";
     
     //$('#ready-room').show();
     //$('#tab-panel').hide();
     //$('#tabgame').hide();
   
-    //emitSocketIO('end', {'uid': uid, 'gid': groupID, "x": agentX, "y": agentY, 'mission_time': display.textContent, 'event': 'end mission', 'episode': episode })
     async function getTotalPoint() {
       const response = await fetch('/points/' + uid + '/');
       const data = await response.json();
@@ -359,19 +346,15 @@ function setup() {
   emitSocketIO('join_room', {'uid': uid, 'agent_type': "human"});
 
   // load images
-  // medicImg = loadImage("https://cdn-icons.flaticon.com/png/512/2371/premium/2371329.png?token=exp=1646427991~hmac=66091d24f0f77d7e5a90a48fd33dc6d9");
   medicImg = loadImage("https://raw.githubusercontent.com/ngocntkt/visualization-map/master/aid.png");
   engineerImg = loadImage("https://raw.githubusercontent.com/ngocntkt/visualization-map/master/hammer2.png");
 
-
-
-  // episodeDisplay.textContent = 'Episode: ' + episode;
   var canvas = createCanvas(0, 0);
 
-  $('#ready-room').show()
+$('#ready-room').show()
   const ready_button = document.getElementById('ready-button');
   ready_button.addEventListener('click', function(){
-    emitSocketIO('ready', {'uid': uid})
+    emitSocketIO('ready', {'uid': uid, 'userRole': userRole})
   });
 }
 
@@ -389,20 +372,17 @@ function updateScoreBoard(scores) {
 
 
 function gameOver() {
-  //isGameOver = true;
   clearInterval(timeout);
   clearInterval(intervalRecordData);
   clearInterval(intervalEmitSocket);
 
   console.log("Game over");
-  //timeDisplay.textContent = "GAME OVER !";
   
   $('#ready-room').show();
   $('#tab-panel').hide();
   $('#tabgame').hide();
 
 
-  //emitSocketIO('end', {'uid': uid, 'gid': groupID, "x": agentX, "y": agentY, 'mission_time': display.textContent, 'event': 'end mission', 'episode': episode })
   async function getTotalPoint() {
     const response = await fetch('/points/' + uid + '/');
     const data = await response.json();
@@ -419,9 +399,6 @@ function gameOver() {
       "You have finished playing the game. You will be forwarded to the post-study section in a few seconds."
     );
   }
-
-  //$('#sketch-holder').hide();
-  //var button = document.getElementById('next-button')
   //button.style.visibility = 'visible';
   //$('#notification').show();
   //if (episode == maxEpisode) {
@@ -437,23 +414,11 @@ function gameOver() {
 
   //} else {
     //var button = document.getElementById('next-button');
-     //sleep(2000).then(() => {
-      // $('#tab-panel').hide();
-      // $('#tabgame').hide();
-      // $('#notification').show();
-      // button.style.visibility = 'visible';
-     //});
-     //sleep(5000).then(() => { button.click(); });
-  //}
+
 }
 
 function nextEpisode() {
-
-
-
   emitSocketIO('join episode', {'uid': uid, 'episode': episode + 1, 'agent_type': "human"})
-
-
 }
 function writeData(data) {
   const dataOptions = {
@@ -467,7 +432,6 @@ function writeData(data) {
 }
 
 function draw() {
-  // background(200,200,200,127);
   background(173, 216, 230, 127);
   for (var row = 0; row < rows; row++) {
     for (var col = 0; col < cols; col++){
@@ -534,17 +498,57 @@ function draw() {
 }
 
 // Emitting functions
-
 function keyPressed(){
   if (!isGameOver && gameStarted) {
     const currentTime = millis();
-    //if (currentTime - lastKeyEventTime >= moveEventInterval) {
     if (currentTime - lastKeyEventTime >= moveEventInterval) {
       emitSocketIO('keyEvent', {'uid': uid, 'event': "press", 'key': keyCode});
       lastKeyEventTime = currentTime;
     }
   }
 }
+
+document.getElementById('nextButton').addEventListener('click', function () {
+  if (gameEnv) {
+      // 1. Get user actions
+      const userInputs = {};
+
+      const userInputBoxes = document.querySelectorAll('.userInput');
+      userInputBoxes.forEach(inputBox => {
+          inputBox.addEventListener('input', function () {
+          if (gameEnv) {
+              const input = inputBox.value;
+              const inputIdentifier = inputBox.getAttribute('data-input');
+
+              if (!isNaN(inputValue)) {
+                  userInputs[inputType] = inputValue;
+              }
+
+          console.log(`User Input ${inputIdentifier}:`, input);
+          } else {
+              console.log('Game environment not initialized. Click "Start Game" first.');
+          }
+          });
+      });
+
+      // 2. Run env step
+      const [reward, user_food, user_drink, user_staff, done] = gameEnv.step(userInputs);
+
+      document.getElementById('day').textContent = this._step;
+      document.getElementById('goal').textContent = reward;
+      document.getElementById('food').textContent = user_food;
+      document.getElementById('drink').textContent = user_drink;
+      document.getElementById('staff').textContent = user_staff;
+
+      // 3. If finished
+      if (done) {
+          window.location.href = 'done.html';
+        }
+
+  } else {
+      console.log('Game environment not initialized. Click "Start Game" first.');
+  }
+});
 
 var timeout;
 function startTimer(duration, display) {

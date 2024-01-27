@@ -1,5 +1,4 @@
 import pathlib
-
 import ruamel.yaml
 
 root = pathlib.Path(__file__).parent

@@ -40,24 +40,28 @@ walkable:
 
 items:
   health: {max: 35, initial: 9}
-  food: {max: 60, initial: 9}
-  drink: {max: 60, initial: 9}
-  energy: {max: 9, initial: 9}
   player: {max: 9, initial: 9}
-  staff: {max: 45, initial: 9}
   death: {max: 9, initial: 0}
-  sapling: {max: 9, initial: 0}
-  wood: {max: 9, initial: 0}
-  stone: {max: 9, initial: 0}
-  coal: {max: 9, initial: 0}
-  iron: {max: 9, initial: 0}
-  diamond: {max: 9, initial: 0}
-  wood_pickaxe: {max: 9, initial: 0}
-  stone_pickaxe: {max: 9, initial: 0}
-  iron_pickaxe: {max: 9, initial: 0}
-  wood_sword: {max: 9, initial: 0}
-  stone_sword: {max: 9, initial: 0}
-  iron_sword: {max: 9, initial: 0}
+
+resources:
+  food: {max: 60, initial: 9, leadRecItem: 2, leadRecOrder: 2}
+  drink: {max: 60, initial: 9, leadRecItem: 2, leadRecOrder: 2}
+  energy: {max: 9, initial: 9, leadRecItem: 2, leadRecOrder: 2}
+  staff: {max: 45, initial: 9, leadRecItem: 2, leadRecOrder: 2}
+
+
+  # sapling: {max: 9, initial: 0}
+  # wood: {max: 9, initial: 0}
+  # stone: {max: 9, initial: 0}
+  # coal: {max: 9, initial: 0}
+  # iron: {max: 9, initial: 0}
+  # diamond: {max: 9, initial: 0}
+  # wood_pickaxe: {max: 9, initial: 0}
+  # stone_pickaxe: {max: 9, initial: 0}
+  # iron_pickaxe: {max: 9, initial: 0}
+  # wood_sword: {max: 9, initial: 0}
+  # stone_sword: {max: 9, initial: 0}
+  # iron_sword: {max: 9, initial: 0}
   
 
 collect:

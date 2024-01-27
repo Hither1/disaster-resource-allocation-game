@@ -31,7 +31,7 @@ def draw_text(image, text):
   return cv2.UMat.get(pil_image).transpose((1, 0, 2))
 
 class Env(BaseClass):
-  def __init__(self, config, world, reset_callback=None, reward_callback=None, global_reward_callback=None,
+  def __init__(self, config, world, userRole=None, reset_callback=None, reward_callback=None, global_reward_callback=None,
                 observation_callback=None, info_callback=None,
                 done_callback=None):
     self.config = config
@@ -115,6 +115,17 @@ class Env(BaseClass):
       obs_dim = len(observation_callback(agent, self.world))
       self.observation_space.append(spaces.Box(low=-np.inf, high=+np.inf, shape=(obs_dim,), dtype=np.float32))
       # agent.action.c = np.zeros(self.world.dim_c)
+
+    if userRole == "Shelter":
+        self.user = self.world.shelter
+        self.world.shelter.mode = "human"
+    elif userRole == "Warehouse": 
+        self.user = self.world.warehouse
+        self.world.warehouse.mode = "human"
+    elif userRole == "Station":
+        self.user = self.world.station
+        self.world.station.mode = "human"
+    self.user_name = userRole
 
   @property
   def action_names(self):

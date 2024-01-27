@@ -8,21 +8,16 @@ def create_env(env_id, args, rank=-1):
         from multiagent.environment import MultiAgentEnv
         import multiagent.scenarios as scenarios
         scenario_name = args.env
-        # load scenario from script
         scenario = scenarios.load(scenario_name + ".py").Scenario()
-        # create world
         world = scenario.make_world(args.num_agents, args.num_targets)
-        # create multiagent environment
         env = MultiAgentEnv(world, scenario.reset_world, scenario.reward, scenario.observation)
         env_wrap = env_wrapper(env, args)
         return env_wrap
     elif 'RA' in env_id:  
-        from multiagent.environment import MultiAgentEnv
         import multiagent.scenarios as scenarios
         scenario = scenarios.load(args.env + ".py").Scenario()
         config, _ = crafter.config.get_config()
         world = scenario.make_world(config, args.num_agents, args.num_targets)
-        
         env = crafter.Env(config, world, scenario.reset_world, scenario.reward, scenario.global_reward, scenario.observation)
         env = crafter.Recorder(env, config.record)
         env.reset()

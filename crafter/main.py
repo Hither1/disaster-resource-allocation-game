@@ -29,7 +29,7 @@ sys.path.append('/')
 
 import json
 
-from crafter import Env
+import crafter
 #from speedyibl import Agent
 import copy 
 from collections import deque
@@ -100,7 +100,8 @@ roomid_started = {}
 roomid_episode = {}
 timer_recording = {} # list of timer recording each group's data
 room_data = {} #room_id and values is the list of players' events
-roomid_ep_keypresses = {}
+# roomid_ep_keypresses = {}
+roomid_ep_userinputs = {}
 roomid_ep_states = {}
 
 
@@ -166,7 +167,7 @@ async def on_join(sid, *args):
     global roomid_players
     global map_list
     global roomid_ep_states
-    global roomid_ep_keypresses
+    global roomid_ep_userinputs
     global roomid_env
     global roomid_episode
 
@@ -190,7 +191,7 @@ async def on_join(sid, *args):
             # Initialize ready player list, episode number, and data trackers upon creation of room
             roomid_cur_ep_players[roomid] = set()
             roomid_episode[roomid] = 0
-            roomid_ep_keypresses[roomid] = {}
+            roomid_ep_userinputs[roomid] = {}
             roomid_ep_states[roomid] = {}
             roomid_started[roomid] = False
             
@@ -243,17 +244,19 @@ async def on_ready(sid, *args):
     global player_roomid
     global roomid_episode
     global map_list
-    global roomid_ep_keypresses
+    global roomid_ep_userinputs
     global roomid_ep_states
     global roomid_started
     global clear_rates
 
     uid = args[0]['uid']
-    roomid = player_roomid[uid]
-    episode_num = roomid_episode[roomid]
-
-    roomid_cur_ep_players[roomid].add(uid)
+    userRole = args[0]['userRole']
+    print(player_roomid, args, 'userRole', userRole)
     
+    roomid = player_roomid[uid]
+    print('condition', len(roomid_cur_ep_players[roomid]) == max_players_per_room and roomid_started[roomid] == False)
+    episode_num = roomid_episode[roomid]
+    roomid_cur_ep_players[roomid].add(uid)
 
     if len(roomid_cur_ep_players[roomid]) < max_players_per_room:
         if uid not in FAILURE_SESSION:
@@ -264,15 +267,22 @@ async def on_ready(sid, *args):
     elif len(roomid_cur_ep_players[roomid]) == max_players_per_room and roomid_started[roomid] == False:
 
         roomid_started[roomid] = True
-        # Initialize map environment, scoreboard, and data trackers
-        roomid_env[roomid] = Env(map_list[episode_num], clear_rates, engineer_rescue_mult, map_revealed = map_revealed)
-        roomid_scoreboard[roomid] = {'green':0, 'yellow':0, 'red':0}
-        roomid_ep_keypresses[roomid][episode_num] = []
+        # Initialize environment, scoreboard, and data trackers
+        import multiagent.scenarios as scenarios
+        scenario = scenarios.load("RA.py").Scenario()
+        config, _ = crafter.config.get_config()
+        world = scenario.make_world(config)
+        env = crafter.Env(config, world, scenario.reset_world, scenario.reward, scenario.global_reward, scenario.observation, userRole=userRole)
+        env = crafter.Recorder(env, config.record)
+        env.reset()
+        roomid_env[roomid] = env
+        roomid_scoreboard[roomid] = {'food':0, 'drink':0, 'red':0}
+        roomid_ep_userinputs[roomid][episode_num] = []
         roomid_ep_states[roomid][episode_num] = []
             
         startGame(roomid)
         await app.sio.emit('start_game',
-                           {'episode': episode_num, 'map': roomid_env[roomid].state_map, 'scoreboard': roomid_scoreboard[roomid],
+                           {'episode': episode_num, 'scoreboard': roomid_scoreboard[roomid],
                             'movement_delay': movement_delay},
                             room=roomid)
          
@@ -285,26 +295,35 @@ def startGame(roomid):
 
     print("game started")
     # Pair all human players with an existing in-game human agent
-    #if len(roomid_env[roomid].humans) == len(roomid_players[roomid]):
     human_i = 0
     bot_i = 0
     for uid, values in roomid_players[roomid].items():
         if values['human'] == True:
             roomid_players[roomid][uid] = {'coord':roomid_env[roomid].humans[human_i]['start_coord'], \
-                                                'role':roomid_env[roomid].humans[human_i]['role'], \
-                                                'keysdown': [], \
-                                                'enter_start_time': 0.0, \
-                                                'human': True, \
-                                                'ref_int': human_i}
+                                            'role':roomid_env[roomid].humans[human_i]['role'], \
+                                            'keysdown': [], \
+                                            'enter_start_time': 0.0, \
+                                            'human': True, \
+                                            'ref_int': human_i}
             human_i += 1
-        else:
-            roomid_players[roomid][uid] = {'coord':roomid_env[roomid].bots[bot_i]['start_coord'], \
-                                                'role':roomid_env[roomid].bots[bot_i]['role'], \
-                                                'keysdown': [], \
-                                                'enter_start_time': 0.0, \
-                                                'human': False, \
-                                                'ref_int': bot_i}
-            bot_i += 1
+
+    # for uid, values in roomid_players[roomid].items():
+    #     if values['human'] == True:
+    #         roomid_players[roomid][uid] = {'coord':roomid_env[roomid].humans[human_i]['start_coord'], \
+    #                                             'role':roomid_env[roomid].humans[human_i]['role'], \
+    #                                             'keysdown': [], \
+    #                                             'enter_start_time': 0.0, \
+    #                                             'human': True, \
+    #                                             'ref_int': human_i}
+    #         human_i += 1
+    #     else:
+    #         roomid_players[roomid][uid] = {'coord':roomid_env[roomid].bots[bot_i]['start_coord'], \
+    #                                             'role':roomid_env[roomid].bots[bot_i]['role'], \
+    #                                             'keysdown': [], \
+    #                                             'enter_start_time': 0.0, \
+    #                                             'human': False, \
+    #                                             'ref_int': bot_i}
+    #         bot_i += 1
     
     # Reset environment
     roomid_env[roomid].reset()
@@ -347,11 +366,10 @@ async def gameLoop(roomid, episode):
     global roomid_start_time
     global roomid_episode
     global roomid_ep_states
-    global roomid_ep_keypresses
+    global roomid_ep_userinputs
 
     start_time = time.time()
     roomid_start_time[roomid] = start_time
-
 
     while time.time() - start_time < game_duration:
         await asyncio.sleep(1/60)  # emit rate
@@ -362,27 +380,24 @@ async def gameLoop(roomid, episode):
             event = roomid_event_queue[roomid].popleft()
             temp_event = event
             temp_event['process_time'] = time.time()
-            roomid_ep_keypresses[roomid][episode].append(temp_event)
-            #temp_event['timestamp'] = timestamp
+            roomid_ep_userinputs[roomid][episode].append(temp_event)
             
             # change game state according to event
-            uid, agent_coord, rescues = roomid_env[roomid].step(event)
+            uid, agent_state, user_resources = roomid_env[roomid].step(event)
 
-            # update player position
-            roomid_players[roomid][uid]['coord'] = agent_coord
+            # update player state
+            roomid_players[roomid][uid]['state'] = agent_state
 
             # update scoreboard
-            for rescue in rescues:
-                if rescue in ['green', 'yellow', 'red']:
-                    roomid_scoreboard[roomid][rescue] += 1
+            for resource in user_resources:
+                roomid_scoreboard[roomid][resource] += user_resources[resource]
 
             # Clear event queue for next game tick
             # Broadcast game state to all clients
-            # Includes state_map and scoreboard
+            # Includes  and scoreboard
         
-        if not red_removed and timestamp > roomid_env[roomid].death_timers['red']:
+        if timestamp > roomid_env[roomid].death_timers['red']:
             roomid_env[roomid].expire("red")
-            red_removed = True
 
         #if state_change == True:
         #    roomid_ep_states[roomid][episode].append({'map': roomid_env[roomid].state_map, 'scoreboard': roomid_scoreboard[roomid], \
@@ -391,7 +406,7 @@ async def gameLoop(roomid, episode):
 
         # To human players 
         await app.sio.emit('refresh', \
-                            {'map': roomid_env[roomid].state_map, 'scoreboard': roomid_scoreboard[roomid], 
+                            {'state': roomid_env[roomid], 'scoreboard': roomid_scoreboard[roomid], 
                              'players': roomid_players[roomid], 'remaining_time': time_left}, \
                             room=roomid)
         
@@ -399,7 +414,6 @@ async def gameLoop(roomid, episode):
             break
     
     # End episode when time runs out
-
     # "Unready" all players in the room
     
     print("episode ended")
@@ -439,7 +453,6 @@ async def gameLoop(roomid, episode):
 
 @app.sio.on('keyEvent')
 async def keyEvent(sid, *args, **kwargs):
-
     global roomid_players
     global player_roomid
     global roomid_event_queue
@@ -458,12 +471,40 @@ async def keyEvent(sid, *args, **kwargs):
         episode = roomid_episode[roomid]
         if roomid_started[roomid] == True:
             cur_time = time.time()
-
             roomid_event_queue[roomid].append({'uid': uid, 'agent_info': roomid_players[roomid][uid], 'key': key_name, 'event': event, 'time': cur_time})
-
             ep_start_time = roomid_start_time[roomid]
 
     return
+
+@app.sio.on('shelterEvent')
+async def shelterEvent(sid, *args, **kwargs):
+    global roomid_players
+    global player_roomid
+    global roomid_event_queue
+    global roomid_episode
+    global roomid_start_time
+    global roomid_started
+    global roomid_ep_userinputs
+
+    msg = args[0]
+    uid = msg['uid']
+    event = msg['event']
+
+    if msg['key'] in key_code_dict:
+        key_name = key_code_dict[msg['key']]
+        roomid = player_roomid[uid]
+        episode = roomid_episode[roomid]
+        if roomid_started[roomid] == True:
+            cur_time = time.time()
+            roomid_event_queue[roomid].append({'uid': uid, 
+                                               'agent_info': roomid_players[roomid][uid], 
+                                               'key': key_name, 
+                                               'event': event, 
+                                               'time': cur_time})
+            ep_start_time = roomid_start_time[roomid]
+
+    return
+
 
 @app.sio.on('end')
 async def handle_episode(sid, *args, **kwargs):

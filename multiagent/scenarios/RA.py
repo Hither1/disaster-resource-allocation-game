@@ -1,8 +1,9 @@
+from crafter import high_level_objects
 import numpy as np
 from multiagent.core import Agent, Landmark
 from multiagent.scenario import BaseScenario
 import random
-from crafter import engine, constants, low_level_objects, high_level_objects
+from crafter import engine, constants, low_level_objects
 from random import randint
 
 class Scenario(BaseScenario):

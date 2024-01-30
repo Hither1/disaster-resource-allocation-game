@@ -44,7 +44,7 @@ const episodeDisplay = document.getElementById('episode');
 var iframe = document.getElementById('frame-qualtrics');
 var closeBtn = document.getElementById('close-button');
 var chkMap = document.querySelector('#map');
-var chkFull = document.querySelector('#full_falcon');
+// var chkFull = document.querySelector('#full_falcon');
 
 var numRescuedGreen = 0;
 var numRescuedYellow = 0;
@@ -93,11 +93,12 @@ function showMap(chkMap) {
 }
 
 function showFullView(chkFull) {
-  if (chkFull.checked) {
-    DEBUG = true;
-  } else {
-    DEBUG = false;
-  }
+  DEBUG = false;
+  // if (chkFull.checked) {
+  //   DEBUG = true;
+  // } else {
+  //   DEBUG = false;
+  // }
 }
 
 function sendFailedSocketEmits(){
@@ -225,6 +226,7 @@ startWaitTimer();
 
 
 socket.on('start_game', function (msg) {
+  console.log('miao miao!');
   showElement("game-container");
   gameStarted = true;
 

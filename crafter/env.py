@@ -1,4 +1,5 @@
 import collections
+from crafter import high_level_objects
 
 import numpy as np
 import cv2
@@ -9,7 +10,7 @@ from gym import spaces
 from multiagent.multi_discrete import MultiDiscrete
 from . import constants
 from . import engine
-from . import low_level_objects, high_level_objects
+from . import low_level_objects
 from . import worldgen
 
 try:
@@ -116,6 +117,8 @@ class Env(BaseClass):
       self.observation_space.append(spaces.Box(low=-np.inf, high=+np.inf, shape=(obs_dim,), dtype=np.float32))
       # agent.action.c = np.zeros(self.world.dim_c)
 
+    self.humans = []
+    self.bots = []
     if userRole == "Shelter":
         self.user = self.world.shelter
         self.world.shelter.mode = "human"
@@ -125,7 +128,15 @@ class Env(BaseClass):
     elif userRole == "Station":
         self.user = self.world.station
         self.world.station.mode = "human"
+
+    for agent in self.world.agents:
+      if agent.mode == "human":
+        self.humans.append(agent)
+      else:
+        self.bots.append(agent)
+
     self.user_name = userRole
+    
 
   @property
   def action_names(self):
@@ -147,7 +158,10 @@ class Env(BaseClass):
 
     self.world.update_OO()
     return obs_n
-
+  
+  def _get_state(self):
+    return
+  
   # get reward for a particular agent
   def _get_reward(self, agent):
     if self.reward_callback is None:

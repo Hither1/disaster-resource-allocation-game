@@ -27,7 +27,10 @@ class Person:
     material, obj = self.world[target]
 
     for name, amount in self.inventory.items():
-      maxmium = constants.items[name]['max']
+      try:
+        maxmium = constants.resources[name]['max']
+      except:
+        maxmium = constants.items[name]['max']
       self.inventory[name] = max(0, min(amount, maxmium))
 
 
@@ -47,9 +50,7 @@ class Warehouse(Agency):
     self.inventory = {'food': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
                       'drink': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
                       'staff': 9, 
-                      'wood': 0, 
-                      'stone': 0, 
-                      'coal': 0}
+                      }
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     self.action = 'noop'
     self.sleeping = False
@@ -76,9 +77,7 @@ class Warehouse(Agency):
     self.inventory = {'food': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
                       'drink': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
                       'staff': 9, 
-                      'wood': 0, 
-                      'stone': 0, 
-                      'coal': 0}
+                      }
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     return 
   
@@ -89,7 +88,10 @@ class Warehouse(Agency):
     self.curReward = - self._backorder - self._communication
 
     for name, amount in self.inventory.items():
-      maxmium = constants.items[name]['max']
+      try:
+        maxmium = constants.resources[name]['max']
+      except:
+        maxmium = constants.items[name]['max']
       self.inventory[name] = max(0, min(amount, maxmium))
 
     # self.curTime += 1
@@ -151,9 +153,7 @@ class Shelter(Agency):
                       'drink': 39, 
                       'staff': time_varying_demand_supply.demand(mean=20, std_dev=STDDEV), 
                       'death': 0,
-                      'wood': 0, 
-                      'stone': 0, 
-                      'coal': 0}
+                      }
     self.patients = [Person('injured', 0) for _ in range(self.inventory['health'])]
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     # self.base_stock = {'food': 30, 
@@ -186,9 +186,7 @@ class Shelter(Agency):
                       'drink': 39, 
                       'staff': time_varying_demand_supply.demand(mean=20, std_dev=STDDEV), 
                       'death': 0,
-                      'wood': 0, 
-                      'stone': 0, 
-                      'coal': 0}
+                      }
     self.patients = [Person('injured', 0) for _ in range(self.inventory['health'])]
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     self.base_stock = {'food': 30, 
@@ -213,7 +211,10 @@ class Shelter(Agency):
     self.curReward = - self._death - self._communication
 
     for name, amount in self.inventory.items():
-      maxmium = constants.items[name]['max']
+      try:
+        maxmium = constants.resources[name]['max']
+      except:
+        maxmium = constants.items[name]['max']
       # self.inventory[name] = max(0, min(amount, maxmium))
       self.inventory[name] = min(amount, maxmium)
 
@@ -324,9 +325,7 @@ class Station(Agency):
     self.inventory = {'food': 9, 
                       'drink': 9, 
                       'staff': time_varying_demand_supply.demand(mean=12, std_dev=STDDEV), 
-                      'wood': 0, 
-                      'stone': 0, 
-                      'coal': 0}
+                      }
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
 
     self.achievements = {name: 0 for name in constants.achievements}
@@ -356,9 +355,7 @@ class Station(Agency):
     self.inventory = {'food': 9, 
                       'drink': 9, 
                       'staff': time_varying_demand_supply.demand(mean=12, std_dev=STDDEV), 
-                      'wood': 0, 
-                      'stone': 0, 
-                      'coal': 0}
+                      }
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     return 
 
@@ -369,7 +366,10 @@ class Station(Agency):
     self.curReward = - self._backorder - self._communication
 
     for name, amount in self.inventory.items():
-      maxmium = constants.items[name]['max']
+      try:
+        maxmium = constants.resources[name]['max']
+      except:
+        maxmium = constants.items[name]['max']
       # self.inventory[name] = max(0, min(amount, maxmium))
       self.inventory[name] = min(amount, maxmium)
     

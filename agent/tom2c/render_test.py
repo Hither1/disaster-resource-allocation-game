@@ -7,7 +7,6 @@ import torch
 import logging
 import numpy as np
 import argparse
-from tensorboardX import SummaryWriter
 
 from model import build_model
 from utils import setup_logger

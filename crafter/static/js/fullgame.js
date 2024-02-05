@@ -45,6 +45,7 @@ var iframe = document.getElementById('frame-qualtrics');
 var closeBtn = document.getElementById('close-button');
 var chkMap = document.querySelector('#map');
 // var chkFull = document.querySelector('#full_falcon');
+var chkFull = true;
 
 var numRescuedGreen = 0;
 var numRescuedYellow = 0;
@@ -222,19 +223,17 @@ socket.on('waiting', function (data) {
 
 });
 
-startWaitTimer();
+// startWaitTimer();
 
 
 socket.on('start_game', function (msg) {
-  console.log('miao miao!');
   showElement("game-container");
   gameStarted = true;
 
   episode = msg['episode']
   moveEventInterval = enterEventInterval = 1000 * msg['movement_delay']
   episodeDisplay.textContent = 'Episode: ' + episode;
-  rows = state_map.length
-  cols = state_map[0].length
+
   scoreboard = msg['scoreboard']
   if (window.intervalID !== -1) {
     clearInterval(window.intervalID);
@@ -253,10 +252,8 @@ socket.on('start_game', function (msg) {
   $('#lobby').hide();
   $('#ready-room').hide();
   
-  width = (state_map[0].length) * w + 1;
-  height = (state_map.length) * w + 1;
-  var canvas = createCanvas(width, height); 
-  canvas.parent('sketch-holder');
+  // var canvas = createCanvas(width, height); 
+  // canvas.parent('sketch-holder');
 
   socket.on('refresh', function (msg) {
     updateScoreBoard(msg['scoreboard'])
@@ -434,7 +431,6 @@ function writeData(data) {
 }
 
 function draw() {
-  background(173, 216, 230, 127);
   for (var row = 0; row < rows; row++) {
     for (var col = 0; col < cols; col++){
       temp = new Cell(col, row, w, state_map[row][col]['feature'], state_map[row][col]['revealed'], state_map[row][col]['progress'])
@@ -457,7 +453,6 @@ function draw() {
       }
     }
   }
-
   if (keyIsDown(65)){
     if (!isGameOver && gameStarted){
       const currentTime = millis();
@@ -467,7 +462,6 @@ function draw() {
       }
     }
   }
-
   if (keyIsDown(87)){
     if (!isGameOver && gameStarted){
       const currentTime = millis();
@@ -477,7 +471,6 @@ function draw() {
       }
     }
   }
-
   if (keyIsDown(83)){
     if (!isGameOver && gameStarted){
       const currentTime = millis();
@@ -487,7 +480,6 @@ function draw() {
       }
     }
   }
-
   if (keyIsDown(68)){
     if (!isGameOver && gameStarted){
       const currentTime = millis();
@@ -511,45 +503,43 @@ function keyPressed(){
 }
 
 document.getElementById('nextButton').addEventListener('click', function () {
-  if (gameEnv) {
+  emitSocketIO('shelterEvent', {'uid': uid, 'event': "hold", 'key': 13});
+        
       // 1. Get user actions
-      const userInputs = {};
+      // const userInputs = {};
 
-      const userInputBoxes = document.querySelectorAll('.userInput');
-      userInputBoxes.forEach(inputBox => {
-          inputBox.addEventListener('input', function () {
-          if (gameEnv) {
-              const input = inputBox.value;
-              const inputIdentifier = inputBox.getAttribute('data-input');
+      // const userInputBoxes = document.querySelectorAll('.userInput');
+      // userInputBoxes.forEach(inputBox => {
+      //     inputBox.addEventListener('input', function () {
+      //     if (gameEnv) {
+      //         const input = inputBox.value;
+      //         const inputIdentifier = inputBox.getAttribute('data-input');
 
-              if (!isNaN(inputValue)) {
-                  userInputs[inputType] = inputValue;
-              }
+      //         if (!isNaN(inputValue)) {
+      //             userInputs[inputType] = inputValue;
+      //         }
 
-          console.log(`User Input ${inputIdentifier}:`, input);
-          } else {
-              console.log('Game environment not initialized. Click "Start Game" first.');
-          }
-          });
-      });
+      //     console.log(`User Input ${inputIdentifier}:`, input);
+      //     } else {
+      //         console.log('Game environment not initialized. Click "Start Game" first.');
+      //     }
+      //     });
+      // });
 
-      // 2. Run env step
-      const [reward, user_food, user_drink, user_staff, done] = gameEnv.step(userInputs);
+      // // 2. Run env step
+      // const [reward, user_food, user_drink, user_staff, done] = gameEnv.step(userInputs);
 
-      document.getElementById('day').textContent = this._step;
-      document.getElementById('goal').textContent = reward;
-      document.getElementById('food').textContent = user_food;
-      document.getElementById('drink').textContent = user_drink;
-      document.getElementById('staff').textContent = user_staff;
+      // document.getElementById('day').textContent = this._step;
+      // document.getElementById('goal').textContent = reward;
+      // document.getElementById('food').textContent = user_food;
+      // document.getElementById('drink').textContent = user_drink;
+      // document.getElementById('staff').textContent = user_staff;
 
-      // 3. If finished
-      if (done) {
-          window.location.href = 'done.html';
-        }
-
-  } else {
-      console.log('Game environment not initialized. Click "Start Game" first.');
-  }
+      // // 3. If finished
+      // if (done) {
+      //     window.location.href = 'done.html';
+      //   }
+ 
 });
 
 var timeout;

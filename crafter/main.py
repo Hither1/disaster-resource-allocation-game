@@ -251,7 +251,6 @@ async def on_ready(sid, *args):
 
     uid = args[0]['uid']
     userRole = args[0]['userRole']
-    print(player_roomid, args, 'userRole', userRole)
     
     roomid = player_roomid[uid]
     print('condition', len(roomid_cur_ep_players[roomid]) == max_players_per_room and roomid_started[roomid] == False)
@@ -276,12 +275,11 @@ async def on_ready(sid, *args):
         env = crafter.Recorder(env, config.record)
         env.reset()
         roomid_env[roomid] = env
-        roomid_scoreboard[roomid] = {'food':0, 'drink':0, 'red':0}
+        roomid_scoreboard[roomid] = {'food':0, 'drink':0, 'staff':0}
         roomid_ep_userinputs[roomid][episode_num] = []
         roomid_ep_states[roomid][episode_num] = []
             
         startGame(roomid)
-        print('hao fan!')
         await app.sio.emit('start_game',
                            {'episode': episode_num, 'scoreboard': roomid_scoreboard[roomid],
                             'movement_delay': movement_delay},
@@ -449,7 +447,7 @@ async def keyEvent(sid, *args, **kwargs):
     global roomid_episode
     global roomid_start_time
     global roomid_started
-    global roomid_ep_keypresses
+    global roomid_ep_userinputs
 
     msg = args[0]
     uid = msg['uid']

@@ -1,0 +1,11 @@
+.vscode
+vis.ipynb
+.git
+.vscode
+models
+results
+__pycache__
+*.egg-info
+@eaDir
+.DS_store
+# trained_models

@@ -4,9 +4,7 @@ Modified from Stable-baselines3 code to work with multi-agent envs
 from typing import List, Optional
 import numpy as np
 from multiprocessing import Process, Pipe
-import tensorflow.compat.v1 as tf
-tf.disable_v2_behavior()
-from stable_baselines.common.vec_env.base_vec_env import VecEnv, CloudpickleWrapper
+from stable_baselines3.common.vec_env.base_vec_env import VecEnv, CloudpickleWrapper
 
 
 def worker(remote, parent_remote, env_fn_wrapper: CloudpickleWrapper):

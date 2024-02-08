@@ -4,7 +4,6 @@ import time
 import torch
 import numpy as np
 import torch.optim as optim
-from tensorboardX import SummaryWriter
 from setproctitle import setproctitle as ptitle
 
 from .model import build_model

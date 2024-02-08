@@ -1,4 +1,4 @@
-from __future__ import print_function, division
+# from __future__ import print_function, division
 import os
 import time
 import torch
@@ -10,7 +10,6 @@ from agent.tom2c.test import test
 from agent.tom2c.train import train
 from agent.tom2c.worker import worker
 from agent.tom2c.model import build_model
-# from ToM2C.model import build_model
 from agent.tom2c.environment import create_env
 from agent.tom2c.shared_optim import SharedRMSprop, SharedAdam
 
@@ -64,7 +63,10 @@ parser.add_argument('--num-targets', type=int, default=-1)  # else, you can assi
 # training mode: -1 for worker collecting trajectories, -10 for workers waiting for training process, -20 for training, -100 for all processes end
 
 def start():
+    
+
     args = parser.parse_args()
+    import pdb; pdb.set_trace()
     args.shared_optimizer = True
     if args.gamma_rate == 0:
         args.gamma = 0.9
@@ -81,7 +83,7 @@ def start():
             raise AssertionError("Do not support multi-gpu training")
         else:
             device_share = torch.device('cuda:' + str(args.gpu_id[-1]))
-
+    import pdb; pdb.set_trace()
     env = create_env(args.env, args)
     assert env.max_steps % args.A2C_steps == 0
     shared_model = build_model(env, args, device_share).to(device_share)

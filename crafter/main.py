@@ -122,7 +122,7 @@ if trained_IBL:
 
 sys.argv=['']
 del sys
-flags = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="IBL")
+# flags = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="IBL")
 flags.add_argument('--type',type=str,default='td',help='Environment.')
 flags.add_argument('--episodes',type=int,default=1000,help='Number of episodes.') #ok results with 1000
 FLAGS = flags.parse_args()

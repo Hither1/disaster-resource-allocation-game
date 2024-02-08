@@ -8,7 +8,7 @@ import crafter
 
 
 def main():
-  parser = argparse.ArgumentParser()
+  # parser = argparse.ArgumentParser()
   parser.add_argument('--seed', type=int, default=None)
   parser.add_argument('--area', nargs=2, type=int, default=(64, 64))
   parser.add_argument('--length', type=int, default=10000)

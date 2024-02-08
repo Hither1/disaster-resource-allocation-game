@@ -1,0 +1,7 @@
+####################	reporting			####################	
+reporting_arg = add_argument_group('reporting')
+reporting_arg.add_argument('--Rsltdnn', type=list, default=[], help='the result of dnn play tests will be saved here')
+reporting_arg.add_argument('--RsltRnd', type=list, default=[], help='the result of random play tests will be saved here')
+reporting_arg.add_argument('--RsltStrm', type=list, default=[], help='the result of heuristic fomula play tests will be saved here')
+reporting_arg.add_argument('--Rsltbs', type=list, default=[], help='the result of optimal play tests will be saved here')
+reporting_arg.add_argument('--ifSaveHist', type=str2bool, default='False', help='if it is true, saves history, prediction, and the randBatch in each period, WARNING: just make it True in small runs, it saves huge amount of files.')

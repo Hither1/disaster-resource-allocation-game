@@ -4,6 +4,7 @@ import time
 import crafter
 
 def create_env(env_id, args, rank=-1):
+    import pdb; pdb.set_trace()
     if 'CN' in env_id:  
         from multiagent.environment import MultiAgentEnv
         import multiagent.scenarios as scenarios

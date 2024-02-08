@@ -91,7 +91,7 @@ def run(config: argparse.Namespace) -> Dict:
     setup_seed(config.seed)
 
     eval_env = make_env(config.env_id)
-    n_agent = eval_env.n
+    n_agent = eval_env.n_agents
 
     torch.set_num_threads(config.n_training_thread)
 
@@ -622,7 +622,6 @@ if __name__ == "__main__":
         )
 
     # sanity check
-
     # assert (
     #     config.n_eplr_epoch <= config.n_epoch
     # ), "exploration epoch steps <= total epoch steps"
@@ -637,11 +636,6 @@ if __name__ == "__main__":
     pprint.pprint(config.__dict__)
 
     eval_dicts = {}
-
-    # for seed in range(5):
-    #     config.seed = seed
-    #     eval_dict = run(config)
-    #     eval_dicts.update(eval_dict)
     eval_dict = run(config)
     eval_dicts.update(eval_dict)
 

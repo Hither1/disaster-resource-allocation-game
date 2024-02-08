@@ -36,4 +36,4 @@ app.mount("/socket.io", socketio.ASGIApp(sio))
 app.mount("/static", StaticFiles(directory="./crafter/static"), name="static")
 templates = Jinja2Templates(directory="./crafter/templates")
 
-from crafter import main
+# from crafter import main

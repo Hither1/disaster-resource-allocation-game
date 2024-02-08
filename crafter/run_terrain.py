@@ -7,7 +7,7 @@ import crafter
 
 
 def main():
-  parser = argparse.ArgumentParser()
+  # parser = argparse.ArgumentParser()
   parser.add_argument('--seed', type=int, default=None)
   parser.add_argument('--amount', type=int, default=4)
   parser.add_argument('--cols', type=int, default=4)

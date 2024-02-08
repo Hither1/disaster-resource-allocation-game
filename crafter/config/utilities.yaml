@@ -1,0 +1,15 @@
+####################	Utilities			####################	
+utility_arg = add_argument_group('Utilities')
+utility_arg.add_argument('--address', type=str, default="", help='the address which is used to save the model files')
+utility_arg.add_argument('--ifUsePreviousModel', type=str2bool, default='False', help='if there is a saved model, then False value of this parameter will overwrite.')
+utility_arg.add_argument('--number_cpu_active', type=int, default=5, help='number of cpu cores')
+utility_arg.add_argument('--gpu_memory_fraction', type=float, default=0.1, help='the fraction of gpu memory which we are gonna use')
+# Dirs
+utility_arg.add_argument('--load_path', type=str, default='', help='The directory to load the models')
+utility_arg.add_argument('--log_dir', type=str, default=os.path.expanduser('./logs/'), help='')
+utility_arg.add_argument('--pre_model_dir', type=str, default=os.path.expanduser('./pre_model'),help='')
+utility_arg.add_argument('--action_dir', type=str, default=os.path.expanduser('./'),help='if ifPlaySavedData is true, it uses this path to load actions')
+utility_arg.add_argument('--model_dir', type=str, default='./',help='')
+utility_arg.add_argument('--TB', type=str2bool, default=False, help='set to True if use tensor board and save the required data for TB.')
+utility_arg.add_argument('--INFO_print', type=str2bool, default=True, help='if true, it does not print anything all.')
+utility_arg.add_argument('--tbLogInterval', type=int, default=80000, help='number of GAMES for testing')

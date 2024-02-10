@@ -7,7 +7,6 @@ import numpy as np
 
 
 class Recorder:
-
   def __init__(
       self, env, directory, save_stats=True, save_video=True,
       save_episode=True, video_size=(512, 512)):
@@ -26,7 +25,6 @@ class Recorder:
 
 
 class StatsRecorder:
-
   def __init__(self, env, directory):
     self._env = env
     self._directory = pathlib.Path(directory).expanduser()
@@ -66,37 +64,37 @@ class StatsRecorder:
     self._file.flush()
 
 
-class VideoRecorder:
+# class VideoRecorder:
 
-  def __init__(self, env, directory, size=(512, 512)):
-    if not hasattr(env, 'episode_name'):
-      env = EpisodeName(env)
-    self._env = env
-    self._directory = pathlib.Path(directory).expanduser()
-    self._directory.mkdir(exist_ok=True, parents=True)
-    self._size = size
-    self._frames = None
+#   def __init__(self, env, directory, size=(512, 512)):
+#     if not hasattr(env, 'episode_name'):
+#       env = EpisodeName(env)
+#     self._env = env
+#     self._directory = pathlib.Path(directory).expanduser()
+#     self._directory.mkdir(exist_ok=True, parents=True)
+#     self._size = size
+#     self._frames = None
 
-  def __getattr__(self, name):
-    if name.startswith('__'):
-      raise AttributeError(name)
-    return getattr(self._env, name)
+#   def __getattr__(self, name):
+#     if name.startswith('__'):
+#       raise AttributeError(name)
+#     return getattr(self._env, name)
 
-  def reset(self):
-    obs = self._env.reset()
-    self._frames = [self._env.render(self._size)]
-    return obs
+#   def reset(self):
+#     obs = self._env.reset()
+#     self._frames = [self._env.render(self._size)]
+#     return obs
 
-  def step(self, action):
-    obs, reward, done, info = self._env.step(action)
-    self._frames.append(self._env.render(self._size))
-    if done:
-      self._save()
-    return obs, reward, done, info
+#   def step(self, action):
+#     obs, reward, done, info = self._env.step(action)
+#     self._frames.append(self._env.render(self._size))
+#     if done:
+#       self._save()
+#     return obs, reward, done, info
 
-  def _save(self):
-    filename = str(self._directory / (self._env.episode_name + '.mp4'))
-    imageio.mimsave(filename, self._frames)
+#   def _save(self):
+#     filename = str(self._directory / (self._env.episode_name + '.mp4'))
+#     imageio.mimsave(filename, self._frames)
 
 
 class EpisodeRecorder:

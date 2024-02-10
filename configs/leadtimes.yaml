@@ -8,7 +8,7 @@ length: 100 # type=int
 health: 9 # type=int
 window: [1200, 600] # type=int, nargs=2
 size: [64, 64] # type=int, nargs=2
-record: None # type=str
+record: null # type=str
 fps: 5 # type=int
 reward: True # type=boolean
 wait: False # type=boolean
@@ -44,18 +44,18 @@ cp1: 2.0 # type=float, help='shortage cost of player 1')
 cp2: 0.0 # type=float, default=, help='shortage cost of player 2')
 cp3: 0.0 # type=float, default=, help='shortage cost of player 3')
 cp4: 0.0 # type=float, default=, help='shortage cost of player 4')
-c_p: None
+c_p: null
 ch1: 2.0 # type=float, default=, help='holding cost of player 1')
 ch2: 2.0 # type=float, default=, help='holding cost of player 2')
 ch3: 2.0 # type=float, default=, help='holding cost of player 3')
 ch4: 2.0 # type=float, default=, help='holding cost of player 4')
-c_h: None
-alpha_b: None
+c_h: null
+alpha_b: null
 alpha_b1: -0.5 # type=float, help='alpha of Sterman formula parameter for player 1')
 alpha_b2: -0.5 # type=float, help='alpha of Sterman formula parameter for player 2')
 alpha_b3: -0.5 # type=float, default=, help='alpha of Sterman formula parameter for player 3')
 alpha_b4: -0.5 # type=float, default=, help='alpha of Sterman formula parameter for player 4')
-betta_b: None
+betta_b: null
 betta_b1: -0.2 # type=float, default=, help='beta of Sterman formula parameter for player 1')
 betta_b2: -0.2 # type=float, help='beta of Sterman formula parameter for player 2')
 betta_b3: -0.2 # type=float, help='beta of Sterman formula parameter for player 3')
@@ -166,7 +166,7 @@ f1: 8 # type=float,  help='base stock policy decision of player 1')
 f2: 8 # type=float, default=8, help='base stock policy decision of player 2')
 f3: 0 # type=float, default=0, help='base stock policy decision of player 3')
 f4: 0 # type=float, default=0, help='base stock policy decision of player 4')
-f: None
+f: null
 f_init: [32,32,32,24] # type=list, help='base stock policy decision for 4 time-steps on the C(4,8) demand distribution')
 use_initial_BS: False # type=str2bool, help='If use f_init set it to True')
 

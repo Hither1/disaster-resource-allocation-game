@@ -167,7 +167,6 @@ class UncoverView:
 
 
 class LocalView:
-
   def __init__(self, world, textures, grid):
     self._world = world
     self._textures = textures

@@ -4,7 +4,6 @@ import time
 import crafter
 
 def create_env(env_id, args, rank=-1):
-    import pdb; pdb.set_trace()
     if 'CN' in env_id:  
         from multiagent.environment import MultiAgentEnv
         import multiagent.scenarios as scenarios
@@ -17,13 +16,12 @@ def create_env(env_id, args, rank=-1):
     elif 'RA' in env_id:  
         import multiagent.scenarios as scenarios
         scenario = scenarios.load(args.env + ".py").Scenario()
-        config, _ = crafter.config.get_config()
+        config = crafter.config.get_config(args)
         world = scenario.make_world(config, args.num_agents, args.num_targets)
-        env = crafter.Env(config, world, scenario.reset_world, scenario.reward, scenario.global_reward, scenario.observation)
+        env = crafter.Env(config, world, None, scenario.reset_world, scenario.reward, scenario.global_reward, scenario.observation)
         env = crafter.Recorder(env, config.record)
         env.reset()
         env_wrap = env_wrapper(env, args)
-
         return env_wrap
     else:
         raise NotImplementedError

@@ -1,12 +1,13 @@
 import argparse
 import os
 import numpy as np 
+import hydra
+from omegaconf import DictConfig
 
 def str2bool(v):
   return v.lower() in ('true', '1')
 
 arg_lists = []
-# parser = argparse.ArgumentParser()
 
 def add_argument_group(name):
   arg = parser.add_argument_group(name)
@@ -371,11 +372,9 @@ def set_optimal(config):
 			config.f3 = 0.
 			config.f4 = 0.
 
-def get_config():
-	# config, unparsed = parser.parse_known_args()
-	config = update_config(config)
-
-	return config, unparsed
+def get_config(cfg):
+	config = update_config(cfg)
+	return config
 
 def fill_leadtime_initial_values(config):
 	config.leadRecItemLow = [config.leadRecItem1, config.leadRecItem2, config.leadRecItem3, config.leadRecItem4]
@@ -436,4 +435,5 @@ def update_config(config):
 	set_sterman_parameters(config)
 
 	return config
+
 

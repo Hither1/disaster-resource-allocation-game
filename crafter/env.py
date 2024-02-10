@@ -46,7 +46,6 @@ class Env(BaseClass):
     self._length = config.length
     self._seed = seed
     self._episode = 0
-    
     self.world = world
     self._textures = engine.Textures(constants.root / 'assets')
     item_rows = int(np.ceil(len(constants.items) / view[0]))
@@ -119,13 +118,14 @@ class Env(BaseClass):
 
     self.humans = []
     self.bots = []
-    if userRole == "Shelter":
+
+    if userRole and userRole == "Shelter":
         self.user = self.world.shelter
         self.world.shelter.mode = "human"
-    elif userRole == "Warehouse": 
+    elif userRole and userRole == "Warehouse": 
         self.user = self.world.warehouse
         self.world.warehouse.mode = "human"
-    elif userRole == "Station":
+    elif userRole and userRole == "Station":
         self.user = self.world.station
         self.world.station.mode = "human"
 

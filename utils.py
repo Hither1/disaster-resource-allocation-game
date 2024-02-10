@@ -2,6 +2,7 @@ from threading import Lock
 import json
 import numpy as np
 import pandas as pd
+from omegaconf import OmegaConf
 
 class NumpyEncoder(json.JSONEncoder):
     """ Custom encoder for numpy data types """
@@ -72,3 +73,7 @@ def process_map():
     new_map['human'] = pd.to_numeric(new_map['human'])
     for i in range(6, 11):
         new_map.to_csv(f'static/maps/map_{i}.csv')
+
+def load_config(config_path, config_name):
+    with open(f"{config_path}/{config_name}.yaml", "r") as file:
+        return OmegaConf.load(file)

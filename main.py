@@ -12,62 +12,21 @@ from agent.tom2c.worker import worker
 from agent.tom2c.model import build_model
 from agent.tom2c.environment import create_env
 from agent.tom2c.shared_optim import SharedRMSprop, SharedAdam
-
+from utils import load_config
+import hydra
+from omegaconf import DictConfig, OmegaConf
 os.environ["OMP_NUM_THREADS"] = "1"
 
-parser = argparse.ArgumentParser(description='A3C')
-parser.add_argument('--lr', type=float, default=0.001, metavar='LR', help='learning rate (default: 0.0001)')
-parser.add_argument('--gamma', type=float, default=0.1, metavar='G', help='discount factor for rewards (default: 0.99)')
-parser.add_argument('--gamma-rate', type=float, default=0.002, metavar='G', help='the increase rate of gamma')
-parser.add_argument('--gamma-final', type=float, default=0.9, metavar='G', help='the increase rate of gamma')
-parser.add_argument('--tau', type=float, default=1.00, metavar='T', help='parameter for GAE (default: 1.00)')
-parser.add_argument('--entropy', type=float, default=0.005, metavar='T', help='parameter for entropy (default: 0.01)')
-parser.add_argument('--grad-entropy', type=float, default=1.0, metavar='T', help='parameter for entropy (default: 0.01)')
-parser.add_argument('--seed', type=int, default=1, metavar='S', help='random seed (default: 1)')
-parser.add_argument('--workers', type=int, default=1, metavar='W', help='how many training processes to use (default: 32)')
-parser.add_argument('--A2C-steps', type=int, default=20, metavar='NS', help='number of forward steps in A2C (default: 300)')
-parser.add_argument('--env-steps', type=int, default=20, metavar='NS', help='number of steps in one env episode')
-parser.add_argument('--start-eps', type=int, default=2000, metavar='NS', help='number of episodes before increasing gamma and env steps')
-parser.add_argument('--ToM-train-loops', type=int, default=1, metavar='NS', help='ToM training loops num')
-parser.add_argument('--policy-train-loops', type=int, default=1, metavar='NS', help='Policy training loops num')
-parser.add_argument('--test-eps', type=int, default=20, metavar='M', help='testing episodes')
-parser.add_argument('--ToM-frozen', type=int, default=5, metavar='M', help='episode length of freezing ToM in training')
-parser.add_argument('--env', default='MSMTC-v3', help='environment to train on')
-parser.add_argument('--optimizer', default='Adam', metavar='OPT', help='shares optimizer choice of Adam or RMSprop')
-parser.add_argument('--amsgrad', default=True, metavar='AM', help='Adam optimizer amsgrad parameter')
-parser.add_argument('--load-model-dir', default=None, metavar='LMD', help='folder to load trained models from')
-parser.add_argument('--load-executor-dir', default=None, metavar='LMD', help='folder to load trained low-level policy models from')
-parser.add_argument('--log-dir', default='logs/', metavar='LG', help='folder to save logs')
-parser.add_argument('--model', default='ToM2C', metavar='M', help='ToM2C')
-parser.add_argument('--gpu-id', type=int, default=-1, nargs='+', help='GPU to use [-1 CPU only] (default: -1)')
-parser.add_argument('--norm-reward', dest='norm_reward', action='store_true', default='True', help='normalize reward')
-parser.add_argument('--train-comm', dest='train_comm', action='store_true', help='train comm')
-parser.add_argument('--random-target', dest='random_target', action='store_true', default='True', help='random target in MSMTC')
-parser.add_argument('--mask-actions', dest='mask_actions', action='store_true', help='mask unavailable actions to boost training')
-parser.add_argument('--mask', dest='mask', action='store_true', help='mask ToM and communication to those out of range')
-parser.add_argument('--render', dest='render', action='store_true', help='render test')
-parser.add_argument('--fix', dest='fix', action='store_true', help='fix random seed')
-parser.add_argument('--shared-optimizer', dest='shared_optimizer', action='store_true', help='use an optimizer without shared statistics.')
-parser.add_argument('--train-mode', type=int, default=-1, metavar='TM', help='his')
-parser.add_argument('--lstm-out', type=int, default=64, metavar='LO', help='lstm output size')
-parser.add_argument('--sleep-time', type=int, default=0, metavar='LO', help='seconds')
-parser.add_argument('--max-step', type=int, default=3000000, metavar='LO', help='max learning steps')
-parser.add_argument('--render_save', dest='render_save', action='store_true', help='render save')
-parser.add_argument('--num-agents', type=int, default=-1)   # if -1, then the env will load the default setting
-parser.add_argument('--num-targets', type=int, default=-1)  # else, you can assign the number of agents and targets yourself
-
+# parser = argparse.ArgumentParser(description='A3C')
 # num_step: 20
 # max_step: 500000
 # env_max_step: 100
 # low-level step: 10
 # training mode: -1 for worker collecting trajectories, -10 for workers waiting for training process, -20 for training, -100 for all processes end
 
-def start():
-    
 
-    args = parser.parse_args()
-    import pdb; pdb.set_trace()
-    args.shared_optimizer = True
+def start(args: DictConfig):
+
     if args.gamma_rate == 0:
         args.gamma = 0.9
         args.env_steps *= 5
@@ -83,7 +42,7 @@ def start():
             raise AssertionError("Do not support multi-gpu training")
         else:
             device_share = torch.device('cuda:' + str(args.gpu_id[-1]))
-    import pdb; pdb.set_trace()
+
     env = create_env(args.env, args)
     assert env.max_steps % args.A2C_steps == 0
     shared_model = build_model(env, args, device_share).to(device_share)
@@ -101,7 +60,7 @@ def start():
         else:
             shared_model.load_state_dict(saved_state)
 
-    #params = shared_model.parameters()
+    # params = shared_model.parameters()
     params = []
     params_ToM = []
     for name, param in shared_model.named_parameters():
@@ -179,4 +138,9 @@ def start():
 
 if __name__=='__main__':
     # os.environ["WANDB_MODE"] = "disabled"
-    start()
+    config1 = load_config("configs", "sac")
+    config2 = load_config("configs", "leadtimes")
+
+    merged_config = OmegaConf.merge(config1, config2)
+
+    start(merged_config)

@@ -3,5 +3,5 @@ import ruamel.yaml
 
 root = pathlib.Path(__file__).parent
 yaml = ruamel.yaml.YAML(typ='safe', pure=True)
-for key, value in yaml.load((root / 'config/data.yaml').read_text()).items():
+for key, value in yaml.load((root / 'configs/data.yaml').read_text()).items():
   globals()[key] = value

@@ -44,11 +44,37 @@ items:
   death: {max: 9, initial: 0}
 
 resources:
-  food: {max: 60, initial: 9, leadRecItem: 2, leadRecOrder: 2}
-  drink: {max: 60, initial: 9, leadRecItem: 2, leadRecOrder: 2}
-  energy: {max: 9, initial: 9, leadRecItem: 2, leadRecOrder: 2}
-  staff: {max: 45, initial: 9, leadRecItem: 2, leadRecOrder: 2}
+  food: {max: 60, initial: 9}
+  drink: {max: 60, initial: 9}
+  energy: {max: 9, initial: 9}
+  staff: {max: 45, initial: 9}
 
+leadtimes:
+  # shelter:
+  #   food: 4
+  #   drink: 3
+  #   kit: 7
+  #   staff: 2
+
+  Warehouse:
+    food:  2
+    drink: 2
+
+  Kitchen:
+    food:  3
+    drink: 3
+
+  Station:
+    med_staff: 3
+    staff: 3
+
+  Clinic:
+    med_kit: 2
+    med_staff: 2
+
+  Volunteers:
+    staff: 4
+  
 
   # sapling: {max: 9, initial: 0}
   # wood: {max: 9, initial: 0}

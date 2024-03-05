@@ -14,6 +14,7 @@ import wandb
 def worker(rank, args, shared_model, train_modes, n_iters, curr_env_steps, ToM_count, ToM_history, Policy_history, step_history, loss_history, env=None):
     n_iter = 0
     ptitle('worker: {}'.format(rank))
+    wandb.init(project='ToM2C', name='worker')
     gpu_id = args.gpu_id[rank % len(args.gpu_id)]
     torch.manual_seed(args.seed + rank)
     training_mode = args.train_mode
@@ -81,15 +82,12 @@ def worker(rank, args, shared_model, train_modes, n_iters, curr_env_steps, ToM_c
             reward_sum += player.reward
             reward_sum_org += player.reward_org
             if player.done:
-                # writer.add_scalar('train/reward', reward_sum[0], n_iter)
-                # writer.add_scalar('train/reward_org', reward_sum_org[0].sum(), n_iter)
-                wandb.log('train/reward', reward_sum[0], n_iter)
-                wandb.log('train/reward_org', reward_sum_org[0].sum(), n_iter)
+                wandb.log({'train/reward': reward_sum[0]}, n_iter)
+                wandb.log({'train/reward_org': reward_sum_org[0].sum()}, n_iter)
                 break
         fps = s_i / (time.time() - t0)
 
-        # writer.add_scalar('train/fps', fps, n_iter)
-        wandb.log('train/fps', fps, n_iter)
+        wandb.log({'train/fps': fps}, n_iter)
 
         n_iter += env.max_steps  # s_i
         n_iters[rank] = n_iter

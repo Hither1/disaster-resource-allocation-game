@@ -49,7 +49,7 @@ class World:
   def add(self, obj):
     assert hasattr(obj, 'pos')
     obj.pos = np.array(obj.pos)
-    assert self._obj_map[tuple(obj.pos)] == 0
+    # assert self._obj_map[tuple(obj.pos)] == 0
     index = len(self._objects)
     self._objects.append(obj)
     self._obj_map[tuple(obj.pos)] = index

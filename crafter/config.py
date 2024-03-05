@@ -377,13 +377,13 @@ def get_config(cfg):
 	return config
 
 def fill_leadtime_initial_values(config):
-	config.leadRecItemLow = [config.leadRecItem1, config.leadRecItem2, config.leadRecItem3, config.leadRecItem4]
-	config.leadRecItemUp = [config.leadRecItem1, config.leadRecItem2, config.leadRecItem3, config.leadRecItem4]
-	config.leadRecOrderLow = [config.leadRecOrder1, config.leadRecOrder2, config.leadRecOrder3, config.leadRecOrder4]
-	config.leadRecOrderUp = [config.leadRecOrder1, config.leadRecOrder2, config.leadRecOrder3, config.leadRecOrder4]
-	config.ILInit = [config.ILInit1, config.ILInit2, config.ILInit3, config.ILInit4]
-	config.AOInit = [config.AOInit1, config.AOInit2, config.AOInit3, config.AOInit4]
-	config.ASInit = [config.ASInit1, config.ASInit2, config.ASInit3, config.ASInit4]
+	config.leadRecItemLow = [config.leadRecItem1, config.leadRecItem2, config.leadRecItem3, config.leadRecItem4, config.leadRecItem5, config.leadRecItem6]
+	config.leadRecItemUp = [config.leadRecItem1, config.leadRecItem2, config.leadRecItem3, config.leadRecItem4,  config.leadRecItem5, config.leadRecItem6]
+	config.leadRecOrderLow = [config.leadRecOrder1, config.leadRecOrder2, config.leadRecOrder3, config.leadRecOrder4, config.leadRecOrder5, config.leadRecOrder6]
+	config.leadRecOrderUp = [config.leadRecOrder1, config.leadRecOrder2, config.leadRecOrder3, config.leadRecOrder4, config.leadRecOrder5, config.leadRecOrder6]
+	config.ILInit = [config.ILInit1, config.ILInit2, config.ILInit3, config.ILInit4, config.ILInit5, config.ILInit6]
+	config.AOInit = [config.AOInit1, config.AOInit2, config.AOInit3, config.AOInit4, config.AOInit5, config.AOInit6]
+	config.ASInit = [config.ASInit1, config.ASInit2, config.ASInit3, config.ASInit4, config.ASInit5, config.ASInit6]
 
 def get_auxuliary_leadtime_initial_values(config):
 	config.leadRecOrderUp_aux = [config.leadRecOrder1, config.leadRecOrder2, config.leadRecOrder3, config.leadRecOrder4]
@@ -395,8 +395,8 @@ def fix_lead_time_manufacturer(config):
 		config.leadRecOrder4 = 0 
 
 def set_sterman_parameters(config):
-	config.alpha_b =[config.alpha_b1, config.alpha_b2, config.alpha_b3, config.alpha_b4]
-	config.betta_b =[config.betta_b1, config.betta_b2, config.betta_b3, config.betta_b4]	
+	config.alpha_b =[config.alpha_b1, config.alpha_b2, config.alpha_b3, config.alpha_b4, config.alpha_b5, config.alpha_b6]
+	config.betta_b =[config.betta_b1, config.betta_b2, config.betta_b3, config.betta_b4, config.betta_b5, config.betta_b6]	
 
 
 def update_config(config):

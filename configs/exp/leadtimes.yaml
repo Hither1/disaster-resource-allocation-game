@@ -22,8 +22,8 @@ TLow: 100 # type=int, help='duration of one GAME (lower bound)')
 TUp: 100 # type=int, help='duration of one GAME (upper bound)')
 demandDistribution: 0 # type=int, help='0=uniform, 1=normal distribution, 2=the sequence of 4,4,4,4,8,..., 3= basket data, 4= forecast data')
 scaled: False # type=str2bool, help='if true it uses the (if) existing scaled parameters')
-demandLow: [4, 0, 0] # type=int, help='the lower bound of random demand')
-demandUp: [16, 8, 6] # type=int, help='the upper bound of random demand')
+demandLow: [4, 0, 0, 0, 0, 0] # type=int, help='the lower bound of random demand')
+demandUp:  [16, 8, 6, 6, 6, 6] # type=int, help='the upper bound of random demand')
 demandMu: 10 # type=float, help='the mu of the normal distribution for demand ')
 demandSigma: 2 # type=float, help='the sigma of the normal distribution for demand ')
 actionMax: 2 # type=int, help='it works when fixedAction is True')
@@ -33,7 +33,7 @@ action_step: 1 # type=int, help='The obtained action value by dnn is multiplied 
 actionList: [] # type=list, help='The list of the available actions')
 actionListLen: 0 # type=int, help='the length of the action list')
 actionListOpt: 0 # type=int, help='the action list which is used in optimal and sterman')
-actionListLenOpt:  # type=int, default=0, help='the length of the actionlistopt')
+actionListLenOpt: 0 # type=int, help='the length of the actionlistopt')
 agentTypes: ['dnn','dnn','dnn','dnn'] # type=list, help='the player types')
 agent_type1: 'dnn' # type=str, help='the player types for agent 1, it can be dnn, Strm, bs, rnd')
 agent_type2: 'dnn' # type=str, help='the player types for agent 2, it can be dnn, Strm, bs, rnd')
@@ -41,33 +41,37 @@ agent_type3: 'dnn' # type=str, help='the player types for agent 3, it can be dnn
 agent_type4: 'dnn' # type=str, help='the player types for agent 4, it can be dnn, Strm, bs, rnd')
 NoAgent: 1 # type=int, help='number of agents, currently it should be in {1,2,3,4}')
 cp1: 2.0 # type=float, help='shortage cost of player 1')
-cp2: 0.0 # type=float, default=, help='shortage cost of player 2')
-cp3: 0.0 # type=float, default=, help='shortage cost of player 3')
-cp4: 0.0 # type=float, default=, help='shortage cost of player 4')
+cp2: 0.0 # type=float, help='shortage cost of player 2')
+cp3: 0.0 # type=float, help='shortage cost of player 3')
+cp4: 0.0 # type=float, help='shortage cost of player 4')
 c_p: null
-ch1: 2.0 # type=float, default=, help='holding cost of player 1')
-ch2: 2.0 # type=float, default=, help='holding cost of player 2')
-ch3: 2.0 # type=float, default=, help='holding cost of player 3')
-ch4: 2.0 # type=float, default=, help='holding cost of player 4')
+ch1: 2.0 # type=float, help='holding cost of player 1')
+ch2: 2.0 # type=float, help='holding cost of player 2')
+ch3: 2.0 # type=float, help='holding cost of player 3')
+ch4: 2.0 # type=float, help='holding cost of player 4')
 c_h: null
 alpha_b: null
-alpha_b1: -0.5 # type=float, help='alpha of Sterman formula parameter for player 1')
-alpha_b2: -0.5 # type=float, help='alpha of Sterman formula parameter for player 2')
-alpha_b3: -0.5 # type=float, default=, help='alpha of Sterman formula parameter for player 3')
-alpha_b4: -0.5 # type=float, default=, help='alpha of Sterman formula parameter for player 4')
+alpha_b1: -0.5 # type=float, help='alpha of Sterman formula parameter for player 1'
+alpha_b2: -0.5 # type=float, help='alpha of Sterman formula parameter for player 2'
+alpha_b3: -0.5 # type=float, help='alpha of Sterman formula parameter for player 3'
+alpha_b4: -0.5 # type=float, help='alpha of Sterman formula parameter for player 4'
+alpha_b5: -0.5 # type=float, help='alpha of Sterman formula parameter for player 5'
+alpha_b6: -0.5 # type=float, help='alpha of Sterman formula parameter for player 6'
 betta_b: null
-betta_b1: -0.2 # type=float, default=, help='beta of Sterman formula parameter for player 1')
-betta_b2: -0.2 # type=float, help='beta of Sterman formula parameter for player 2')
-betta_b3: -0.2 # type=float, help='beta of Sterman formula parameter for player 3')
-betta_b4: -0.2 # type=float, help='beta of Sterman formula parameter for player 4')
+betta_b1: -0.2 # type=float, help='beta of Sterman formula parameter for player 1'
+betta_b2: -0.2 # type=float, help='beta of Sterman formula parameter for player 2'
+betta_b3: -0.2 # type=float, help='beta of Sterman formula parameter for player 3'
+betta_b4: -0.2 # type=float, help='beta of Sterman formula parameter for player 4'
+betta_b5: -0.2 # type=float, help='beta of Sterman formula parameter for player 5'
+betta_b6: -0.2 # type=float, help='beta of Sterman formula parameter for player 6'
 eta: [0,4,4,4] # type=list, help='the total cost regulazer')
-distCoeff: 20 # type=int, default=, help='the total cost regulazer')
-gameConfig: 3 # type=int, default=, help='if it is "0", it uses the current "agentType", otherwise sets agent types according to the function setAgentType() in this file.')
+distCoeff: 20 # type=int, help='the total cost regulazer')
+gameConfig: 3 # type=int, help='if it is "0", it uses the current "agentType", otherwise sets agent types according to the function setAgentType() in this file.')
 ifUseTotalReward: False # type=str2bool, default='', help='if you want to have the total rewards in the experience replay, set it to true.')
 ifUsedistTotReward: True # type=str2bool, help='If use correction to the rewards in the experience replay for all iterations of current game')
 ifUseASAO: True # type=str2bool, help='if use AS and AO, i.e., received shipment and received orders in the input of DNN')
 ifUseActionInD: False # type=str2bool, default='', help='if use action in the input of DNN')
-stateDim: 5 # type=int, default=, help='Number of elements in the state desciptor - Depends on ifUseASAO')
+stateDim: 5 # type=int, help='Number of elements in the state desciptor - Depends on ifUseASAO')
 iftl: False # type=str2bool, help='if apply transfer learning')
 ifTransferFromSmallerActionSpace: False # type=str2bool, help='if want to transfer knowledge from a network with different action space size.')
 baseActionSize: 5 # type=int, help='if ifTransferFromSmallerActionSpace is true, this determines the size of action space of saved network')
@@ -83,33 +87,43 @@ ifPlaySavedData: False # type=str2bool, help='If true it uses the saved actions 
 ### leadtimes ###
 leadRecOrderUp_aux: []
 leadRecItemUp_aux: []
-leadRecItemLow: [2,2,2,4] # type=list, help='the min lead time for receiving items'
-leadRecItemUp: [2,2,2,4] # type=list, help='the max lead time for receiving items')
-leadRecOrderLow: [2,2,2,0] # type=int, default=, help='the min lead time for receiving orders')
-leadRecOrderUp: [2,2,2,0] # type=int, default=, help='the max lead time for receiving orders')
-ILInit: [0,0,0,0] # type=list, help='')
-AOInit: [0,0,0,0] # type=list, help='')
-ASInit: [0,0,0,0] # type=list, help='the initial shipment of each agent')
-leadRecItem1: 2 # type=int, help='the min lead time for receiving items')
-leadRecItem2: 2 # type=int, help='the min lead time for receiving items')
-leadRecItem3: 2 # type=int, help='the min lead time for receiving items')
-leadRecItem4: 2 # type=int, , help='the min lead time for receiving items')
-leadRecOrder1: 2 # type=int, help='the min lead time for receiving order')
-leadRecOrder2: 2 # type=int, help='the min lead time for receiving order')
-leadRecOrder3: 2 # type=int, help='the min lead time for receiving order')
-leadRecOrder4: 2 # type=int, help='the min lead time for receiving order')
-ILInit1: 0 # type=int, help='the initial inventory level of the agent')
-ILInit2: 0 # type=int, help='the initial inventory level of the agent')
+leadRecItemLow: [2, 2, 2, 4, 2, 2] # type=list, help='the min lead time for receiving items'
+leadRecItemUp: [2, 2, 2, 4, 2, 2] # type=list, help='the max lead time for receiving items'
+leadRecOrderLow: [2, 2, 2, 0, 0, 0] # type=int, help='the min lead time for receiving orders'
+leadRecOrderUp: [2, 2, 2, 0, 0, 0] # type=int, help='the max lead time for receiving orders'
+ILInit: [0, 0, 0, 0, 0, 0] # type=list
+AOInit: [0, 0, 0, 0, 0, 0] # type=list
+ASInit: [0, 0, 0, 0, 0, 0] # type=list, help='the initial shipment of each agent'
+leadRecItem1: 2 # type=int, help='the min lead time for receiving items'
+leadRecItem2: 2 # type=int, help='the min lead time for receiving items'
+leadRecItem3: 2 # type=int, help='the min lead time for receiving items'
+leadRecItem4: 2 # type=int, help='the min lead time for receiving items'
+leadRecItem5: 2 # type=int, help='the min lead time for receiving items'
+leadRecItem6: 2 # type=int, help='the min lead time for receiving items'
+leadRecOrder1: 2 # type=int, help='the min lead time for receiving order'
+leadRecOrder2: 2 # type=int, help='the min lead time for receiving order'
+leadRecOrder3: 2 # type=int, help='the min lead time for receiving order'
+leadRecOrder4: 2 # type=int, help='the min lead time for receiving order'
+leadRecOrder5: 2 # type=int, help='the min lead time for receiving order'
+leadRecOrder6: 2 # type=int, help='the min lead time for receiving order'
+ILInit1: 0 # type=int, help='the initial inventory level of the agent'
+ILInit2: 0 # type=int, help='the initial inventory level of the agent'
 ILInit3: 0 # type=int, help='the initial inventory level of the agent')
 ILInit4: 0 # type=int, help='the initial inventory level of the agent')
+ILInit5: 0 # type=int, help='the initial inventory level of the agent')
+ILInit6: 0 # type=int, help='the initial inventory level of the agent')
 AOInit1: 0 # type=int, help='the initial arriving order of the agent')
-AOInit2: 0 # type=int, help='the initial arriving order of the agent')
-AOInit3: 0 # type=int, help='the initial arriving order of the agent')
-AOInit4: 0 # type=int, help='the initial arriving order of the agent')
-ASInit1: 0 # type=int, help='the initial arriving shipment of the agent')
+AOInit2: 0 # type=int, help='the initial arriving order of the agent'
+AOInit3: 0 # type=int, help='the initial arriving order of the agent'
+AOInit4: 0 # type=int, help='the initial arriving order of the agent'
+AOInit5: 0 # type=int, help='the initial arriving order of the agent'
+AOInit6: 0 # type=int, help='the initial arriving order of the agent'
+ASInit1: 0 # type=int, help='the initial arriving shipment of the agent'
 ASInit2: 0 # type=int, help='the initial arriving shipment of the agent')
 ASInit3: 0 # type=int, help='the initial arriving shipment of the agent')
 ASInit4: 0 # type=int, help='the initial arriving shipment of the agent')
+ASInit5: 0 # type=int, help='the initial arriving shipment of the agent')
+ASInit6: 0 # type=int, help='the initial arriving shipment of the agent')
 
 
 ### reporting ###

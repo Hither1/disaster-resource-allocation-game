@@ -126,7 +126,7 @@ class PolicyNet_Single(nn.Module):
             self.actor_linear.weight.data = norm_col_init(self.actor_linear.weight.data, 0.1)
             self.actor_linear.bias.data.fill_(0)
 
-    def forward(self, x, test=False, available_actions = None):
+    def forward(self, x, test=False, available_actions=None):
         mu = F.leaky_relu(self.actor_linear(x))
         if available_actions is not None:
             # mask unavailable actions
@@ -666,6 +666,8 @@ class ToM2C_single(torch.nn.Module):
     def __init__(self, obs_space, action_spaces, args, device=torch.device('cpu')):
         super(ToM2C_single, self).__init__()
         self.num_agents, num_entity, self.pose_dim = obs_space.shape
+        print(self.num_agents, num_entity, self.pose_dim)
+
         lstm_out = args.lstm_out
         head_name = args.model
         self.head_name = head_name
@@ -702,7 +704,6 @@ class ToM2C_single(torch.nn.Module):
         )
         feature_dim = self.num_agents * self.pose_dim + 3 + lstm_out # TODO: change hard-coded numbers
 
-        print('feature_dim', feature_dim, 'lstm_out', lstm_out)
         # feature_dim -= 3
         self.actor = PolicyNet_Single(feature_dim, spaces.Discrete(2), head_name, device)
 
@@ -769,7 +770,6 @@ class ToM2C_single(torch.nn.Module):
         cam_dim = cam_states.size()[-1] # cam_dim=2
 
         cam_states_duplicate = cam_states.unsqueeze(1).expand(batch_size, num_agents, num_agents, cam_dim)
-
         cam_states_relative = cam_states_duplicate - cam_states.unsqueeze(2).expand(batch_size, num_agents, num_agents, cam_dim)
         other_pos = cam_states_relative[:,idx].reshape(batch_size, num_agents,(num_agents-1)*cam_dim)
         other_pos = other_pos.unsqueeze(2).repeat(1, 1, num_targets, 1) # used for final goal decision
@@ -787,7 +787,7 @@ class ToM2C_single(torch.nn.Module):
 
         # camera_states = camera_states.reshape(batch_size*num_agents*(num_agents), 1, -1)
         camera_states = camera_states.reshape(batch_size*num_agents*(num_agents), 1, -1)
-        h_ToM = ToM_hiddens.reshape(1, -1, self.ToM_GRU.feature_dim) # [1, batch*n*(n),dim]
+        h_ToM = ToM_hiddens.reshape(1, -1, self.ToM_GRU.feature_dim) # [1, batch*n*(n), dim]
 
         # ToM_camera prediction
         ToM_output, hn_ToM = self.ToM_GRU(camera_states, h_ToM)
@@ -808,7 +808,7 @@ class ToM2C_single(torch.nn.Module):
         
         # ToM_target: predicted version
         ToM_target_feature = torch.cat((att_feature_expand.detach(), global_features_expand.detach(), ToM_output_expand),-1)
-        ToM_target_cover = self.ToM_target(ToM_target_feature) #[b, n, n-1, m, 1]
+        ToM_target_cover = self.ToM_target(ToM_target_feature) # [b, n, n-1, m, 1]
 
         # ToM_target: Groud Truth Version
         # ToM_target_cover = real_target_cover.unsqueeze(1).expand(batch_size, num_agents, num_agents, num_targets, 1)
@@ -876,7 +876,6 @@ class ToM2C_single(torch.nn.Module):
         msgs = torch.cat((msgs, comm_cnt), -1)
 
         ######### end of GNN based communication ###############
-
         # decide self goals
         max_prob, _ = torch.max(other_goals, 2)
         max_prob = max_prob.reshape(batch_size, num_agents, num_targets, 1).detach() #[batch,n,m,1]
@@ -890,9 +889,11 @@ class ToM2C_single(torch.nn.Module):
         # feature_target = feature_target.reshape(batch_size,num_agents,num_targets,-1)
 
         actor_feature = torch.cat((multi_obs, self_feature, other_pos, ToM_msgs), -1)
+        print('--', multi_obs.shape, self_feature.shape, other_pos.shape, ToM_msgs.shape)
         # actor_feature = torch.cat((multi_obs, self_feature, other_pos), -1)
         actor_dim = actor_feature.size()[-1]
         critic_feature = torch.sum(actor_feature, 2) #.reshape(batch_size, 1, -1).repeat(1, num_agents, 1) #expand(num_agents, num_agents*actor_dim) #[b,n,dim]
+        print('actor_dim', actor_dim)
         actor_feature = actor_feature.reshape(batch_size * num_agents, num_targets, actor_dim) #[batch*n*m,dim]
         # only select target in one's view or received communication
 
@@ -902,8 +903,10 @@ class ToM2C_single(torch.nn.Module):
         else:
             available_actions = available_actions.reshape(batch_size * num_agents, num_targets, -1)
 
-        actions, entropies, log_probs, probs = self.actor(actor_feature, test, available_actions=None)
-      
+        # for  in 
+        actions, entropies, log_probs, probs = self.actor(actor_feature, test, available_actions=available_actions)
+        print("actions", actions.shape)
+
         if train_comm:
             zero_msgs = torch.zeros(batch_size, num_agents, num_targets, 3).to(self.device)
             zero_actor_feature = torch.cat((multi_obs, self_feature, other_pos, zero_msgs),-1).reshape(batch_size * num_agents, num_targets, actor_dim)
@@ -913,7 +916,7 @@ class ToM2C_single(torch.nn.Module):
             a = probs.max(-2)[1].unsqueeze(-1)
             b = zero_probs.max(-2)[1].unsqueeze(-1)
             
-            real_edges = torch.sum(a == b,-1)
+            real_edges = torch.sum(a== b, -1)
             real_edges = 1 - (real_edges == 1).float()
             real_edges = real_edges.unsqueeze(1).repeat(1, num_agents, 1)
             edges_label = real_edges.reshape(-1, 1)[comm_domain.reshape(-1, 1)]
@@ -923,7 +926,7 @@ class ToM2C_single(torch.nn.Module):
         probs = probs.reshape(batch_size, num_agents, -1)
         actions = actions.reshape(batch_size, num_agents, -1)
         # print('actions', actions)
-        #entropies = entropies.reshape(batch_size, num_agents, -1)
+        # entropies = entropies.reshape(batch_size, num_agents, -1)
         log_probs = log_probs.reshape(batch_size,num_agents, -1)
 
         _, global_critic_feature = self.critic_encoder(critic_feature)
@@ -933,12 +936,12 @@ class ToM2C_single(torch.nn.Module):
             # squeeze all the tensor for env
             values = values.squeeze(0)
             actions = actions.squeeze(0)
-            #entropies = entropies.squeeze(0)
+            # entropies = entropies.squeeze(0)
             log_probs = log_probs.squeeze(0)
             hn_self = hn_self.squeeze(0)
             hn_ToM = hn_ToM.squeeze(0)
             other_goals = other_goals.squeeze(0)
-            #edge_logits = edge_logits.squeeze(0)
+            # edge_logits = edge_logits.squeeze(0)
             comm_edges = comm_edges.squeeze(0)
             probs = probs.squeeze(0)
             real_cover =real_cover.squeeze(0)

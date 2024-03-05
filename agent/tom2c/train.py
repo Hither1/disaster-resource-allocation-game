@@ -473,9 +473,6 @@ def train(args, shared_model, optimizer_Policy, optimizer_ToM, train_modes, n_it
             policy_loss, value_loss, Sparsity_loss, entropies_sum, actions =\
                 optimize_Policy(state, real_actions, reward, masks, available_actions, args, params, optimizer_Policy, shared_model, device_share, env)
             
-            # action_correct_rate = torch.eq(actions[:, 0, :], torch.tensor([[0]]))
-            
-            
             # log training information
             n_steps = sum(n_iters)  # global_steps_count
             wandb.log({'train/policy_loss_sum': policy_loss.sum()}, step=n_steps)

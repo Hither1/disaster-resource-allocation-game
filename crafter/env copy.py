@@ -62,6 +62,7 @@ class Env(BaseClass):
         low_level_objects.Player, high_level_objects.Station, high_level_objects.Shelter, high_level_objects.Warehouse])
     self._step = None
     self._player = None
+
     self._unlocked = None
     # Some libraries expect these attributes to be set.
     self.reward_range = None
@@ -83,6 +84,7 @@ class Env(BaseClass):
     if config.ifUseActionInD:
       self.state_dim += 1
     self.state_dim *= len(self.players[0].base_stock.keys())
+
     self.shared_reward = True # world.collaborative if hasattr(world, 'collaborative') else False
 
     # configure spaces
@@ -104,6 +106,7 @@ class Env(BaseClass):
         # all action spaces are discrete, so simplify to MultiDiscrete action space
         if all([isinstance(act_space, spaces.Discrete) for act_space in total_action_space]):
           act_space = MultiDiscrete([[0, act_space.n - 1] for act_space in total_action_space])
+
         else:
           act_space = spaces.Tuple(total_action_space)
         self.action_space.append(act_space)
@@ -226,6 +229,7 @@ class Env(BaseClass):
 
     if self._step % 10 == 0:
       for chunk, objs in self.world.chunks.items():
+        # center = (xmax - xmin) // 2, (ymax - ymin) // 2
         self._balance_chunk(chunk, objs)
 
     # record observation for each agent

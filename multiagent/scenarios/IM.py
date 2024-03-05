@@ -1,6 +1,7 @@
 """
-Scenario for resource allocation decision-making.
+Scenario for inventory management.
 """
+
 from crafter import high_level_objects
 import numpy as np
 from multiagent.core import Agent, Landmark
@@ -33,21 +34,11 @@ class Scenario(BaseScenario):
 
         world.landmarks = [] 
         # add agents
-        world.shelter = high_level_objects.Shelter(world, (28, 28), 0, "Shelter", config)
+        world.shelter = high_level_objects.Shelter(world, (28, 28), 0, config)
+        world.warehouse = high_level_objects.Warehouse(world, (28, 32), 1, config)
+        world.station = high_level_objects.Station(world, (32, 28), 2, config)
 
-        world.kitchen = high_level_objects.Warehouse(world, (28, 32), 1, "Kitchen", config)
-        world.warehouse = high_level_objects.Warehouse(world, (28, 32), 2, "Warehouse", config)
-
-        world.clinic = high_level_objects.Station(world, (32, 28), 3, "Clinic", config)
-        world.station = high_level_objects.Station(world, (32, 28), 4, "Station", config)
-        world.volunteers = high_level_objects.Station(world, (32, 28), 5, "Volunteers", config)
-
-        world.agents = [world.shelter, 
-                        world.kitchen, 
-                        world.warehouse, 
-                        world.clinic, 
-                        world.station,
-                        world.volunteers]
+        world.agents = [world.shelter, world.warehouse, world.station]
 
         world._player = low_level_objects.Player(world, (32, 32))
         world.add(world._player)
@@ -60,6 +51,9 @@ class Scenario(BaseScenario):
                 landmark.extend([0, item, 0])
             world.landmarks.append(landmark)
         
+        # world.landmarks = [[0, 50, 0, 0, 50, 0, 0, 20, 0],
+        #                    [0, 30, 0, 0, 30, 0, 0, 12, 0], 
+        #                    [0, 2, 0, 0, 2, 0, 0, 1, 0]]
         world.landmarks = [[40, 0, 0, 0, 40, 0, 0, 0, 15, 0, 0, 0], 
                            [50, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0],
                            [2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0]]
@@ -159,6 +153,8 @@ class Scenario(BaseScenario):
                 action = [3]
         action = np.array(action)
         return action
+    
+    
         
 
         # for k in range(self.config.NoAgent):

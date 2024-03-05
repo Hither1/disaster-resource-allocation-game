@@ -146,18 +146,18 @@ class Agency:
     elif self.strategy == 'gpt-4':
       pass
 
-    if 'staff' in order.keys(): # TODO: Change this
-      if self.name != 'Station':
-        self.out_requests.append(f"{self.name}->Station: Please send {order['staff']} staff")
-        self.OO['staff'] += order['staff']
-        self._communication += 1
-      del order['staff']
-
     request = f'{self.name}->Warehouse: Please send '
     for resource, quantity in order.items():
-      if resource != 'staff':
+      if resource in ['food', '']:
         self.OO[resource] += quantity
         request += str(quantity) + ' ' + resource + ' '
+      elif resource :
+
+      else:
+        if self.name != 'Station' and self.name != 'Volunteers':
+          self.out_requests.append(f"{self.name}->Station: Please send {order['staff']} staff")
+          self.OO['staff'] += order['staff']
+          self._communication += 1
 
     if order.keys():
       self.out_requests.append(request)
@@ -225,32 +225,25 @@ class Warehouse(Agency):
   Args:
     strategy (str): 'bs': base stock or 'strm': Stermann
   """
-  def __init__(self, world, pos, agentNum, config):
+  def __init__(self, world, pos, agentNum, name, config):
     super().__init__(world, pos, agentNum, config)
     self.world = world
     self.pos = np.array(pos)
-    self.random = world.random
+    self.name = name
 
     self.inventory = {'food': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
                       'drink': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
                       'staff': 9, 
                       }
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
-    self.action = 'noop'
-    self.sleeping = False
-    self._hunger = 0
-    self._fatigue = 0
-    self._recover = 0
+    self.leadtimes = constants.leadtimes[self.name]
+
     self._backorder = 0
     self.strategy = 'bs'
 
   @property
   def texture(self):
     return 'warehouse'
-  
-  @property
-  def name(self):
-    return 'Warehouse'
   
   @property
   def reward(self):
@@ -278,12 +271,9 @@ class Warehouse(Agency):
         maxmium = constants.items[name]['max']
       self.inventory[name] = max(0, min(amount, maxmium))
 
-    # self.curTime += 1
-
   def _update_life_stats(self):
     self.consumption = 0
     # TODO: track if this request was already sent in previous 5 steps
-
     returning_staff = 0
     for staff in self.staff_team:
       if staff.health <= 0:
@@ -315,12 +305,12 @@ class Warehouse(Agency):
         self.AO[resource][self.curTime] = total_quantity
         if self.inventory[resource] >= total_quantity: 
           for requester, quantity in requests_list:
-            requester.AS[resource][self.curTime + 1] += quantity
+            requester.AS[resource][self.curTime + self.leadtimes[resource]] += quantity
         else:
           average_quantity = total_quantity // len(requests_list)
           self.inventory[resource] -= total_quantity
           for requester, _ in requests_list:
-            requester.AS[resource][self.curTime + 1] += average_quantity
+            requester.AS[resource][self.curTime + self.leadtimes[resource]] += average_quantity
 
     self.in_requests = [] # Clear
 
@@ -329,35 +319,22 @@ class Warehouse(Agency):
 
 
 class Shelter(Agency):
-  def __init__(self, world, pos, agentNum, config):
+  def __init__(self, world, pos, agentNum, name, config):
     super().__init__(world, pos, agentNum, config)
-    
+    self.name = name
     self.inventory = {'health': time_varying_demand_supply.demand(mean=10, std_dev=STDDEV), 
                       'food': 39, 
                       'drink': 39, 
-                      'staff': time_varying_demand_supply.demand(mean=20, std_dev=STDDEV), 
+                      'med_staff': time_varying_demand_supply.demand(mean=20, std_dev=STDDEV), 
                       'death': 0,
                       }
     self.patients = [Person('injured', 0) for _ in range(self.inventory['health'])]
-    self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
-    # self.base_stock = {'food': 30, 
-    #                   'drink': 30, 
-    #                   'staff': 15, 
-    #                   }
-    
-    self.action = 'noop'
-    # self._last_health = self.health
-    self._inventory = 0
-    self._injured = []
+    self.staff_team = [Person('med_staff', 5) for _ in range(self.inventory['med_staff'])]
     self._death = 0
 
   @property
   def texture(self):
     return 'hospital'
-
-  @property
-  def name(self):
-    return 'Shelter'
   
   @property
   def reward(self):
@@ -399,7 +376,6 @@ class Shelter(Agency):
         maxmium = constants.resources[name]['max']
       except:
         maxmium = constants.items[name]['max']
-      # self.inventory[name] = max(0, min(amount, maxmium))
       self.inventory[name] = min(amount, maxmium)
 
     print('Day:', _step, [patient.health for patient in self.patients], self.inventory['health'], len(self.staff_team), self.inventory['food'], self.inventory['drink'])
@@ -438,7 +414,6 @@ class Shelter(Agency):
         self.inventory['death'] += 1
         self._death += 1
         self.inventory['health'] -= 1
-
     
     self.patients = [patient for patient in self.patients if patient._admitted_days < 5] # or patient.health >= 2
 
@@ -448,14 +423,9 @@ class Shelter(Agency):
       self.AO['food'][self.curTime] += 2
       self.AO['drink'][self.curTime] += 2
       self.patients[i]._admitted_days += 1
-
     print('death', self._death, self.AO['staff'][self.curTime], self.AO['food'][self.curTime], self.AO['drink'][self.curTime])
-    
 
   def _update_staff_stats(self):
-    # for _ in range(max(0, self.inventory['staff'] - len(self.staff_team))):
-    #   self.staff_team.append(Person('staff', 5))
-    
     returning_staff = 0
     for staff in self.staff_team:
       if staff.health <= 0:
@@ -464,19 +434,6 @@ class Shelter(Agency):
         returning_staff += 1
       else:
         staff.health -= 0.5
-        # # Update food
-        # if self.inventory['food'] > 0:
-        #   self.inventory['food'] -= 1
-        #   staff.health += 0.5
-        # else:
-        #   food_request += 1
-
-        # # Update water
-        # if self.inventory['drink'] > 0:
-        #   self.inventory['drink'] -= 1
-        #   staff.health += 0.5
-        # else:
-        #   drink_request += 1
           
     if returning_staff > 0:
       self.out_requests.append(f'{returning_staff} staff is returning to station')
@@ -501,33 +458,23 @@ class Shelter(Agency):
 
 
 class Station(Agency):
-  def __init__(self, world, pos, agentNum, config):
+  def __init__(self, world, pos, agentNum, name, config):
     super().__init__(world, pos, agentNum, config)
     self.world = world
     self.pos = np.array(pos)
-    self.random = world.random
+    self.name = name
     self.inventory = {'food': 9, 
                       'drink': 9, 
                       'staff': time_varying_demand_supply.demand(mean=12, std_dev=STDDEV), 
                       }
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
-
-    self.achievements = {name: 0 for name in constants.achievements}
-    self.action = 'noop'
-    self.sleeping = False
-    self._hunger = 0
-    self._thirst = 0
-    self._recover = 0
+    self.leadtimes = constants.leadtimes[self.name]
     self._backorder = 0
     self.strategy = 'bs'
 
   @property
   def texture(self):
     return 'station'
-  
-  @property
-  def name(self):
-    return 'Station'
   
   @property
   def reward(self):
@@ -554,10 +501,7 @@ class Station(Agency):
         maxmium = constants.resources[name]['max']
       except:
         maxmium = constants.items[name]['max']
-      # self.inventory[name] = max(0, min(amount, maxmium))
       self.inventory[name] = min(amount, maxmium)
-    
-    # self.curTime += 1
 
   def _update_inventory_stats(self):
     self.consumption = 0
@@ -574,14 +518,11 @@ class Station(Agency):
     for request in self.in_requests:
         requester, quantity, resource = request
         self.AO[resource][self.curTime] = quantity
-        # for _ in quantity:
-        #   if self.inventory[resource] < int(quantity):
-        #     self._backorder += int(quantity) - self.inventory[resource]
         sending_quantity = min(self.inventory[resource], int(quantity))
         for _ in range(sending_quantity):
           if self.staff_team and self.staff_team[0].health > 4:
             self.inventory[resource] -= 1
-            requester.AS[resource][self.curTime + 1] += 1
+            requester.AS[resource][self.curTime + self.leadtimes[resource]] += 1
             self.staff_team.pop(0)
           else:
             break

@@ -137,10 +137,9 @@ def start(args: DictConfig):
 
 
 if __name__=='__main__':
-    # os.environ["WANDB_MODE"] = "disabled"
-    config1 = load_config("configs", "sac")
-    config2 = load_config("configs", "leadtimes")
-
+    os.environ["WANDB_MODE"] = "disabled"
+    model = 'sac'
+    config1 = load_config("configs/model", model)
+    config2 = load_config("configs/exp", "leadtimes")
     merged_config = OmegaConf.merge(config1, config2)
-
     start(merged_config)

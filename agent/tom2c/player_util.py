@@ -18,7 +18,6 @@ class Agent(object):
         self.state_dim = env.observation_space.shape[2]
         self.model_name = args.model 
         self.prior = torch.FloatTensor(np.array([0.7, 0.3]))  # communication edge prior
-
         self.model_name = args.model
         self.eps_len = 0
         self.eps_num = 0
@@ -127,8 +126,9 @@ class Agent(object):
         self.ToM_history.append(ToM_data)
 
         if isinstance(self.done, list): self.done = np.sum(self.done)
-        self.state = torch.from_numpy(np.array(state_multi)).float().to(self.device)
-            
+        # self.state = torch.from_numpy(np.array(state_multi)).float().to(self.device)
+        self.state = torch.stack(state_multi).float().to(self.device)
+        print('state_multi', self.state.shape)
         self.reward = torch.tensor(reward_multi).float().to(self.device)
         self.eps_len += 1
 
@@ -148,14 +148,12 @@ class Agent(object):
         with torch.no_grad():
             self.poses = self.get_other_poses()
             self.mask = self.get_mask()
-            if 'RA' in self.args.env:
-                value_multi, actions, entropy, log_prob, hn_self, hn_ToM, ToM_goals, edge_logits, comm_edges, probs, real_cover, ToM_target_cover=\
-                    self.model(self.state, self.hself, self.hToM, True, available_actions=available_actions)
 
+            value_multi, actions, entropy, log_prob, hn_self, hn_ToM, ToM_goals, edge_logits, comm_edges, probs, real_cover, ToM_target_cover=\
+                self.model(self.state, self.hself, self.hToM, True, available_actions=available_actions)
 
-            else:
-                value_multi, actions, entropy, log_prob, hn_self, hn_ToM, ToM_goals, edge_logits, comm_edges, probs, real_cover, ToM_target_cover=\
-                    self.model(self.state, self.hself, self.hToM, self.poses, self.mask, True, available_actions=available_actions)
+            # value_multi, actions, entropy, log_prob, hn_self, hn_ToM, ToM_goals, edge_logits, comm_edges, probs, real_cover, ToM_target_cover=\
+            #     self.model(self.state, self.hself, self.hToM, self.poses, self.mask, True, available_actions=available_actions)
             
             self.comm_cnt = torch.sum(comm_edges)
             self.comm_bit = self.comm_cnt * self.num_targets
@@ -192,12 +190,13 @@ class Agent(object):
 
     def reset(self):
         obs = self.env.reset()
-        self.state = torch.from_numpy(np.array(obs)).float().to(self.device)
+        # self.state = torch.from_numpy(np.array(obs)).float().to(self.device)
+        self.state = torch.stack(obs).float().to(self.device)
+        print('self.state', self.env, self.state.shape, obs[0].shape)
 
         self.eps_len = 0
         self.eps_num += 1
         self.reset_rnn_hidden()
-        
         self.model.sample_noise()
 
     def clean_buffer(self, done):

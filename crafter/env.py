@@ -82,7 +82,8 @@ class Env(BaseClass):
       self.state_dim = 2
     if config.ifUseActionInD:
       self.state_dim += 1
-    self.state_dim *= len(self.players[0].base_stock.keys())
+    self.state_dim = (len(self.players[0].inventory.keys()), self.state_dim)
+    # self.state_dim *= len(self.players[0].inventory.keys())
     self.shared_reward = True # world.collaborative if hasattr(world, 'collaborative') else False
 
     # configure spaces
@@ -109,8 +110,9 @@ class Env(BaseClass):
         self.action_space.append(act_space)
 
       # observation space
-      obs_dim = len(observation_callback(agent, self.world))
-      self.observation_space.append(spaces.Box(low=-np.inf, high=+np.inf, shape=(obs_dim,), dtype=np.float32))
+      # obs_dim = len(observation_callback(agent, self.world))
+      obs_dim = observation_callback(agent, self.world).shape
+      self.observation_space.append(spaces.Box(low=-np.inf, high=+np.inf, shape=obs_dim, dtype=np.float32))
       # agent.action.c = np.zeros(self.world.dim_c)
 
     self.humans = []
@@ -151,9 +153,10 @@ class Env(BaseClass):
 
     obs_n = []
     for agent in self.players:
-      obs_n.append(self._get_obs(agent))
+      obs_n.append(self._get_obs(agent)[None])
 
     self.world.update_OO()
+
     return obs_n
   
   def _get_state(self):
@@ -210,13 +213,9 @@ class Env(BaseClass):
           else:
             self._chat_view.info.append(request)
             requestee = request.split('->')[1].split(':')[0]
-            if requestee == 'Warehouse':
-              self.world.warehouse.in_requests.append([requester, request.split(': ')[1]])
-
-            elif requestee == 'Station':
-              self.world.station.in_requests.append([requester, request.split(': ')[1]])
-            else:
-              self.world.shelter.in_requests.append([requester, request.split(': ')[1]])
+            for agent in self.world.agents:
+              if agent.name == requestee:
+                agent.in_requests.append([requester, request.split(': ')[1]])
 
       requester.out_requests = []
 

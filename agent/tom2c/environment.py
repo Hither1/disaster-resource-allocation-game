@@ -4,16 +4,7 @@ import time
 import crafter
 
 def create_env(env_id, args, rank=-1):
-    if 'CN' in env_id:  
-        from multiagent.environment import MultiAgentEnv
-        import multiagent.scenarios as scenarios
-        scenario_name = args.env
-        scenario = scenarios.load(scenario_name + ".py").Scenario()
-        world = scenario.make_world(args.num_agents, args.num_targets)
-        env = MultiAgentEnv(world, scenario.reset_world, scenario.reward, scenario.observation)
-        env_wrap = env_wrapper(env, args)
-        return env_wrap
-    elif 'RA' in env_id:  
+    if 'RA' or 'IM' in env_id:  
         import multiagent.scenarios as scenarios
         scenario = scenarios.load(args.env + ".py").Scenario()
         config = crafter.config.get_config(args)
@@ -32,7 +23,7 @@ class env_wrapper:
         self.env = env
         self.n = self.env.n_agents
         self.num_target = len(self.env.world.landmarks)
-        self.observation_space = np.zeros([self.n, self.num_target, self.env.state_dim])
+        self.observation_space = np.zeros([self.n, self.num_target, *self.env.state_dim])
         self.action_space = np.zeros([self.n, self.num_target, 1])
         self.max_steps = args.env_steps
         self.render = args.render
@@ -68,8 +59,9 @@ class env_wrapper:
             obs_n, rew, done_n, info_n = self.env.step()
 
             for i in range(self.n):
-                goal = int(goals_n[i])
-                land_goal = self.env.world.landmarks[goal]
+                # goal = int(goals_n[i])
+                land_goal = [self.env.world.landmarks[int(goal)] for goal in goals_n[i]]
+                
                 agent = self.env.world.agents[i]
                 agent._make_decisions_on_requests(self.decode_goal(land_goal))
             
@@ -85,7 +77,11 @@ class env_wrapper:
     def decode_goal(self, goal):
         start = 1
         pose_dim = 4
-        goal_ret = {'food': goal[start], 'drink': goal[start+pose_dim], 'staff': goal[start+pose_dim*2]}
+        print('goal', goal)
+        goal_ret = {'food': goal[0][0][0], 
+                    'drink': goal[1][1][0], 
+                    'staff': goal[2][2][0]}
+        print('goal_ret', goal_ret)
         return goal_ret
     
     # def step(self, goals_n):

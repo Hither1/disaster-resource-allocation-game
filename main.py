@@ -24,7 +24,6 @@ os.environ["OMP_NUM_THREADS"] = "1"
 # low-level step: 10
 # training mode: -1 for worker collecting trajectories, -10 for workers waiting for training process, -20 for training, -100 for all processes end
 
-
 def start(args: DictConfig):
 
     if args.gamma_rate == 0:
@@ -115,7 +114,6 @@ def start(args: DictConfig):
         Policy_history.append([])
         step_history.append([])
         loss_history.append([])
-
         p.start()
         processes.append(p)
         time.sleep(args.sleep_time)

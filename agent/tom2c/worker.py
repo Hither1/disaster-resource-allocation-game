@@ -48,7 +48,6 @@ def worker(rank, args, shared_model, train_modes, n_iters, curr_env_steps, ToM_c
     
     # prepare model
     player.model = shared_model
-
     player.reset()
     reward_sum = torch.zeros(player.num_agents).to(device)
     reward_sum_org = np.zeros(player.num_agents)

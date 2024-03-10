@@ -3,7 +3,7 @@ import re
 from . import constants
 from . import engine
 from . import time_varying_demand_supply
-
+import random
 STDDEV = 1
 
 class Person:
@@ -46,7 +46,9 @@ class Agency:
     self.random = world.random
     self.base_stock = {'food': 2, 
                   'drink': 2, 
-                  'staff': 1}
+                  'staff': 1,
+                  'med_staff': 1,
+                  'med_kit': 5}
     self.strategy = strategy
     self.in_requests = []
     self.out_requests = []
@@ -87,8 +89,8 @@ class Agency:
   
   # updates the IL and OO at time t, after recieving "rec" number of items 
   def receiveItems(self):
-    for resource in self.base_stock.keys():
-      self.inventory[resource] = int(self.inventory[resource] + self.AS[resource][self.curTime]) # inverntory level update
+    for resource in self.inventory.keys():
+      self.inventory[resource] = int(self.inventory[resource] + self.AS[resource][self.curTime]) # inventory level update
       if resource == 'staff':
         for _ in range(int(self.AS[resource][self.curTime])):
           self.staff_team.append(Person('staff', 5))
@@ -113,7 +115,7 @@ class Agency:
     self._communication = 0
     order = {}
     if self.strategy == 'bs':
-      for resource in self.base_stock.keys():
+      for resource in self.inventory.keys():
         if self.config.demandDistribution == 2:
           if self.curTime and self.config.use_initial_BS <= 4:
             # self.action[np.argmin(np.abs(np.array(self.config.actionListOpt)-\
@@ -148,16 +150,27 @@ class Agency:
 
     request = f'{self.name}->Warehouse: Please send '
     for resource, quantity in order.items():
-      if resource in ['food', '']:
+      if quantity <= 0:
+        next 
+
+      if resource in ['food', 'drink']:
         self.OO[resource] += quantity
         request += str(quantity) + ' ' + resource + ' '
-      elif resource :
-
-      else:
-        if self.name != 'Station' and self.name != 'Volunteers':
-          self.out_requests.append(f"{self.name}->Station: Please send {order['staff']} staff")
-          self.OO['staff'] += order['staff']
-          self._communication += 1
+      elif resource == 'med_kit':
+        self.out_requests.append(f"{self.name}->Clinic: Please send {order['staff']} med_kit")
+        self._communication += 1
+      elif resource == 'med_staff' and self.name != 'Station' and self.name != 'Clinic':
+        coin = random.random()
+        order_from = 'Station' if coin > 0.5 else 'Clinic'
+        self.out_requests.append(f"{self.name}->{order_from}: Please send {order['staff']} med_staff")
+        self.OO['med_staff'] += quantity
+        self._communication += 1
+      elif resource == 'med_staff' and self.name != 'Station' and self.name != 'Volunteers':
+        coin = random.random()
+        order_from = 'Station' if coin > 0.5 else 'Volunteers'
+        self.out_requests.append(f"{self.name}->{order_from}: Please send {order['staff']} staff")
+        self.OO['staff'] += order['staff']
+        self._communication += 1
 
     if order.keys():
       self.out_requests.append(request)
@@ -167,9 +180,9 @@ class Agency:
     self.curTime += 1
 
   def resetPlayer(self, T):
-    self.OO = {key: 0 for key in self.base_stock.keys()}
-    self.AS = {key: np.squeeze(np.zeros((1, T + max(self.config.leadRecItemUp) + max(self.config.leadRecOrderUp) + 10))) for key in self.base_stock.keys()}
-    self.AO = {key: np.squeeze(np.zeros((1, T + max(self.config.leadRecItemUp) + max(self.config.leadRecOrderUp) + 10))) for key in self.base_stock.keys()}
+    self.OO = {key: 0 for key in self.inventory.keys()}
+    self.AS = {key: np.squeeze(np.zeros((1, T + max(self.config.leadRecItemUp) + max(self.config.leadRecOrderUp) + 10))) for key in self.inventory.keys()}
+    self.AO = {key: np.squeeze(np.zeros((1, T + max(self.config.leadRecItemUp) + max(self.config.leadRecOrderUp) + 10))) for key in self.inventory.keys()}
 
     self.curReward = 0 # the reward observed at the current step
     self.cumReward = 0 # cumulative reward; reset at the begining of each episode	
@@ -185,7 +198,6 @@ class Agency:
     self.staff_team = []
     self.patients = []
 
-  # This function returns a np.array of the current state of the agent	
   def getCurState(self, t=None):
     if t is None: t = self.curTime
     if self.config.ifUseASAO:
@@ -204,7 +216,7 @@ class Agency:
         curState = np.array([[self.inventory[resource], 
                               self.OO[resource], 
                               self.AS[resource][t-1], 
-                              self.AO[resource][t]] for resource in self.base_stock])
+                              self.AO[resource][t]] for resource in self.inventory])
     else:
       # curState = np.array([[-1*(self.inventory[resource]<0)*self.inventory[resource], 
       #                       1*(self.inventory[resource]>0)*self.inventory[resource], 
@@ -216,7 +228,7 @@ class Agency:
       a = self.config.actionList[np.argmax(self.action)]
       curState = np.concatenate((curState, np.array([a])))
     
-    return curState.flatten()
+    return curState #.flatten()
 
 class Warehouse(Agency):
   """
@@ -225,19 +237,14 @@ class Warehouse(Agency):
   Args:
     strategy (str): 'bs': base stock or 'strm': Stermann
   """
-  def __init__(self, world, pos, agentNum, name, config):
+  def __init__(self, world, pos, agentNum, name, start_inventory, config):
     super().__init__(world, pos, agentNum, config)
     self.world = world
     self.pos = np.array(pos)
     self.name = name
-
-    self.inventory = {'food': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
-                      'drink': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
-                      'staff': 9, 
-                      }
+    self.inventory = self.start_inventory = start_inventory
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     self.leadtimes = constants.leadtimes[self.name]
-
     self._backorder = 0
     self.strategy = 'bs'
 
@@ -251,10 +258,7 @@ class Warehouse(Agency):
   
   def resetPlayer(self, T):
     super().resetPlayer(T)
-    self.inventory = {'food': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
-                      'drink': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
-                      'staff': 9, 
-                      }
+    self.inventory = self.start_inventory
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     return 
   
@@ -319,18 +323,15 @@ class Warehouse(Agency):
 
 
 class Shelter(Agency):
-  def __init__(self, world, pos, agentNum, name, config):
+  def __init__(self, world, pos, agentNum, name, start_inventory, config):
     super().__init__(world, pos, agentNum, config)
     self.name = name
-    self.inventory = {'health': time_varying_demand_supply.demand(mean=10, std_dev=STDDEV), 
-                      'food': 39, 
-                      'drink': 39, 
-                      'med_staff': time_varying_demand_supply.demand(mean=20, std_dev=STDDEV), 
-                      'death': 0,
-                      }
-    self.patients = [Person('injured', 0) for _ in range(self.inventory['health'])]
-    self.staff_team = [Person('med_staff', 5) for _ in range(self.inventory['med_staff'])]
-    self._death = 0
+    self.inventory = self.start_inventory = start_inventory
+    num_patients = time_varying_demand_supply.demand(mean=10, std_dev=STDDEV)
+    self.patients = [Person('injured', 0) for _ in range(num_patients)]
+    # self.staff_team = [Person('med_staff', 5) for _ in range(self.inventory['med_staff'])]
+    self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
+    self.cum_death = 0
 
   @property
   def texture(self):
@@ -342,13 +343,10 @@ class Shelter(Agency):
   
   def resetPlayer(self, T):
     super().resetPlayer(T)
-    self.inventory = {'health': time_varying_demand_supply.demand(mean=10, std_dev=STDDEV), 
-                      'food': 39, 
-                      'drink': 39, 
-                      'staff': time_varying_demand_supply.demand(mean=20, std_dev=STDDEV), 
-                      'death': 0,
-                      }
-    self.patients = [Person('injured', 0) for _ in range(self.inventory['health'])]
+    self.inventory = self.start_inventory
+    num_patients = time_varying_demand_supply.demand(mean=10, std_dev=STDDEV)
+    self.patients = [Person('injured', 0) for _ in range(num_patients)]
+    # self.staff_team = [Person('med_staff', 5) for _ in range(self.inventory['med_staff'])]
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     self.base_stock = {'food': 30, 
                       'drink': 30, 
@@ -362,7 +360,7 @@ class Shelter(Agency):
 
     new_arrived_injure = time_varying_demand_supply.piecewise_function(self.curTime)
 
-    self.inventory['health'] += new_arrived_injure
+    # self.inventory['health'] += new_arrived_injure
     for _ in range(new_arrived_injure):
       self.patients.append(Person('injured', 0))
 
@@ -378,7 +376,7 @@ class Shelter(Agency):
         maxmium = constants.items[name]['max']
       self.inventory[name] = min(amount, maxmium)
 
-    print('Day:', _step, [patient.health for patient in self.patients], self.inventory['health'], len(self.staff_team), self.inventory['food'], self.inventory['drink'])
+    print('Day:', _step, [patient.health for patient in self.patients], len(self.patients), len(self.staff_team), self.inventory['food'], self.inventory['drink'])
     print([patient._admitted_days for patient in self.patients])
 
   def _update_patient_inventory_stats(self):
@@ -386,7 +384,6 @@ class Shelter(Agency):
 
     while self.patients and self.patients[0].health >= 5: # Dismiss an injured 
         self.patients.pop(0)
-        self.inventory['health'] -= 1
     
     for i in range(min(len(self.patients), len(self.staff_team))):
       patient, staff = self.patients[i], self.staff_team[i]
@@ -411,9 +408,8 @@ class Shelter(Agency):
 
     for i in range(len(self.patients)):
       if self.patients[i]._admitted_days >= 5 and self.patients[i].health < 2:
-        self.inventory['death'] += 1
+        self.cum_death += 1
         self._death += 1
-        self.inventory['health'] -= 1
     
     self.patients = [patient for patient in self.patients if patient._admitted_days < 5] # or patient.health >= 2
 
@@ -423,7 +419,9 @@ class Shelter(Agency):
       self.AO['food'][self.curTime] += 2
       self.AO['drink'][self.curTime] += 2
       self.patients[i]._admitted_days += 1
-    print('death', self._death, self.AO['staff'][self.curTime], self.AO['food'][self.curTime], self.AO['drink'][self.curTime])
+    
+    if self._death>0: print('death', self._death)
+    print("AO", self.AO['staff'][self.curTime], self.AO['food'][self.curTime], self.AO['drink'][self.curTime])
 
   def _update_staff_stats(self):
     returning_staff = 0
@@ -458,15 +456,12 @@ class Shelter(Agency):
 
 
 class Station(Agency):
-  def __init__(self, world, pos, agentNum, name, config):
+  def __init__(self, world, pos, agentNum, name, start_inventory, config):
     super().__init__(world, pos, agentNum, config)
     self.world = world
     self.pos = np.array(pos)
     self.name = name
-    self.inventory = {'food': 9, 
-                      'drink': 9, 
-                      'staff': time_varying_demand_supply.demand(mean=12, std_dev=STDDEV), 
-                      }
+    self.inventory = self.start_inventory = start_inventory
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     self.leadtimes = constants.leadtimes[self.name]
     self._backorder = 0
@@ -482,11 +477,7 @@ class Station(Agency):
   
   def resetPlayer(self, T):
     super().resetPlayer(T)
-    
-    self.inventory = {'food': 9, 
-                      'drink': 9, 
-                      'staff': time_varying_demand_supply.demand(mean=12, std_dev=STDDEV), 
-                      }
+    self.inventory = self.start_inventory
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     return 
 

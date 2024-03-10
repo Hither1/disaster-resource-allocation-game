@@ -9,6 +9,9 @@ from multiagent.scenario import BaseScenario
 import random
 from crafter import engine, constants, low_level_objects
 from random import randint
+from crafter import time_varying_demand_supply
+import torch
+STDDEV = 1
 
 class Scenario(BaseScenario):
     def make_world(self, config, num_agents=-1, num_targets=-1):
@@ -34,9 +37,23 @@ class Scenario(BaseScenario):
 
         world.landmarks = [] 
         # add agents
-        world.shelter = high_level_objects.Shelter(world, (28, 28), 0, config)
-        world.warehouse = high_level_objects.Warehouse(world, (28, 32), 1, config)
-        world.station = high_level_objects.Station(world, (32, 28), 2, config)
+        shelter_inventory = {'food': 39, 
+                      'drink': 39, 
+                      'staff': time_varying_demand_supply.demand(mean=20, std_dev=STDDEV), 
+                      }
+        world.shelter = high_level_objects.Shelter(world, (28, 28), 0, "Shelter", shelter_inventory, config)
+
+        warehouse_inventory = {'food': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
+                      'drink': time_varying_demand_supply.demand(mean=40, std_dev=STDDEV), 
+                      'staff': 9,
+                      }
+        world.warehouse = high_level_objects.Warehouse(world, (28, 32), 1, "Warehouse", warehouse_inventory, config)
+
+        station_inventory = {'food': 9, 
+                      'drink': 9, 
+                      'staff': time_varying_demand_supply.demand(mean=12, std_dev=STDDEV), 
+                      }
+        world.station = high_level_objects.Station(world, (32, 28), 2, "Station", station_inventory, config)
 
         world.agents = [world.shelter, world.warehouse, world.station]
 
@@ -54,9 +71,9 @@ class Scenario(BaseScenario):
         # world.landmarks = [[0, 50, 0, 0, 50, 0, 0, 20, 0],
         #                    [0, 30, 0, 0, 30, 0, 0, 12, 0], 
         #                    [0, 2, 0, 0, 2, 0, 0, 1, 0]]
-        world.landmarks = [[40, 0, 0, 0, 40, 0, 0, 0, 15, 0, 0, 0], 
-                           [50, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0],
-                           [2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0]]
+        world.landmarks = [[[40, 0, 0, 0], [40, 0, 0, 0], [15, 0, 0, 0]], 
+                           [[50, 0, 0, 0], [50, 0, 0, 0], [0, 0, 0, 0]],
+                           [[2, 0, 0, 0],  [2, 0, 0, 0], [1, 0, 0, 0]]]
         # make initial conditions
         world = self.reset_world(world)
         
@@ -116,7 +133,7 @@ class Scenario(BaseScenario):
             rew += - self.cons_weight * agent.consumption
         rew += -10 * world.shelter._death
         # rew += 1.2 * world.shelter._helped_people
-        if world.shelter.inventory['health'] == 0: rew = 0
+        if len(world.shelter.patients) == 0: rew = 0
         return rew
     
     def reward(self, agent, world):
@@ -129,12 +146,15 @@ class Scenario(BaseScenario):
         return rew
 
     def observation(self, agent, world):
+        agent_state_tensor = torch.tensor(agent.getCurState())
         entity_pos = []
 
         for entity in world.landmarks:
-            entity_pos.append(entity - agent.getCurState())
-        print('obs', agent, agent.getCurState())
-        return np.concatenate([agent.getCurState()] + entity_pos)
+            entity_pos.append(torch.tensor(entity) - agent_state_tensor)
+        print('obs', agent_state_tensor.shape, entity_pos[0].shape)
+        # return np.concatenate([agent.getCurState()] + entity_pos)
+        print('obs', torch.cat([agent_state_tensor] + entity_pos).shape)
+        return torch.cat([agent_state_tensor] + entity_pos)
     
     def rule_policy(self, obs):
         x_rel = obs[0]

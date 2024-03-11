@@ -438,7 +438,7 @@ class ToM2C_single(torch.nn.Module):
         self.train()
         self.device = device
 
-    def forward(self, multi_obs, self_hiddens, ToM_hiddens, test=False, available_actions = None, train_comm=False):
+    def forward(self, multi_obs, self_hiddens, ToM_hiddens, test=False, available_actions=None, train_comm=False):
         multi_obs = multi_obs.squeeze(1)
         num_agents = self.num_agents
         num_targets = self.num_targets
@@ -512,12 +512,9 @@ class ToM2C_single(torch.nn.Module):
         for i in range(self.num_resources):
             output, hn = self.ToM_GRU(camera_states[:, :, i], h_ToM)
             ToM_output.append(output)
-            print('hn', hn.shape)
             hn_ToM.append(hn)
         ToM_output = torch.cat(ToM_output)
-        print('hn_ToM', torch.stack(hn_ToM).shape)
         hn_ToM = torch.sum(torch.stack(hn_ToM), dim=0)
-        print('hn_ToM', hn_ToM.shape)
 
         # GoalLayer input concat
         hn_ToM = hn_ToM.reshape(batch_size, num_agents, num_agents, -1)
@@ -610,10 +607,11 @@ class ToM2C_single(torch.nn.Module):
         critic_feature = torch.sum(actor_feature, 2) #.reshape(batch_size, 1, -1).repeat(1, num_agents, 1) #expand(num_agents, num_agents*actor_dim) #[b,n,dim]
         actor_feature = actor_feature.reshape(batch_size * num_agents, num_targets, self.num_resources, actor_dim) #[batch*n*m,dim]
         # only select target in one's view or received communication
-
+    
         if available_actions is None:
             available_actions = (real_target_cover + comm_cnt) > 0
-            available_actions = available_actions.reshape(batch_size * num_agents, num_targets, -1)
+            available_actions = available_actions.reshape(batch_size * num_agents, num_targets, self.num_resources, -1)
+            available_actions = torch.ones(available_actions.shape)
         else:
             available_actions = available_actions.reshape(batch_size * num_agents, num_targets, self.num_resources, -1)
 
@@ -636,10 +634,10 @@ class ToM2C_single(torch.nn.Module):
             
             return hn_self, hn_ToM, edge_logits, comm_edges.squeeze(-1), real_edges, edges_label
 
-        probs = probs.reshape(batch_size, num_agents, -1)
+        probs = probs.reshape(batch_size, num_agents, self.num_resources, -1)
         actions = actions.reshape(batch_size, num_agents, -1)
         # entropies = entropies.reshape(batch_size, num_agents, -1)
-        log_probs = log_probs.reshape(batch_size,num_agents, -1)
+        log_probs = log_probs.reshape(batch_size, num_agents, self.num_resources, -1)
 
         _, global_critic_feature = self.critic_encoder(critic_feature)
         values = self.critic(global_critic_feature).unsqueeze(1).repeat(1, num_agents, 1)

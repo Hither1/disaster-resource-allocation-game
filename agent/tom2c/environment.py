@@ -77,11 +77,9 @@ class env_wrapper:
     def decode_goal(self, goal):
         start = 1
         pose_dim = 4
-        print('goal', goal)
         goal_ret = {'food': goal[0][0][0], 
                     'drink': goal[1][1][0], 
                     'staff': goal[2][2][0]}
-        print('goal_ret', goal_ret)
         return goal_ret
     
     # def step(self, goals_n):

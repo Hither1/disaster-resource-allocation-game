@@ -151,9 +151,9 @@ class Scenario(BaseScenario):
 
         for entity in world.landmarks:
             entity_pos.append(torch.tensor(entity) - agent_state_tensor)
-        print('obs', agent_state_tensor.shape, entity_pos[0].shape)
+
         # return np.concatenate([agent.getCurState()] + entity_pos)
-        print('obs', torch.cat([agent_state_tensor] + entity_pos).shape)
+        # print('obs', torch.cat([agent_state_tensor] + entity_pos).shape)
         return torch.cat([agent_state_tensor] + entity_pos)
     
     def rule_policy(self, obs):

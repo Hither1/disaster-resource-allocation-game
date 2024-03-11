@@ -70,7 +70,6 @@ def worker(rank, args, shared_model, train_modes, n_iters, curr_env_steps, ToM_c
             reward_sum_org = np.zeros(player.num_agents)
             count_eps += 1
 
-
         player.update_rnn_hidden()
         t0 = time.time()
 
@@ -119,10 +118,10 @@ def worker(rank, args, shared_model, train_modes, n_iters, curr_env_steps, ToM_c
         # update env steps during training
         env.max_steps = curr_env_steps[rank]
         player.env.max_steps = env.max_steps
-
         player.clean_buffer(player.done)
 
         if sum(n_iters) > args.max_step:
+            import pdb; pdb.set_trace()
             train_modes[rank] = -100
             
         if train_modes[rank] == -100:

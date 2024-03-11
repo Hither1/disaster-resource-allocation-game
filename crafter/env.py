@@ -153,7 +153,7 @@ class Env(BaseClass):
 
     obs_n = []
     for agent in self.players:
-      obs_n.append(self._get_obs(agent)[None])
+      obs_n.append(self._get_obs(agent))
 
     self.world.update_OO()
 
@@ -202,7 +202,7 @@ class Env(BaseClass):
     communications = []
     for requester in self.players:
       if requester.out_requests:
-        print('out_requests', requester.out_requests)
+        # print('out_requests', requester.out_requests)
         # TODO: make this more efficient and less hard-coding
         for request in requester.out_requests:
           communications.extend(requester.out_requests)

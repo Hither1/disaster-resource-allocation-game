@@ -152,8 +152,7 @@ class Agency:
     for resource, quantity in order.items():
       if quantity <= 0:
         next 
-
-      if resource in ['food', 'drink']:
+      if resource in ['food', 'drink'] :
         self.OO[resource] += quantity
         request += str(quantity) + ' ' + resource + ' '
       elif resource == 'med_kit':
@@ -163,16 +162,16 @@ class Agency:
         coin = random.random()
         order_from = 'Station' if coin > 0.5 else 'Clinic'
         self.out_requests.append(f"{self.name}->{order_from}: Please send {order['staff']} med_staff")
-        self.OO['med_staff'] += quantity
+        self.OO[resource] += quantity
         self._communication += 1
-      elif resource == 'med_staff' and self.name != 'Station' and self.name != 'Volunteers':
+      elif resource == 'staff' and self.name != 'Station' and self.name != 'Volunteers':
         coin = random.random()
-        order_from = 'Station' if coin > 0.5 else 'Volunteers'
+        order_from = 'Station' # if coin > 0.5 else 'Volunteers'
         self.out_requests.append(f"{self.name}->{order_from}: Please send {order['staff']} staff")
         self.OO['staff'] += order['staff']
         self._communication += 1
 
-    if order.keys():
+    if ('food' in order.keys() or 'drink' in order.keys()) and self.name != 'Warehouse':
       self.out_requests.append(request)
       self._communication += 1
     
@@ -359,8 +358,6 @@ class Shelter(Agency):
     self.receiveItems()
 
     new_arrived_injure = time_varying_demand_supply.piecewise_function(self.curTime)
-
-    # self.inventory['health'] += new_arrived_injure
     for _ in range(new_arrived_injure):
       self.patients.append(Person('injured', 0))
 
@@ -376,8 +373,8 @@ class Shelter(Agency):
         maxmium = constants.items[name]['max']
       self.inventory[name] = min(amount, maxmium)
 
-    print('Day:', _step, [patient.health for patient in self.patients], len(self.patients), len(self.staff_team), self.inventory['food'], self.inventory['drink'])
-    print([patient._admitted_days for patient in self.patients])
+    #print('Day:', _step, [patient.health for patient in self.patients], len(self.patients), 'Staff:', len(self.staff_team), self.inventory['food'], self.inventory['drink'])
+    #print('      ', [patient._admitted_days for patient in self.patients])
 
   def _update_patient_inventory_stats(self):
     self.consumption = 0
@@ -420,8 +417,8 @@ class Shelter(Agency):
       self.AO['drink'][self.curTime] += 2
       self.patients[i]._admitted_days += 1
     
-    if self._death>0: print('death', self._death)
-    print("AO", self.AO['staff'][self.curTime], self.AO['food'][self.curTime], self.AO['drink'][self.curTime])
+    #if self._death>0: print('death', self._death)
+    #print("AO", self.AO['staff'][self.curTime], self.AO['food'][self.curTime], self.AO['drink'][self.curTime])
 
   def _update_staff_stats(self):
     returning_staff = 0

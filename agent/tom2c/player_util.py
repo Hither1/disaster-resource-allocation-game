@@ -128,7 +128,6 @@ class Agent(object):
         if isinstance(self.done, list): self.done = np.sum(self.done)
         # self.state = torch.from_numpy(np.array(state_multi)).float().to(self.device)
         self.state = torch.stack(state_multi).float().to(self.device)
-        print('state_multi', self.state.shape)
         self.reward = torch.tensor(reward_multi).float().to(self.device)
         self.eps_len += 1
 
@@ -176,9 +175,11 @@ class Agent(object):
             self.random_ToM_target_acc = torch.mean((real_cover==random_ToM_cover)[real_cover].float())
             # print(torch.mean(ToM_goal.float()))
             '''
-        state_multi, self.reward, self.done, self.info = self.env.step(actions)#, obstacle=True)
+        state_multi, self.reward, self.done, self.info = self.env.step(actions) #, obstacle=True)
         if isinstance(self.done, list): self.done = np.sum(self.done)
-        self.state = torch.from_numpy(np.array(state_multi)).float().to(self.device)
+        # self.state = torch.from_numpy(np.array(state_multi)).float().to(self.device)
+        self.state = torch.stack(state_multi).float().to(self.device)
+        
         self.eps_len += 1
 
         self.hself=hn_self
@@ -192,8 +193,6 @@ class Agent(object):
         obs = self.env.reset()
         # self.state = torch.from_numpy(np.array(obs)).float().to(self.device)
         self.state = torch.stack(obs).float().to(self.device)
-        print('self.state', self.env, self.state.shape, obs[0].shape)
-
         self.eps_len = 0
         self.eps_num += 1
         self.reset_rnn_hidden()

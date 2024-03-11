@@ -147,7 +147,6 @@ batchSize: 64 # type=int, default=, help='the batch size which is used to obtain
 minReplayMem: 50000 # type=int, default=, help='the minimum of experience reply size to start dnn')
 maxReplayMem: 1000000 # type=int, default=, help='the maximum size of the replay memory')
 alpha: .97 # type=float, default=, help='learning rate for total reward distribution ')
-gamma: .99 # type=float, default=, help='discount factor for Q-learning')
 saveInterval: 10000 # type=int, default=, help='every xx training iteration, saves the games network')
 epsilonBeg: 0.9 # type=float, default=, help='')
 epsilonEnd: 0.1 # type=float, default=, help='')

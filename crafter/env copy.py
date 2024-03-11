@@ -202,7 +202,7 @@ class Env(BaseClass):
     communications = []
     for requester in self.players:
       if requester.out_requests:
-        print('out_requests', requester.out_requests)
+        # print('out_requests', requester.out_requests)
         # TODO: make this more efficient and less hard-coding
         for request in requester.out_requests:
           communications.extend(requester.out_requests)

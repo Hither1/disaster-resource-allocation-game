@@ -78,7 +78,6 @@ class RNN(torch.nn.Module):
         if self.lstm:
             self.rnn = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True).to(device)
         else:
-            print('input_size', input_size, 'hidden_size', hidden_size, 'num_layers', num_layers)
             self.rnn = nn.GRU(input_size, hidden_size, num_layers, batch_first=True).to(device)
         
         self.feature_dim = hidden_size
@@ -93,7 +92,6 @@ class RNN(torch.nn.Module):
         if self.lstm:
             out, (_, hn) = self.rnn(x, (h0, c0))  # out: tensor of shape (batch_size, seq_length, hidden_size*2)
         else:
-            print(x.shape, h0.shape)
             out, hn = self.rnn(x, h0)  # out: tensor of shape (batch_size, seq_length, hidden_size*2)
         hn = self.LayerNorm(hn)
 
@@ -136,5 +134,4 @@ class AttentionLayer(torch.nn.Module):
         z = torch.bmm(F.softmax(torch.bmm(q, k.permute(0, 2, 1)), dim=2), v)
 
         global_feature = z.sum(dim=1)
-        print('z', z.shape, 'global_feature', global_feature.shape)
         return z, global_feature

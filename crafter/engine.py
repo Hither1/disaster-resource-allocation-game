@@ -91,7 +91,7 @@ class World:
         # Upstream
         self.station.OO[resource] = sum(self.station.AS[resource])
 
-    print(self.shelter.OO, self.station.OO, self.warehouse.OO)
+    # print('OO', self.shelter.OO, self.station.OO, self.warehouse.OO)
 
   def __setitem__(self, pos, material):
     if material not in self._mat_ids:

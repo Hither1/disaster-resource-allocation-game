@@ -21,6 +21,8 @@ def test(args, shared_model, optimizer, optimizer_ToM, train_modes, n_iters):
     gpu_id = args.gpu_id[-1]
     log = {}
     print(os.path.isdir(args.log_dir))
+    if not os.path.exists(args.log_dir):
+        os.makedirs(args.log_dir)
     setup_logger('{}_log'.format(args.env),
                  r'{0}/logger'.format(args.log_dir))
     log['{}_log'.format(args.env)] = logging.getLogger(
@@ -82,7 +84,7 @@ def test(args, shared_model, optimizer, optimizer_ToM, train_modes, n_iters):
                 player.action_test(n_iter)
                 fps_counter += 1
                 reward_sum_ep += player.reward
-                print('reward_sum_ep', reward_sum_ep)
+                # print('reward_sum_ep', reward_sum_ep)
                 
                 #ToM_acc += player.random_ToM_acc
                 #ToM_target_acc += player.random_ToM_target_acc
@@ -198,5 +200,6 @@ def test(args, shared_model, optimizer, optimizer_ToM, train_modes, n_iters):
         if n_iter > args.max_step:
             env.close()
             for id in range(0, args.workers):
+                import pdb; pdb.set_trace()
                 train_modes[id] = -100
             break

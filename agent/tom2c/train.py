@@ -41,14 +41,14 @@ def optimize_ToM(state, masks, available_actions, args, params, optimizer_ToM, s
     seg_num = int(max_steps/args.A2C_steps)
     if "MSMTC" in args.env:
         batch_size, num_agents, num_both, obs_dim = state.size()
-    elif "CN" in args.env or "RA" in args.env:
-        batch_size, num_agents, obs_dim = state.size()
+    else:
+        batch_size, num_agents, obs_dim, feature_dim = state.size()
     count = int(batch_size/max_steps)
-
+    num_resources = int(obs_dim/(num_agents + 1)) 
     if "MSMTC" in args.env:
         state = state.reshape(count, max_steps, num_agents, num_both, obs_dim)#.to(device_share)
-    elif "CN" in args.env or "RA" in args.env:
-        state = state.reshape(count, max_steps, num_agents, obs_dim)#.to(device_share)
+    else:
+        state = state.reshape(count, max_steps, num_agents, obs_dim, feature_dim)#.to(device_share)
 
     # batch_size, num_agents, num_agents, cam_dim = poses.size()
     # poses = poses.reshape(count, max_steps, num_agents, num_agents, cam_dim)#.to(device_share)
@@ -79,9 +79,11 @@ def optimize_ToM(state, masks, available_actions, args, params, optimizer_ToM, s
                 step = seg * args.A2C_steps + s_i
                 available_action = available_actions[:,step].to(device_share) if args.mask_actions else None
                 
-                if "RA" in args.env:
+                if "RA" in args.env or "IM" in args.env:
                     value_multi, actions, entropy, log_prob, hn_self, hn_ToM, ToM_goal, edge_logits, comm_edges, probs, real_cover, ToM_target_cover =\
                         shared_model(state[:, step].to(device_share), hself, h_ToM, available_actions=available_action)
+                    
+                    ToM_target_cover = ToM_target_cover.squeeze(-1)
                     ToM_target_loss += mse_loss(ToM_target_cover.float(), real_cover.float())
                 else:
                     value_multi, actions, entropy, log_prob, hn_self, hn_ToM, ToM_goal, edge_logits, comm_edges, probs, real_cover, ToM_target_cover =\
@@ -100,12 +102,12 @@ def optimize_ToM(state, masks, available_actions, args, params, optimizer_ToM, s
                     real_goal_duplicate = real_goal.reshape(count, 1, num_agents, num_targets, -1).repeat(1, num_agents, 1, 1, 1)
                     idx = (torch.ones(num_agents, num_agents) - torch.diag(torch.ones(num_agents))).bool()
                     real_goal_duplicate = real_goal_duplicate[:, idx].reshape(count, 1, num_agents, num_agents-1, num_targets, -1)
-                elif "CN" in args.env or "RA" in args.env:
-                    real_goal = actions.reshape(count * num_agents, 1)
-                    real_goal_duplicate = torch.zeros(count * num_agents, num_targets).to(device_share).scatter_(1, real_goal, 1)
+                else:
+                    real_goal = actions.reshape(count * num_agents * num_resources, 1)
+                    real_goal_duplicate = torch.zeros(count * num_agents * num_resources, num_targets).to(device_share).scatter_(1, real_goal, 1)
                     real_goal_duplicate = real_goal_duplicate.reshape(count, 1, num_agents, num_targets, -1).repeat(1, num_agents, 1, 1, 1)
                     idx = (torch.ones(num_agents, num_agents) - torch.diag(torch.ones(num_agents))).bool()
-                    real_goal_duplicate = real_goal_duplicate[:, idx].reshape(count, 1, num_agents, num_agents-1, num_targets)
+                    real_goal_duplicate = real_goal_duplicate[:, idx].reshape(count, 1, num_agents, num_agents-1, num_resources, num_targets)
                 if ToM_goals is None:
                     ToM_goals = ToM_goal
                     real_goals = real_goal_duplicate
@@ -116,8 +118,6 @@ def optimize_ToM(state, masks, available_actions, args, params, optimizer_ToM, s
             KL_criterion = torch.nn.KLDivLoss(reduction='sum')
             real_prob = real_goals.float()
             ToM_prob = ToM_goals.float()
-            # print('real_prob', real_prob)
-            # print('ToM_prob', ToM_prob.shape, 'real_prob', real_prob.shape)
             ToM_loss += KL_criterion(ToM_prob.log(), real_prob)
             
             loss = ToM_loss + 0.5 * ToM_target_loss
@@ -150,21 +150,22 @@ def optimize_Policy(state, real_actions, reward, masks, available_actions, args,
     seg_num = int(max_steps/args.A2C_steps)
     if "MSMTC" in args.env:
         batch_size, num_agents, num_both, obs_dim = state.size()
-    elif "CN" in args.env or "RA" in args.env:
-        batch_size, num_agents, obs_dim = state.size()
+    else:
+        batch_size, num_agents, obs_dim, feature_dim = state.size()
     count = int(batch_size/max_steps)
+    num_resources = int(obs_dim/(num_agents+1))
 
     if count != args.workers:
         print(count)
     assert count == args.workers
-    
+
     # state, cam_state, reward, real_actions are to device only when being used
     if "MSMTC" in args.env:
         state = state.reshape(count, max_steps, num_agents, num_both, obs_dim)#.to(device_share)
         real_actions = real_actions.reshape(count, max_steps, num_agents, num_targets, 1)#.to(device_share)
-    elif "CN" in args.env or "RA" in args.env:
-        state = state.reshape(count, max_steps, num_agents, obs_dim)#.to(device_share)
-        real_actions = real_actions.reshape(count, max_steps, num_agents, 1)#.to(device_share)
+    else:
+        state = state.reshape(count, max_steps, num_agents, obs_dim, feature_dim)#.to(device_share)
+        real_actions = real_actions.reshape(count, max_steps, num_agents, num_resources, 1)#.to(device_share)
 
     # batch_size, num_agents, num_agents, cam_dim = poses.size()
     # poses = poses.reshape(count, max_steps, num_agents, num_agents, cam_dim)#.to(device_share)
@@ -228,7 +229,6 @@ def optimize_Policy(state, real_actions, reward, masks, available_actions, args,
             entropies_sum = torch.zeros(1).to(device_share)
             w_entropies = float(args.entropy)
             Sparsity_loss = torch.zeros(count, 1).to(device_share)
-
             criterionH = HLoss()
             edge_prior = torch.FloatTensor(np.array([0.7, 0.3])).to(device_share)
             gae = torch.zeros(count, num_agents, 1).to(device_share)
@@ -243,19 +243,16 @@ def optimize_Policy(state, real_actions, reward, masks, available_actions, args,
                 if "MSMTC" in args.env:
                     gae_duplicate = gae.unsqueeze(2).repeat(1,1,num_targets,1)
                     policy_loss = policy_loss - (w_entropies * entropies[i]) - (log_probs[i] * gae_duplicate)
-                elif "CN" in args.env or "RA" in args.env:
+                else:
                     gae_duplicate = gae
-                    if policy_loss.sum() == 0: policy_loss = torch.zeros(1).to(device_share)
-
+                    # if policy_loss.sum() == 0: policy_loss = torch.zeros(1).to(device_share)
                     policy_loss = policy_loss - (w_entropies * entropies[i].sum()) - (log_probs[i] * gae_duplicate).sum()
-
+                
                 entropies_sum += entropies[i].sum()
-
                 edge_logit = edge_logits[i] #.reshape(count * num_agents * num_agents, -1)  # k * 2
                 Sparsity_loss += -criterionH(edge_logit, edge_prior)
             
             shared_model.zero_grad()
-
             loss = policy_loss.sum() + 1e-4 * value_loss.sum() #+ 0.3 * Sparsity_loss.sum()
             loss = loss/(count * 4)
             loss.backward()
@@ -284,14 +281,14 @@ def reduce_comm(policy_data, args, params_comm, optimizer, lr_scheduler, shared_
 
     if "MSMTC" in args.env:
         batch_size, num_agents, num_both, obs_dim = state.size()
-    elif "CN" in args.env:
+    else:
         batch_size, num_agents, obs_dim = state.size()
     count = int(batch_size/max_steps)
 
     # state, cam_state, reward, real_actions are to device only when being used
     if "MSMTC" in args.env:
         state = state.reshape(count, max_steps, num_agents, num_both, obs_dim)#.to(device_share)
-    elif "CN" in args.env:
+    else:
         state = state.reshape(count, max_steps, num_agents, obs_dim)#.to(device_share)
 
     batch_size, num_agents, num_agents, cam_dim = poses.size()
@@ -385,6 +382,7 @@ def load_data(args, history):
 
     for i in range(item_cnt):
         data_list[i] = torch.from_numpy(np.array(data_list[i]))
+        # data_list[i] = torch.stack(data_list[i])
         if 'reward' in item_name[i]:
             data_list[i] = data_list[i].unsqueeze(-1)
 

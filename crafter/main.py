@@ -25,6 +25,7 @@ import pandas as pd
 import argparse
 import sys
 import glob
+from utils import load_config
 sys.path.append('/')
 
 import json
@@ -122,7 +123,7 @@ if trained_IBL:
 
 sys.argv=['']
 del sys
-# flags = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="IBL")
+flags = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="IBL")
 flags.add_argument('--type',type=str,default='td',help='Environment.')
 flags.add_argument('--episodes',type=int,default=1000,help='Number of episodes.') #ok results with 1000
 FLAGS = flags.parse_args()
@@ -176,7 +177,7 @@ async def on_join(sid, *args):
     
     # Create mapping from session id to user id
     USER_MAP_SESSION[sid] = uid
-    
+
     # If uid has not already appeared before
     if uid not in player_roomid:
         # Room logic
@@ -194,7 +195,6 @@ async def on_join(sid, *args):
             roomid_ep_userinputs[roomid] = {}
             roomid_ep_states[roomid] = {}
             roomid_started[roomid] = False
-            
 
         # Otherwise, check for partially-filled rooms and add uid to the earliest partially-filled room
         else:
@@ -234,6 +234,7 @@ async def on_join(sid, *args):
         roomid = player_roomid[uid]
         
     app.sio.enter_room(sid, roomid)
+
     print("room joined")
 
 @app.sio.on('ready')
@@ -251,7 +252,7 @@ async def on_ready(sid, *args):
 
     uid = args[0]['uid']
     userRole = args[0]['userRole']
-    
+    print(player_roomid)
     roomid = player_roomid[uid]
     print('condition', len(roomid_cur_ep_players[roomid]) == max_players_per_room and roomid_started[roomid] == False)
     episode_num = roomid_episode[roomid]
@@ -268,8 +269,9 @@ async def on_ready(sid, *args):
         roomid_started[roomid] = True
         # Initialize environment, scoreboard, and data trackers
         import multiagent.scenarios as scenarios
-        scenario = scenarios.load("RA.py").Scenario()
-        config, _ = crafter.config.get_config()
+        scenario = scenarios.load("IM.py").Scenario()
+        config = load_config("configs/exp", 'leadtimes')
+        config = crafter.config.get_config(config)
         world = scenario.make_world(config)
         env = crafter.Env(config, world, userRole, scenario.reset_world, scenario.reward, scenario.global_reward, scenario.observation)
         env = crafter.Recorder(env, config.record)
@@ -375,6 +377,8 @@ async def gameLoop(roomid, episode):
             roomid_ep_userinputs[roomid][episode].append(temp_event)
             
             # change game state according to event
+            print(roomid_env[roomid].step(event))
+            print('roomid_players', roomid_players, 'roomid', roomid)
             uid, agent_state, user_resources = roomid_env[roomid].step(event)
 
             # update player state

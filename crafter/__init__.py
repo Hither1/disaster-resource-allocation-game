@@ -31,9 +31,7 @@ app = FastAPI()
 sio = socketio.AsyncServer(cors_allowed_origins='*', async_mode = 'asgi')
 app.mount("/socket.io", socketio.ASGIApp(sio))
 
-#app.mount("/static", StaticFiles(directory="./mission/static"), name="static")
-
 app.mount("/static", StaticFiles(directory="./crafter/static"), name="static")
 templates = Jinja2Templates(directory="./crafter/templates")
 
-# from crafter import main
+from crafter import main

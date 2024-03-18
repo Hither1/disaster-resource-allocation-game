@@ -64,8 +64,8 @@
       <tr id="game-container" class=border align="center">
           <td>
               <div style = "text-align: center">
-                    <h2 id="playtime"> Current Day: <span id="time"></span></h2>
-                  <h2 id="playtime"> Game ends in <span id="time"></span> days</h2>
+                    <h2 id="playtime"> Current Day: <span id="day"></span></h2>
+                  <h2 id="playtime"> Game ends in <span id="remain-day"></span> days</h2>
               </div>
               <div align="center">
                 <img src="../static/images/shelter.png" alt="Description of the image">
@@ -86,7 +86,8 @@
                     <input type="number" min="0" class="userInput" data-input="request-food" placeholder="Request food amount...">
                     <input type="number" min="0" class="userInput" data-input="request-drink" placeholder="Request drink amount...">
                     <input type="number" min="0" class="userInput" data-input="request-staff" placeholder="Request staff amount...">
-                    <button id="nextButton">Next</button>
+                    
+                    <button id="next-button" formaction="/minimap">Next</button>
                   </div>
                   <h3><span id="result"></span></h3>
                   <form name="frm">
@@ -113,6 +114,30 @@
                   <script>
                     const userRole = "Shelter";
                       $('#next-button').click(function() {
+                        const inputValues = {};
+                        const userInputBoxes = document.querySelectorAll('.userInput');
+                        userInputBoxes.forEach(
+                            function(inputElement) {
+                                var inputType = inputElement.getAttribute('data-input');
+                                inputValues[inputType] = inputElement.value;
+                            }
+                        );
+
+                        // // 2. Run env step
+                        // const [reward, user_food, user_drink, user_staff, done] = gameEnv.step(userInputs);
+
+                        // document.getElementById('day').textContent = this._step;
+                        // document.getElementById('goal').textContent = reward;
+                        // document.getElementById('food').textContent = user_food;
+                        // document.getElementById('drink').textContent = user_drink;
+                        // document.getElementById('staff').textContent = user_staff;
+
+                        // // 3. If finished
+                        // if (done) {
+                        //     window.location.href = 'done.html';
+                        //   }
+                        emitSocketIO('shelterEvent', {'uid': uid, 'event': inputValues});
+
                           var id = $('#uid').val();
                           var sessionId = Number($('#session').val())+1;
                           $('#session').val(sessionId);

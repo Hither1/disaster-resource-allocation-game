@@ -294,7 +294,6 @@ socket.on('end_episode', function(msg) {
     clearInterval(intervalRecordData);
     clearInterval(intervalEmitSocket);
     console.log("Episode over");
-    // timeDisplay.textContent = "GAME OVER !";
     $('#ready-room').show();
     $('#tab-panel').hide();
     $('#tabgame').hide();
@@ -345,8 +344,6 @@ function setup() {
   emitSocketIO('join_room', {'uid': uid, 'agent_type': "human"});
 
   // load images
-  medicImg = loadImage("https://raw.githubusercontent.com/ngocntkt/visualization-map/master/aid.png");
-  engineerImg = loadImage("https://raw.githubusercontent.com/ngocntkt/visualization-map/master/hammer2.png");
 
   var canvas = createCanvas(0, 0);
 
@@ -398,21 +395,6 @@ function gameOver() {
       "You have finished playing the game. You will be forwarded to the post-study section in a few seconds."
     );
   }
-  //button.style.visibility = 'visible';
-  //$('#notification').show();
-  //if (episode == maxEpisode) {
-    // showElement("finish-button");
-    //var button = document.getElementById('finish-button');
-
-    // getTotalPoint();
-
-    //sleep(3000).then(() => {
-    //  getTotalPoint();
-    //});
-    //sleep(5000).then(() => { button.click(); });
-
-  //} else {
-    //var button = document.getElementById('next-button');
 
 }
 
@@ -453,94 +435,26 @@ function draw() {
       }
     }
   }
-  if (keyIsDown(65)){
-    if (!isGameOver && gameStarted){
-      const currentTime = millis();
-      if (currentTime - lastKeyEventTime >= moveEventInterval) {
-        emitSocketIO('keyEvent', {'uid': uid, 'event': "press", 'key': 65});
-        lastKeyEventTime = currentTime;
-      }
-    }
-  }
-  if (keyIsDown(87)){
-    if (!isGameOver && gameStarted){
-      const currentTime = millis();
-      if (currentTime - lastKeyEventTime >= moveEventInterval) {
-        emitSocketIO('keyEvent', {'uid': uid, 'event': "press", 'key': 87});
-        lastKeyEventTime = currentTime;
-      }
-    }
-  }
-  if (keyIsDown(83)){
-    if (!isGameOver && gameStarted){
-      const currentTime = millis();
-      if (currentTime - lastKeyEventTime >= moveEventInterval) {
-        emitSocketIO('keyEvent', {'uid': uid, 'event': "press", 'key': 83});
-        lastKeyEventTime = currentTime;
-      }
-    }
-  }
-  if (keyIsDown(68)){
-    if (!isGameOver && gameStarted){
-      const currentTime = millis();
-      if (currentTime - lastKeyEventTime >= moveEventInterval) {
-        emitSocketIO('keyEvent', {'uid': uid, 'event': "press", 'key': 68});
-        lastKeyEventTime = currentTime;
-      }
-    }
-  }
 }
 
 // Emitting functions
-function keyPressed(){
-  if (!isGameOver && gameStarted) {
-    const currentTime = millis();
-    if (currentTime - lastKeyEventTime >= moveEventInterval) {
-      emitSocketIO('keyEvent', {'uid': uid, 'event': "press", 'key': keyCode});
-      lastKeyEventTime = currentTime;
-    }
-  }
-}
+// function keyPressed(){
+//   if (!isGameOver && gameStarted) {
+//     const currentTime = millis();
+//     if (currentTime - lastKeyEventTime >= moveEventInterval) {
+//       emitSocketIO('keyEvent', {'uid': uid, 'event': "press", 'key': keyCode});
+//       lastKeyEventTime = currentTime;
+//     }
+//   }
+// }
 
-document.getElementById('nextButton').addEventListener('click', function () {
-  emitSocketIO('shelterEvent', {'uid': uid, 'event': "hold", 'key': 13});
-        
-      // 1. Get user actions
-      // const userInputs = {};
-
-      // const userInputBoxes = document.querySelectorAll('.userInput');
-      // userInputBoxes.forEach(inputBox => {
-      //     inputBox.addEventListener('input', function () {
-      //     if (gameEnv) {
-      //         const input = inputBox.value;
-      //         const inputIdentifier = inputBox.getAttribute('data-input');
-
-      //         if (!isNaN(inputValue)) {
-      //             userInputs[inputType] = inputValue;
-      //         }
-
-      //     console.log(`User Input ${inputIdentifier}:`, input);
-      //     } else {
-      //         console.log('Game environment not initialized. Click "Start Game" first.');
-      //     }
-      //     });
-      // });
-
-      // // 2. Run env step
-      // const [reward, user_food, user_drink, user_staff, done] = gameEnv.step(userInputs);
-
-      // document.getElementById('day').textContent = this._step;
-      // document.getElementById('goal').textContent = reward;
-      // document.getElementById('food').textContent = user_food;
-      // document.getElementById('drink').textContent = user_drink;
-      // document.getElementById('staff').textContent = user_staff;
-
-      // // 3. If finished
-      // if (done) {
-      //     window.location.href = 'done.html';
-      //   }
+// document.getElementById('next-button').addEventListener('click', function () {
+//       // 1. Get user actions
+//       const userInputs = {};
+//       const userInputBoxes = document.querySelectorAll('.userInput');
+//       console.log(`Checking!!!!!`);
  
-});
+// });
 
 var timeout;
 function startTimer(duration, display) {

@@ -261,7 +261,7 @@ class Warehouse(Agency):
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     return 
   
-  def step(self, _step):
+  def step(self, _step, action=None):
     self.receiveItems()
     self._update_life_stats()
     
@@ -352,7 +352,7 @@ class Shelter(Agency):
                       'staff': 15, 
                       }
   
-  def step(self, _step):
+  def step(self, _step, action=None):
     self._death = 0
     self._helped_people = 0
     self.receiveItems()
@@ -478,7 +478,7 @@ class Station(Agency):
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     return 
 
-  def step(self, _step):
+  def step(self, _step, action=None):
     self._backorder = 0
     self.receiveItems()
     self._update_inventory_stats()
@@ -499,7 +499,7 @@ class Station(Agency):
     for staff in self.staff_team:
       staff.health += min(5, 1.5 + staff.health)
 
-  def _make_decisions_on_requests(self, goal):
+  def _make_decisions_on_requests(self, goal, ):
     ### Part 1: 
     self.in_requests = self._process_requests()
     self.in_requests = sorted(self.in_requests, key=lambda x: x[0].name)

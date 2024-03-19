@@ -1,3 +1,11 @@
+const strings = [
+  'Initial Response: You knew it was coming. This episode is the start of a disaster relief operation. Your team will be managing the initial response. You will receive a separate situation report and task assignment sheet.',
+  'Scaling Up & Transition of Responsibilities',
+  'Identify Total Requirements: Identify service delivery requirements for the total operation.',
+  'Project Anticipated Costs:  In addition to managing the relief operation, for this exercise, you are being asked to project you anticipated costs of direct and support services by completing a budget development worksheet.',
+  'Closing: In these episodes you will be bringing the relief operation to a close. Staff will be released and facilities returned. As you finish each day of the relief operation, ask your facilitator for the next situation report with information about the operation.'
+];
+
 var namespace = 'http://' + document.domain + ':' + location.port;
 var socket = io(namespace, {path: '/ws/socket.io'});
 
@@ -366,6 +374,11 @@ function updateScoreBoard(scores) {
   document.getElementById('injured').innerHTML = 'Injured: ' + scores['injured'].toString();
 }
 
+function updateNarratives(day) {
+  document.getElementById('reward').innerHTML = 'Points: ' + day['reward'].toString();
+  document.getElementById('food').innerHTML = 'Food: ' + scores['food'].toString();
+  document.getElementById('drink').innerHTML = 'Drink: ' + scores['drink'].toString();
+}
 
 function gameOver() {
   clearInterval(timeout);

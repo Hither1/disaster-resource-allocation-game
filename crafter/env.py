@@ -250,21 +250,22 @@ class Env(BaseClass):
     '''
 		Change environment state based on events
 		'''
-		# event = {'agent_info': roomid_players[roomid][pid], 'duration': keypress_duration}
+		# event = {'agent_info': roomid_players[roomid][pid], }
 		# agent_info = {'x': , 'y': , 'role': , 'enter_start_time': , 'human': }
     print('event', event)
     agent_info = event['agent_info']
     uid = event['uid']
     event = event['event']
     # event_time = event['time']
-    # rescues = self.interactObj(event['agent_info']['role'], event_time)
     self._step += 1
     obs_n = []
-    reward_n = []
-            
+
     for agent in self.players:
       agent.step(self._step, event)
       self.update_agent_state(agent)
+
+    for agent in self.players:
+      agent._make_decisions_on_requests(action=event)
 
     communications = []
     for requester in self.players:
@@ -276,7 +277,6 @@ class Env(BaseClass):
 
           if 'return' in request:
             self.world.station.inventory['staff'] += int(re.findall(r'\d+', request)[0])
-
           else:
             self._chat_view.info.append(request)
             requestee = request.split('->')[1].split(':')[0]
@@ -290,9 +290,13 @@ class Env(BaseClass):
     for agent in self.players:
       obs_n.append(self._get_obs(agent))
       r = self._get_reward(agent)
-      reward_n.append(r)
 		
-    return uid, 
+    user_state = self.user.inventory.copy()
+    user_state['death'] = 10 # self.death
+    user_state['injured'] = len(self.user.patients)
+    user_state['reward'] = r
+
+    return uid, user_state
 
   def render(self, size=None):
     size = size or self._size

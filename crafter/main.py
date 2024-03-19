@@ -376,17 +376,15 @@ async def gameLoop(roomid, episode):
             
             # change game state according to event
             print(event)
-            print(roomid_env[roomid].game_step(event))
-            print('roomid_players', roomid_players, 'roomid', roomid)
-            uid, agent_state, user_resources = roomid_env[roomid].game_step(event)
+            uid, agent_state = roomid_env[roomid].game_step(event)
             day += 1
-
+            print('agent_state', agent_state)
             # update player state
             roomid_players[roomid][uid]['state'] = agent_state
 
             # update scoreboard
-            for resource in user_resources:
-                roomid_scoreboard[roomid][resource] += user_resources[resource]
+            for resource, quantity in agent_state.items():
+                roomid_scoreboard[roomid][resource] = agent_state[resource]
 
             # Clear event queue for next game tick
             # Broadcast game state to all clients

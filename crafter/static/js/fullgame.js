@@ -359,11 +359,12 @@ setupInformationPanelToggle();
 console.log("VERSION 1.6.0");
 
 function updateScoreBoard(scores) {
-  rescue = scores['green'] * 10 - scores['food'] - scores['drink'];
-  document.getElementById('goal').innerHTML = 'Points: ' + rescue.toString();
+  document.getElementById('reward').innerHTML = 'Points: ' + scores['reward'].toString();
   document.getElementById('food').innerHTML = 'Food: ' + scores['food'].toString();
   document.getElementById('drink').innerHTML = 'Drink: ' + scores['drink'].toString();
   document.getElementById('staff').innerHTML = 'Staff: ' + scores['staff'].toString();
+  document.getElementById('death').innerHTML = 'Death: ' + scores['death'].toString();
+  document.getElementById('injured').innerHTML = 'Injured: ' + scores['injured'].toString();
 }
 
 

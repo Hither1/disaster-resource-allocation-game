@@ -344,7 +344,6 @@ function setup() {
   emitSocketIO('join_room', {'uid': uid, 'agent_type': "human"});
 
   // load images
-
   var canvas = createCanvas(0, 0);
 
 $('#ready-room').show()

@@ -24,13 +24,9 @@ class MultiAgentEnv(gym.Env):
 
         self.world = world
         self.agents = self.world.policy_agents
-        self.preys = self.world.policy_preys
         # set required vectorized gym env property
         self.n_agents = len(world.policy_agents)
         self.n_landmarks = len(world.landmarks)
-        self.n_landmarks_obs = world.num_landmarks_obs
-        self.n_agents_obs = world.num_agents_obs
-        self.n_preys_obs = world.num_preys_obs
         # scenario callbacks
         self.reset_callback = reset_callback
         self.reward_callback = reward_callback
@@ -47,7 +43,7 @@ class MultiAgentEnv(gym.Env):
         # if true, every agent has the same reward
         self.shared_reward = world.collaborative if hasattr(world, 'collaborative') else False
         # self.shared_reward = False
-        self.range_p = world.range_p
+        # self.range_p = world.range_p
         self.dim_p = world.dim_p
         self.time = 0
 

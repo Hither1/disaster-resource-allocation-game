@@ -157,8 +157,7 @@ def optimize_Policy(state, real_actions, reward, masks, available_actions, args,
 
     if count != args.workers:
         print(count)
-    assert count == args.workers
-
+        
     # state, cam_state, reward, real_actions are to device only when being used
     if "MSMTC" in args.env:
         state = state.reshape(count, max_steps, num_agents, num_both, obs_dim)#.to(device_share)
@@ -253,6 +252,7 @@ def optimize_Policy(state, real_actions, reward, masks, available_actions, args,
                 Sparsity_loss += -criterionH(edge_logit, edge_prior)
             
             shared_model.zero_grad()
+            print(policy_loss)
             loss = policy_loss.sum() + 1e-4 * value_loss.sum() #+ 0.3 * Sparsity_loss.sum()
             loss = loss/(count * 4)
             loss.backward()

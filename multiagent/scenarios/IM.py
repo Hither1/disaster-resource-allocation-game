@@ -30,8 +30,6 @@ class Scenario(BaseScenario):
 
         world.collaborative = False
         world.discrete_action = True
-        world.num_agents_obs = 2
-        world.num_landmarks_obs = 2
         self.T = 0
         self.totIterPlayed = 0
 

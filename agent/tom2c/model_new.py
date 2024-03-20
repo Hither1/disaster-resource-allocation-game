@@ -109,7 +109,7 @@ class PolicyNet_Single(nn.Module):
         super(PolicyNet_Single, self).__init__()
         self.head_name = head_name
         self.device = device
-        num_outputs = 1
+        num_outputs = 2
         self.hidden_size = 128
 
         if 'ns' in head_name:
@@ -117,39 +117,51 @@ class PolicyNet_Single(nn.Module):
             self.actor_linear = NoisyLinear(input_dim, num_outputs, sigma_init=0.017)
         else:
             self.noise = False
-            self.actor_linear = nn.Linear(input_dim, num_outputs)
+            # self.actor_linear = nn.Linear(input_dim, num_outputs)
+            self.fc1 = nn.Linear(input_dim, 128)
+            self.fc2 = nn.Linear(128, 64)
+            self.fc3 = nn.Linear(64, num_outputs)
 
             # init layers
-            self.actor_linear.weight.data = norm_col_init(self.actor_linear.weight.data, 0.1)
-            self.actor_linear.bias.data.fill_(0)
+            # self.actor_linear.weight.data = norm_col_init(self.actor_linear.weight.data, 0.1)
+            # self.actor_linear.bias.data.fill_(0)
+            self.fc1.weight.data = norm_col_init(self.fc1.weight.data, 0.1)
+            self.fc1.bias.data.fill_(0)
+
 
     def forward(self, x, test=False, available_actions=None):
-        mu = F.leaky_relu(self.actor_linear(x))
-        B, N, R, _ = mu.size()
+        # mu = F.leaky_relu(self.actor_linear(x))
+
+        x = F.leaky_relu(self.fc1(x))
+        x = F.leaky_relu(self.fc2(x))
+        mu = self.fc3(x)
+        B, R, N = mu.size()
         if available_actions is not None:
             # mask unavailable actions
             # size of mu & available actions: b*n*m, 2
             idx = (available_actions == 0)
             mu[idx] = -1e10
         sigma = torch.ones_like(mu)
-        prob = F.softmax(mu, dim=-2)
-        log_prob = (F.log_softmax(mu, dim=-2))
+        prob = F.softmax(mu, dim=-1)
+        log_prob = (F.log_softmax(mu, dim=-1))
         entropy = -(log_prob * prob)#.sum(-2, keepdim=True)
         mask = (available_actions != 0)
         entropy = entropy[mask]
 
         if test: # test
+            print('test', mu)
             # not always sample action instead of choosing the best action
-            action = prob.max(-2)[1].data
+            action = prob.max(-1)[1].data
             action = action.cpu().numpy()  # np.squeeze(action.cpu().numpy(), axis=0)
-            print('test', action)
         else:
-            prob = prob.squeeze(-1).view(B * N, R)
-            log_prob = log_prob.squeeze(-1).view(B * N, R)
+            prob = prob.squeeze(-1).view(B * R, N)
+            log_prob = log_prob.squeeze(-1).view(B * R, N)
             action = prob.multinomial(1).data
             log_prob = log_prob.gather(-1, Variable(action))  # [num_agent, 1] # comment for sl slave
 
         return action, entropy, log_prob, prob
+
+    
 
     def sample_noise(self):
         if self.noise:
@@ -403,7 +415,8 @@ class ToM2C_single(torch.nn.Module):
         self.attention = AttentionLayer(feature_dim, lstm_out, device)
         feature_dim = self.attention.feature_dim
 
-        self.GRU = RNN(feature_dim, lstm_out, 1, device, 'GRU')
+        self.num_layers = args.num_layers
+        self.GRU = RNN(feature_dim, lstm_out, args.num_layers, device, 'GRU')
 
         # create ToM, including / ToM & target ToM
         self._state_size = self.pose_dim
@@ -415,7 +428,7 @@ class ToM2C_single(torch.nn.Module):
             nn.Linear(lstm_out, 1),
             nn.Sigmoid()
         )
-        self.ToM_GRU = RNN(self.pose_dim, lstm_out, 1, device, 'GRU')
+        self.ToM_GRU = RNN(self.pose_dim, lstm_out, args.num_layers, device, 'GRU')
         self.other_goal = GoalLayer_Single(lstm_out + self.attention.feature_dim, device=device)
 
         # GNN based communication inference
@@ -427,7 +440,8 @@ class ToM2C_single(torch.nn.Module):
             nn.Linear(feature_dim, lstm_out),
             nn.LeakyReLU(),
         )
-        feature_dim = self.num_agents * self.pose_dim + 3 + lstm_out # TODO: change hard-coded numbers
+        # feature_dim = self.num_agents * self.pose_dim + 3 + lstm_out # TODO: change hard-coded numbers
+        feature_dim = 3 + lstm_out # + self.pose_dim
 
         feature_dim -= 3
         self.actor = PolicyNet_Single(feature_dim, spaces.Discrete(2), head_name, device)
@@ -440,6 +454,7 @@ class ToM2C_single(torch.nn.Module):
         self.device = device
 
     def forward(self, multi_obs, self_hiddens, ToM_hiddens, test=False, available_actions=None, train_comm=False):
+        
         multi_obs = multi_obs.squeeze(1)
         num_agents = self.num_agents
         num_targets = self.num_targets
@@ -457,7 +472,7 @@ class ToM2C_single(torch.nn.Module):
         comm_domain = (torch.ones(num_agents, num_agents, self.num_resources) - torch.diag(torch.ones(num_agents))).bool().to(self.device)
         comm_domain = comm_domain.reshape(1, num_agents, num_agents, self.num_resources, 1).repeat(batch_size, 1, 1, 1, 1)
         self_pos = Variable(multi_obs[:, :, :self.num_resources], requires_grad=True)
-        multi_obs = Variable(multi_obs[:, :, self.num_resources:].reshape(batch_size, num_agents, num_targets, self.num_resources, self._state_size), requires_grad=True)
+        multi_obs = Variable(multi_obs[:, :, self.num_resources:].reshape(batch_size, num_agents, num_targets * self.num_resources, self._state_size), requires_grad=True)
         obs_dim = multi_obs.size()[-1]
         num_both = multi_obs.size()[2]
 
@@ -473,14 +488,17 @@ class ToM2C_single(torch.nn.Module):
         real_others_cover = real_others_cover[:, idx].reshape(batch_size, num_agents, num_agents-1, num_targets, self.num_resources)
         real_cover = real_others_cover # for ToM target training
 
-        feature_target = self.encoder(multi_obs)  # [batch_size, num_agents, num_both, feature_dim]
-        feature_target = feature_target.reshape(batch_size * num_agents, num_both, self.num_resources, -1)
+        
+        feature_target = self.encoder(self_pos)  # [batch_size, num_agents, num_both, feature_dim]
+        # if test:
+        #     print('feature_target', feature_target)
+        feature_target = feature_target.reshape(batch_size * num_agents, self.num_resources, -1)
         att_features, global_feature = self.attention(feature_target)
-        att_features = att_features.reshape(batch_size, num_agents, num_both, self.num_resources, -1)
+        att_features = att_features.reshape(batch_size, num_agents, self.num_resources, -1)
         global_feature = global_feature.reshape(batch_size, num_agents, -1)
 
-        att_features = att_features[:, :, :self.num_targets]
-        h_self = self_hiddens.reshape(1, num_agents * batch_size, -1) # [1, num_agents * batch, hidden_size]
+        # att_features = att_features[:, :, :self.num_targets]
+        h_self = self_hiddens.reshape(self.num_layers, num_agents * batch_size, -1) # [1, num_agents * batch, hidden_size]
         global_features = global_feature.reshape(num_agents * batch_size, 1, -1) # [num_agents * batch, 1, feature_dim]
         GRU_outputs, hn_self = self.GRU(global_features, h_self)
         hn_self = hn_self.reshape(batch_size, num_agents, -1)
@@ -504,32 +522,25 @@ class ToM2C_single(torch.nn.Module):
             ToM_goal_mask = pose_mask[:, idx].reshape(batch_size,num_agents,num_agents-1,1,1)
             comm_domain = pose_mask * comm_domain
 
-        camera_states = camera_states.reshape(batch_size*num_agents*(num_agents), 1, self.num_resources, -1)
-        h_ToM = ToM_hiddens.reshape(1, -1, self.ToM_GRU.feature_dim) # [1, batch*n*(n), dim]
+        camera_states = camera_states.reshape(batch_size*num_agents*(num_agents), self.num_resources, -1)
+        h_ToM = ToM_hiddens.reshape(self.num_layers, -1, self.ToM_GRU.feature_dim) # [1, batch*n*(n), dim]
 
-        # ToM_camera prediction
-        ToM_output, hn_ToM = [], []
-        
-        for i in range(self.num_resources):
-            output, hn = self.ToM_GRU(camera_states[:, :, i], h_ToM)
-            ToM_output.append(output)
-            hn_ToM.append(hn)
-        ToM_output = torch.cat(ToM_output)
-        hn_ToM = torch.sum(torch.stack(hn_ToM), dim=0)
+        # ToM_camera prediction        
+        ToM_output, hn_ToM = self.ToM_GRU(camera_states, h_ToM)
 
         # GoalLayer input concat
         hn_ToM = hn_ToM.reshape(batch_size, num_agents, num_agents, -1)
         ToM_output = ToM_output.reshape(batch_size, num_agents, num_agents, self.num_resources, -1)
-        ToM_output_other = ToM_output[:, idx].reshape(batch_size, num_agents, num_agents-1, 1, self.num_resources, -1)
+        ToM_output_other = ToM_output[:, idx].reshape(batch_size, num_agents, num_agents-1, self.num_resources, -1)
 
         GRU_dim = GRU_outputs.size()[-1]
         ToM_dim = ToM_output.size()[-1]
         att_dim = att_features.size()[-1]
         GRU_output_expand = GRU_outputs.reshape(batch_size, num_agents, 1, 1, -1)
         GRU_output_expand = GRU_output_expand.expand(batch_size, num_agents, num_agents-1, num_targets, GRU_dim)
-        ToM_output_expand = ToM_output_other.expand(batch_size, num_agents, num_agents-1, num_targets, self.num_resources, ToM_dim)
-        att_feature_expand = att_features.unsqueeze(2).expand(batch_size, num_agents, num_agents-1, num_targets, self.num_resources, att_dim)
-        global_features_expand = global_features.reshape(batch_size, num_agents, 1, 1, 1, -1).repeat(1, 1, num_agents-1, num_targets, self.num_resources, 1)
+        ToM_output_expand = ToM_output_other.expand(batch_size, num_agents, num_agents-1, self.num_resources, ToM_dim)
+        att_feature_expand = att_features.unsqueeze(2).expand(batch_size, num_agents, num_agents-1, self.num_resources, att_dim)
+        global_features_expand = global_features.reshape(batch_size, num_agents, 1, 1, -1).repeat(1, 1, num_agents-1, self.num_resources, 1)
         
         # ToM_target: predicted version
         ToM_target_feature = torch.cat((att_feature_expand.detach(), global_features_expand.detach(), ToM_output_expand),-1)
@@ -543,23 +554,24 @@ class ToM2C_single(torch.nn.Module):
 
         # prepare masks
         mask = torch.ones([num_agents, num_agents-1]).to(self.device)
-        mask_u = torch.triu(mask, 0).reshape(1, num_agents, num_agents-1, 1, 1).repeat(batch_size, 1, 1, num_targets, self.num_resources)
-        mask_l = torch.tril(mask, -1).reshape(1, num_agents, num_agents-1, 1, 1).repeat(batch_size, 1, 1, num_targets, self.num_resources)
-        zeros = torch.zeros([batch_size, num_agents, 1, num_targets, self.num_resources]).to(self.device)
+        mask_u = torch.triu(mask, 0).reshape(1, num_agents, num_agents-1, 1).repeat(batch_size, 1, 1, self.num_resources)
+        mask_l = torch.tril(mask, -1).reshape(1, num_agents, num_agents-1, 1).repeat(batch_size, 1, 1, self.num_resources)
+        zeros = torch.zeros([batch_size, num_agents, 1, self.num_resources]).to(self.device)
 
         ############ GNN based communication ################
         other_goals = other_goals.squeeze(-1) # [b,n,n-1,m]
-        ToM_goals = other_goals.max(dim=-1)[0]
-        ToM_goals = ToM_goals.reshape(batch_size, num_agents, num_agents-1, 1, self.num_resources).repeat(1, 1, 1, num_targets, 1)
+        ToM_goals = other_goals.max(dim=-2)[0]
+        # ToM_goals = ToM_goals.reshape(batch_size, num_agents, num_agents-1, self.num_resources).repeat(1, 1, 1, 1)
+        ToM_goals = torch.zeros((batch_size, num_agents, num_agents-1, self.num_resources))
         ToM_goals = (other_goals >= ToM_goals).detach()
         tri_u_ToM = torch.cat((zeros, ToM_goals * mask_u), 2)
         tri_l_ToM = torch.cat((ToM_goals * mask_l, zeros), 2)
         ToM_goals = tri_u_ToM + tri_l_ToM
         diag_idx = torch.diag(torch.ones(num_agents)).bool()
         ToM_goals[:, diag_idx] += 1
-        ToM_goals = ToM_goals.unsqueeze(-1) # [b, n, n, m, 1]
-        node_features = att_features.unsqueeze(2).repeat(1, 1, num_agents, 1, 1, 1).detach()
-        node_features = torch.sum(node_features * ToM_goals, 3) # sum all targets
+        ToM_goals = ToM_goals.unsqueeze(-1) # [b, n, n, m, r, 1]
+        node_features = att_features.unsqueeze(2).repeat(1, 1, num_agents, 1, 1).detach()
+        # node_features = torch.sum(node_features * ToM_goals, 3) # sum all targets
         node_features = torch.cat((node_features, ToM_output.detach()), -1).reshape(batch_size * num_agents, num_agents, self.num_resources, -1)
         edge_logits, comm_edges = self.graph_infer(node_features) # global_feature.reshape(batch_size, num_agents, -1)
         edge_logits = edge_logits.reshape(batch_size, num_agents, num_agents, num_agents, -1)[:, diag_idx] #[b, n, n, 2]
@@ -569,55 +581,56 @@ class ToM2C_single(torch.nn.Module):
 
         # only for ablation test
         edge_logits = edge_logits.reshape(-1, 2)[comm_domain_reshape]
-        edge_logits = edge_logits.reshape(-1, 2) #[k,2] only logits of those edges in comm domain can be saved for training
+        edge_logits = edge_logits.reshape(-1, 2) # [k, 2] only logits of those edges in comm domain can be saved for training
         edge_logits = F.softmax(edge_logits, dim=-1)
 
-        comm_target_edges = comm_edges.reshape(batch_size, num_agents, num_agents, self.num_resources, 1).repeat(1, 1, 1, 1, num_targets)
+        comm_target_edges = comm_edges.reshape(batch_size, num_agents, num_agents, self.num_resources).repeat(1, 1, 1, 1)
         # although we use real target cover here, it is only self real cover duplicate, so it still keeps the decentralized execution mode
-        comm_target_edges = comm_target_edges * (real_target_cover.reshape(batch_size, num_agents, 1, num_targets, self.num_resources).repeat(1, 1, num_agents, 1, 1))
-        comm_cnt = torch.sum(comm_target_edges, 1).reshape(batch_size, num_agents, num_targets, self.num_resources, 1)
-        # selected msg
-        comm_msg = other_goals.detach()     # [batch, n, n-1, m]  comm_edge:[n, n, 1]
-        # transfer [n,n-1,m] to [n,n,m], where the added part is the diagnoal
-        # e.g. [[1,2],[3,4],[5,6]] -> [[0,1,2],[3,0,4],[5,6,0]]
-        tri_u = torch.cat((zeros, comm_msg * mask_u), 2)
-        tri_l = torch.cat((comm_msg * mask_l, zeros), 2)
-        comm_msg = tri_u + tri_l    # [batch, n, n, m]
-        # evaluation
-        # comm_edges = 1 - comm_edges
-        # comm_cnt = self.num_agents - 1 - comm_cnt
-        # comm_edges = torch.zeros(self.num_agents, self.num_agents, 1)
-        # comm_cnt = torch.zeros(self.num_agents, self.num_targets, 1)
-        # end of evaluation
-        msgs = comm_msg * comm_target_edges
-        msgs = torch.sum(msgs, 1).reshape(batch_size, num_agents, num_targets, self.num_resources, 1)
-        msgs = torch.cat((msgs, comm_cnt), -1)
+        # comm_target_edges = comm_target_edges * (real_target_cover.reshape(batch_size, num_agents, 1, self.num_resources).repeat(1, 1, num_agents, 1))
+        # comm_cnt = torch.sum(comm_target_edges, 1).reshape(batch_size, num_agents, self.num_resources, 1)
+        # # selected msg
+        # comm_msg = other_goals.detach()     # [batch, n, n-1, m]  comm_edge:[n, n, 1]
+        # tri_u = torch.cat((zeros, comm_msg * mask_u), 2)
+        # tri_l = torch.cat((comm_msg * mask_l, zeros), 2)
+        # comm_msg = tri_u + tri_l    # [batch, n, n, m]
+        # # evaluation
+        # # comm_edges = 1 - comm_edges
+        # # comm_cnt = self.num_agents - 1 - comm_cnt
+        # # comm_edges = torch.zeros(self.num_agents, self.num_agents, 1)
+        # # comm_cnt = torch.zeros(self.num_agents, self.num_targets, 1)
+        # # end of evaluation
+        # msgs = comm_msg * comm_target_edges
+        # msgs = torch.sum(msgs, 1).reshape(batch_size, num_agents, num_targets, self.num_resources, 1)
+        # msgs = torch.cat((msgs, comm_cnt), -1)
 
         ######### end of GNN based communication ###############
         # decide self goals
         max_prob, _ = torch.max(other_goals, 2)
-        max_prob = max_prob.reshape(batch_size, num_agents, num_targets, self.num_resources, 1).detach() #[batch,n,m,1]
+        max_prob = max_prob.reshape(batch_size, num_agents, self.num_resources, 1).detach() #[batch,n,m,1]
         GRU_outputs = GRU_outputs.reshape(batch_size, num_agents, 1, -1).expand(batch_size, num_agents, num_targets, self.GRU.feature_dim)
         
-        self_feature = self.reduce_dim(att_features) # new version of actor feature, reduce self feature dim
-        ToM_msgs = torch.cat((max_prob, msgs), -1)
-
+        self_feature = self.reduce_dim(att_features)
+        # ToM_msgs = torch.cat((max_prob, msgs), -1)
         # actor_feature = torch.cat((multi_obs, self_feature, other_pos, ToM_msgs), -1)
-        actor_feature = torch.cat((multi_obs, self_feature, other_pos), -1)
+        multi_obs = multi_obs.reshape(batch_size, num_agents, num_targets, self.num_resources, self._state_size)
+        # multi_obs: 
+        # self_feature: new version of actor feature, reduce self feature dim
+        # other_pos: 
+        # actor_feature = torch.cat((multi_obs, self_feature, other_pos), -1)
+        actor_feature = self_feature
         actor_dim = actor_feature.size()[-1]
-        critic_feature = torch.sum(actor_feature, 2) #.reshape(batch_size, 1, -1).repeat(1, num_agents, 1) #expand(num_agents, num_agents*actor_dim) #[b,n,dim]
-        actor_feature = actor_feature.reshape(batch_size * num_agents, num_targets, self.num_resources, actor_dim) #[batch*n*m,dim]
+        critic_feature = actor_feature # torch.sum(actor_feature, 2) #.reshape(batch_size, 1, -1).repeat(1, num_agents, 1) #expand(num_agents, num_agents*actor_dim) #[b,n,dim]
+        actor_feature = actor_feature.reshape(batch_size * num_agents, self.num_resources, actor_dim) #[batch*n*m,dim]
         # only select target in one's view or received communication
     
-        if available_actions is None:
-            available_actions = (real_target_cover + comm_cnt) > 0
-            available_actions = available_actions.reshape(batch_size * num_agents, num_targets, self.num_resources, -1)
-            available_actions = torch.ones(available_actions.shape)
-        else:
-            available_actions = available_actions.reshape(batch_size * num_agents, num_targets, self.num_resources, -1)
+        # if available_actions is None:
+        #     # available_actions = (real_target_cover + comm_cnt) > 0
+        #     available_actions = available_actions.reshape(batch_size * num_agents, self.num_resources, num_targets, -1)
+        #     available_actions = torch.ones(())
+        # else:
+        #     available_actions = available_actions.reshape(batch_size * num_agents, num_targets, self.num_resources, -1)
 
-        # for  in 
-        actions, entropies, log_probs, probs = self.actor(actor_feature, test, available_actions=available_actions)
+        actions, entropies, log_probs, probs = self.actor(actor_feature, test, available_actions=None)
 
         if train_comm:
             zero_msgs = torch.zeros(batch_size, num_agents, num_targets, 3).to(self.device)
@@ -638,8 +651,8 @@ class ToM2C_single(torch.nn.Module):
         probs = probs.reshape(batch_size, num_agents, self.num_resources, -1)
         actions = actions.reshape(batch_size, num_agents, -1)
         # entropies = entropies.reshape(batch_size, num_agents, -1)
-        log_probs = log_probs.reshape(batch_size, num_agents, self.num_resources, -1)
-
+        log_probs = log_probs.reshape(batch_size, num_agents, -1)
+        critic_feature = torch.flatten(critic_feature, start_dim=1, end_dim=2)
         _, global_critic_feature = self.critic_encoder(critic_feature)
         values = self.critic(global_critic_feature).unsqueeze(1).repeat(1, num_agents, 1)
 
@@ -657,7 +670,8 @@ class ToM2C_single(torch.nn.Module):
             probs = probs.squeeze(0)
             real_cover =real_cover.squeeze(0)
             ToM_target_cover = ToM_target_cover.squeeze(0)
-            available_actions = available_actions.reshape(num_agents, num_targets, self.num_resources, 1)
+            available_actions = None # available_actions.reshape(num_agents, num_targets, self.num_resources, 1)
+        
         return values, actions, entropies, log_probs, hn_self, hn_ToM, other_goals, edge_logits, comm_edges, probs, real_cover, ToM_target_cover
 
     def sample_noise(self):

@@ -1,5 +1,4 @@
 const strings = [
-  'Initial Response: You knew it was coming. This episode is the start of a disaster relief operation. Your team will be managing the initial response. You will receive a separate situation report and task assignment sheet.',
   'Scaling Up & Transition of Responsibilities',
   'Identify Total Requirements: Identify service delivery requirements for the total operation.',
   'Project Anticipated Costs:  In addition to managing the relief operation, for this exercise, you are being asked to project you anticipated costs of direct and support services by completing a budget development worksheet.',
@@ -265,6 +264,7 @@ socket.on('start_game', function (msg) {
 
   socket.on('refresh', function (msg) {
     updateScoreBoard(msg['scoreboard'])
+    updateNarratives(msg['scoreboard'])
     time_left = msg['remaining_time']
 
     minutes = (time_left / 60) | 0;

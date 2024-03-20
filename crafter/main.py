@@ -399,7 +399,7 @@ async def gameLoop(roomid, episode):
         # To human players 
         await app.sio.emit('refresh', \
                             {'state': roomid_env[roomid]._get_state(), 'scoreboard': roomid_scoreboard[roomid], 
-                             'players': roomid_players[roomid], 'remaining_time': time_left}, \
+                             'players': roomid_players[roomid], 'current_day': day, 'remaining_time': time_left}, \
                             room=roomid)
         
 

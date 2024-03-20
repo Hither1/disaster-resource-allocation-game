@@ -42,7 +42,8 @@ var moveEventInterval = 100;
 var countPress = 0;
 var rescue = 0;
 const timeDisplay = document.querySelector('#playtime');
-var display = document.querySelector('#time');
+var display_current = document.querySelector('#current-day');
+var display_remain = document.querySelector('#remain-day');
 
 var episode = document.getElementById("session").value;
 var maxEpisode;
@@ -264,15 +265,16 @@ socket.on('start_game', function (msg) {
 
   socket.on('refresh', function (msg) {
     updateScoreBoard(msg['scoreboard'])
-    updateNarratives(msg['scoreboard'])
+    updateNarratives(msg['current_day'])
     time_left = msg['remaining_time']
 
-    minutes = (time_left / 60) | 0;
-    seconds = (time_left % 60) | 0;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-    display.textContent = minutes + ":" + seconds;
-    document.getElementById("time").innerHTML = minutes + ":" + seconds;
+    // minutes = (time_left / 60) | 0;
+    // seconds = (time_left % 60) | 0;
+    // minutes = minutes < 10 ? "0" + minutes : minutes;
+    // seconds = seconds < 10 ? "0" + seconds : seconds;
+    display_remain.textContent = time_left ; // minutes + ":" + seconds;
+    document.getElementById("current-day").innerHTML = msg['current_day'];
+    document.getElementById("remain-day").innerHTML = time_left; // minutes + ":" + seconds;
   });
 
 
@@ -375,9 +377,8 @@ function updateScoreBoard(scores) {
 }
 
 function updateNarratives(day) {
-  document.getElementById('reward').innerHTML = 'Points: ' + day['reward'].toString();
-  document.getElementById('food').innerHTML = 'Food: ' + scores['food'].toString();
-  document.getElementById('drink').innerHTML = 'Drink: ' + scores['drink'].toString();
+  document.getElementById('narrative').innerHTML = strings[day].toString();
+  // document.getElementById('food').innerHTML = 'Food: ' + scores['food'].toString();
 }
 
 function gameOver() {

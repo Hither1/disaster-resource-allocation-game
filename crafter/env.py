@@ -159,6 +159,29 @@ class Env(BaseClass):
 
     return obs_n
   
+  def game_reset(self):
+    self._episode += 1
+    self._step = 0
+    self.world.reset(seed=hash((self._seed, self._episode)) % (2 ** 31 - 1))
+    self.reset_callback(self.world)
+    self._update_time()
+
+    self._unlocked = set()
+    worldgen.generate_world(self.world, self.players)
+
+    obs_n = []
+    for agent in self.players:
+      obs_n.append(self._get_obs(agent))
+
+    self.world.update_OO()
+
+    user_state = self.user.inventory.copy()
+    user_state['death'] = 10 # self.death
+    user_state['injured'] = len(self.user.patients)
+    user_state['reward'] = 0
+
+    return user_state
+  
   def _get_state(self):
     return
   

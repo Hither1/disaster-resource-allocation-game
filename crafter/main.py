@@ -273,9 +273,9 @@ async def on_ready(sid, *args):
         world = scenario.make_world(config)
         env = crafter.Env(config, world, userRole, scenario.reset_world, scenario.reward, scenario.global_reward, scenario.observation)
         env = crafter.Recorder(env, config.record)
-        env.reset()
+        user_state = env.game_reset()
         roomid_env[roomid] = env
-        roomid_scoreboard[roomid] = {'food':0, 'drink':0, 'staff':0}
+        roomid_scoreboard[roomid] = user_state
         roomid_ep_userinputs[roomid][episode_num] = []
         roomid_ep_states[roomid][episode_num] = []
             
@@ -366,7 +366,7 @@ async def gameLoop(roomid, episode):
     while day < game_duration:
         await asyncio.sleep(1/60)  # emit rate
         timestamp = time.time() - start_time
-        time_left = game_duration - timestamp
+        time_left = game_duration - day
 
         while len(roomid_event_queue[roomid]) > 0:
             event = roomid_event_queue[roomid].popleft()

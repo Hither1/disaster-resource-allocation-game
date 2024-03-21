@@ -372,8 +372,16 @@ function updateScoreBoard(scores) {
   document.getElementById('food').innerHTML = 'Food: ' + scores['food'].toString();
   document.getElementById('drink').innerHTML = 'Drink: ' + scores['drink'].toString();
   document.getElementById('staff').innerHTML = 'Staff: ' + scores['staff'].toString();
-  document.getElementById('death').innerHTML = 'Death: ' + scores['death'].toString();
-  document.getElementById('injured').innerHTML = 'Injured: ' + scores['injured'].toString();
+  // document.getElementById('death').innerHTML = 'Death: ' + scores['death'].toString();
+  // document.getElementById('injured').innerHTML = 'Injured: ' + scores['injured'].toString();
+  var deathElement = document.getElementById('death');
+  if (deathElement) {
+    deathElement.innerHTML = 'Points: ' + scores['death'].toString();
+  }
+  var injuredElement = document.getElementById('injured');
+  if (injuredElement) {
+    injuredElement.innerHTML = 'Points: ' + scores['injured'].toString();
+  }
 }
 
 function updateNarratives(day) {

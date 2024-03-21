@@ -8,3 +8,4 @@ class BaseScenario(object):
     # create initial conditions of the world
     def reset_world(self, world):
         raise NotImplementedError()
+

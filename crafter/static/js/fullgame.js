@@ -472,10 +472,7 @@ function draw() {
 
 // document.getElementById('next-button').addEventListener('click', function () {
 //       // 1. Get user actions
-//       const userInputs = {};
-//       const userInputBoxes = document.querySelectorAll('.userInput');
-//       console.log(`Checking!!!!!`);
- 
+//       const userInputBoxes = document.querySelectorAll('.userInput'); 
 // });
 
 var timeout;

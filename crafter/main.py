@@ -1,6 +1,5 @@
 from crafter import app, templates
 from fastapi import Request, Form
-
 from sqlalchemy.orm import Session
 from fastapi import Depends
 from fastapi.responses import HTMLResponse
@@ -29,12 +28,10 @@ from utils import load_config
 sys.path.append('/')
 
 import json
-
 import crafter
 #from speedyibl import Agent
 import copy 
 from collections import deque
-
 from datetime import datetime, timedelta
 
 #######################
@@ -103,9 +100,6 @@ timer_recording = {} # list of timer recording each group's data
 room_data = {} #room_id and values is the list of players' events
 roomid_ep_userinputs = {}
 roomid_ep_states = {}
-
-
-key_code_dict = {87: "up", 38: "up", 65: "left", 37: "left",  68: "right", 39: "right", 83: "down", 40: "down", 13: "enter", 0: "stay"}
 
 ##########################
 # Loading trained agents #
@@ -222,6 +216,7 @@ async def on_join(sid, *args):
                         added = True
                         break
             if added == False:
+                print('new room')
                 roomid = len(roomid_players)
                 if agent_type == 'human':
                     roomid_players[roomid] = {uid: {'human': True}}
@@ -250,7 +245,6 @@ async def on_ready(sid, *args):
 
     uid = args[0]['uid']
     userRole = args[0]['userRole']
-    print(player_roomid)
     roomid = player_roomid[uid]
     print('condition', len(roomid_cur_ep_players[roomid]) == max_players_per_room and roomid_started[roomid] == False)
     episode_num = roomid_episode[roomid]
@@ -291,7 +285,6 @@ def startGame(roomid):
     global roomid_players
     global roomid_event_queue
     global roomid_episode
-
     print("game started")
     # Pair all human players with an existing in-game human agent
     human_i = 0
@@ -375,10 +368,8 @@ async def gameLoop(roomid, episode):
             roomid_ep_userinputs[roomid][episode].append(temp_event)
             
             # change game state according to event
-            print(event)
             uid, agent_state = roomid_env[roomid].game_step(event)
             day += 1
-            print('agent_state', agent_state)
             # update player state
             roomid_players[roomid][uid]['state'] = agent_state
 
@@ -431,40 +422,12 @@ async def gameLoop(roomid, episode):
 # Per episode #
 ###############
 
-# Each episode needs to have a map layout
 # Needs to be initialized, run, and closed
 # Each episode should also have a file or two files associated with its events
-
 
 ##########################
 # Listeners and handlers #
 ##########################
-
-# @app.sio.on('keyEvent')
-# async def keyEvent(sid, *args, **kwargs):
-#     global roomid_players
-#     global player_roomid
-#     global roomid_event_queue
-#     global roomid_episode
-#     global roomid_start_time
-#     global roomid_started
-#     global roomid_ep_userinputs
-
-#     msg = args[0]
-#     uid = msg['uid']
-#     event = msg['event']
-
-#     if msg['key'] in key_code_dict:
-#         key_name = key_code_dict[msg['key']]
-#         roomid = player_roomid[uid]
-#         episode = roomid_episode[roomid]
-#         if roomid_started[roomid] == True:
-#             cur_time = time.time()
-#             roomid_event_queue[roomid].append({'uid': uid, 'agent_info': roomid_players[roomid][uid], 'key': key_name, 'event': event, 'time': cur_time})
-#             ep_start_time = roomid_start_time[roomid]
-
-#     return
-
 @app.sio.on('shelterEvent')
 async def shelterEvent(sid, *args, **kwargs):
     global roomid_players
@@ -541,6 +504,9 @@ async def on_leave(sid, *args, **kwargs):
 ######################
 
 # No need to touch these for now
+# @app.get("/{uid}")
+# async def index(request:Request, uid:str):
+#     return templates.TemplateResponse("index.html", {"request": request, 'uid': uid})
 @app.get("/")
 async def index(request:Request):
     return templates.TemplateResponse("index.html", {"request": request})
@@ -636,21 +602,7 @@ async def get_total_points(request:Request, uid:str, db: Session = Depends(get_d
             elif row['target']=='red_victim':
                 points += row['num']*60
     return points
-"""
-@app.get("/map")
-async def get_map_data():
-    x_pos = set()
-    y_pos = set()
-    
-    for k in list(map_data.keys()):
-        x_pos.add(map_data[k]['x'])
-        y_pos.add(map_data[k]['z'])
-    x_pos = [int(i) for i in x_pos]
-    y_pos = [int(i) for i in y_pos]
-    max_x = max(x_pos)
-    max_y = max(y_pos)
-    return {"map_data":map_data, 'max_x':max_x, 'max_y':max_y, 'max_episode':MAX_EPISODE}
-"""
+
 @app.post("/game_play", response_model=schemas.Game)
 async def create_game(game: schemas.GameCreate, db: Session = Depends(get_db)):
     return crud.create_game(db=db, game=game)
@@ -659,7 +611,6 @@ async def create_game(game: schemas.GameCreate, db: Session = Depends(get_db)):
 async def get_map_data():
     return {"message": "Thank you!"}
     # return RedirectResponse(url="https://cmu.ca1.qualtrics.com/jfe/form/SV_82EQelNK9y3JhNY", status_code=status.HTTP_303_SEE_OTHER)
-
 
 @app.get("/survey")
 async def get_survey(request:Request):

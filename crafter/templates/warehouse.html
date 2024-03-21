@@ -25,6 +25,14 @@
       .sparkline--red {
           stroke: #dc2b33;
       }
+
+      .hidden {
+            background-color: #ccc; 
+            border: 2px solid #ccc; /* Border style and color */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px; /* Space between input elements and border */
+            margin-bottom: 20px; /* Optional margin for spacing */
+        }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js"
       integrity="sha512-+fimYMd9ssJlAt7SKeLD8bemPKamAAomwky9niJe6clQ5CD3xDVHvdNbgfr7NSJAQdhZxpTs0t68H4urqYbQog=="
@@ -83,7 +91,7 @@
                       </span>
                       <span id="instructionsToggle" style="border-color: gray; border-width: 2px; padding: 6px; border-style: solid;cursor:pointer;">Show commands</span>
                   </h3>
-                  <div id="userInputs" class="hidden">       
+                  <div id="userInputs1" class="hidden">       
                     <h4>Send food amount to Shelter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Send drink amount to Shelter</h4>
                     <input type="number" min="0" class="userInput" data-input="send-food-shelter" placeholder="Send food amount to Shelter..." value="0">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -93,7 +101,9 @@
                     <input type="number" min="0" class="userInput" data-input="send-food-station" placeholder="Send food amount to Station..." value="0">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="number" min="0" class="userInput" data-input="send-drink-station" placeholder="Send drink amount to Station..." value="0">
+                  </div>
 
+                  <div id="userInputs2" class="hidden">       
                     <h4>Request staff amount</h4>
                     <input type="number" min="0" class="userInput" data-input="request-staff" placeholder="Request staff amount..." value="0">
 

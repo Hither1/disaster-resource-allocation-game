@@ -25,6 +25,14 @@
       .sparkline--red {
           stroke: #dc2b33;
       }
+
+      .hidden {
+            background-color: #ccc; 
+            border: 2px solid #ccc; /* Border style and color */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px; /* Space between input elements and border */
+            margin-bottom: 20px; /* Optional margin for spacing */
+        }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js"
       integrity="sha512-+fimYMd9ssJlAt7SKeLD8bemPKamAAomwky9niJe6clQ5CD3xDVHvdNbgfr7NSJAQdhZxpTs0t68H4urqYbQog=="
@@ -84,11 +92,13 @@
                       </span>
                       <span id="instructionsToggle" style="border-color: gray; border-width: 2px; padding: 6px; border-style: solid;cursor:pointer;">Show commands</span>
                   </h3>
-                  <div id="userInputs" class="hidden">        
-                    <input type="number" min="0" class="userInput" data-input="request-food" placeholder="Request food amount..." value="0">
-                    <input type="number" min="0" class="userInput" data-input="request-drink" placeholder="Request drink amount..." value="0">
-                    <input type="number" min="0" class="userInput" data-input="request-staff" placeholder="Request staff amount..." value="0">
-
+                  <div id="userInputs" class="hidden">  
+                    
+                        <h4>Request food &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Request drink &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Request staff &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>      
+                        <input type="number" min="0" class="userInput" data-input="request-food" placeholder="Request food amount..." value="0">
+                        <input type="number" min="0" class="userInput" data-input="request-drink" placeholder="Request drink amount..." value="0">
+                        <input type="number" min="0" class="userInput" data-input="request-staff" placeholder="Request staff amount..." value="0">
+                    
                     <button id="next-button" formaction="/minimap">Next</button>
                   </div>
                   <h3><span id="result"></span></h3>
@@ -124,14 +134,12 @@
                                 inputValues[inputType] = inputElement.value;
                             }
                         );
-
                         // // 2. Run env step
                         // // 3. If finished
                         // if (done) {
                         //     window.location.href = 'done.html';
                         //   }
                         emitSocketIO('shelterEvent', {'uid': uid, 'event': inputValues});
-
                           var id = $('#uid').val();
                           var sessionId = Number($('#session').val())+1;
                           $('#session').val(sessionId);

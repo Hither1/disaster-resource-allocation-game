@@ -144,24 +144,34 @@ def swish(x):
     return x * torch.sigmoid(x)
 
 
+# def truncated_normal(size, std):
+#     # from https://github.com/quanvuong/handful-of-trials-pytorch/blob/master/config/utils.py
+#     # We use TF to implement initialization function for neural network weight because:
+#     # 1. Pytorch doesn't support truncated normal
+#     # 2. This specific type of initialization is important for rapid progress early in training in cartpole
+
+#     # Do not allow tf to use gpu memory unnecessarily
+#     cfg = tf.ConfigProto()
+#     cfg.gpu_options.allow_growth = True
+
+#     sess = tf.Session(config=cfg)
+#     val = sess.run(tf.random.truncated_normal(shape=size, stddev=std))
+
+#     # Close the session and free resources
+#     sess.close()
+
+#     return torch.tensor(val, dtype=torch.float32)
+
 def truncated_normal(size, std):
-    # from https://github.com/quanvuong/handful-of-trials-pytorch/blob/master/config/utils.py
-    # We use TF to implement initialization function for neural network weight because:
-    # 1. Pytorch doesn't support truncated normal
-    # 2. This specific type of initialization is important for rapid progress early in training in cartpole
+    # PyTorch doesn't have native support for truncated normal distribution,
+    # so we use the standard normal distribution and truncate it manually.
+    # Note: Truncation is approximate, but it's commonly used as an alternative.
+    normal_dist = torch.distributions.normal.Normal(0, std)
+    val = normal_dist.sample(size)
+    val[val > 2*std] = 2*std
+    val[val < -2*std] = -2*std
 
-    # Do not allow tf to use gpu memory unnecessarily
-    cfg = tf.ConfigProto()
-    cfg.gpu_options.allow_growth = True
-
-    sess = tf.Session(config=cfg)
-    val = sess.run(tf.random.truncated_normal(shape=size, stddev=std))
-
-    # Close the session and free resources
-    sess.close()
-
-    return torch.tensor(val, dtype=torch.float32)
-
+    return val
 
 def get_affine_params(ensemble_size, in_features, out_features):
     # from https://github.com/quanvuong/handful-of-trials-pytorch/blob/master/config/utils.py
@@ -255,6 +265,6 @@ class optimizer_lr_multistep_scheduler:
             self.step_i += 1
             lr = self.optimizers[0].param_groups[0]["lr"]
 
-            self.logger.add_scalars("hypers/", {"model_lr": lr}, episode)
-            # wandb.log("hypers/", {"model_lr": lr}, episode)
+            # self.logger.add_scalars("hypers/", {"model_lr": lr}, episode)
+            wandb.log("hypers/", {"model_lr": lr}, episode)
             print(f"decrease dynamics lr to {lr}")

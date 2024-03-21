@@ -132,7 +132,6 @@ def run(config: argparse.Namespace) -> Dict:
         models_lr_scheduler = optimizer_lr_multistep_scheduler(
             config.model_lr_schedule_steps,
             [a.model_optimizer for a in controller.agents],
-            logger=logger,
         )
 
     n_step = 0
@@ -248,7 +247,6 @@ def run(config: argparse.Namespace) -> Dict:
                             controller.update_dynamics_models(
                                 sample_train,
                                 logger_iter=logger_dynamics_iter,
-                                logger=logger,
                                 epochs=1,
                             )
 
@@ -313,7 +311,6 @@ def run(config: argparse.Namespace) -> Dict:
 
                             controller.update_opponent_models(
                                 latest_sample_train,
-                                logger=logger,
                                 epochs=1,
                                 logger_iter=logger_dynamics_iter,
                             )
@@ -342,7 +339,6 @@ def run(config: argparse.Namespace) -> Dict:
                             controller.set_opponent_model(a_i, best_opponents[a_i])
                         controller.evaluate_opp_model(
                             latest_sample_eval,
-                            logger=logger,
                             ep_i=n_step // config.episode_length,
                         )
                         controller.prep_rollouts(device="cpu")

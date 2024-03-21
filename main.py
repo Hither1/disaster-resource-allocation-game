@@ -135,7 +135,7 @@ def start(args: DictConfig):
 
 
 if __name__=='__main__':
-    # os.environ["WANDB_MODE"] = "disabled"
+    os.environ["WANDB_MODE"] = "disabled"
     model = 'sac'
     config1 = load_config("configs/model", model)
     config2 = load_config("configs/exp", "leadtimes")

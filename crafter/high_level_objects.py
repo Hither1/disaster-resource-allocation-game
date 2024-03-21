@@ -239,7 +239,8 @@ class Warehouse(Agency):
     self.world = world
     self.pos = np.array(pos)
     self.name = name
-    self.inventory = self.start_inventory = start_inventory
+    self.inventory = start_inventory.copy()
+    self.start_inventory = start_inventory.copy()
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     self.leadtimes = constants.leadtimes[self.name]
     self._backorder = 0
@@ -262,15 +263,7 @@ class Warehouse(Agency):
   def step(self, _step, action=None):
     self.receiveItems()
     self._update_life_stats()
-    
     self.curReward = - self._backorder - self._communication
-
-    for name, amount in self.inventory.items():
-      try:
-        maxmium = constants.resources[name]['max']
-      except:
-        maxmium = constants.items[name]['max']
-      self.inventory[name] = max(0, min(amount, maxmium))
 
   def _update_life_stats(self):
     self.consumption = 0
@@ -326,7 +319,8 @@ class Shelter(Agency):
   def __init__(self, world, pos, agentNum, name, start_inventory, config):
     super().__init__(world, pos, agentNum, config)
     self.name = name
-    self.inventory = self.start_inventory = start_inventory
+    self.inventory = start_inventory.copy()
+    self.start_inventory = start_inventory.copy()
     num_patients = time_varying_demand_supply.demand(mean=10, std_dev=STDDEV)
     self.patients = [Person('injured', 0) for _ in range(num_patients)]
     # self.staff_team = [Person('med_staff', 5) for _ in range(self.inventory['med_staff'])]
@@ -343,7 +337,7 @@ class Shelter(Agency):
   
   def resetPlayer(self, T):
     super().resetPlayer(T)
-    self.inventory = self.start_inventory
+    self.inventory = self.start_inventory.copy()
     num_patients = time_varying_demand_supply.demand(mean=10, std_dev=STDDEV)
     self.patients = [Person('injured', 0) for _ in range(num_patients)]
     # self.staff_team = [Person('med_staff', 5) for _ in range(self.inventory['med_staff'])]
@@ -374,8 +368,8 @@ class Shelter(Agency):
         maxmium = constants.items[name]['max']
       self.inventory[name] = min(amount, maxmium)
 
-    #print('Day:', _step, [patient.health for patient in self.patients], len(self.patients), 'Staff:', len(self.staff_team), self.inventory['food'], self.inventory['drink'])
-    #print('      ', [patient._admitted_days for patient in self.patients])
+    print('Day:', _step, [patient.health for patient in self.patients], len(self.patients), 'Staff:', len(self.staff_team), self.inventory['food'], self.inventory['drink'])
+    print('      ', [patient._admitted_days for patient in self.patients])
 
   def _update_patient_inventory_stats(self):
     self.consumption = 0
@@ -418,7 +412,7 @@ class Shelter(Agency):
       self.AO['drink'][self.curTime] += 2
       self.patients[i]._admitted_days += 1
     
-    #if self._death>0: print('death', self._death)
+    if self._death>0: print('death', self._death)
     #print("AO", self.AO['staff'][self.curTime], self.AO['food'][self.curTime], self.AO['drink'][self.curTime])
 
   def _update_staff_stats(self):
@@ -451,6 +445,10 @@ class Shelter(Agency):
     self.in_requests = [] 
 
     ### Step 2: 
+    if not self.patients:
+      goal['food'] = 0
+      goal['drink'] = 0
+      goal['staff'] = 0
     self._make_orders(goal, action)
 
 
@@ -460,7 +458,8 @@ class Station(Agency):
     self.world = world
     self.pos = np.array(pos)
     self.name = name
-    self.inventory = self.start_inventory = start_inventory
+    self.inventory = start_inventory.copy()
+    self.start_inventory = start_inventory.copy()
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     self.leadtimes = constants.leadtimes[self.name]
     self._backorder = 0
@@ -476,7 +475,7 @@ class Station(Agency):
   
   def resetPlayer(self, T):
     super().resetPlayer(T)
-    self.inventory = self.start_inventory
+    self.inventory = self.start_inventory.copy()
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     return 
 
@@ -485,13 +484,6 @@ class Station(Agency):
     self.receiveItems()
     self._update_inventory_stats()
     self.curReward = - self._backorder - self._communication
-
-    for name, amount in self.inventory.items():
-      try:
-        maxmium = constants.resources[name]['max']
-      except:
-        maxmium = constants.items[name]['max']
-      self.inventory[name] = min(amount, maxmium)
 
   def _update_inventory_stats(self):
     self.consumption = 0

@@ -84,7 +84,7 @@ def test(args, shared_model, optimizer, optimizer_ToM, train_modes, n_iters):
                 player.action_test(n_iter)
                 fps_counter += 1
                 reward_sum_ep += player.reward
-                # print('reward_sum_ep', reward_sum_ep)
+                print('reward_sum_ep', reward_sum_ep)
                 
                 #ToM_acc += player.random_ToM_acc
                 #ToM_target_acc += player.random_ToM_target_acc

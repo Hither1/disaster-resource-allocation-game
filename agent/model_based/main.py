@@ -65,6 +65,7 @@ def run_eval(
 
 
 def run(config: argparse.Namespace) -> Dict:
+    wandb.init(project='model_based')
     model_dir = (
         Path(config.model_dir) / config.algorithm / config.env_id / config.model_name
     )
@@ -86,7 +87,6 @@ def run(config: argparse.Namespace) -> Dict:
     print("run dir", run_dir)
     with open(os.path.join(run_dir, "config"), "w") as cf:
         json.dump(config.__dict__, cf)
-    # logger = SummaryWriter(str(log_dir))
 
     setup_seed(config.seed)
 
@@ -449,26 +449,14 @@ def run(config: argparse.Namespace) -> Dict:
                 config.episode_length, config.n_sample_thread
             )
             for a_i, a_ep_rew in enumerate(ep_rews):
-                logger.add_scalars(
-                    "agent%i/mean_episode_return" % a_i,
-                    {"dynamics_interaction": a_ep_rew},
-                    logger_dynamics_iter,
-                )
-                logger.add_scalars(
-                    "agent%i/mean_episode_return" % a_i,
-                    {"opponent_interaction": a_ep_rew},
-                    logger_oppo_iter,
-                )
+                wandb.log({"agent%i/mean_episode_return/dynamics_interaction" % a_i: a_ep_rew}, step=logger_dynamics_iter)
+                wandb.log({"agent%i/mean_episode_return/opponent_interaction" % a_i: a_ep_rew}, step=logger_oppo_iter)
 
             episode_2_epoch_iter.set_description(
                 f"train return {np.mean(ep_rews):.4f}  eval ret {eval_ret:.4f}"
             )
 
-            logger.add_scalars(
-                "hypers/",
-                {"K": K, "Env_rate": env_rate},
-                logger_dynamics_iter,
-            )
+            wandb.log({"hypers/K": K, "hypers/Env_rate": env_rate}, step=logger_dynamics_iter)
         n_episode = (epoch + 1) * config.episode_per_epoch
         if (n_episode % config.save_episode_interval) == 0:
             os.makedirs(run_dir / "incremental", exist_ok=True)
@@ -487,18 +475,10 @@ def run(config: argparse.Namespace) -> Dict:
         )
 
         eval_ret_dict[(epoch + 1) * config.episode_per_epoch] = eval_ret
-        logger.add_scalars(
-            "eval",
-            {"mean_episode_return_dynamics_interaction": eval_ret},
-            (epoch + 1) * config.episode_per_epoch,
-        )
-        logger.add_scalars(
-            "eval",
-            {"mean_episode_return_opponent_interaction": eval_ret},
-            controller.compute_cooperate_interaction(
+        wandb.log({"eval/mean_episode_return_dynamics_interaction": eval_ret}, step=(epoch + 1) * config.episode_per_epoch)
+        wandb.log({"eval/mean_episode_return_opponent_interaction": eval_ret}, step=controller.compute_cooperate_interaction(
                 (epoch + 1) * config.episode_per_epoch, config.episode_length
-            ),
-        )
+            ))
 
     eval_env.close()
     env.close()
@@ -510,6 +490,7 @@ def run(config: argparse.Namespace) -> Dict:
 
 
 if __name__ == "__main__":
+    os.environ["WANDB_MODE"] = "disabled"
     parser = argparse.ArgumentParser()
     # env
     parser.add_argument(

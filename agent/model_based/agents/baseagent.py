@@ -287,14 +287,9 @@ class AgentMB(BaseAgent):
         else:
             rollout_lengths = torch.zeros(len(self.opp_policies))
 
-        # logger.add_scalars(
-        #         "agent%i/hyper" % (self.index),
-        #         {"min_rollout_len": torch.min(rollout_lengths.detach())},
-        #         n_iter,
-        # )
-        wandb.log("agent%i/hyper" % (self.index),
-                {"min_rollout_len": torch.min(rollout_lengths.detach())},
-                n_iter,)
+        wandb.log(
+                {"agent%i/hyper/min_rollout_len" % (self.index): torch.min(rollout_lengths.detach())},
+                step=n_iter)
 
         # opponent sample complexity
         for i in range(self.n_agent):

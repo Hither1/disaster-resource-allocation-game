@@ -156,8 +156,8 @@ class MA_Controller(BaseFramework):
         """
         loss_dict = self.agents[agent_i].update(sample)
         if loss_dict:
-            logger.add_scalars("agent%i/losses" % (agent_i), loss_dict, logger_iter)
-            wandb.log()
+            # logger.add_scalars("agent%i/losses" % (agent_i),)
+            wandb.log(loss_dict, step=logger_iter)
 
     def get_dynamics_model(self, agent_i: int) -> Dict:
         assert isinstance(self.agents[agent_i], AgentMB), "get dynamics model"
@@ -198,10 +198,10 @@ class MA_Controller(BaseFramework):
                     opp_loss = a.update_opponent(sample)
 
                     if e == epochs - 1 and opp_loss:
-                        logger.add_scalars(
-                            "agent%i/model_losses" % (i), opp_loss, logger_iter
-                        )
-                        wandb.log()
+                        # logger.add_scalars(
+                        #     "agent%i/model_losses" % (i), 
+                        # )
+                        wandb.log(opp_loss, step=logger_iter)
 
     def rollout_models(
         self,
@@ -223,9 +223,10 @@ class MA_Controller(BaseFramework):
             if isinstance(a, AgentMB):
                 m_loss_dict = a.update_model(sample, epochs)
                 if m_loss_dict:
-                    logger.add_scalars(
-                        "agent%i/model_losses" % (i), m_loss_dict, logger_iter
-                    )
+                    # logger.add_scalars(
+                    #     "agent%i/model_losses" % (i)
+                    # )
+                    wandb.log(m_loss_dict, step=logger_iter)
 
     def save(self, model_path: str):
         """
@@ -480,17 +481,13 @@ class MA_Controller(BaseFramework):
                     a.norm_eval_opp_pol_err = torch.square(a.norm_eval_opp_pol_err)
 
                 # if logger:
-                logger.add_scalars(
-                        "agent%i/evl_losses" % (agent_i),
-                        {
-                            "epsilon_phi^-i": torch.tensor(opp_pol_losses).sum(),
-                            "match_rate_phi^-i": torch.tensor(match_rates).mean(),
+                wandb.log({
+                            "agent%i/evl_losses/epsilon_phi^-i" % (agent_i): torch.tensor(opp_pol_losses).sum(),
+                            "agent%i/evl_losses/match_rate_phi^-i" % (agent_i): torch.tensor(match_rates).mean(),
                         },
-                        ep_i,
-                    )
-                logger.add_scalars(
-                        "agent%i/evl_losses" % (agent_i),
-                        dict(
+                        ep_i,)
+                #         "agent%i/evl_losses" % (agent_i),
+                wandb.log(dict(
                             zip(
                                 [
                                     "match_rate_phi^-i,%i" % a_i
@@ -499,8 +496,7 @@ class MA_Controller(BaseFramework):
                                 match_rates,
                             )
                         ),
-                        ep_i,
-                    )
+                        step=ep_i)
 
                 opp_pol_loss_list.append(torch.tensor(opp_pol_losses).sum())
                 match_rate_list.append(torch.tensor(match_rates).mean())
@@ -523,10 +519,7 @@ class MA_Controller(BaseFramework):
             model_pred = a.predict(model_in)
             loss = torch.abs(model_pred - model_target).mean()
 
-            logger.add_scalars(
-                "agent%i/evl_losses" % (agent_i),
-                {"abs_m_error": loss},
-                logger_iter,
-            )
+            wandb.log({"agent%i/evl_losses/abs_m_error" % (agent_i): loss},
+                step=logger_iter)
             eval_loss_list.append(loss)
         return eval_loss_list

@@ -78,7 +78,6 @@ class SubprocVecEnv(VecEnv):
         self.waiting = True
 
     def step_wait(self):
-        print('self.remotes', self.remotes)
         results = [remote.recv() for remote in self.remotes]
         self.waiting = False
         obs, rews, dones, infos = zip(*results)

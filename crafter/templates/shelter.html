@@ -64,13 +64,16 @@
       <tr id="game-container" class=border align="center">
           <td>
               <div style = "text-align: center">
-                  <h2 id="playtime"> Game ends in <span id="time"></span> minutes</h2>
+                    <h2 id="playtime"> Current Day: <span id="current-day"></span></h2>
+                  <h2 id="playtime"> Game ends in <span id="remain-day"></span> days</h2>
               </div>
+              
               <div align="center">
+                <h3 id="narrative"> Initial Response: You knew it was coming. This episode is the start of a disaster relief operation. Your team will be managing the initial response. You will receive a separate situation report and task assignment sheet. </h2>
                 <img src="../static/images/shelter.png" alt="Description of the image">
                   <h3>
                     <span id="episode"></span> |
-                    <span id="goal">Points: 0</span> |
+                    <span id="reward">Points: 0</span> |
                     <span id="food">Food: 0</span> |
                     <span id="drink">Drink: 0</span> |
                     <span id="staff">Staff: 0</span> |
@@ -82,10 +85,11 @@
                       <span id="instructionsToggle" style="border-color: gray; border-width: 2px; padding: 6px; border-style: solid;cursor:pointer;">Show commands</span>
                   </h3>
                   <div id="userInputs" class="hidden">        
-                    <input type="number" min="0" class="userInput" data-input="request-food" placeholder="Request food amount...">
-                    <input type="number" min="0" class="userInput" data-input="request-drink" placeholder="Request drink amount...">
-                    <input type="number" min="0" class="userInput" data-input="request-staff" placeholder="Request staff amount...">
-                    <button id="nextButton">Next</button>
+                    <input type="number" min="0" class="userInput" data-input="request-food" placeholder="Request food amount..." value="0">
+                    <input type="number" min="0" class="userInput" data-input="request-drink" placeholder="Request drink amount..." value="0">
+                    <input type="number" min="0" class="userInput" data-input="request-staff" placeholder="Request staff amount..." value="0">
+
+                    <button id="next-button" formaction="/minimap">Next</button>
                   </div>
                   <h3><span id="result"></span></h3>
                   <form name="frm">
@@ -112,6 +116,22 @@
                   <script>
                     const userRole = "Shelter";
                       $('#next-button').click(function() {
+                        const inputValues = {};
+                        const userInputBoxes = document.querySelectorAll('.userInput');
+                        userInputBoxes.forEach(
+                            function(inputElement) {
+                                var inputType = inputElement.getAttribute('data-input');
+                                inputValues[inputType] = inputElement.value;
+                            }
+                        );
+
+                        // // 2. Run env step
+                        // // 3. If finished
+                        // if (done) {
+                        //     window.location.href = 'done.html';
+                        //   }
+                        emitSocketIO('shelterEvent', {'uid': uid, 'event': inputValues});
+
                           var id = $('#uid').val();
                           var sessionId = Number($('#session').val())+1;
                           $('#session').val(sessionId);

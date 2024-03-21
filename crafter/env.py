@@ -159,6 +159,29 @@ class Env(BaseClass):
 
     return obs_n
   
+  def game_reset(self):
+    self._episode += 1
+    self._step = 0
+    self.world.reset(seed=hash((self._seed, self._episode)) % (2 ** 31 - 1))
+    self.reset_callback(self.world)
+    self._update_time()
+
+    self._unlocked = set()
+    worldgen.generate_world(self.world, self.players)
+
+    obs_n = []
+    for agent in self.players:
+      obs_n.append(self._get_obs(agent))
+
+    self.world.update_OO()
+
+    user_state = self.user.inventory.copy()
+    user_state['death'] = 10 # self.death
+    user_state['injured'] = len(self.user.patients)
+    user_state['reward'] = 0
+
+    return user_state
+  
   def _get_state(self):
     return
   
@@ -193,7 +216,6 @@ class Env(BaseClass):
     done_n = []
     info_n = {'n': []}
     self._update_time()
-    # self._player.action = constants.actions[action]
             
     for agent in self.players:
       agent.step(self._step)
@@ -236,10 +258,6 @@ class Env(BaseClass):
       # info_n['n'].append(self._get_info(agent))
 
     # all agents get total reward in cooperative case
-    # if self.shared_reward:
-    #   reward = np.sum(reward_n)
-    #   reward_n = [reward] * self.n
-
     # done = self._length and (self._step >= self._length)
     done = self._step >= 20
     info = {
@@ -250,6 +268,58 @@ class Env(BaseClass):
     }
 
     return obs_n, reward_n, done, info
+  
+  def game_step(self, event):
+    '''
+		Change environment state based on events
+		'''
+		# event = {'agent_info': roomid_players[roomid][pid], }
+		# agent_info = {'x': , 'y': , 'role': , 'enter_start_time': , 'human': }
+    print('event', event)
+    agent_info = event['agent_info']
+    uid = event['uid']
+    event = event['event']
+    # event_time = event['time']
+    self._step += 1
+    obs_n = []
+
+    for agent in self.players:
+      agent.step(self._step, event)
+      self.update_agent_state(agent)
+
+    for agent in self.players:
+      agent._make_decisions_on_requests(action=event)
+
+    communications = []
+    for requester in self.players:
+      if requester.out_requests:
+        # print('out_requests', requester.out_requests)
+        # TODO: make this more efficient and less hard-coding
+        for request in requester.out_requests:
+          communications.extend(requester.out_requests)
+
+          if 'return' in request:
+            self.world.station.inventory['staff'] += int(re.findall(r'\d+', request)[0])
+          else:
+            self._chat_view.info.append(request)
+            requestee = request.split('->')[1].split(':')[0]
+            for agent in self.world.agents:
+              if agent.name == requestee:
+                agent.in_requests.append([requester, request.split(': ')[1]])
+
+      requester.out_requests = []
+
+    # record observation for each agent
+    for agent in self.players:
+      obs_n.append(self._get_obs(agent))
+      r = self._get_reward(agent)
+		
+    user_state = self.user.inventory.copy()
+    user_state['death'] = 10 # self.death
+    user_state['injured'] = len(self.user.patients)
+    user_state['reward'] = r
+
+    return uid, user_state
 
   def render(self, size=None):
     size = size or self._size

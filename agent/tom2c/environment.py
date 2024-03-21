@@ -61,7 +61,6 @@ class env_wrapper:
             for i in range(self.n):
                 # goal = int(goals_n[i])
                 land_goal = [self.env.world.landmarks[int(goal)] for goal in goals_n[i]]
-                
                 agent = self.env.world.agents[i]
                 agent._make_decisions_on_requests(self.decode_goal(land_goal))
             

@@ -1,5 +1,5 @@
 {
-    "game_duration": 300,
+    "game_duration": 20,
     "movement_delay": 0.2, 
     "map_revealed": 0,  
     "max_humans_per_room": 1,

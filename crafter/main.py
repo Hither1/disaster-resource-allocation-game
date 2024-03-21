@@ -25,6 +25,7 @@ import pandas as pd
 import argparse
 import sys
 import glob
+from utils import load_config
 sys.path.append('/')
 
 import json
@@ -100,7 +101,6 @@ roomid_started = {}
 roomid_episode = {}
 timer_recording = {} # list of timer recording each group's data
 room_data = {} #room_id and values is the list of players' events
-# roomid_ep_keypresses = {}
 roomid_ep_userinputs = {}
 roomid_ep_states = {}
 
@@ -122,12 +122,12 @@ if trained_IBL:
 
 sys.argv=['']
 del sys
-# flags = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="IBL")
+flags = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="IBL")
 flags.add_argument('--type',type=str,default='td',help='Environment.')
 flags.add_argument('--episodes',type=int,default=1000,help='Number of episodes.') #ok results with 1000
 FLAGS = flags.parse_args()
 
-role_name = {0:'medic', 1:'engineer'}
+role_name = {0:'shelter', 1:'warehouse', 2:'station'}
 
 ###########################
 # Server socket functions #
@@ -176,7 +176,7 @@ async def on_join(sid, *args):
     
     # Create mapping from session id to user id
     USER_MAP_SESSION[sid] = uid
-    
+
     # If uid has not already appeared before
     if uid not in player_roomid:
         # Room logic
@@ -194,7 +194,6 @@ async def on_join(sid, *args):
             roomid_ep_userinputs[roomid] = {}
             roomid_ep_states[roomid] = {}
             roomid_started[roomid] = False
-            
 
         # Otherwise, check for partially-filled rooms and add uid to the earliest partially-filled room
         else:
@@ -234,11 +233,11 @@ async def on_join(sid, *args):
         roomid = player_roomid[uid]
         
     app.sio.enter_room(sid, roomid)
+
     print("room joined")
 
 @app.sio.on('ready')
 async def on_ready(sid, *args):
-    print('------------------')
     global roomid_cur_ep_players
     global roomid_players
     global player_roomid
@@ -251,7 +250,7 @@ async def on_ready(sid, *args):
 
     uid = args[0]['uid']
     userRole = args[0]['userRole']
-    
+    print(player_roomid)
     roomid = player_roomid[uid]
     print('condition', len(roomid_cur_ep_players[roomid]) == max_players_per_room and roomid_started[roomid] == False)
     episode_num = roomid_episode[roomid]
@@ -268,14 +267,15 @@ async def on_ready(sid, *args):
         roomid_started[roomid] = True
         # Initialize environment, scoreboard, and data trackers
         import multiagent.scenarios as scenarios
-        scenario = scenarios.load("RA.py").Scenario()
-        config, _ = crafter.config.get_config()
+        scenario = scenarios.load("IM.py").Scenario()
+        config = load_config("configs/exp", 'leadtimes')
+        config = crafter.config.get_config(config)
         world = scenario.make_world(config)
         env = crafter.Env(config, world, userRole, scenario.reset_world, scenario.reward, scenario.global_reward, scenario.observation)
         env = crafter.Recorder(env, config.record)
-        env.reset()
+        user_state = env.game_reset()
         roomid_env[roomid] = env
-        roomid_scoreboard[roomid] = {'food':0, 'drink':0, 'staff':0}
+        roomid_scoreboard[roomid] = user_state
         roomid_ep_userinputs[roomid][episode_num] = []
         roomid_ep_states[roomid][episode_num] = []
             
@@ -300,8 +300,7 @@ def startGame(roomid):
     for uid, values in roomid_players[roomid].items():
         if values['human'] == True:
             roomid_players[roomid][uid] = {
-                                                # 'role':roomid_env[roomid].humans[human_i]['role'], \
-                                                'keysdown': [], \
+                                                # 'role': roomid_env[roomid].humans[human_i]['role'], \
                                                 'enter_start_time': 0.0, \
                                                 'human': True, \
                                                 'ref_int': human_i}
@@ -341,7 +340,7 @@ async def requestUpdate(sid, *args, **kwargs):
     msg = args[0]
     uid = msg['uid']
     roomid = player_roomid[uid]
-    timestamp = time.time() - roomid_start_time[roomid]
+    timestamp = 0 # - roomid_start_time[roomid] # TODO
     time_left = game_duration - timestamp
     return({'map': roomid_env[roomid].state_map, 'scoreboard': roomid_scoreboard[roomid], \
                              'players': roomid_players[roomid], 'remaining_time': time_left})
@@ -361,12 +360,13 @@ async def gameLoop(roomid, episode):
     global roomid_ep_userinputs
 
     start_time = time.time()
+    day = 0
     roomid_start_time[roomid] = start_time
 
-    while time.time() - start_time < game_duration:
+    while day < game_duration:
         await asyncio.sleep(1/60)  # emit rate
         timestamp = time.time() - start_time
-        time_left = game_duration - timestamp
+        time_left = game_duration - day
 
         while len(roomid_event_queue[roomid]) > 0:
             event = roomid_event_queue[roomid].popleft()
@@ -375,14 +375,16 @@ async def gameLoop(roomid, episode):
             roomid_ep_userinputs[roomid][episode].append(temp_event)
             
             # change game state according to event
-            uid, agent_state, user_resources = roomid_env[roomid].step(event)
-
+            print(event)
+            uid, agent_state = roomid_env[roomid].game_step(event)
+            day += 1
+            print('agent_state', agent_state)
             # update player state
             roomid_players[roomid][uid]['state'] = agent_state
 
             # update scoreboard
-            for resource in user_resources:
-                roomid_scoreboard[roomid][resource] += user_resources[resource]
+            for resource, quantity in agent_state.items():
+                roomid_scoreboard[roomid][resource] = agent_state[resource]
 
             # Clear event queue for next game tick
             # Broadcast game state to all clients
@@ -397,7 +399,7 @@ async def gameLoop(roomid, episode):
         # To human players 
         await app.sio.emit('refresh', \
                             {'state': roomid_env[roomid]._get_state(), 'scoreboard': roomid_scoreboard[roomid], 
-                             'players': roomid_players[roomid], 'remaining_time': time_left}, \
+                             'players': roomid_players[roomid], 'current_day': day, 'remaining_time': time_left}, \
                             room=roomid)
         
 
@@ -412,8 +414,8 @@ async def gameLoop(roomid, episode):
     #with open(f'{DATA_DIR}/room_{roomid}_ep_{episode}_state.json', 'w') as outfile:
     #    json.dump(roomid_ep_states[roomid][episode], outfile)
 
-    with open(f'{DATA_DIR}/room_{roomid}_ep_{episode}_keypresses.json', 'w') as outfile:
-        json.dump(roomid_ep_keypresses[roomid][episode], outfile)
+    with open(f'{DATA_DIR}/room_{roomid}_ep_{episode}_userinputs.json', 'w') as outfile:
+        json.dump(roomid_ep_userinputs[roomid][episode], outfile)
     
     
     if episode < max_episode-1:
@@ -439,30 +441,30 @@ async def gameLoop(roomid, episode):
 # Listeners and handlers #
 ##########################
 
-@app.sio.on('keyEvent')
-async def keyEvent(sid, *args, **kwargs):
-    global roomid_players
-    global player_roomid
-    global roomid_event_queue
-    global roomid_episode
-    global roomid_start_time
-    global roomid_started
-    global roomid_ep_userinputs
+# @app.sio.on('keyEvent')
+# async def keyEvent(sid, *args, **kwargs):
+#     global roomid_players
+#     global player_roomid
+#     global roomid_event_queue
+#     global roomid_episode
+#     global roomid_start_time
+#     global roomid_started
+#     global roomid_ep_userinputs
 
-    msg = args[0]
-    uid = msg['uid']
-    event = msg['event']
+#     msg = args[0]
+#     uid = msg['uid']
+#     event = msg['event']
 
-    if msg['key'] in key_code_dict:
-        key_name = key_code_dict[msg['key']]
-        roomid = player_roomid[uid]
-        episode = roomid_episode[roomid]
-        if roomid_started[roomid] == True:
-            cur_time = time.time()
-            roomid_event_queue[roomid].append({'uid': uid, 'agent_info': roomid_players[roomid][uid], 'key': key_name, 'event': event, 'time': cur_time})
-            ep_start_time = roomid_start_time[roomid]
+#     if msg['key'] in key_code_dict:
+#         key_name = key_code_dict[msg['key']]
+#         roomid = player_roomid[uid]
+#         episode = roomid_episode[roomid]
+#         if roomid_started[roomid] == True:
+#             cur_time = time.time()
+#             roomid_event_queue[roomid].append({'uid': uid, 'agent_info': roomid_players[roomid][uid], 'key': key_name, 'event': event, 'time': cur_time})
+#             ep_start_time = roomid_start_time[roomid]
 
-    return
+#     return
 
 @app.sio.on('shelterEvent')
 async def shelterEvent(sid, *args, **kwargs):
@@ -475,21 +477,20 @@ async def shelterEvent(sid, *args, **kwargs):
     global roomid_ep_userinputs
 
     msg = args[0]
+    print('msg', msg)
     uid = msg['uid']
     event = msg['event']
 
-    if msg['key'] in key_code_dict:
-        key_name = key_code_dict[msg['key']]
-        roomid = player_roomid[uid]
-        episode = roomid_episode[roomid]
-        if roomid_started[roomid] == True:
-            cur_time = time.time()
-            roomid_event_queue[roomid].append({'uid': uid, 
-                                               'agent_info': roomid_players[roomid][uid], 
-                                               'key': key_name, 
-                                               'event': event, 
-                                               'time': cur_time})
-            ep_start_time = roomid_start_time[roomid]
+    # if msg['key'] in key_code_dict:
+    roomid = player_roomid[uid]
+    episode = roomid_episode[roomid]
+    if roomid_started[roomid] == True:
+        cur_time = time.time()
+        roomid_event_queue[roomid].append({'uid': uid, 
+                                            'agent_info': roomid_players[roomid][uid], 
+                                            'event': event, 
+                                            'time': cur_time})
+        ep_start_time = roomid_start_time[roomid]
 
     return
 
@@ -497,7 +498,7 @@ async def shelterEvent(sid, *args, **kwargs):
 @app.sio.on('end')
 async def handle_episode(sid, *args, **kwargs):
     global agents
-    global roomid_ep_keypresses
+    global roomid_ep_userinputs
     global roomid_ep_states
     msg = args[0]
     print('received episode info: ' + str(msg))

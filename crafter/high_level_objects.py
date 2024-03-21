@@ -110,26 +110,25 @@ class Agency:
 
     return requests
   
-  def _make_orders(self, goal):
-    # print(self, goal)
+  def _make_orders(self, goal, action):
+    """ Using goals (indirect) or human actions (direct) to make orders """
     self._communication = 0
     order = {}
-    if self.strategy == 'bs':
+    if action and self.mode == 'human': # Human player
+      for key, value in action.items():
+        if 'request' in key:
+          order[key.replace('request-', '')] = int(value)
+    # AI player
+    elif self.strategy == 'bs':
       for resource in self.inventory.keys():
         if self.config.demandDistribution == 2:
           if self.curTime and self.config.use_initial_BS <= 4:
-            # self.action[np.argmin(np.abs(np.array(self.config.actionListOpt)-\
-						# 		max(0, (self.int_bslBaseStock - (self.inventory[resource] + self.OO - self.AO[resource][self.curTime]))) ))]
             self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)-\
 								max(0, (self.int_bslBaseStock - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) )) 	
           else: 
-            # self.action[np.argmin(np.abs(np.array(self.config.actionListOpt)-\
-						# 		max(0, (self.base_stock[resource] - (self.inventory[resource] + self.OO - self.AO[self.curTime]))) ))] 
             self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)-\
 								max(0, (self.base_stock[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
         else:
-          # self.action[np.argmin(np.abs(np.array(self.config.actionListOpt)-\
-					# 			max(0, (self.base_stock[resource] - (self.inventory[resource] + self.OO - self.AO[self.curTime]))) ))] 
           self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)-\
 							max(0, (self.base_stock[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
           # self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)-\
@@ -139,8 +138,7 @@ class Agency:
 
     elif self.strategy == 'strm':
       for resource in self.base_stock.keys():
-        self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)\
-									-max(0, round(self.AO[resource][self.curTime] +\
+        self.action = np.argmin(np.abs(np.array(self.config.actionListOpt) - max(0, round(self.AO[resource][self.curTime] +\
 									self.alpha_b * (self.inventory[resource] - self.a_b) +\
 									self.betta_b * (self.OO[resource] - self.b_b)))))
         if self.action > 0: order[resource] = self.action
@@ -262,7 +260,7 @@ class Warehouse(Agency):
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     return 
   
-  def step(self, _step):
+  def step(self, _step, action=None):
     self.receiveItems()
     self._update_life_stats()
     self.curReward = - self._backorder - self._communication
@@ -286,7 +284,7 @@ class Warehouse(Agency):
     if returning_staff > 0:
       self.out_requests.append(f'{returning_staff} staff is returning to the station.')
 
-  def _make_decisions_on_requests(self, goal):
+  def _make_decisions_on_requests(self, goal=None, action=None):
     ### Step 1: 
     self.in_requests = self._process_requests()
     resource_dict = {}
@@ -311,9 +309,7 @@ class Warehouse(Agency):
     self.in_requests = [] # Clear
 
     ### Step 2: 
-    if self.inventory['food'] >= self.base_stock['food'] or self.inventory['drink'] >= self.base_stock['drink']:
-      goal['staff'] = 0
-    self._make_orders(goal)
+    self._make_orders(goal, action)
 
 
 class Shelter(Agency):
@@ -348,7 +344,7 @@ class Shelter(Agency):
                       'staff': 15, 
                       }
   
-  def step(self, _step):
+  def step(self, _step, action=None):
     self._death = 0
     self._helped_people = 0
     self.receiveItems()
@@ -429,7 +425,7 @@ class Shelter(Agency):
     if returning_staff > 0:
       self.out_requests.append(f'{returning_staff} staff is returning to station')
 
-  def _make_decisions_on_requests(self, goal):
+  def _make_decisions_on_requests(self, goal=None, action=None):
     ### Step 1: 
     self.in_requests = self._process_requests()
     for requester, resource, quantity in self.in_requests:
@@ -449,7 +445,7 @@ class Shelter(Agency):
       goal['food'] = 0
       goal['drink'] = 0
       goal['staff'] = 0
-    self._make_orders(goal)
+    self._make_orders(goal, action)
 
 
 class Station(Agency):
@@ -479,7 +475,7 @@ class Station(Agency):
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     return 
 
-  def step(self, _step):
+  def step(self, _step, action=None):
     self._backorder = 0
     self.receiveItems()
     self._update_inventory_stats()
@@ -493,7 +489,7 @@ class Station(Agency):
     for staff in self.staff_team:
       staff.health += min(5, 1.5 + staff.health)
 
-  def _make_decisions_on_requests(self, goal):
+  def _make_decisions_on_requests(self, goal=None, action=None):
     ### Part 1: 
     self.in_requests = self._process_requests()
     self.in_requests = sorted(self.in_requests, key=lambda x: x[0].name)
@@ -512,5 +508,5 @@ class Station(Agency):
     self.in_requests = []
 
     ### Part 2: make orders
-    self._make_orders(goal)
+    self._make_orders(goal, action)
 

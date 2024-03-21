@@ -1,3 +1,10 @@
+const strings = [
+  'Scaling Up & Transition of Responsibilities',
+  'Identify Total Requirements: Identify service delivery requirements for the total operation.',
+  'Project Anticipated Costs:  In addition to managing the relief operation, for this exercise, you are being asked to project you anticipated costs of direct and support services by completing a budget development worksheet.',
+  'Closing: In these episodes you will be bringing the relief operation to a close. Staff will be released and facilities returned. As you finish each day of the relief operation, ask your facilitator for the next situation report with information about the operation.'
+];
+
 var namespace = 'http://' + document.domain + ':' + location.port;
 var socket = io(namespace, {path: '/ws/socket.io'});
 
@@ -35,7 +42,8 @@ var moveEventInterval = 100;
 var countPress = 0;
 var rescue = 0;
 const timeDisplay = document.querySelector('#playtime');
-var display = document.querySelector('#time');
+var display_current = document.querySelector('#current-day');
+var display_remain = document.querySelector('#remain-day');
 
 var episode = document.getElementById("session").value;
 var maxEpisode;
@@ -257,14 +265,16 @@ socket.on('start_game', function (msg) {
 
   socket.on('refresh', function (msg) {
     updateScoreBoard(msg['scoreboard'])
+    updateNarratives(msg['current_day'])
     time_left = msg['remaining_time']
 
-    minutes = (time_left / 60) | 0;
-    seconds = (time_left % 60) | 0;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-    display.textContent = minutes + ":" + seconds;
-    document.getElementById("time").innerHTML = minutes + ":" + seconds;
+    // minutes = (time_left / 60) | 0;
+    // seconds = (time_left % 60) | 0;
+    // minutes = minutes < 10 ? "0" + minutes : minutes;
+    // seconds = seconds < 10 ? "0" + seconds : seconds;
+    display_remain.textContent = time_left ; // minutes + ":" + seconds;
+    document.getElementById("current-day").innerHTML = msg['current_day'];
+    document.getElementById("remain-day").innerHTML = time_left; // minutes + ":" + seconds;
   });
 
 
@@ -294,7 +304,6 @@ socket.on('end_episode', function(msg) {
     clearInterval(intervalRecordData);
     clearInterval(intervalEmitSocket);
     console.log("Episode over");
-    // timeDisplay.textContent = "GAME OVER !";
     $('#ready-room').show();
     $('#tab-panel').hide();
     $('#tabgame').hide();
@@ -345,9 +354,6 @@ function setup() {
   emitSocketIO('join_room', {'uid': uid, 'agent_type': "human"});
 
   // load images
-  medicImg = loadImage("https://raw.githubusercontent.com/ngocntkt/visualization-map/master/aid.png");
-  engineerImg = loadImage("https://raw.githubusercontent.com/ngocntkt/visualization-map/master/hammer2.png");
-
   var canvas = createCanvas(0, 0);
 
 $('#ready-room').show()
@@ -362,13 +368,18 @@ setupInformationPanelToggle();
 console.log("VERSION 1.6.0");
 
 function updateScoreBoard(scores) {
-  rescue = scores['green'] * 10 - scores['food'] - scores['drink'];
-  document.getElementById('goal').innerHTML = 'Points: ' + rescue.toString();
+  document.getElementById('reward').innerHTML = 'Points: ' + scores['reward'].toString();
   document.getElementById('food').innerHTML = 'Food: ' + scores['food'].toString();
   document.getElementById('drink').innerHTML = 'Drink: ' + scores['drink'].toString();
   document.getElementById('staff').innerHTML = 'Staff: ' + scores['staff'].toString();
+  document.getElementById('death').innerHTML = 'Death: ' + scores['death'].toString();
+  document.getElementById('injured').innerHTML = 'Injured: ' + scores['injured'].toString();
 }
 
+function updateNarratives(day) {
+  document.getElementById('narrative').innerHTML = strings[day].toString();
+  // document.getElementById('food').innerHTML = 'Food: ' + scores['food'].toString();
+}
 
 function gameOver() {
   clearInterval(timeout);
@@ -398,21 +409,6 @@ function gameOver() {
       "You have finished playing the game. You will be forwarded to the post-study section in a few seconds."
     );
   }
-  //button.style.visibility = 'visible';
-  //$('#notification').show();
-  //if (episode == maxEpisode) {
-    // showElement("finish-button");
-    //var button = document.getElementById('finish-button');
-
-    // getTotalPoint();
-
-    //sleep(3000).then(() => {
-    //  getTotalPoint();
-    //});
-    //sleep(5000).then(() => { button.click(); });
-
-  //} else {
-    //var button = document.getElementById('next-button');
 
 }
 
@@ -453,94 +449,26 @@ function draw() {
       }
     }
   }
-  if (keyIsDown(65)){
-    if (!isGameOver && gameStarted){
-      const currentTime = millis();
-      if (currentTime - lastKeyEventTime >= moveEventInterval) {
-        emitSocketIO('keyEvent', {'uid': uid, 'event': "press", 'key': 65});
-        lastKeyEventTime = currentTime;
-      }
-    }
-  }
-  if (keyIsDown(87)){
-    if (!isGameOver && gameStarted){
-      const currentTime = millis();
-      if (currentTime - lastKeyEventTime >= moveEventInterval) {
-        emitSocketIO('keyEvent', {'uid': uid, 'event': "press", 'key': 87});
-        lastKeyEventTime = currentTime;
-      }
-    }
-  }
-  if (keyIsDown(83)){
-    if (!isGameOver && gameStarted){
-      const currentTime = millis();
-      if (currentTime - lastKeyEventTime >= moveEventInterval) {
-        emitSocketIO('keyEvent', {'uid': uid, 'event': "press", 'key': 83});
-        lastKeyEventTime = currentTime;
-      }
-    }
-  }
-  if (keyIsDown(68)){
-    if (!isGameOver && gameStarted){
-      const currentTime = millis();
-      if (currentTime - lastKeyEventTime >= moveEventInterval) {
-        emitSocketIO('keyEvent', {'uid': uid, 'event': "press", 'key': 68});
-        lastKeyEventTime = currentTime;
-      }
-    }
-  }
 }
 
 // Emitting functions
-function keyPressed(){
-  if (!isGameOver && gameStarted) {
-    const currentTime = millis();
-    if (currentTime - lastKeyEventTime >= moveEventInterval) {
-      emitSocketIO('keyEvent', {'uid': uid, 'event': "press", 'key': keyCode});
-      lastKeyEventTime = currentTime;
-    }
-  }
-}
+// function keyPressed(){
+//   if (!isGameOver && gameStarted) {
+//     const currentTime = millis();
+//     if (currentTime - lastKeyEventTime >= moveEventInterval) {
+//       emitSocketIO('keyEvent', {'uid': uid, 'event': "press", 'key': keyCode});
+//       lastKeyEventTime = currentTime;
+//     }
+//   }
+// }
 
-document.getElementById('nextButton').addEventListener('click', function () {
-  emitSocketIO('shelterEvent', {'uid': uid, 'event': "hold", 'key': 13});
-        
-      // 1. Get user actions
-      // const userInputs = {};
-
-      // const userInputBoxes = document.querySelectorAll('.userInput');
-      // userInputBoxes.forEach(inputBox => {
-      //     inputBox.addEventListener('input', function () {
-      //     if (gameEnv) {
-      //         const input = inputBox.value;
-      //         const inputIdentifier = inputBox.getAttribute('data-input');
-
-      //         if (!isNaN(inputValue)) {
-      //             userInputs[inputType] = inputValue;
-      //         }
-
-      //     console.log(`User Input ${inputIdentifier}:`, input);
-      //     } else {
-      //         console.log('Game environment not initialized. Click "Start Game" first.');
-      //     }
-      //     });
-      // });
-
-      // // 2. Run env step
-      // const [reward, user_food, user_drink, user_staff, done] = gameEnv.step(userInputs);
-
-      // document.getElementById('day').textContent = this._step;
-      // document.getElementById('goal').textContent = reward;
-      // document.getElementById('food').textContent = user_food;
-      // document.getElementById('drink').textContent = user_drink;
-      // document.getElementById('staff').textContent = user_staff;
-
-      // // 3. If finished
-      // if (done) {
-      //     window.location.href = 'done.html';
-      //   }
+// document.getElementById('next-button').addEventListener('click', function () {
+//       // 1. Get user actions
+//       const userInputs = {};
+//       const userInputBoxes = document.querySelectorAll('.userInput');
+//       console.log(`Checking!!!!!`);
  
-});
+// });
 
 var timeout;
 function startTimer(duration, display) {

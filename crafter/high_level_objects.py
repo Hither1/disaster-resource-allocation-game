@@ -292,6 +292,9 @@ class Warehouse(Agency):
       self.out_requests.append(f'{returning_staff} staff is returning to the station.')
 
   def _make_decisions_on_requests(self, goal=None, action=None):
+    if action and self.mode == 'human':
+      print(action)
+
     ### Step 1: 
     self.in_requests = self._process_requests()
     resource_dict = {}
@@ -432,6 +435,7 @@ class Shelter(Agency):
       self.out_requests.append(f'{returning_staff} staff is returning to station')
 
   def _make_decisions_on_requests(self, goal=None, action=None):
+
     ### Step 1: 
     self.in_requests = self._process_requests()
     for requester, resource, quantity in self.in_requests:
@@ -499,6 +503,9 @@ class Station(Agency):
 
   def _make_decisions_on_requests(self, goal=None, action=None):
     ### Part 1: 
+    if action and self.mode == 'human':
+      action
+
     self.in_requests = self._process_requests()
     self.in_requests = sorted(self.in_requests, key=lambda x: x[0].name)
     for request in self.in_requests:

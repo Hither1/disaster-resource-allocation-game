@@ -388,7 +388,6 @@ async def gameLoop(roomid, episode):
 
             # Clear event queue for next game tick
             # Broadcast game state to all clients
-            # Includes  and scoreboard
         
 
         #if state_change == True:

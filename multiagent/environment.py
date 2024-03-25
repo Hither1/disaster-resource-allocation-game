@@ -23,10 +23,10 @@ class MultiAgentEnv(gym.Env):
     ):
 
         self.world = world
-        self.agents = self.world.policy_agents
+        self.agents = self.world.agents
         # set required vectorized gym env property
-        self.n = len(world.policy_agents)
-        self.n_agents = len(world.policy_agents)
+        self.n = len(world.agents)
+        self.n_agents = len(world.agents)
         # scenario callbacks
         self.reset_callback = reset_callback
         self.reward_callback = reward_callback
@@ -77,15 +77,8 @@ class MultiAgentEnv(gym.Env):
             # total action space
             if len(total_action_space) > 1:
                 # all action spaces are discrete, so simplify to MultiDiscrete action space
-                if all(
-                    [
-                        isinstance(act_space, spaces.Discrete)
-                        for act_space in total_action_space
-                    ]
-                ):
-                    act_space = MultiDiscrete(
-                        [[0, act_space.n - 1] for act_space in total_action_space]
-                    )
+                if all([isinstance(act_space, spaces.Discrete) for act_space in total_action_space]):
+                    act_space = MultiDiscrete([[0, act_space.n - 1] for act_space in total_action_space])
                 else:
                     act_space = spaces.Tuple(total_action_space)
                 self.action_space.append(act_space)

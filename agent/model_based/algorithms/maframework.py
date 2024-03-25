@@ -4,11 +4,11 @@ from typing import Dict, List, Tuple
 
 import numpy as np
 import torch
-from agents import *
-from agents.baseagent import AgentMB
+from agent.model_based.agents import *
+from agent.model_based.agents.baseagent import AgentMB
 from gym.spaces import Discrete
 import wandb
-from utils.buffer import ReplayBuffer
+from agent.model_based.utils.buffer import ReplayBuffer
 
 from .baseframework import BaseFramework
 

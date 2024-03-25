@@ -1,5 +1,5 @@
 import gym
-from utils.env_wrappers import DummyVecEnv, SubprocVecEnv
+from agent.model_based.utils.env_wrappers import DummyVecEnv, SubprocVecEnv
 import numpy as np
 
 """

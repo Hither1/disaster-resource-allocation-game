@@ -7,14 +7,18 @@ import numpy as np
 from multiagent.core import Agent, Landmark
 from multiagent.scenario import BaseScenario
 import random
+import crafter
 from crafter import engine, constants, low_level_objects
 from random import randint
 from crafter import time_varying_demand_supply
+from utils import load_config
 import torch
 STDDEV = 1
 
 class Scenario(BaseScenario):
-    def make_world(self, config, num_agents=-1, num_targets=-1):
+    def make_world(self, num_agents=-1, num_targets=-1):
+        config = load_config("configs/exp", 'leadtimes')
+        config = crafter.config.get_config(config)
         self.config = config
         world = engine.World(config.area, constants.materials, (12, 12))
         # set any world properties first
@@ -100,8 +104,6 @@ class Scenario(BaseScenario):
         # # set agent goals
         # if goals is None:
         #     goals = [i for i in range(len(world.agents))]
-        #     random.shuffle(goals)
-        # world.goals = goals
             
         return world
 

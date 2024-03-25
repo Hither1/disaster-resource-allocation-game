@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.distributions import Normal
 
-from utils.misc import get_affine_params, swish
+from agent.model_based.utils.misc import get_affine_params, swish
 
 LOG_SIG_MAX = 2
 LOG_SIG_MIN = -20

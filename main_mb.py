@@ -11,11 +11,11 @@ import tqdm
 from gym.spaces import Box, Discrete
 import wandb
 
-from agents import *
-from algorithms.maframework import MA_Controller
-from utils.buffer import ReplayBuffer
-from utils.make_env import make_env, make_parallel_env
-from utils.misc import n_2_t, optimizer_lr_multistep_scheduler, setup_seed, t_2_n
+from agent.model_based.agents import *
+from agent.model_based.algorithms.maframework import MA_Controller
+from agent.model_based.utils.buffer import ReplayBuffer
+from agent.model_based.utils.make_env import make_env, make_parallel_env
+from agent.model_based.utils.misc import n_2_t, optimizer_lr_multistep_scheduler, setup_seed, t_2_n
 
 torch.set_default_dtype(torch.float)
 
@@ -32,6 +32,7 @@ Cooperative_env_list = [
     "simple_speaker_listener",
     "simple_spread",
     "simple_schedule",
+    "IM"
 ]
 
 
@@ -269,7 +270,7 @@ def run(config: argparse.Namespace) -> Dict:
                         for a_i in range(n_agent):
                             controller.set_dynamics_model(a_i, best_models[a_i])
                         controller.evaluate_dynamics_model(
-                            sample_eval, logger, logger_dynamics_iter
+                            sample_eval, logger_dynamics_iter
                         )
                         controller.prep_rollouts(device="cpu")
 

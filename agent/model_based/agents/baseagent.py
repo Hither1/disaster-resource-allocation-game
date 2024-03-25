@@ -5,8 +5,8 @@ from typing import List, Tuple
 import numpy as np
 import torch
 from torch.distributions import Normal
-from utils.buffer import ReplayBuffer
-from utils.networks import PtModel
+from agent.model_based.utils.buffer import ReplayBuffer
+from agent.model_based.utils.networks import PtModel
 import wandb
 
 MODEL_GRAD_BOUND = 200

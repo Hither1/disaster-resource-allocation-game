@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 from torch import Tensor
 from torch.optim import Adam
-from utils.misc import (
+from agent.model_based.utils.misc import (
     apply_with_grad,
     get_multi_discrete_action,
     gumbel_softmax,
@@ -13,7 +13,7 @@ from utils.misc import (
     onehot_from_logits,
     soft_update,
 )
-from utils.networks import MLPNetwork
+from agent.model_based.utils.networks import MLPNetwork
 
 from .baseagent import *
 

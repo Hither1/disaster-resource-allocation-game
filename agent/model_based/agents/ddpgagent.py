@@ -6,14 +6,14 @@ import torch
 from torch import tensor
 from torch.optim import Adam
 
-from utils.misc import (
+from agent.model_based.utils.misc import (
     gumbel_softmax,
     hard_update,
     onehot_from_logits,
     soft_update,
     get_multi_discrete_action,
 )
-from utils.networks import MLPNetwork
+from agent.model_based.utils.networks import MLPNetwork
 
 from .baseagent import *
 

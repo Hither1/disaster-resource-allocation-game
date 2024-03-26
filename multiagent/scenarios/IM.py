@@ -79,7 +79,7 @@ class Scenario(BaseScenario):
         # make initial conditions
         world = self.reset_world(world)
         
-        return world
+        return world, self.config
 
     def planHorizon(self):
 		# TLow: minimum number for the planning horizon # TUp: maximum number for the planning horizon

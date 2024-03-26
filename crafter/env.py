@@ -2,6 +2,7 @@ import collections
 from crafter import high_level_objects
 
 import numpy as np
+import torch
 import cv2
 import re
 
@@ -67,10 +68,10 @@ class Env(BaseClass):
     self.reward_range = None
     self.metadata = None
     
-    self.players = self.world.agents
-    self.n_agents = len(self.players)
+    self.agents = self.world.agents
+    self.n_agents = len(self.agents)
     self.n = self.n_agents
-    self.num_target = len(self.players)
+    self.num_target = len(self.agents)
 
     self.reset_callback = reset_callback
     self.reward_callback = reward_callback
@@ -82,17 +83,17 @@ class Env(BaseClass):
       self.state_dim = 2
     if config.ifUseActionInD:
       self.state_dim += 1
-    self.state_dim = (len(self.players[0].inventory.keys()), self.state_dim)
-    # self.state_dim *= len(self.players[0].inventory.keys())
+    self.state_dim = (len(self.agents[0].inventory.keys()), self.state_dim)
+    # self.state_dim *= len(self.agents[0].inventory.keys())
     self.shared_reward = True # world.collaborative if hasattr(world, 'collaborative') else False
 
     # configure spaces
     self.action_space = []
     self.observation_space = []
-    for agent in self.players:
+    for agent in self.agents:
       total_action_space = []
       # resource allocation action space
-      num_actions = len(world.shelter.base_stock.keys())
+      num_actions = len(agent.inventory.keys())
       u_action_space = [spaces.Discrete(2) for i in range(num_actions)] # self.n * 
       total_action_space.extend(u_action_space)
 
@@ -149,15 +150,14 @@ class Env(BaseClass):
     self._update_time()
 
     self._unlocked = set()
-    worldgen.generate_world(self.world, self.players)
+    worldgen.generate_world(self.world, self.agents)
 
     obs_n = []
-    for agent in self.players:
+    for agent in self.agents:
       obs_n.append(self._get_obs(agent))
 
     self.world.update_OO()
-
-    return obs_n
+    return torch.stack(obs_n)
   
   def game_reset(self):
     self._episode += 1
@@ -167,10 +167,10 @@ class Env(BaseClass):
     self._update_time()
 
     self._unlocked = set()
-    worldgen.generate_world(self.world, self.players)
+    worldgen.generate_world(self.world, self.agents)
 
     obs_n = []
-    for agent in self.players:
+    for agent in self.agents:
       obs_n.append(self._get_obs(agent))
 
     self.world.update_OO()
@@ -217,12 +217,12 @@ class Env(BaseClass):
     info_n = {'n': []}
     self._update_time()
             
-    for agent in self.players:
+    for agent in self.agents:
       agent.step(self._step)
       self.update_agent_state(agent)
 
     communications = []
-    for requester in self.players:
+    for requester in self.agents:
       if requester.out_requests:
         print('out_requests', requester.out_requests)
         # TODO: make this more efficient and less hard-coding
@@ -242,7 +242,7 @@ class Env(BaseClass):
       requester.out_requests = []
 
     for obj in self.world.objects:
-      if self._player.distance(obj) < 2 * max(self._view) and obj not in self.players:
+      if self._player.distance(obj) < 2 * max(self._view) and obj not in self.agents:
         obj.update()
 
     if self._step % 10 == 0:
@@ -250,7 +250,7 @@ class Env(BaseClass):
         self._balance_chunk(chunk, objs)
 
     # record observation for each agent
-    for agent in self.players:
+    for agent in self.agents:
       obs_n.append(self._get_obs(agent))
       r = self._get_reward(agent)
       reward_n.append(r)
@@ -266,15 +266,14 @@ class Env(BaseClass):
         'player_pos': self.world._player.pos,
         'reward': reward_n,
     }
-
-    return obs_n, reward_n, done, info
+    return torch.stack(obs_n), reward_n, done, info
   
   def game_step(self, event):
     '''
 		Change environment state based on events
 		'''
 		# event = {'agent_info': roomid_players[roomid][pid], }
-		# agent_info = {'x': , 'y': , 'role': , 'enter_start_time': , 'human': }
+		# agent_info = {'': , '': , 'role': , 'enter_start_time': , 'human': }
     print('event', event)
     agent_info = event['agent_info']
     uid = event['uid']
@@ -283,15 +282,15 @@ class Env(BaseClass):
     self._step += 1
     obs_n = []
 
-    for agent in self.players:
+    for agent in self.agents:
       agent.step(self._step, event)
       self.update_agent_state(agent)
 
-    for agent in self.players:
+    for agent in self.agents:
       agent._make_decisions_on_requests(action=event)
 
     communications = []
-    for requester in self.players:
+    for requester in self.agents:
       if requester.out_requests:
         # print('out_requests', requester.out_requests)
         # TODO: make this more efficient and less hard-coding
@@ -310,7 +309,7 @@ class Env(BaseClass):
       requester.out_requests = []
 
     # record observation for each agent
-    for agent in self.players:
+    for agent in self.agents:
       obs_n.append(self._get_obs(agent))
       r = self._get_reward(agent)
 		

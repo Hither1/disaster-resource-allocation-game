@@ -1,6 +1,7 @@
 import gym
 from agent.model_based.utils.env_wrappers import DummyVecEnv, SubprocVecEnv
 import numpy as np
+import crafter
 
 """
 Code for creating a multiagent environment with one of the scenarios listed
@@ -42,7 +43,7 @@ def make_env(scenario_name, benchmark: bool = False, discrete_action: bool = Tru
     # load scenario from script
     scenario = scenarios.load(scenario_name + ".py").Scenario()
     # create world
-    world = scenario.make_world()
+    world, config = scenario.make_world()
     # create multiagent environment
 
     if benchmark:
@@ -55,13 +56,16 @@ def make_env(scenario_name, benchmark: bool = False, discrete_action: bool = Tru
             discrete_action=discrete_action,
         )
     else:
-        env = MultiAgentEnv(
-            world,
-            scenario.reset_world,
-            scenario.reward,
-            scenario.observation,
-            discrete_action=discrete_action,
-        )
+        # env = MultiAgentEnv(
+        #     world,
+        #     scenario.reset_world,
+        #     scenario.reward,
+        #     scenario.observation,
+        #     discrete_action=discrete_action,
+        # )
+        env = crafter.Env(config, world, None, scenario.reset_world, scenario.reward, scenario.global_reward, scenario.observation)
+        env = crafter.Recorder(env, config.record, save_stats=True)
+        env.reset()
     return env
 
 

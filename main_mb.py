@@ -17,6 +17,8 @@ from agent.model_based.utils.buffer import ReplayBuffer
 from agent.model_based.utils.make_env import make_env, make_parallel_env
 from agent.model_based.utils.misc import n_2_t, optimizer_lr_multistep_scheduler, setup_seed, t_2_n
 
+from utils import load_config
+from omegaconf import DictConfig, OmegaConf
 torch.set_default_dtype(torch.float)
 
 algorithm_list = [
@@ -65,8 +67,8 @@ def run_eval(
     return np.mean(rets)
 
 
-def run(config: argparse.Namespace) -> Dict:
-    wandb.init(project='model_based')
+def run(config) -> Dict:
+    wandb.init(project='model_based', name='run')
     model_dir = (
         Path(config.model_dir) / config.algorithm / config.env_id / config.model_name
     )
@@ -86,8 +88,9 @@ def run(config: argparse.Namespace) -> Dict:
     log_dir = run_dir / "logs"
     os.makedirs(log_dir)
     print("run dir", run_dir)
-    with open(os.path.join(run_dir, "config"), "w") as cf:
-        json.dump(config.__dict__, cf)
+
+    # with open(os.path.join(run_dir, "config"), "w") as cf:
+    #     json.dump(config.__dict__['_content'], cf)
 
     setup_seed(config.seed)
 
@@ -118,7 +121,7 @@ def run(config: argparse.Namespace) -> Dict:
     replay_buffer = ReplayBuffer(
         int(config.buffer_size),
         n_agent,
-        [obsp.shape[0] for obsp in env.observation_space],
+        [obsp.shape[0] * obsp.shape[1] for obsp in env.observation_space], # TODO: change
         [
             acsp.shape[0]
             if isinstance(acsp, Box)
@@ -140,7 +143,6 @@ def run(config: argparse.Namespace) -> Dict:
     env_rate = 1
     model_trained = False
     eval_ret = 0
-
     eval_ret_dict = {}
 
     # train the policy and opponent models but not the dynamics model
@@ -176,6 +178,7 @@ def run(config: argparse.Namespace) -> Dict:
                 episode_i, config.episode_length
             )
             obs = env.reset()
+            obs = obs.view(obs.shape[0], obs.shape[1], -1)
             # thread, agent, feature
             controller.prep_rollouts(device="cpu")
             for _ in range(config.episode_length):
@@ -201,6 +204,7 @@ def run(config: argparse.Namespace) -> Dict:
                 ]
                 # thread, agent, action_dim
                 next_obs, rewards, dones, infos = env.step(thread_first_action)
+                next_obs = next_obs.view(next_obs.shape[0], next_obs.shape[1], -1)
                 thread_first_action = np.stack(thread_first_action, axis=0)
 
                 replay_buffer.push_sample_first(
@@ -281,9 +285,8 @@ def run(config: argparse.Namespace) -> Dict:
                     len(replay_buffer) >= config.batch_size * 5
                     and (n_step % config.update_step_interval) < config.n_sample_thread
                 ):
-                    if any(
-                        [isinstance(a, AgentOppMd) for a in controller.agents]
-                    ) or any([isinstance(a, AgentMB) for a in controller.agents]):
+                    if any([isinstance(a, AgentOppMd) for a in controller.agents]) or \
+                        any([isinstance(a, AgentMB) for a in controller.agents]):
                         batch_size = min(config.batch_size * 3, len(replay_buffer))
                         latest_sample = replay_buffer.latest_sample(
                             batch_size, to_gpu=config.cuda
@@ -358,10 +361,7 @@ def run(config: argparse.Namespace) -> Dict:
                                 config.K,
                                 max(
                                     K,
-                                    K
-                                    + (epoch - config.A)
-                                    / ((config.B - config.A))
-                                    * (config.K - K),
+                                    K + (epoch - config.A) / ((config.B - config.A)) * (config.K - K),
                                 ),
                             )
                         )
@@ -491,103 +491,10 @@ def run(config: argparse.Namespace) -> Dict:
 
 
 if __name__ == "__main__":
-    os.environ["WANDB_MODE"] = "disabled"
-    parser = argparse.ArgumentParser()
-    # env
-    parser.add_argument(
-        "env_id", help="Name of environment", type=str, choices=Cooperative_env_list
-    )
-    parser.add_argument("model_name", help="Name of directory to store")
-    parser.add_argument("--seed", default=1, type=int, help="Random seed")
-    parser.add_argument("--episode_length", default=25, type=int)
-
-    # agent
-    parser.add_argument(
-        "--algorithm", default="AORPO", type=str, choices=algorithm_list
-    )
-    parser.add_argument("--discrete_action", default=True, type=bool)
-
-    # model-free
-    parser.add_argument("--n_training_thread", default=10, type=int)
-    parser.add_argument("--n_sample_thread", default=15, type=int)
-    parser.add_argument("--n_epoch", default=150, help="Epochs", type=int)
-    parser.add_argument("--episode_per_epoch", default=300, type=int)
-    # eposide = n_epoch * episode_per_epoch
-    parser.add_argument(
-        "--update_step_interval", default=100, help="policy update interval", type=int
-    )
-
-    parser.add_argument("--buffer_size", default=int(1e6), type=int)
-    parser.add_argument("--hidden_dim", default=64, type=int)
-    parser.add_argument("--grad_bound", default=1.0, type=float)  # not used
-    parser.add_argument(
-        "--batch_size", default=1024, type=int, help="Batch size for model training"
-    )
-
-    parser.add_argument("--rew_scale", default=5.0, type=float)
-    parser.add_argument("--lr", default=0.01, type=float)
-    parser.add_argument("--tau", default=0.001, type=float)
-    parser.add_argument("--gamma", default=0.95, type=float)
-    parser.add_argument("--cuda", action="store_true")
-
-    parser.add_argument("--noise_scale_start", default=0.3, type=float)
-    parser.add_argument("--noise_scale_final", default=0.0, type=float)
-    parser.add_argument(
-        "--n_eplr_epoch", help="exploration epochs number", default=100, type=int
-    )
-
-    # model-based
-    # opponent model
-    parser.add_argument("--opp_lr", default=0.0005, type=float)
-    # dynamics model
-    # model-learning
-    parser.add_argument("--model_hidden_dim", default=256, type=int)
-    parser.add_argument("--ensemble_size", default=8, type=int)
-    parser.add_argument(
-        "--MB_batch_size", default=4096, type=int, help="Batch size for model training"
-    )
-    parser.add_argument("--model_lr", default=0.001, type=float)
-    parser.add_argument(
-        "--model_lr_schedule_steps",
-        nargs="+",
-        type=int,
-        default=[],
-        help="steps for model lr decreasing",
-    )
-    parser.add_argument(
-        "--dynamics_model_update_step_interval",
-        default=75 * 25,
-        help="dynamics model update interval",
-        type=int,
-    )
-    # model-usage
-    parser.add_argument("--K", default=6, type=int)
-    parser.add_argument("--M", default=2048, type=int)
-    parser.add_argument("--env_model_buffer_lastest", action="store_true")
-    parser.add_argument("--gpu_rollout_model", action="store_true")
-    parser.add_argument(
-        "--G",
-        default=20,
-        type=int,
-        help="policy update G times in model-based dyna-style methods",
-    )
-
-    parser.add_argument("--n_model_warmup_episode", default=1500, type=int)
-    parser.add_argument("--Env_rate_n_epoch", default=40, type=int)
-    parser.add_argument("--Env_rate_start", default=0.5, type=float)
-    parser.add_argument("--Env_rate_finish", default=0.5, type=float)
-    parser.add_argument("--A", default=15, type=int)
-    parser.add_argument("--B", default=100, type=int)
-
-    # log
-    parser.add_argument("--load_path", type=str)
-    parser.add_argument("--model_dir", default="./models")
-    parser.add_argument("--save_episode_interval", default=300, type=int)
-
-    parser.add_argument("--DEBUG", action="store_true")
-
-    config = parser.parse_args()
-
+    # os.environ["WANDB_MODE"] = "disabled"
+    config1 = load_config("configs/model", "model_based")
+    config2 = load_config("configs/exp", "leadtimes")
+    config = OmegaConf.merge(config1, config2)
     config.device = "cuda" if config.cuda and torch.cuda.is_available() else "cpu"
 
     if config.env_model_buffer_lastest:

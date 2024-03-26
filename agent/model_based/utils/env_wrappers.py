@@ -5,7 +5,7 @@ from typing import List, Optional
 import numpy as np
 from multiprocessing import Process, Pipe
 from stable_baselines3.common.vec_env.base_vec_env import VecEnv, CloudpickleWrapper
-
+import torch
 
 def worker(remote, parent_remote, env_fn_wrapper: CloudpickleWrapper):
     parent_remote.close()
@@ -14,7 +14,8 @@ def worker(remote, parent_remote, env_fn_wrapper: CloudpickleWrapper):
         cmd, data = remote.recv()
         if cmd == "step":
             ob, reward, done, info = env.step(data)
-            if all(done):
+            # if all(done):
+            if done:
                 ob = env.reset()
             remote.send((ob, reward, done, info))
         elif cmd == "reset":
@@ -81,12 +82,12 @@ class SubprocVecEnv(VecEnv):
         results = [remote.recv() for remote in self.remotes]
         self.waiting = False
         obs, rews, dones, infos = zip(*results)
-        return np.stack(obs), np.stack(rews), np.stack(dones), infos
+        return torch.stack(obs), np.stack(rews), np.stack(dones), infos
 
     def reset(self):
         for remote in self.remotes:
             remote.send(("reset", None))
-        return np.stack([remote.recv() for remote in self.remotes])
+        return torch.stack([remote.recv() for remote in self.remotes])
 
     def reset_task(self):
         for remote in self.remotes:

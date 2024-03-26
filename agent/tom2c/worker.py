@@ -33,7 +33,6 @@ def worker(rank, args, shared_model, train_modes, n_iters, curr_env_steps, ToM_c
         device = device_share = torch.device('cpu')
     
     #device = torch.device("cpu") # there's no need for worker to use 
-
     if env == None:
         env = create_env(env_name, args, rank)
 

@@ -1,0 +1,68 @@
+# env
+env_id: "IM" # type=str, choices=Cooperative_env_list
+model_name: 'test' # help="Name of directory to store")
+seed: 1 # type=int, help="Random seed")
+episode_length: 25 # type=int
+
+# agent
+algorithm: "AORPO" # type=str, choices=algorithm_list
+discrete_action: True # type=bool
+
+# model-free
+n_training_thread: 10 # type=int
+n_sample_thread: 15 # type=int
+n_epoch: 100 # 150, help="Epochs", type=int
+episode_per_epoch: 300 # type=int
+
+# eposide = n_epoch * episode_per_epoch
+update_step_interval: 100 # help="policy update interval", type=int
+
+buffer_size: 100000 # int(1e6) # type=int
+hidden_dim: 64 # type=int
+grad_bound: 1.0 # type=float # not used
+batch_size: 1024 # type=int, help="Batch size for model training"
+
+rew_scale: 5.0 # type=float)
+lr: 0.01 # type=float)
+tau: 0.001 # type=float)
+gamma: 0.95 # type=float)
+cuda: true # action="store_true"
+
+noise_scale_start: 0.3 # type=float
+noise_scale_final: 0.0 # type=float
+n_eplr_epoch: 100 # help="exploration epochs number", type=int
+
+# model-based
+# opponent model
+opp_lr: 0.0005 #, type=float)
+
+# dynamics model
+# model-learning
+model_hidden_dim: 512 # default=256, type=int
+ensemble_size: 8 # type=int
+MB_batch_size: 4096 # type=int, help="Batch size for model training"
+model_lr: 0.001 # type=float
+model_lr_schedule_steps: 8000 # nargs="+",  type=int,  default [], help="steps for model lr decreasing"
+
+dynamics_model_update_step_interval: 3750 # 75 * 25 help="dynamics model update interval", type=int,
+
+# model-usage
+K: 15 # default=6, type=int
+M: 1024 # 2048 type=int
+env_model_buffer_lastest: false # action="store_true"
+gpu_rollout_model: false # action="store_true")
+G: 20 # type=int,  help="policy update G times in model-based dyna-style methods"
+
+n_model_warmup_episode: 1500 # type=int
+Env_rate_n_epoch: 40 # type=int
+Env_rate_start: 0.5 # type=float
+Env_rate_finish: 0.5 # type=float
+A: 5 # default=15, type=int
+B: 25 # 100 type=int
+
+# log
+load_path: null # type=str
+model_dir: "./models"
+save_episode_interval: 300 # type=int
+
+DEBUG: false # action="store_true"

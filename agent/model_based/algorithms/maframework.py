@@ -105,6 +105,7 @@ class MA_Controller(BaseFramework):
             self.total_difficulty += a.dim_in_pol + a.dim_out_pol
             self.agent_difficulties.append(a.dim_in_pol + a.dim_out_pol)
 
+
     def random_step(self, observations: List):
         return [a.random_step(obs) for a, obs in zip(self.agents, observations)]
 
@@ -156,7 +157,9 @@ class MA_Controller(BaseFramework):
         """
         loss_dict = self.agents[agent_i].update(sample)
         if loss_dict:
-            # logger.add_scalars("agent%i/losses" % (agent_i),)
+            for key, value in loss_dict:
+                modified_key = "agent%i/losses/" % (agent_i) + key
+                loss_dict[modified_key] = loss_dict.pop(key)
             wandb.log(loss_dict, step=logger_iter)
 
     def get_dynamics_model(self, agent_i: int) -> Dict:
@@ -198,9 +201,9 @@ class MA_Controller(BaseFramework):
                     opp_loss = a.update_opponent(sample)
 
                     if e == epochs - 1 and opp_loss:
-                        # logger.add_scalars(
-                        #     "agent%i/model_losses" % (i), 
-                        # )
+                        for key, value in opp_loss:
+                            modified_key = "agent%i/model_losses/" % (i) + key
+                            loss_dict[modified_key] = loss_dict.pop(key)
                         wandb.log(opp_loss, step=logger_iter)
 
     def rollout_models(
@@ -318,7 +321,7 @@ class MA_Controller(BaseFramework):
         for i, (acsp, obsp, algtype) in enumerate(
             zip(env.action_space, env.observation_space, alg_types)
         ):
-            dim_in_pol = obsp.shape[0]
+            dim_in_pol = obsp.shape[0] * obsp.shape[1]
             dim_obs_list.append(dim_in_pol)
 
             discrete_action = True

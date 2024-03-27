@@ -93,11 +93,20 @@
                       <span id="instructionsToggle" style="border-color: gray; border-width: 2px; padding: 6px; border-style: solid;cursor:pointer;">Show commands</span>
                   </h3>
                   <div id="userInputs" class="hidden">  
-                    
-                        <h4>Request food &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Request drink &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Request staff &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>      
+                    <h3> Request </h3>
+                        <h4> Amount: food from Warehouse &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Amount: drink from Warehouse &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>      
                         <input type="number" min="0" class="userInput" data-input="request-food" placeholder="Request food amount..." value="0">
                         <input type="number" min="0" class="userInput" data-input="request-drink" placeholder="Request drink amount..." value="0">
+
+                        <h4> Amount: food from Kitchen &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Amount: drink from Kitchen &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>      
+                        <input type="number" min="0" class="userInput" data-input="request-food" placeholder="Request food amount..." value="0">
+                        <input type="number" min="0" class="userInput" data-input="request-drink" placeholder="Request drink amount..." value="0">
+
+                        <h4> Amount: medical staff from Clinic &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>      
                         <input type="number" min="0" class="userInput" data-input="request-staff" placeholder="Request staff amount..." value="0">
+
+                        <h4> Amount: medical staff from Station &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>      
+                        <input type="number" min="0" class="userInput" data-input="request-med-staff" placeholder="Request staff amount..." value="0">
                     
                     <button id="next-button" formaction="/minimap">Next</button>
                   </div>

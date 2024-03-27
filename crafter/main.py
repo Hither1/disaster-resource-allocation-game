@@ -545,15 +545,15 @@ async def station(request:Request):
 
 @app.get("/kitchen", response_class=HTMLResponse)
 async def station(request:Request):
-    return templates.TemplateResponse("kitchen.html", {"request": request})
+    return templates.TemplateResponse("hard/kitchen.html", {"request": request})
 
 @app.get("/clinic", response_class=HTMLResponse)
 async def station(request:Request):
-    return templates.TemplateResponse("clinic.html", {"request": request})
+    return templates.TemplateResponse("hard/clinic.html", {"request": request})
 
 @app.get("/volunteers", response_class=HTMLResponse)
 async def station(request:Request):
-    return templates.TemplateResponse("volunteers.html", {"request": request})
+    return templates.TemplateResponse("hard/volunteers.html", {"request": request})
 
 @app.get("/fov/{uid}")
 async def load_instructions_fov(request:Request, uid:str, session:int=1, db: Session = Depends(get_db)):

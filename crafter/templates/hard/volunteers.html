@@ -75,30 +75,42 @@
                     <h2 id="playtime"> Current Day: <span id="current-day"></span></h2>
                   <h2 id="playtime"> Game ends in <span id="remain-day"></span> days</h2>
               </div>
-              
               <div align="center">
                 <h3 id="narrative"> Initial Response: You knew it was coming. This episode is the start of a disaster relief operation. Your team will be managing the initial response. You will receive a separate situation report and task assignment sheet. </h2>
-                <img src="../static/images/shelter.png" alt="Description of the image">
+                <img src="../static/images/hard/volunteers.png" alt="Description of the image">
                   <h3>
                     <span id="episode"></span> |
                     <span id="reward">Points: 0</span> |
                     <span id="food">Food: 0</span> |
                     <span id="drink">Drink: 0</span> |
                     <span id="staff">Staff: 0</span> |
-                    <span id="death">Death: 0</span> |
-                    <span id="injured">Injured: 0</span>
+                    <!-- <span id="death">Death: 0</span> |
+                    <span id="injured">Injured: 0</span> -->
                       <span id="block-map">
                           <input type="checkbox" id="map" name="map" value="show_map" onclick="showMap(this)">
                       </span>
                       <span id="instructionsToggle" style="border-color: gray; border-width: 2px; padding: 6px; border-style: solid;cursor:pointer;">Show commands</span>
                   </h3>
-                  <div id="userInputs" class="hidden">  
+                  <div id="userInputs1" class="hidden">   
                     
-                        <h4>Request food &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Request drink &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Request staff &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>      
-                        <input type="number" min="0" class="userInput" data-input="request-food" placeholder="Request food amount..." value="0">
-                        <input type="number" min="0" class="userInput" data-input="request-drink" placeholder="Request drink amount..." value="0">
-                        <input type="number" min="0" class="userInput" data-input="request-staff" placeholder="Request staff amount..." value="0">
+                    <h4>Amount: Send staff to Station  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Amount: Send staff to Warehouse</h4> 
+                  
+                      <input type="number" min="0" class="userInput" data-input="send-staff-shelter" placeholder="Send staff amount to Station" value="0">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <input type="number" min="0" class="userInput" data-input="send-staff-warehouse" placeholder="Send staff amount to Warehouse" value="0">
                     
+                  </div>
+                  <div id="userInputs2" class="hidden">                     
+                    
+                    <h4>Request food amount &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Request drink amount</h4>
+                    
+                    <input type="number" min="0" class="userInput" data-input="request-food" placeholder="Request food amount" value="0">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="number" min="0" class="userInput" data-input="request-drink" placeholder="Request drink amount" value="0">
+                    
+                    <br>
+                    <br>
+
                     <button id="next-button" formaction="/minimap">Next</button>
                   </div>
                   <h3><span id="result"></span></h3>
@@ -124,7 +136,7 @@
                       <button name="finish" formaction="/completion" id="finish-button" type="submit" class="button">Finish</button>
                   </div>
                   <script>
-                    const userRole = "Shelter";
+                    const userRole = "Station";
                       $('#next-button').click(function() {
                         const inputValues = {};
                         const userInputBoxes = document.querySelectorAll('.userInput');
@@ -134,12 +146,14 @@
                                 inputValues[inputType] = inputElement.value;
                             }
                         );
+
                         // // 2. Run env step
                         // // 3. If finished
                         // if (done) {
                         //     window.location.href = 'done.html';
                         //   }
                         emitSocketIO('shelterEvent', {'uid': uid, 'event': inputValues});
+
                           var id = $('#uid').val();
                           var sessionId = Number($('#session').val())+1;
                           $('#session').val(sessionId);

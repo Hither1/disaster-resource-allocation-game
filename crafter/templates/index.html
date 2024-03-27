@@ -105,10 +105,18 @@
             
             <div id="not_ready" align = "center">
                 <p>When you are ready to start, please click the "Ready" button. </p> 
-                <button name="ready-button" class="button-decorated" id="start-button" type="button" onclick="redirectToChooseRolePage()">Start</button>
+                <button name="ready-button" class="button-decorated" id="start-button-easy" type="button" onclick="redirectToChooseRolePage(id)">Easy</button>
+
+                <button name="ready-button" class="button-decorated" id="start-button-hard" type="button" onclick="redirectToChooseRolePage(id)">Hard</button>
                 <script>
-                  function redirectToChooseRolePage() {
-                      window.location.href = '/choose_role';
+                  function redirectToChooseRolePage(id) {
+                    if (id === "start-button-easy"){
+                      window.location.href = '/easy/choose_role';
+                    }
+                    else {
+                      window.location.href = '/hard/choose_role';
+                    }
+                    
                   }
                 </script>
             </div>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Chloe">
+    <title>Role Selection</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="../static/css/simple-sidebar.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+      
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-brand"><a href="#">Menu</a></li>
+          <li><a href="index.html">Main</a></li>
+          <li><a href="templates/Contact.html">Contact</a></li>
+        </ul>
+      </div>
+          
+      <!-- Page content -->
+      <div id="page-content-wrapper">
+        <div class="content-header">
+          <h1>
+            <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
+            Disaster Resource Allocation
+          </h1>
+        </div>
+        <!-- Keep all page content within the page-content inset div! -->
+        <div class="page-content inset">
+          <div class="row">
+
+            <h2>Choose Your Role:</h2>
+
+            <button onclick="redirectToPage('shelter')">Shelter</button>
+            <button onclick="redirectToPage('warehouse')">Warehouse</button>
+            <button onclick="redirectToPage('station')">Station</button>
+
+            <script>
+              function redirectToPage(role) {
+                // Redirect based on the selected role
+                if (role === 'shelter') {
+                  window.location.href = '/shelter_simple';
+                } else if (role === 'warehouse') {
+                  window.location.href = '/warehouse_simple';
+                } else if (role === 'station') {
+                window.location.href = '/station_simple';
+                }
+              }
+            </script>
+           
+          </div>
+  
+
+        </div>
+      </div>
+      
+    </div>
+
+
+  </body>
+</html>

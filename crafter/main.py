@@ -264,7 +264,7 @@ async def on_ready(sid, *args):
         scenario = scenarios.load("IM.py").Scenario()
         config = load_config("configs/exp", 'leadtimes')
         config = crafter.config.get_config(config)
-        world = scenario.make_world(config)
+        world, config = scenario.make_world()
         env = crafter.Env(config, world, userRole, scenario.reset_world, scenario.reward, scenario.global_reward, scenario.observation)
         env = crafter.Recorder(env, config.record)
         user_state = env.game_reset()
@@ -511,21 +511,49 @@ async def on_leave(sid, *args, **kwargs):
 async def index(request:Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-@app.get("/choose_role", response_class=HTMLResponse)
+@app.get("/easy/choose_role", response_class=HTMLResponse)
 async def choose_role(request:Request):
-    return templates.TemplateResponse("choose_role.html", {"request": request})
+    return templates.TemplateResponse("easy/choose_role.html", {"request": request})
 
-@app.get("/shelter", response_class=HTMLResponse)
+@app.get("/hard/choose_role", response_class=HTMLResponse)
+async def choose_role(request:Request):
+    return templates.TemplateResponse("hard/choose_role.html", {"request": request})
+
+@app.get("/shelter_simple", response_class=HTMLResponse)
 async def shelter(request:Request):
-    return templates.TemplateResponse("shelter.html", {"request": request})
+    return templates.TemplateResponse("easy/shelter.html", {"request": request})
 
-@app.get("/warehouse", response_class=HTMLResponse)
+@app.get("/warehouse_simple", response_class=HTMLResponse)
 async def warehouse(request:Request):
-    return templates.TemplateResponse("warehouse.html", {"request": request})
+    return templates.TemplateResponse("easy/warehouse.html", {"request": request})
 
-@app.get("/station", response_class=HTMLResponse)
+@app.get("/station_simple", response_class=HTMLResponse)
 async def station(request:Request):
-    return templates.TemplateResponse("station.html", {"request": request})
+    return templates.TemplateResponse("easy/station.html", {"request": request})
+
+@app.get("/shelter_hard", response_class=HTMLResponse)
+async def shelter(request:Request):
+    return templates.TemplateResponse("hard/shelter.html", {"request": request})
+
+@app.get("/warehouse_hard", response_class=HTMLResponse)
+async def warehouse(request:Request):
+    return templates.TemplateResponse("hard/warehouse.html", {"request": request})
+
+@app.get("/station_hard", response_class=HTMLResponse)
+async def station(request:Request):
+    return templates.TemplateResponse("hard/station.html", {"request": request})
+
+@app.get("/kitchen", response_class=HTMLResponse)
+async def station(request:Request):
+    return templates.TemplateResponse("kitchen.html", {"request": request})
+
+@app.get("/clinic", response_class=HTMLResponse)
+async def station(request:Request):
+    return templates.TemplateResponse("clinic.html", {"request": request})
+
+@app.get("/volunteers", response_class=HTMLResponse)
+async def station(request:Request):
+    return templates.TemplateResponse("volunteers.html", {"request": request})
 
 @app.get("/fov/{uid}")
 async def load_instructions_fov(request:Request, uid:str, session:int=1, db: Session = Depends(get_db)):

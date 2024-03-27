@@ -46,16 +46,25 @@
             <button onclick="redirectToPage('shelter')">Shelter</button>
             <button onclick="redirectToPage('warehouse')">Warehouse</button>
             <button onclick="redirectToPage('station')">Station</button>
+            <button onclick="redirectToPage('kitchen')">Kitchen</button>
+            <button onclick="redirectToPage('volunteers')">Volunteers</button>
+            <button onclick="redirectToPage('clinic')">Clinic</button>
 
             <script>
               function redirectToPage(role) {
                 // Redirect based on the selected role
                 if (role === 'shelter') {
-                  window.location.href = '/shelter';
+                  window.location.href = '/shelter_hard';
                 } else if (role === 'warehouse') {
-                  window.location.href = '/warehouse';
+                  window.location.href = '/warehouse_hard';
                 } else if (role === 'station') {
-                window.location.href = '/station';
+                window.location.href = '/station_hard';
+                } else if (role === 'kitchen') {
+                window.location.href = '/kitchen';
+                } else if (role === 'volunteers') {
+                window.location.href = '/volunteers';
+                } else if (role === 'clinic') {
+                window.location.href = '/clinic';
                 }
               }
             </script>

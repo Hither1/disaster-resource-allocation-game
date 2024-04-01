@@ -6,7 +6,7 @@ This repo contains the following two main parts: a disaster resource allocation 
 
 # Algorithms
 
-## Heuristic-based
+### Heuristic-based
 supply chain management (some quite old literature)
 
 [Optimal policies for a multi-echelon inventory problem](http://dido.econ.yale.edu/~hes/pub/echelon1.pdf)
@@ -17,10 +17,10 @@ supply chain management (some quite old literature)
 
 [Newsvendor bounds and heuristic for optimal policies in serial supply chains.](https://www.researchgate.net/publication/220534493_Newsvendor_Bounds_and_A_Heuristic_for_Optimal_Policies_in_Serial_Supply_Chains)
 
-## Model-free multi-agent
+### Model-free multi-agent
 [TOM2C: TARGET-ORIENTED MULTI-AGENT COMMUNICATION AND COOPERATION WITH THEORY OF MIND](https://arxiv.org/pdf/2111.09189.pdf)
 
-## Model-based multi-agent
+### Model-based multi-agent
 [Model-based Multi-agent Policy Optimization with Adaptive Opponent-wise Rollouts](https://arxiv.org/pdf/2105.03363.pdf)
 
 # Disaster resource allocation game
@@ -35,11 +35,6 @@ a single environment.
 
 - **Meaningful evaluation:** 
 
-- **Iteration speed:** 
-
-See the research paper to find out more: [Benchmarking the Spectrum of Agent
-Capabilities](https://arxiv.org/pdf/2109.06780.pdf)
-
 
 ## Play Yourself
 
@@ -49,11 +44,11 @@ python3 -m pip install pygame   # Needed for human interface
 python3 -m crafter.run_gui      # Start the game
 ```
 
-## Interface
+#### Interface
 
 To install Crafter, refer to the description in their repo.
 
-## Evaluation
+#### Evaluation
 
 Agents are allowed a budget of 1M environmnent steps and are evaluated by their
 success rates of the 22 achievements and by their geometric mean score. Example

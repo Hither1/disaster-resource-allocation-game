@@ -356,6 +356,7 @@ class MA_Controller(BaseFramework):
             dim_in_pol_list.append(dim_in_pol)
             dim_out_pol_list.append(dim_out_pol)
             action_shape_list.append(action_shape)
+        # import pdb; pdb.set_trace()
 
         for i in range(n_agent):
             agent_init_params[i].update({"action_shape_list": action_shape_list})

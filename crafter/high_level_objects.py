@@ -111,13 +111,24 @@ class Agency:
     return requests
   
   def _make_orders(self, goal, action):
-    """ Using goals (indirect) or human actions (direct) to make orders """
+    """ 
+      Using goals (indirect) or human actions (direct) to make orders 
+    """
     self._communication = 0
     order = {}
-    if action and self.mode == 'human': # Human player
+    if action and isinstance(action[0], np.ndarray):
+      action = action[self.agentNum].reshape(len(self.inventory.keys()) * 2, -1)
+      action = np.argmax(action, axis=1)
+      action[self.action_mask == 0] = 0
+      action = action.reshape(2, -1)
+      for idx, resource in enumerate(self.inventory.keys()):
+        order[resource] = action[1][idx]
+
+    elif action and self.mode == 'human': # Human player
       for key, value in action.items():
         if 'request' in key:
           order[key.replace('request-', '')] = int(value)
+
     # AI player
     elif self.strategy == 'bs':
       for resource in self.inventory.keys():
@@ -129,10 +140,10 @@ class Agency:
             self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)-\
 								max(0, (self.base_stock[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
         else:
-          self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)-\
-							max(0, (self.base_stock[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
           # self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)-\
-					# 		max(0, (goal[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
+					# 		max(0, (self.base_stock[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
+          self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)-\
+							max(0, (goal[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
           
         if self.action > 0: order[resource] = self.action
 
@@ -189,8 +200,6 @@ class Agency:
     self.srdqnBaseStock = []	# this holds the base stock levels that srdqn has came up with. added on Nov 8, 2017
     self.T = T
     self.nextObservation = []
-    # if self.compTypeTrain == 'srdqn':
-    #   self.brain.setInitState(self.curObservation) # sets the initial input of the network
     self.curTime = 0
     self.staff_team = []
     self.patients = []
@@ -245,6 +254,11 @@ class Warehouse(Agency):
     self.leadtimes = constants.leadtimes[self.name]
     self._backorder = 0
     self.strategy = 'bs'
+
+    # Warehouse action mask
+    send = np.array([1 if x in ['food', 'drink'] else 0 for x in self.inventory.keys()])
+    request = 1 - send
+    self.action_mask = np.concatenate((send, request), axis=0)
 
   @property
   def texture(self):
@@ -326,6 +340,9 @@ class Shelter(Agency):
     # self.staff_team = [Person('med_staff', 5) for _ in range(self.inventory['med_staff'])]
     self.staff_team = [Person('staff', 5) for _ in range(self.inventory['staff'])]
     self.cum_death = 0
+
+    # Shelter aciton mask: 0 for send + 1 for request
+    self.action_mask = [0 for x in self.inventory.keys()] + [1 for x in self.inventory.keys()]
 
   @property
   def texture(self):
@@ -445,7 +462,7 @@ class Shelter(Agency):
     self.in_requests = [] 
 
     ### Step 2: 
-    if not self.patients:
+    if goal and not self.patients:
       goal['food'] = 0
       goal['drink'] = 0
       goal['staff'] = 0
@@ -464,6 +481,11 @@ class Station(Agency):
     self.leadtimes = constants.leadtimes[self.name]
     self._backorder = 0
     self.strategy = 'bs'
+
+    # Station action mask
+    send = np.array([1 if 'staff' in x else 0 for x in self.inventory.keys()])
+    request = 1 - send
+    self.action_mask = np.concatenate((send, request), axis=0)
 
   @property
   def texture(self):

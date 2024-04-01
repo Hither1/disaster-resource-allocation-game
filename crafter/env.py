@@ -93,12 +93,13 @@ class Env(BaseClass):
     for agent in self.agents:
       total_action_space = []
       # resource allocation action space
+      # Send
       num_actions = len(agent.inventory.keys())
-      u_action_space = [spaces.Discrete(2) for i in range(num_actions)] # self.n * 
+      u_action_space = [spaces.Discrete(1) for i in range(num_actions)] 
       total_action_space.extend(u_action_space)
 
-      # communication action space: used for request
-      c_action_space = [spaces.Discrete(2) for i in range(num_actions)]
+      # Request: communication action space
+      c_action_space = [spaces.Discrete(1) for i in range(num_actions)]
       total_action_space.extend(c_action_space)
 
       # total action space
@@ -108,8 +109,9 @@ class Env(BaseClass):
           act_space = MultiDiscrete([[0, act_space.n - 1] for act_space in total_action_space])
         else:
           act_space = spaces.Tuple(total_action_space)
-        self.action_space.append(act_space)
-
+        # self.action_space.append(act_space)
+        self.action_space.append(MultiDiscrete([[0, 41], [0, 41], [0, 41], [0, 41], [0, 41], [0, 41]]))
+      
       # observation space
       # obs_dim = len(observation_callback(agent, self.world))
       obs_dim = observation_callback(agent, self.world).shape
@@ -221,6 +223,9 @@ class Env(BaseClass):
       agent.step(self._step)
       self.update_agent_state(agent)
 
+    for agent in self.agents:
+      agent._make_decisions_on_requests(action=action)
+
     communications = []
     for requester in self.agents:
       if requester.out_requests:
@@ -274,7 +279,6 @@ class Env(BaseClass):
 		'''
 		# event = {'agent_info': roomid_players[roomid][pid], }
 		# agent_info = {'': , '': , 'role': , 'enter_start_time': , 'human': }
-    print('event', event)
     agent_info = event['agent_info']
     uid = event['uid']
     event = event['event']

@@ -2,9 +2,18 @@
 
 <!-- [![PyPI](https://img.shields.io/pypi/v/crafter.svg)](https://pypi.python.org/pypi/crafter/#history) -->
 
-# Crafter
+This repo contains the following two main parts: a disaster resource allocation game and a collection of algorithms to solve this game.
 
-Open world survival game for evaluating a wide range of agent abilities within
+# Algorithms
+
+## Heuristic based
+
+## Model-free multi-agent
+
+## Model-based multi-agent
+
+# Disaster resource allocation game
+Crafter Open world survival game for evaluating a wide range of agent abilities within
 a single environment.
 
 ![]()

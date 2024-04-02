@@ -25,9 +25,9 @@
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
           <li class="sidebar-brand"><a href="#">Menu</a></li>
-          <li><a href="index.html">Main</a>
+          <li><a href="#" onclick="index('index.html')">Main</a>
             <script>
-              function redirectToInstruction(url) {
+              function index(url) {
                 window.location.href = '/';
               }
             </script>
@@ -57,7 +57,7 @@
         <div class="content-header">
           <h1>
             <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
-            Disaster Resource Allocation
+            Disaster Resource Allocation Game
           </h1>
         </div>
         <!-- Keep all page content within the page-content inset div! -->
@@ -73,10 +73,8 @@
               <p class="lead">Your primary objective is to save as many lives as possible while efficiently managing and minimizing the utilization of resources and communications. 
                 As you embark on this mission, you can choose a role of a manager for the agencies outlined below.</p>
 
-              <p class="lead">Understanding the rules outlined below will be crucial for making informed and effective decisions throughout the game.</p>
+              <p class="lead">Understanding the rules outlined in Instructions will be crucial for making informed and effective decisions throughout the game.</p>
             </div>
-
-
 
 
           </div>
@@ -86,7 +84,7 @@
             <h2>Waiting Room</h2>
             
             <div id="not_ready" align = "center">
-                <p>When you are ready to start, please click the "Ready" button. </p> 
+                <p>When you are ready to start, please click either the "Easy" or the "Hard" button (for different modes). </p> 
                 <button name="ready-button" class="button-decorated" id="start-button-easy" type="button" onclick="redirectToChooseRolePage(id)">Easy</button>
 
                 <button name="ready-button" class="button-decorated" id="start-button-hard" type="button" onclick="redirectToChooseRolePage(id)">Hard</button>

@@ -130,7 +130,9 @@ defined more broadly.
 
 <!-- Baseline scores of various agents are available for Crafter, both with and without rewards. The scores are available in JSON format in the `scores` directory of the repository. For comparison, the score of human expert players is 50.5\%. The [baseline implementations](https://github.com/danijar/crafter-baselines) are available as a separate repository. -->
 
-<img src="https://github.com/danijar/crafter/raw/main/media/scores.png" width="400"/>
+<!-- <img src="https://github.com/danijar/crafter/raw/main/media/scores.png" width="400"/> -->
+
+## Join this project
 
 ## Questions
 

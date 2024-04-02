@@ -39,7 +39,7 @@ Trade-off:
 [CAMEL: Communicative Agents for "Mind" Exploration of Large Language Model Society](https://arxiv.org/pdf/2303.17760.pdf)
 
 Camel Multi-Agent Role-Playing Framework
-![CAMEL](documents/CAMEL.png width="50%" height="50%")
+![CAMEL](documents/CAMEL.png | width="50%" height="50%")
 
 # Disaster resource allocation game
 UI based on Crafter: Open world survival game for evaluating a wide range of agent abilities within

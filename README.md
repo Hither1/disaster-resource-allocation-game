@@ -22,7 +22,7 @@ supply chain management (some quite old literature)
 
 Simplied: 
 - multi-agent A2C
-- multi-agent SAC
+- 
 
 ### Model-based multi-agent
 [Model-based Multi-agent Policy Optimization with Adaptive Opponent-wise Rollouts](https://arxiv.org/pdf/2105.03363.pdf)

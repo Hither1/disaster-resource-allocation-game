@@ -23,6 +23,8 @@ supply chain management (some quite old literature)
 ### Model-based multi-agent
 [Model-based Multi-agent Policy Optimization with Adaptive Opponent-wise Rollouts](https://arxiv.org/pdf/2105.03363.pdf)
 
+![](documents/AORPO.png)
+
 # Disaster resource allocation game
 Crafter Open world survival game for evaluating a wide range of agent abilities within
 a single environment.

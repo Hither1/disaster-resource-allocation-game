@@ -40,9 +40,9 @@ Trade-off:
 
 Camel Multi-Agent Role-Playing Framework
 
-![CAMEL](documents/CAMEL.png | width="50%" height="50%")
+<!-- ![CAMEL](documents/CAMEL.png | width="50%" height="50%") -->
 
-<img src="documents/CAMEL.png" width="200" height="400" />
+<img src="documents/CAMEL.png" width="50%" height="50%" />
 
 # Disaster resource allocation game
 UI based on Crafter: Open world survival game for evaluating a wide range of agent abilities within

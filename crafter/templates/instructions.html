@@ -9,10 +9,10 @@
     <title>Game</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="static/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="static/css/simple-sidebar.css" rel="stylesheet">
+    <link href="../static/css/simple-sidebar.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
   </head>
@@ -25,21 +25,16 @@
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
           <li class="sidebar-brand"><a href="#">Menu</a></li>
-          <li><a href="index.html">Main</a>
+          <li><a href="#" onclick="index('index.html')">  Main</a>
             <script>
-              function redirectToInstruction(url) {
+              function index(url) {
                 window.location.href = '/';
               }
             </script>
           </li>
-
-          <li><a href="#" onclick="redirectToInstruction('instructions.html')">  Instructions</a></li>
-          <script>
-            function redirectToInstruction(url) {
-              window.location.href = '/instructions';
-            }
-          </script>
-
+          
+          <li><a href="templates/instructions.html">Instructions</a></li>
+          
           <li>
             <a href="#" onclick="redirectToContact('contact.html')">  Contact</a></li>
             <script>
@@ -48,7 +43,6 @@
               }
             </script>
           </li>
-          
         </ul>
       </div>
           
@@ -75,33 +69,69 @@
               <p class="lead">Understanding the rules outlined below will be crucial for making informed and effective decisions throughout the game.</p>
             </div>
 
-
-
-
-          </div>
-          
-          
-          <div id="ready-room" class="text-center">
-            <h2>Waiting Room</h2>
+            <h4>
+              <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
+              Resources
+            </h4>
+            <div class="col-md-4">
+              <p class="well">Food: 
+                Provide nutrition for the injured people and is therefore essential for their recovery. 
+                One injured people needs one food per day.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">Drink: 
+                Provide the injured people and is therefore essential for their recovery.
+                One injured people needs one water per day.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">Staff: 
+                They can take care of injured or collect food and drink.
+                One injured people needs one staff per day. Injured people needs 5 days to recover.
+              </p>
+            </div>
             
-            <div id="not_ready" align = "center">
-                <p>When you are ready to start, please click the "Ready" button. </p> 
-                <button name="ready-button" class="button-decorated" id="start-button-easy" type="button" onclick="redirectToChooseRolePage(id)">Easy</button>
+            
+            <h4>
+              <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
+              Roles
+            </h4>
+            <div class="col-md-4">
+              <p class="well">Shelter: 
+                You will directly deal with injured people. 
+                You need to decide when to request for resources and how much to order.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">Warehouse: 
+                You will control the distribution of food and drink to Shelter and Station.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">Station: 
+                You will manage the staff and decide on the allocation of them to Shelter or Warehouse.
+              </p>
+            </div>
 
-                <button name="ready-button" class="button-decorated" id="start-button-hard" type="button" onclick="redirectToChooseRolePage(id)">Hard</button>
-                <script>
-                  function redirectToChooseRolePage(id) {
-                    if (id === "start-button-easy"){
-                      window.location.href = '/easy/choose_role';
-                    }
-                    else {
-                      window.location.href = '/hard/choose_role';
-                    }
-                    
-                  }
-                </script>
+            <div class="col-md-4">
+              <p class="well">Kitchen: 
+                You need to decide when to request for resources and how much to order.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">Clinic: 
+                You will control the distribution of food and drink to Shelter and Station.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">Volunteers: 
+                You will manage the staff and decide on the allocation of them to Shelter or Warehouse.
+              </p>
             </div>
           </div>
+          
+
 
           Designed with respect to DRMS Participant Workbook.
 

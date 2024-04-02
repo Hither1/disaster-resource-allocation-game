@@ -24,7 +24,6 @@ from fastapi.templating import Jinja2Templates
 import socketio
 import asyncio
 
-
 #asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 app = FastAPI()
 

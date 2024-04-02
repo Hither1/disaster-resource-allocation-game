@@ -1,4 +1,5 @@
 const strings = [
+  'Initial Response: You knew it was coming. This episode is the start of a disaster relief operation. Your team will be managing the initial response. You will receive a separate situation report and task assignment sheet.',
   'Scaling Up & Transition of Responsibilities',
   'Identify Total Requirements: Identify service delivery requirements for the total operation.',
   'Project Anticipated Costs:  In addition to managing the relief operation, for this exercise, you are being asked to project you anticipated costs of direct and support services by completing a budget development worksheet.',
@@ -368,7 +369,7 @@ setupInformationPanelToggle();
 console.log("VERSION 1.6.0");
 
 function updateScoreBoard(scores) {
-  document.getElementById('reward').innerHTML = 'Points: ' + scores['reward'].toString();
+  document.getElementById('reward').innerHTML = 'Team Reward: ' + scores['reward'].toString();
   document.getElementById('food').innerHTML = 'Food: ' + scores['food'].toString();
   document.getElementById('drink').innerHTML = 'Drink: ' + scores['drink'].toString();
   document.getElementById('staff').innerHTML = 'Staff: ' + scores['staff'].toString();
@@ -376,11 +377,11 @@ function updateScoreBoard(scores) {
   // document.getElementById('injured').innerHTML = 'Injured: ' + scores['injured'].toString();
   var deathElement = document.getElementById('death');
   if (deathElement) {
-    deathElement.innerHTML = 'Points: ' + scores['death'].toString();
+    deathElement.innerHTML = 'Death: ' + scores['death'].toString();
   }
   var injuredElement = document.getElementById('injured');
   if (injuredElement) {
-    injuredElement.innerHTML = 'Points: ' + scores['injured'].toString();
+    injuredElement.innerHTML = 'Injured: ' + scores['injured'].toString();
   }
 }
 

@@ -23,7 +23,13 @@ supply chain management (some quite old literature)
 ### Model-based multi-agent
 [Model-based Multi-agent Policy Optimization with Adaptive Opponent-wise Rollouts](https://arxiv.org/pdf/2105.03363.pdf)
 
-![](documents/AORPO.png)
+Trade-off:		
+
+- Rollouts too short → accurate opponent models not fully utilized → low sample efficiency. 
+- Rollouts too long → inaccurate opponent models depart the rollouts from the real trajectory distribution heavily → degraded performance in the environment and low sample efficiency. 
+![AORPO](documents/AORPO.png)
+
+### Language multi-agent
 
 # Disaster resource allocation game
 Crafter Open world survival game for evaluating a wide range of agent abilities within

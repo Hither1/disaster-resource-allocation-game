@@ -27,6 +27,9 @@ except ImportError:
     raise ImportError("""Error occurred while running `from pyglet.gl import ...`
             HINT: make sure you have OpenGL install. On Ubuntu, you can run 'apt-get install python-opengl'. If you're running on a server, you may need a virtual frame buffer; something like this should work: 'xvfb-run -s \"-screen 0 1400x900x24\" python <your_script.py>'""")
 
+    # reraise(suffix="encies and not have to think about it, 'pip install -e .[all]' or 'pip install gym[all]' will do it.")
+    # reraise(prefix="`from pyglet.gl import *`",suffix="HINT: make sure you have OpenGL install. On Ubuntu, you can run 'apt-get install python-opengl'. If you're running on a server, you may need a virtual frame buffer; something like this should work: 'xvfb-run -s \"-screen 0 1400x900x24\" python <your_script.py>'")
+
 
 if "Apple" in sys.version:
     if 'DYLD_FALLBACK_LIBRARY_PATH' in os.environ:
@@ -396,7 +399,7 @@ class Line(Geom):
         glVertex2f(*self.start)
         glVertex2f(*self.end)
         glEnd()
-
+    
 
 class Image(Geom):
     def __init__(self, fname, width, height):
@@ -409,7 +412,7 @@ class Image(Geom):
 
     def render1(self):
         self.img.blit(-self.width / 2, -self.height / 2, width=self.width, height=self.height)
-
+        # self.img.blit(-self.width / 2, -self.height / 2, width=self.width, height=self.height)
 
 class SimpleImageViewer:
     def __init__(self, display=None):
@@ -442,27 +445,13 @@ class SimpleImageViewer:
 
 
 ##################################
-if "Apple" in sys.version:
-    if 'DYLD_FALLBACK_LIBRARY_PATH' in os.environ:
-        os.environ['DYLD_FALLBACK_LIBRARY_PATH'] += ':/usr/lib'
 
 
 
 
-try:
-    import pyglet
-except ImportError as e:
-    reraise(suffix="HINT: you can install pyglet directly via 'pip install pyglet'. But if you really just want to install all Gym dependencies and not have to think about it, 'pip install -e .[all]' or 'pip install gym[all]' will do it.")
 
-try:
-    from pyglet.gl import *
-except ImportError as e:
-    reraise(prefix="Error occured while running `from pyglet.gl import *`",suffix="HINT: make sure you have OpenGL install. On Ubuntu, you can run 'apt-get install python-opengl'. If you're running on a server, you may need a virtual frame buffer; something like this should work: 'xvfb-run -s \"-screen 0 1400x900x24\" python <your_script.py>'")
 
-import math
-import numpy as np
 
-RAD2DEG = 57.29577951308232
 
 def get_display(spec):
     """Convert a display specification (such as :0) into an actual Display
@@ -491,9 +480,7 @@ class Viewer(object):
         self.transform = Transform()
 
         glEnable(GL_BLEND)
-        # glEnable(GL_MULTISAMPLE)
         glEnable(GL_LINE_SMOOTH)
-        # glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE)
         glHint(GL_LINE_SMOOTH_HINT, GL_NICEST)
         glLineWidth(2.0)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
@@ -681,12 +668,9 @@ def make_circle(radius=10, res=30, filled=True):
     else:
         return PolyLine(points, True)
 
-def make_polygon(v, filled=True):
-    if filled: return FilledPolygon(v)
-    else: return PolyLine(v, True)
 
-def make_polyline(v):
-    return PolyLine(v, False)
+
+
 
 def make_capsule(length, width):
     l, r, t, b = 0, length, width/2, -width/2
@@ -722,30 +706,9 @@ class PolyLine(Geom):
     def set_linewidth(self, x):
         self.linewidth.stroke = x
 
-class Line(Geom):
-    def __init__(self, start=(0.0, 0.0), end=(0.0, 0.0)):
-        Geom.__init__(self)
-        self.start = start
-        self.end = end
-        self.linewidth = LineWidth(1)
-        self.add_attr(self.linewidth)
 
-    def render1(self):
-        glBegin(GL_LINES)
-        glVertex2f(*self.start)
-        glVertex2f(*self.end)
-        glEnd()
 
-class Image(Geom):
-    def __init__(self, fname, width, height):
-        Geom.__init__(self)
-        self.width = width
-        self.height = height
-        img = pyglet.image.load(fname)
-        self.img = img
-        self.flip = False
-    def render1(self):
-        self.img.blit(-self.width/2, -self.height/2, width=self.width, height=self.height)
+
 
 class SimpleImageViewer(object):
     def __init__(self, display=None):

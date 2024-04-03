@@ -146,6 +146,8 @@ defined more broadly.
 
 ## Join this project
 
+Please fill in this [google form](https://forms.gle/x1TtBQNmswAFnMxk8).
+
 ## Questions
 
 Please [open an issue][issues] on Github.

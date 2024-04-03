@@ -7,9 +7,9 @@ This repo contains the following two main parts: a disaster resource allocation 
 # Algorithms
 
 ### Heuristic-based
-supply chain management (some quite old literature)
+on supply chain management: base-stock policy
 
-References:
+References (some quite old literature):
 
 [Optimal policies for a multi-echelon inventory problem](http://dido.econ.yale.edu/~hes/pub/echelon1.pdf)
 
@@ -21,13 +21,15 @@ References:
 
 ### Model-free multi-agent
 
+We experiment with 2 variants: 
+- multi-agent A2C
+- 
+
 References:
 
 [TOM2C: TARGET-ORIENTED MULTI-AGENT COMMUNICATION AND COOPERATION WITH THEORY OF MIND](https://arxiv.org/pdf/2111.09189.pdf)
 
-Simplied: 
-- multi-agent A2C
-- 
+
 
 ### Model-based multi-agent
 
@@ -43,6 +45,8 @@ Trade-off:
 ![AORPO](documents/AORPO.png)
 
 ### Language multi-agent
+
+References:
 
 [CAMEL: Communicative Agents for "Mind" Exploration of Large Language Model Society](https://arxiv.org/pdf/2303.17760.pdf)
 

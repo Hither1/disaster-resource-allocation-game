@@ -17,6 +17,11 @@ register(
     max_episode_steps=100,
 )
 
+# register(
+#     id='MultiagentSimple-v0',
+#     # FIXME(cathywu) currently has to be exactly max_path_length parameters in
+
+
 """
 Code for creating a multiagent environment with one of the scenarios listed
 in ./scenarios/.

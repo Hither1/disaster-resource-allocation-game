@@ -9,6 +9,8 @@ This repo contains the following two main parts: a disaster resource allocation 
 ### Heuristic-based
 supply chain management (some quite old literature)
 
+References:
+
 [Optimal policies for a multi-echelon inventory problem](http://dido.econ.yale.edu/~hes/pub/echelon1.pdf)
 
 [Lower bounds for multi-echelon stochastic inventory systems](https://pubsonline.informs.org/doi/abs/10.1287/mnsc.40.11.1426)
@@ -18,6 +20,9 @@ supply chain management (some quite old literature)
 [Newsvendor bounds and heuristic for optimal policies in serial supply chains.](https://www.researchgate.net/publication/220534493_Newsvendor_Bounds_and_A_Heuristic_for_Optimal_Policies_in_Serial_Supply_Chains)
 
 ### Model-free multi-agent
+
+References:
+
 [TOM2C: TARGET-ORIENTED MULTI-AGENT COMMUNICATION AND COOPERATION WITH THEORY OF MIND](https://arxiv.org/pdf/2111.09189.pdf)
 
 Simplied: 
@@ -25,6 +30,9 @@ Simplied:
 - 
 
 ### Model-based multi-agent
+
+References:
+
 [Model-based Multi-agent Policy Optimization with Adaptive Opponent-wise Rollouts](https://arxiv.org/pdf/2105.03363.pdf)
 
 Trade-off:		

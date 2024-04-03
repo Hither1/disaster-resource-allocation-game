@@ -511,6 +511,14 @@ async def on_leave(sid, *args, **kwargs):
 async def index(request:Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+@app.get("/instructions", response_class=HTMLResponse)
+async def instructions(request:Request):
+    return templates.TemplateResponse("/instructions.html", {"request": request})
+
+@app.get("/contact", response_class=HTMLResponse)
+async def instructions(request:Request):
+    return templates.TemplateResponse("/contact.html", {"request": request})
+
 @app.get("/easy/choose_role", response_class=HTMLResponse)
 async def choose_role(request:Request):
     return templates.TemplateResponse("easy/choose_role.html", {"request": request})

@@ -116,7 +116,11 @@ class Agency:
     """
     self._communication = 0
     order = {}
-    if action and isinstance(action[0], np.ndarray):
+    if action and self.mode == 'human': # Human player
+      for key, value in action.items():
+        if 'request' in key:
+          order[key.replace('request-', '')] = int(value)
+    elif action and isinstance(action[0], np.ndarray):
       action = action[self.agentNum].reshape(len(self.inventory.keys()) * 2, -1)
       action = np.argmax(action, axis=1)
       action[self.action_mask == 0] = 0
@@ -124,10 +128,7 @@ class Agency:
       for idx, resource in enumerate(self.inventory.keys()):
         order[resource] = action[1][idx]
 
-    elif action and self.mode == 'human': # Human player
-      for key, value in action.items():
-        if 'request' in key:
-          order[key.replace('request-', '')] = int(value)
+    
 
     # AI player
     elif self.strategy == 'bs':

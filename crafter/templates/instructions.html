@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Chloe Su">
+
+    <title>Game</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="../static/css/simple-sidebar.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+  
+    <div id="wrapper">
+      
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-brand"><a href="#">Menu</a></li>
+          <li><a href="#" onclick="index('index.html')">  Main</a>
+            <script>
+              function index(url) {
+                window.location.href = '/';
+              }
+            </script>
+          </li>
+          
+          <li><a href="templates/instructions.html">Instructions</a></li>
+          
+          <li>
+            <a href="#" onclick="redirectToContact('contact.html')">  Contact</a></li>
+            <script>
+              function redirectToContact(url) {
+              window.location.href = '/contact';
+              }
+            </script>
+          </li>
+        </ul>
+      </div>
+          
+      <!-- Page content -->
+      <div id="page-content-wrapper">
+        <div class="content-header">
+          <h1>
+            <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
+            Disaster Resource Allocation
+          </h1>
+        </div>
+        <!-- Keep all page content within the page-content inset div! -->
+        <div class="page-content inset">
+          <div class="row">
+            <div class="col-md-12">
+              <p class="lead">Welcome to a straightforward yet insightful game that sheds light on the critical concept of resource allocation in disaster response scenarios.</p>
+
+              <p class="lead">In this engaging experience, 
+                you will work collaboratively with specially programmed agents to strategically allocate resources in the aftermath of a disaster.</p>
+
+              <p class="lead">Your primary objective is to save as many lives as possible while efficiently managing and minimizing the utilization of resources and communications. 
+                As you embark on this mission, you can choose a role of a manager for the agencies outlined below.</p>
+
+              <p class="lead">Understanding the rules outlined below will be crucial for making informed and effective decisions throughout the game.</p>
+            </div>
+
+            <h4>
+              <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
+              Resources
+            </h4>
+            <div class="col-md-4">
+              <p class="well">Food: 
+                Provide nutrition for the injured people and is therefore essential for their recovery. 
+                One injured people needs one food per day.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">Drink: 
+                Provide the injured people and is therefore essential for their recovery.
+                One injured people needs one water per day.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">Staff: 
+                They can take care of injured or collect food and drink.
+                One injured people needs one staff per day. Injured people needs 5 days to recover.
+              </p>
+            </div>
+            
+            
+            <h4>
+              <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
+              Roles
+            </h4>
+            <div class="col-md-4">
+              <p class="well">Shelter: 
+                You will directly deal with injured people. 
+                You need to decide when to request for resources and how much to order.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">Warehouse: 
+                You will control the distribution of food and drink to Shelter and Station.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">Station: 
+                You will manage the staff and decide on the allocation of them to Shelter or Warehouse.
+              </p>
+            </div>
+
+            <div class="col-md-4">
+              <p class="well">Kitchen: 
+                You need to decide when to request for resources and how much to order.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">Clinic: 
+                You will control the distribution of food and drink to Shelter and Station.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">Volunteers: 
+                You will manage the staff and decide on the allocation of them to Shelter or Warehouse.
+              </p>
+            </div>
+          </div>
+          
+
+
+          Designed with respect to DRMS Participant Workbook.
+
+        </div>
+      </div>
+      
+    </div>
+	
+    <!-- JavaScript -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <!-- <script src="js/bootstrap.js"></script> -->
+
+    <!-- Custom JavaScript for the Menu Toggle -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+    });
+    </script>
+  </body>
+</html>

@@ -20,11 +20,32 @@ supply chain management (some quite old literature)
 ### Model-free multi-agent
 [TOM2C: TARGET-ORIENTED MULTI-AGENT COMMUNICATION AND COOPERATION WITH THEORY OF MIND](https://arxiv.org/pdf/2111.09189.pdf)
 
+Simplied: 
+- multi-agent A2C
+- 
+
 ### Model-based multi-agent
 [Model-based Multi-agent Policy Optimization with Adaptive Opponent-wise Rollouts](https://arxiv.org/pdf/2105.03363.pdf)
 
+Trade-off:		
+
+- Rollouts too short → accurate opponent models not fully utilized → low sample efficiency. 
+- Rollouts too long → inaccurate opponent models depart the rollouts from the real trajectory distribution heavily → degraded performance in the environment and low sample efficiency. 
+
+![AORPO](documents/AORPO.png)
+
+### Language multi-agent
+
+[CAMEL: Communicative Agents for "Mind" Exploration of Large Language Model Society](https://arxiv.org/pdf/2303.17760.pdf)
+
+Camel Multi-Agent Role-Playing Framework
+
+<!-- ![CAMEL](documents/CAMEL.png | width="50%" height="50%") -->
+
+<img src="documents/CAMEL.png" width="70%" height="70%" />
+
 # Disaster resource allocation game
-Crafter Open world survival game for evaluating a wide range of agent abilities within
+UI based on Crafter: Open world survival game for evaluating a wide range of agent abilities within
 a single environment.
 
 ![]()
@@ -76,7 +97,7 @@ defined more broadly.
 
 ### Reinforcement Learning
 
-| Algorithm | Score (%) | Reward | Open Source |
+<!-- | Algorithm | Score (%) | Reward | Open Source |
 |:----------|----------:|-------:|:-----------:|
 | [Curious Replay](https://arxiv.org/pdf/2306.15934.pdf) | 19.4±1.6 | - | [AutonomousAgentsLab/cr-dv3](https://github.com/AutonomousAgentsLab/cr-dv3) |
 | [PPO (ResNet)](https://arxiv.org/pdf/2307.03486.pdf)| 15.6±1.6 | 10.3±0.5 | [snu-mllab/Achievement-Distillation](https://github.com/snu-mllab/Achievement-Distillation) 
@@ -86,38 +107,35 @@ defined more broadly.
 | [OC-SA](https://arxiv.org/pdf/2208.03374.pdf) | 11.1±0.7 | — | [astanic/crafter-ood](https://github.com/astanic/crafter-ood) |
 | [DreamerV2](https://arxiv.org/pdf/2010.02193.pdf) | 10.0±1.2 | 9.0±1.7 | [danijar/dreamerv2](https://github.com/danijar/dreamerv2) |
 | [PPO](https://arxiv.org/pdf/1710.02298.pdf) | 4.6±0.3 | 4.2±1.2 | [DLR-RM/stable-baselines3](https://github.com/DLR-RM/stable-baselines3) |
-| [Rainbow](https://arxiv.org/pdf/1710.02298.pdf) | 4.3±0.2 | 6.0±1.3 | [Kaixhin/Rainbow](https://github.com/Kaixhin/Rainbow) |
+| [Rainbow](https://arxiv.org/pdf/1710.02298.pdf) | 4.3±0.2 | 6.0±1.3 | [Kaixhin/Rainbow](https://github.com/Kaixhin/Rainbow) | -->
 
 ### Unsupervised Agents
 
-| Algorithm | Score (%) | Reward | Open Source |
+<!-- | Algorithm | Score (%) | Reward | Open Source |
 |:----------|----------:|-------:|:-----------:|
 | [Plan2Explore](https://arxiv.org/pdf/2010.02193.pdf) | 2.1±0.1 | 2.1±1.5 | [danijar/dreamerv2](https://github.com/danijar/dreamerv2) |
 | [RND](https://arxiv.org/pdf/1810.12894.pdf) | 2.0±0.1 | 0.7±1.3 | [alirezakazemipour/PPO-RND](https://github.com/alirezakazemipour/PPO-RND) |
-| Random | 1.6±0.0 | 2.1±1.3 | — |
+| Random | 1.6±0.0 | 2.1±1.3 | — | -->
 
 ### External Knowledge
 
-| Algorithm | Score (%) | Reward | Uses | Interaction | Open Source |
+<!-- | Algorithm | Score (%) | Reward | Uses | Interaction | Open Source |
 |:----------|----------:|-------:|:-----|:-----------:|:-----------:|
 | [Human](https://en.wikipedia.org/wiki/Human) | 50.5±6.8 | 14.3±2.3 | Life experience | 0 | [crafter_human_dataset](https://archive.org/details/crafter_human_dataset) |
 | [SPRING](https://arxiv.org/pdf/2305.15486.pdf) | 27.3±1.2 | 12.3±0.7 | LLM, scene description, Crafter paper | 0 | ❌ |
 | [Achievement Distillation](https://arxiv.org/pdf/2307.03486.pdf) | 21.8±1.4 | 12.6±0.3 | Reward structure | 1M | [snu-mllab/Achievement-Distillation](https://github.com/snu-mllab/Achievement-Distillation) |
-| [ELLM](https://arxiv.org/pdf/2302.06692.pdf) | — | 6.0±0.4 | LLM, scene description | 5M | ❌ |
+| [ELLM](https://arxiv.org/pdf/2302.06692.pdf) | — | 6.0±0.4 | LLM, scene description | 5M | ❌ | -->
 
 ## Baselines
 
-Baseline scores of various agents are available for Crafter, both with and
-without rewards. The scores are available in JSON format in the `scores`
-directory of the repository. For comparison, the score of human expert players
-is 50.5\%. The [baseline
-implementations](https://github.com/danijar/crafter-baselines) are available as
-a separate repository.
+<!-- Baseline scores of various agents are available for Crafter, both with and without rewards. The scores are available in JSON format in the `scores` directory of the repository. For comparison, the score of human expert players is 50.5\%. The [baseline implementations](https://github.com/danijar/crafter-baselines) are available as a separate repository. -->
 
-<img src="https://github.com/danijar/crafter/raw/main/media/scores.png" width="400"/>
+<!-- <img src="https://github.com/danijar/crafter/raw/main/media/scores.png" width="400"/> -->
+
+## Join this project
 
 ## Questions
 
 Please [open an issue][issues] on Github.
 
-[issues]: https://github.com/danijar/crafter/issues
+[issues]: 

@@ -146,7 +146,7 @@ defined more broadly.
 
 ## Join this project
 
-Please fill in this [google form](https://forms.gle/x1TtBQNmswAFnMxk8).
+Please fill in this [google form](https://forms.gle/NvRKioSPaUsiva8i7).
 
 ## Questions
 

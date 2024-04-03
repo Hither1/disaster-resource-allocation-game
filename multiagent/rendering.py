@@ -412,7 +412,7 @@ class Image(Geom):
 
     def render1(self):
         self.img.blit(-self.width / 2, -self.height / 2, width=self.width, height=self.height)
-        # self.img.blit(-self.width / 2, -self.height / 2, width=self.width, height=self.height)
+        
 
 class SimpleImageViewer:
     def __init__(self, display=None):

@@ -42,7 +42,7 @@ model_hidden_dim: 512 # default=256, type=int
 ensemble_size: 8 # type=int
 MB_batch_size: 4096 # type=int, help="Batch size for model training"
 model_lr: 0.001 # type=float
-model_lr_schedule_steps: 8000 # nargs="+",  type=int,  default [], help="steps for model lr decreasing"
+model_lr_schedule_steps: [8000] # nargs="+",  type=int,  default [], help="steps for model lr decreasing"
 
 dynamics_model_update_step_interval: 3750 # 75 * 25 help="dynamics model update interval", type=int,
 

@@ -386,8 +386,8 @@ class Shelter(Agency):
         maxmium = constants.items[name]['max']
       self.inventory[name] = min(amount, maxmium)
 
-    print('Day:', _step, [patient.health for patient in self.patients], len(self.patients), 'Staff:', len(self.staff_team), self.inventory['food'], self.inventory['drink'])
-    print('      ', [patient._admitted_days for patient in self.patients])
+    # print('Day:', _step, [patient.health for patient in self.patients], len(self.patients), 'Staff:', len(self.staff_team), self.inventory['food'], self.inventory['drink'])
+    # print('      ', [patient._admitted_days for patient in self.patients])
 
   def _update_patient_inventory_stats(self):
     self.consumption = 0

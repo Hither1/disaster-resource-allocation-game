@@ -1,10 +1,3 @@
-import gym
-from gym import spaces
-from gym.envs.registration import EnvSpec
-import numpy as np
-from multiagent.multi_discrete import MultiDiscrete
-
-# environment for all agents in the multiagent world
 # currently code assumes that no agents will be created/destroyed at runtime!
 class MultiAgentEnv(gym.Env):
     metadata = {
@@ -27,7 +20,6 @@ class MultiAgentEnv(gym.Env):
         # set required vectorized gym env property
         self.n_agents = len(world.policy_agents)
         self.n_landmarks = len(world.landmarks)
-        # scenario callbacks
         self.reset_callback = reset_callback
         self.reward_callback = reward_callback
         self.observation_callback = observation_callback
@@ -161,13 +153,10 @@ class MultiAgentEnv(gym.Env):
         return obs_n, reward_n, done_n, info_n
 
     def reset(self):
-        # reset world
         self.reset_callback(self.world)
         # reset renderer
         self._reset_render()
-        # record observations for each agent
         obs_n = []
-        self.agents = self.world.policy_agents
         for agent in self.agents:
             obs_n.append(self._get_obs(agent))
         return obs_n
@@ -345,8 +334,6 @@ class MultiAgentEnv(gym.Env):
         pass
 
 
-# vectorized wrapper for a batch of multi-agent environments
-# assumes all environments have the same observation and action space
 class BatchMultiAgentEnv(gym.Env):
     metadata = {
         'runtime.vectorized': True,

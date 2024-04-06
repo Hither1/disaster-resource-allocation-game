@@ -156,11 +156,12 @@ class MA_Controller(BaseFramework):
                 If passed in, important quantities will be logged
         """
         loss_dict = self.agents[agent_i].update(sample)
+        new_dict = {}
         if loss_dict:
-            for key, value in loss_dict:
+            for key, value in loss_dict.items():
                 modified_key = "agent%i/losses/" % (agent_i) + key
-                loss_dict[modified_key] = loss_dict.pop(key)
-            wandb.log(loss_dict, step=logger_iter)
+                new_dict[modified_key] = value
+            wandb.log(new_dict, step=logger_iter)
 
     def get_dynamics_model(self, agent_i: int) -> Dict:
         assert isinstance(self.agents[agent_i], AgentMB), "get dynamics model"
@@ -199,12 +200,12 @@ class MA_Controller(BaseFramework):
             for e in range(epochs):
                 if isinstance(a, AgentOppMd):
                     opp_loss = a.update_opponent(sample)
-
+                    loss_dict = {}
                     if e == epochs - 1 and opp_loss:
-                        for key, value in opp_loss:
+                        for key, value in opp_loss.items():
                             modified_key = "agent%i/model_losses/" % (i) + key
-                            loss_dict[modified_key] = loss_dict.pop(key)
-                        wandb.log(opp_loss, step=logger_iter)
+                            loss_dict[modified_key] = value
+                        wandb.log(loss_dict, step=logger_iter)
 
     def rollout_models(
         self,

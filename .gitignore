@@ -4,6 +4,7 @@ None
 outputs
 data
 models
+AORPO
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

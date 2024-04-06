@@ -266,5 +266,5 @@ class optimizer_lr_multistep_scheduler:
             lr = self.optimizers[0].param_groups[0]["lr"]
 
             # self.logger.add_scalars("hypers/", {"model_lr": lr}, episode)
-            wandb.log("hypers/", {"model_lr": lr}, episode)
+            wandb.log({"hypers/model_lr": lr}, episode)
             print(f"decrease dynamics lr to {lr}")

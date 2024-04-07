@@ -192,7 +192,7 @@ class Agent(object):
     def reset(self):
         obs = self.env.reset()
         # self.state = torch.from_numpy(np.array(obs)).float().to(self.device)
-        self.state = torch.stack(obs).float().to(self.device)
+        self.state = obs.float().to(self.device) # torch.stack(obs)
         self.eps_len = 0
         self.eps_num += 1
         self.reset_rnn_hidden()

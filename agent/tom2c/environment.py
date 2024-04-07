@@ -7,8 +7,7 @@ def create_env(env_id, args, rank=-1):
     if 'RA' or 'IM' in env_id:  
         import multiagent.scenarios as scenarios
         scenario = scenarios.load(args.env + ".py").Scenario()
-        config = crafter.config.get_config(args)
-        world = scenario.make_world(config, args.num_agents, args.num_targets)
+        world, config = scenario.make_world()
         env = crafter.Env(config, world, None, scenario.reset_world, scenario.reward, scenario.global_reward, scenario.observation)
         env = crafter.Recorder(env, config.record, save_stats=True)
         env.reset()

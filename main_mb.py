@@ -491,7 +491,7 @@ def run(config) -> Dict:
 
 
 if __name__ == "__main__":
-    os.environ["WANDB_MODE"] = "disabled"
+    # os.environ["WANDB_MODE"] = "disabled"
     config1 = load_config("configs/model", "model_based")
     config2 = load_config("configs/exp", "leadtimes")
     config = OmegaConf.merge(config1, config2)

@@ -394,18 +394,19 @@ function updateCommHistory(scores) {
     { id: 2, playerName: 'Player2', message: 'Let\'s trade resources!' }
   ];
   const requestsList = document.getElementById('requests-list');
-  function renderRequests() {
-  requestsList.innerHTML = ''; // Clear existing list
 
+  function renderRequests() {
+    requestsList.innerHTML = ''; // Clear existing list
+    console.log(scores['requests']);
     scores['requests'].forEach(request => {
                         const li = document.createElement('li');
                         li.classList.add('request-item');
-                        li.innerHTML = `<strong>${request.playerName}:</strong> ${request.message}`;
+                        li.innerHTML = request; //`<strong>${request.playerName}:</strong> ${request.message}`;
                         requestsList.appendChild(li);
                         });
                     }
 
-                    renderRequests(); // Initial render
+  renderRequests(); // Initial render
 
 }
 

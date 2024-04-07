@@ -26,13 +26,33 @@
           stroke: #dc2b33;
       }
 
-      .hidden {
+        .hidden {
             background-color: #ccc; 
             border: 2px solid #ccc; /* Border style and color */
             border-radius: 5px; /* Rounded corners */
             padding: 10px; /* Space between input elements and border */
             margin-bottom: 20px; /* Optional margin for spacing */
         }
+
+        #requests-container {
+            position: fixed;
+            top: 200px;
+            right: 20px;
+            width: 300px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #requests-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.request-item {
+    margin-bottom: 5px;
+}
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js"
       integrity="sha512-+fimYMd9ssJlAt7SKeLD8bemPKamAAomwky9niJe6clQ5CD3xDVHvdNbgfr7NSJAQdhZxpTs0t68H4urqYbQog=="
@@ -79,6 +99,42 @@
               <div align="center">
                 <h3 id="narrative"> Initial Response: You knew it was coming. This episode is the start of a disaster relief operation. Your team will be managing the initial response. You will receive a separate situation report and task assignment sheet. </h2>
                 <img src="../static/images/simple/shelter.png" alt="Description of the image">
+                <div id="requests-container">
+                    <h3>My Requests</h3>
+                    <ul id="requests-list">
+                        <!-- Requests from other players will be added here -->
+                    </ul>
+                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                    const requestsData = [
+                        { id: 1, playerName: 'Player1', message: 'Can we team up?' },
+                        { id: 2, playerName: 'Player2', message: 'Let\'s trade resources!' }
+                    ];
+
+                    const requestsList = document.getElementById('requests-list');
+
+                    function renderRequests() {
+                        requestsList.innerHTML = ''; // Clear existing list
+
+                        requestsData.forEach(request => {
+                        const li = document.createElement('li');
+                        li.classList.add('request-item');
+                        li.innerHTML = `<strong>${request.playerName}:</strong> ${request.message}`;
+                        requestsList.appendChild(li);
+                        });
+                    }
+
+                    renderRequests(); // Initial render
+
+                    // Example: Add a new request (you can replace this with actual functionality)
+                    setTimeout(() => {
+                        requestsData.push({ id: 3, playerName: 'Player3', message: 'Looking for allies!' });
+                        renderRequests();
+                    }, 5000); // Simulating a new request after 5 seconds
+                    });
+                </script>
+
                   <h3>
                     <span id="episode"></span> |
                     <span id="reward">Team Reward: 0</span> |

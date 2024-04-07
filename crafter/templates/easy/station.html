@@ -33,6 +33,17 @@
             padding: 10px; /* Space between input elements and border */
             margin-bottom: 20px; /* Optional margin for spacing */
         }
+
+        #requests-container {
+            position: fixed;
+            top: 200px;
+            right: 20px;
+            width: 300px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js"
       integrity="sha512-+fimYMd9ssJlAt7SKeLD8bemPKamAAomwky9niJe6clQ5CD3xDVHvdNbgfr7NSJAQdhZxpTs0t68H4urqYbQog=="
@@ -78,6 +89,12 @@
               <div align="center">
                 <h3 id="narrative"> Initial Response: You knew it was coming. This episode is the start of a disaster relief operation. Your team will be managing the initial response. You will receive a separate situation report and task assignment sheet. </h2>
                 <img src="../static/images/simple/station.png" alt="Description of the image">
+                <div id="requests-container">
+                    <h3>Requests to Me</h3>
+                    <ul id="requests-list">
+                        <!-- Requests from other players will be added here -->
+                    </ul>
+                </div>
                   <h3>
                     <span id="episode"></span> |
                     <span id="reward">Points: 0</span> |

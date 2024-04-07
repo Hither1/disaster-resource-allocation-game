@@ -282,7 +282,6 @@ class Env(BaseClass):
     agent_info = event['agent_info']
     uid = event['uid']
     event = event['event']
-    # event_time = event['time']
     self._step += 1
     obs_n = []
 
@@ -296,7 +295,6 @@ class Env(BaseClass):
     communications = []
     for requester in self.agents:
       if requester.out_requests:
-        # print('out_requests', requester.out_requests)
         # TODO: make this more efficient and less hard-coding
         for request in requester.out_requests:
           communications.extend(requester.out_requests)
@@ -322,7 +320,7 @@ class Env(BaseClass):
     user_state['injured'] = len(self.user.patients)
     user_state['reward'] = r
 
-    return uid, user_state
+    return uid, user_state, requests
 
   def render(self, size=None):
     size = size or self._size

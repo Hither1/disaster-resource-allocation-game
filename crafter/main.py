@@ -368,7 +368,7 @@ async def gameLoop(roomid, episode):
             roomid_ep_userinputs[roomid][episode].append(temp_event)
             
             # change game state according to event
-            uid, agent_state = roomid_env[roomid].game_step(event)
+            uid, agent_state, requests = roomid_env[roomid].game_step(event)
             day += 1
             # update player state
             roomid_players[roomid][uid]['state'] = agent_state

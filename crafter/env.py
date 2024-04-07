@@ -130,6 +130,7 @@ class Env(BaseClass):
     elif userRole and userRole == "Station":
         self.user = self.world.station
         self.world.station.mode = "human"
+    self.user_communication_history = []
 
     for agent in self.world.agents:
       if agent.mode == "human":
@@ -299,11 +300,18 @@ class Env(BaseClass):
         for request in requester.out_requests:
           communications.extend(requester.out_requests)
 
+          if requester == self.user:
+            self.user_communication_history.extend(requester.out_requests)
+
           if 'return' in request:
             self.world.station.inventory['staff'] += int(re.findall(r'\d+', request)[0])
           else:
             self._chat_view.info.append(request)
             requestee = request.split('->')[1].split(':')[0]
+
+            if requestee == self.user:
+              self.user_communication_history.extend(request)
+
             for agent in self.world.agents:
               if agent.name == requestee:
                 agent.in_requests.append([requester, request.split(': ')[1]])
@@ -319,8 +327,9 @@ class Env(BaseClass):
     user_state['death'] = 10 # self.death
     user_state['injured'] = len(self.user.patients)
     user_state['reward'] = r
+    user_state['requests'] = self.user_communication_history[:-9]
 
-    return uid, user_state, requests
+    return uid, user_state
 
   def render(self, size=None):
     size = size or self._size

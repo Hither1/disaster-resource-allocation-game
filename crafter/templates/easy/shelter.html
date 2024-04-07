@@ -46,13 +46,13 @@
         }
 
         #requests-list {
-    list-style-type: none;
-    padding: 0;
-}
+            list-style-type: none;
+            padding: 0;
+        }
 
-.request-item {
-    margin-bottom: 5px;
-}
+        .request-item {
+            margin-bottom: 5px;
+        }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js"
       integrity="sha512-+fimYMd9ssJlAt7SKeLD8bemPKamAAomwky9niJe6clQ5CD3xDVHvdNbgfr7NSJAQdhZxpTs0t68H4urqYbQog=="
@@ -107,25 +107,6 @@
                 </div>
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
-                    const requestsData = [
-                        { id: 1, playerName: 'Player1', message: 'Can we team up?' },
-                        { id: 2, playerName: 'Player2', message: 'Let\'s trade resources!' }
-                    ];
-
-                    const requestsList = document.getElementById('requests-list');
-
-                    function renderRequests() {
-                        requestsList.innerHTML = ''; // Clear existing list
-
-                        requestsData.forEach(request => {
-                        const li = document.createElement('li');
-                        li.classList.add('request-item');
-                        li.innerHTML = `<strong>${request.playerName}:</strong> ${request.message}`;
-                        requestsList.appendChild(li);
-                        });
-                    }
-
-                    renderRequests(); // Initial render
 
                     // Example: Add a new request (you can replace this with actual functionality)
                     setTimeout(() => {
@@ -137,16 +118,24 @@
 
                   <h3>
                     <span id="episode"></span> |
-                    <span id="reward">Team Reward: 0</span> |
+                    <span id="reward">Team Reward: 0</span> 
+                    <br>
+
                     <span id="food">Food: 0</span> |
                     <span id="drink">Drink: 0</span> |
-                    <span id="staff">Staff: 0</span> |
+                    <span id="staff">Staff: 0</span> 
+                    <br>
+
+
                     <span id="death">Death: 0</span> |
                     <span id="injured">Injured: 0</span>
-                      <span id="block-map">
-                          <input type="checkbox" id="map" name="map" value="show_map" onclick="showMap(this)">
-                      </span>
-                      <span id="instructionsToggle" style="border-color: gray; border-width: 2px; padding: 6px; border-style: solid;cursor:pointer;">Show commands</span>
+                    
+                    <br>
+                    <br>
+                    <span id="block-map">
+                        <input type="checkbox" id="map" name="map" value="show_map" onclick="showMap(this)">
+                    </span>
+                    <span id="instructionsToggle" style="border-color: gray; border-width: 2px; padding: 6px; border-style: solid;cursor:pointer;">Show commands</span>
                   </h3>
                   <div id="userInputs" class="hidden">  
                     <h2>Request </h2> 
@@ -191,7 +180,6 @@
                                 inputValues[inputType] = inputElement.value;
                             }
                         );
-                        // // 2. Run env step
                         // // 3. If finished
                         // if (done) {
                         //     window.location.href = 'done.html';

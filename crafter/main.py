@@ -87,8 +87,8 @@ connections = {}
 player_roomid = {} #list room_id corresponding to userid
 roomid_event_queue = {}
 roomid_game_loops = {}
-roomid_players = {} #dictionary of rooms:{room1:{player1:{}, player2:{}}, room2:{player21:{'x', 'y'}, player22:{'x','y'}}}
-roomid_scoreboard = {} #dictionary of scores: {room1:{green:0, yellow:0, red:0}, room2:{green:0, yellow:0, red:0}}
+roomid_players = {} # dictionary of rooms:{room1:{player1:{}, player2:{}}, room2:{player21:{'x', 'y'}, player22:{'x','y'}}}
+roomid_scoreboard = {} # dictionary of scores: {room1:{green:0, yellow:0, red:0}, room2:{green:0, yellow:0, red:0}}
 roomid_env = {}
 roomid_start_time = {}
 roomid_cur_ep_players = {}
@@ -368,7 +368,7 @@ async def gameLoop(roomid, episode):
             roomid_ep_userinputs[roomid][episode].append(temp_event)
             
             # change game state according to event
-            uid, agent_state, requests = roomid_env[roomid].game_step(event)
+            uid, agent_state = roomid_env[roomid].game_step(event)
             day += 1
             # update player state
             roomid_players[roomid][uid]['state'] = agent_state

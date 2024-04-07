@@ -266,6 +266,7 @@ socket.on('start_game', function (msg) {
 
   socket.on('refresh', function (msg) {
     updateScoreBoard(msg['scoreboard'])
+    updateCommHistory(msg['scoreboard'])
     updateNarratives(msg['current_day'])
     time_left = msg['remaining_time']
 
@@ -383,6 +384,29 @@ function updateScoreBoard(scores) {
   if (injuredElement) {
     injuredElement.innerHTML = 'Injured: ' + scores['injured'].toString();
   }
+}
+
+
+function updateCommHistory(scores) {
+  // document.getElementById('').innerHTML = ': ' + scores[''].toString();
+  const requestsData = [
+    { id: 1, playerName: 'Player1', message: 'Can we team up?' },
+    { id: 2, playerName: 'Player2', message: 'Let\'s trade resources!' }
+  ];
+  const requestsList = document.getElementById('requests-list');
+  function renderRequests() {
+  requestsList.innerHTML = ''; // Clear existing list
+
+    scores['requests'].forEach(request => {
+                        const li = document.createElement('li');
+                        li.classList.add('request-item');
+                        li.innerHTML = `<strong>${request.playerName}:</strong> ${request.message}`;
+                        requestsList.appendChild(li);
+                        });
+                    }
+
+                    renderRequests(); // Initial render
+
 }
 
 function updateNarratives(day) {

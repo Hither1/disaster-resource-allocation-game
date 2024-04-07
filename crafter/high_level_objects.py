@@ -116,21 +116,22 @@ class Agency:
     """
     self._communication = 0
     order = {}
+
     if action and self.mode == 'human': # Human player
       for key, value in action.items():
         if 'request' in key:
           order[key.replace('request-', '')] = int(value)
-    elif action and isinstance(action[0], np.ndarray):
+
+    elif action and isinstance(action, np.ndarray):
       action = action[self.agentNum].reshape(len(self.inventory.keys()) * 2, -1)
       action = np.argmax(action, axis=1)
       action[self.action_mask == 0] = 0
       action = action.reshape(2, -1)
       for idx, resource in enumerate(self.inventory.keys()):
         order[resource] = action[1][idx]
-
     
 
-    # AI player
+    # AI player with goal
     elif self.strategy == 'bs':
       for resource in self.inventory.keys():
         if self.config.demandDistribution == 2:
@@ -141,10 +142,10 @@ class Agency:
             self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)-\
 								max(0, (self.base_stock[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
         else:
-          # self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)-\
-					# 		max(0, (self.base_stock[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
           self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)-\
-							max(0, (goal[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
+							max(0, (self.base_stock[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
+          # self.action = np.argmin(np.abs(np.array(self.config.actionListOpt)-\
+					# 		max(0, (goal[resource] - (self.inventory[resource] + self.OO[resource] - self.AO[resource][self.curTime]))) ))
           
         if self.action > 0: order[resource] = self.action
 

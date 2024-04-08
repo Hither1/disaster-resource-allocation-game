@@ -327,6 +327,7 @@ class Env(BaseClass):
     user_state['death'] = 10 # self.death
     user_state['injured'] = len(self.user.patients)
     user_state['reward'] = r
+    print('user_communication_history', self.user_communication_history)
     user_state['requests'] = self.user_communication_history[:-9]
 
     return uid, user_state

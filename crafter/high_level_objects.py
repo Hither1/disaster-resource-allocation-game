@@ -163,7 +163,7 @@ class Agency:
     for resource, quantity in order.items():
       if quantity <= 0:
         next 
-      if resource in ['food', 'drink'] :
+      elif resource in ['food', 'drink'] :
         self.OO[resource] += quantity
         request += str(quantity) + ' ' + resource + ' '
       elif resource == 'med_kit':

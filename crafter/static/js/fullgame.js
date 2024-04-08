@@ -393,8 +393,9 @@ function updateCommHistory(scores) {
     { id: 1, playerName: 'Player1', message: 'Can we team up?' },
     { id: 2, playerName: 'Player2', message: 'Let\'s trade resources!' }
   ];
-  const requestsList = document.getElementById('requests-list');
+  var requestsList = document.getElementById('requests-list');
 
+  console.log('requests', scores['requests']);
   function renderRequests() {
     requestsList.innerHTML = ''; // Clear existing list
     console.log(scores['requests']);

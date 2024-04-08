@@ -1,5 +1,6 @@
 import collections
-from crafter import high_level_objects
+# from crafter import high_level_objects
+from crafter import high_level_objects_low_obs as high_level_objects
 
 import numpy as np
 import torch

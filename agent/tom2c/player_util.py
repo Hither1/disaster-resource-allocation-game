@@ -118,7 +118,7 @@ class Agent(object):
                         "available_actions": available_actions_data}
         real_goals = torch.cat((1-actions,actions),-1)
         ToM_data = {"state":self.state.detach().cpu().numpy(), 
-                    # "poses":self.poses.detach().cpu().numpy(), 
+                    # "poses": self.poses.detach().cpu().numpy(), 
                     "mask":self.mask.detach().cpu().numpy(),\
                     "real":real_goals.detach().cpu().numpy(), 
                     "available_actions": available_actions_data}
@@ -127,7 +127,8 @@ class Agent(object):
 
         if isinstance(self.done, list): self.done = np.sum(self.done)
         # self.state = torch.from_numpy(np.array(state_multi)).float().to(self.device)
-        self.state = torch.stack(state_multi).float().to(self.device)
+        # self.state = torch.stack(state_multi).float().to(self.device)
+        self.state = state_multi.float().to(self.device)
         self.reward = torch.tensor(reward_multi).float().to(self.device)
         self.eps_len += 1
 
@@ -178,7 +179,8 @@ class Agent(object):
         state_multi, self.reward, self.done, self.info = self.env.step(actions) #, obstacle=True)
         if isinstance(self.done, list): self.done = np.sum(self.done)
         # self.state = torch.from_numpy(np.array(state_multi)).float().to(self.device)
-        self.state = torch.stack(state_multi).float().to(self.device)
+        # self.state = torch.stack(state_multi).float().to(self.device)
+        self.state = state_multi.float().to(self.device)
         
         self.eps_len += 1
 

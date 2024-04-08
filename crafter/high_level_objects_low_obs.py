@@ -207,21 +207,14 @@ class Agency:
 
   def getCurState(self, goal, t=None):
     if t is None: t = self.curTime
-    if self.config.ifUseASAO:
-      if self.config.if_use_AS_t_plus_1:
-        curState = np.array([[-1*(self.inventory[resource]<0)*self.inventory[resource], 
-                              1*(self.inventory[resource]>0)*self.inventory[resource], 
-                              self.OO[resource], 
-                              self.AS[resource][t], 
-                              self.AO[resource][t]] for resource in self.base_stock])
-      else:
-        curState = np.array([[self.inventory[resource], 
-                              self.OO[resource], 
-                              self.AS[resource][t-1], 
-                              self.AO[resource][t]] for resource in self.inventory])
-    else:
-      curState = np.array([[self.inventory[resource], 
-                            self.OO[resource]] for resource in self.base_stock])
+    # if self.config.ifUseASAO:
+    #     curState = np.array([[self.inventory[resource], 
+    #                           self.OO[resource], 
+    #                           self.AS[resource][t-1], 
+    #                           self.AO[resource][t]] for resource in self.inventory])
+    # else:
+    import pdb; pdb.set_trace()
+    curState = np.array([[self.inventory[resource] - self.OO[resource]] for resource in self.base_stock])
 
     if self.config.ifUseActionInD:
       a = self.config.actionList[np.argmax(self.action)]

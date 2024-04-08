@@ -302,7 +302,8 @@ class Env(BaseClass):
           communications.extend(requester.out_requests)
 
           if requester == self.user:
-            self.user_communication_history.extend(requester.out_requests)
+            self.user_communication_history.append(request)
+            print(self.user_communication_history)
 
           if 'return' in request:
             self.world.station.inventory['staff'] += int(re.findall(r'\d+', request)[0])
@@ -311,7 +312,8 @@ class Env(BaseClass):
             requestee = request.split('->')[1].split(':')[0]
 
             if requestee == self.user:
-              self.user_communication_history.extend(request)
+              self.user_communication_history.append(request)
+              print(self.user_communication_history)
 
             for agent in self.world.agents:
               if agent.name == requestee:
@@ -328,8 +330,7 @@ class Env(BaseClass):
     user_state['death'] = 10 # self.death
     user_state['injured'] = len(self.user.patients)
     user_state['reward'] = r
-    print('user_communication_history', self.user_communication_history)
-    user_state['requests'] = self.user_communication_history[:-9]
+    user_state['requests'] = self.user_communication_history[-9:]
 
     return uid, user_state
 

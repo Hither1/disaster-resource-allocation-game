@@ -84,9 +84,7 @@ class Env(BaseClass):
       self.state_dim = 2
     if config.ifUseActionInD:
       self.state_dim += 1
-
     self.state_dim = (len(self.agents[0].inventory.keys()), self.state_dim)
-    self.state_dim = (len(self.agents[0].inventory.keys()), 1)
     # self.state_dim *= len(self.agents[0].inventory.keys())
     self.shared_reward = True # world.collaborative if hasattr(world, 'collaborative') else False
 
@@ -227,9 +225,8 @@ class Env(BaseClass):
       agent.step(self._step)
       self.update_agent_state(agent)
 
-    # used in model-based, TODO: standardize the env_wrapper interface
-    # for agent in self.agents:
-    #   agent._make_decisions_on_requests(action=action)
+    for agent in self.agents:
+      agent._make_decisions_on_requests(action=action)
 
     communications = []
     for requester in self.agents:
@@ -305,7 +302,7 @@ class Env(BaseClass):
           communications.extend(requester.out_requests)
 
           if requester == self.user:
-            self.user_communication_history.extend(requester.out_requests)
+            self.user_communication_history.append(request)
 
           if 'return' in request:
             self.world.station.inventory['staff'] += int(re.findall(r'\d+', request)[0])
@@ -314,7 +311,7 @@ class Env(BaseClass):
             requestee = request.split('->')[1].split(':')[0]
 
             if requestee == self.user:
-              self.user_communication_history.extend(request)
+              self.user_communication_history.append(request)
 
             for agent in self.world.agents:
               if agent.name == requestee:
@@ -331,8 +328,7 @@ class Env(BaseClass):
     user_state['death'] = 10 # self.death
     user_state['injured'] = len(self.user.patients)
     user_state['reward'] = r
-    print('user_communication_history', self.user_communication_history)
-    user_state['requests'] = self.user_communication_history[:-9]
+    user_state['requests'] = self.user_communication_history[-9:]
 
     return uid, user_state
 

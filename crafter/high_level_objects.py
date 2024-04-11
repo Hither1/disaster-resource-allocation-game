@@ -119,7 +119,7 @@ class Agency:
 
     if action and self.mode == 'human': # Human player
       for key, value in action.items():
-        if 'request' in key:
+        if 'request' in key and int(value) > 0:
           order[key.replace('request-', '')] = int(value)
 
     elif action and isinstance(action, np.ndarray):
@@ -186,6 +186,7 @@ class Agency:
       self.out_requests.append(request)
       self._communication += 1
     
+    print(self, self.out_requests)
     self.cumReward = self.gamma * self.cumReward + self.curReward
     self.curTime += 1
 

@@ -395,7 +395,6 @@ function updateCommHistory(scores) {
   ];
   var requestsList = document.getElementById('requests-list');
 
-  console.log('requests', scores['requests']);
   function renderRequests() {
     requestsList.innerHTML = ''; // Clear existing list
     console.log(scores['requests']);

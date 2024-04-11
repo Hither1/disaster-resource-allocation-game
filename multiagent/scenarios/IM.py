@@ -2,7 +2,8 @@
 Scenario for inventory management.
 """
 
-from crafter import high_level_objects
+# from crafter import high_level_objects
+from crafter import high_level_objects_low_obs as high_level_objects
 import numpy as np
 from multiagent.core import Agent, Landmark
 from multiagent.scenario import BaseScenario
@@ -73,9 +74,13 @@ class Scenario(BaseScenario):
         # world.landmarks = [[0, 50, 0, 0, 50, 0, 0, 20, 0],
         #                    [0, 30, 0, 0, 30, 0, 0, 12, 0], 
         #                    [0, 2, 0, 0, 2, 0, 0, 1, 0]]
-        world.landmarks = [[[40, 0, 0, 0], [40, 0, 0, 0], [15, 0, 0, 0]], 
-                           [[50, 0, 0, 0], [50, 0, 0, 0], [0, 0, 0, 0]],
-                           [[2, 0, 0, 0],  [2, 0, 0, 0], [1, 0, 0, 0]]]
+        # world.landmarks = [[[40, 0, 0, 0], [40, 0, 0, 0], [15, 0, 0, 0]], 
+        #                    [[50, 0, 0, 0], [50, 0, 0, 0], [0, 0, 0, 0]],
+        #                    [[2, 0, 0, 0],  [2, 0, 0, 0], [1, 0, 0, 0]]]
+
+        world.landmarks = [[[40], [40], [15]], 
+                           [[50], [50], [0]],
+                           [[2],  [2], [1]]]
         # make initial conditions
         world = self.reset_world(world)
         

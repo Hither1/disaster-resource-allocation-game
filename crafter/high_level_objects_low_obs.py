@@ -205,7 +205,7 @@ class Agency:
     self.staff_team = []
     self.patients = []
 
-  def getCurState(self, goal, t=None):
+  def getCurState(self, t=None):
     if t is None: t = self.curTime
     # if self.config.ifUseASAO:
     #     curState = np.array([[self.inventory[resource], 
@@ -213,8 +213,7 @@ class Agency:
     #                           self.AS[resource][t-1], 
     #                           self.AO[resource][t]] for resource in self.inventory])
     # else:
-    import pdb; pdb.set_trace()
-    curState = np.array([[self.inventory[resource] - self.OO[resource]] for resource in self.base_stock])
+    curState = np.array([[self.AO[resource][t] - self.inventory[resource]] for resource in self.inventory])
 
     if self.config.ifUseActionInD:
       a = self.config.actionList[np.argmax(self.action)]

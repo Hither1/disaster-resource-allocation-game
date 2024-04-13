@@ -22,8 +22,10 @@ References (some quite old literature):
 ### Model-free multi-agent
 
 We experiment with 2 variants: 
-- multi-agent A2C
-- 
+- A2C
+- DQN
+  - 
+- PPO
 
 References:
 

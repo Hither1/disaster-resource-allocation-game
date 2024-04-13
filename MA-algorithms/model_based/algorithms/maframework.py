@@ -101,7 +101,6 @@ class MA_Controller(BaseFramework):
         self.total_difficulty = 0
         self.agent_difficulties = []
         for i, a in enumerate(self.agents):
-            print("agent", i, a.alg_type)
             self.total_difficulty += a.dim_in_pol + a.dim_out_pol
             self.agent_difficulties.append(a.dim_in_pol + a.dim_out_pol)
 

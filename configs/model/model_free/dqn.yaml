@@ -1,0 +1,45 @@
+# DQN Parameters
+e: 1000000 # '--episode-number', default=, type=int, help='Number of episodes'
+l:  # '--learning-rate', default=0.00005, type=float, help='Learning rate'
+op: '--optimizer', choices=['Adam', 'RMSProp'], default='RMSProp',
+                        help='Optimization method')
+m:  # '--memory-capacity', default=1000000, type=int, help='Memory capacity')
+b:  # '--batch-size', default=64, type=int, help='Batch size')
+t:  # '--target-frequency', default=10000, type=int,
+                        help='Number of steps between the updates of target network')
+x: # '--maximum-exploration', default=100000, type=int, help='Maximum exploration step')
+fsm: # '--first-step-memory', default=0, type=float,
+                        help='Number of initial steps for just filling the memory')
+rs: '--replay-steps', default=4, type=float, help='Steps between updating the network')
+nn: '--number-nodes', default=256, type=int, help='Number of nodes in each layer of NN')
+-tt: '--target-type', choices=['DQN', 'DDQN'], default='DDQN')
+    parser.add_argument('-mt', '--memory', choices=['UER', 'PER'], default='PER')
+    parser.add_argument('-pl', '--prioritization-scale', default=0.5, type=float, help='Scale for prioritization')
+    parser.add_argument('-du', '--dueling', action='store_true', help='Enable Dueling architecture if "store_false" ')
+
+    parser.add_argument('-gn', '--gpu-num', default='2', type=str, help='Number of GPU to use')
+    parser.add_argument('-test', '--test', action='store_true', help='Enable the test phase if "store_false"')
+
+# Game Parameters
+k: 5 # 'agents-number', type=int, help='The number of agents')
+g:  #'--grid-size', default=10, type=int, help='Grid size')
+ts:  # '--max-timestep', default=100, type=int, help='Maximum number of timesteps per episode')
+gm:  # '--game-mode', choices=[0, 1], type=int, default=1, help='Mode of the game, '
+                                                                                        '0: landmarks and agents fixed, '
+                                                                                        '1: landmarks and agents random ')
+
+rw: 1 # '--reward-mode', choices=[0, 1, 2], type=int, default=1, help='Mode of the reward,'
+                                                                                             '0: Only terminal rewards'
+                                                                                             '1: Partial rewards '
+                                                                                             '(number of unoccupied landmarks'
+                                                                                             '2: Full rewards '
+                                                                                             '(sum of dinstances of agents to landmarks)')
+
+'-rm', '--max-random-moves', default=0, type=int,
+                        help='Maximum number of random initial moves for the agents')
+
+
+# Visualization Parameters
+r: '--render', action='store_false', help='Turn on visualization if "store_false"')
+re: '--recorder', action='store_true', help='Store the visualization as a movie '
+                                                                       'if "store_false"')

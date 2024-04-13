@@ -24,7 +24,9 @@ References (some quite old literature):
 We experiment with 2 variants: 
 - A2C
 - DQN
-  - 
+  - Double DQN 
+  - Dueling DQN
+  - DQN with Prioritized Experience Replay
 - PPO
 
 References:

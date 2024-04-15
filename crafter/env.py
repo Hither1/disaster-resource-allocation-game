@@ -84,6 +84,7 @@ class Env(BaseClass):
       self.state_dim = 2
     if config.ifUseActionInD:
       self.state_dim += 1
+    self.state_dim = 1
     self.state_dim = (len(self.agents[0].inventory.keys()), self.state_dim)
     # self.state_dim *= len(self.agents[0].inventory.keys())
     self.shared_reward = True # world.collaborative if hasattr(world, 'collaborative') else False
@@ -225,8 +226,8 @@ class Env(BaseClass):
       agent.step(self._step)
       self.update_agent_state(agent)
 
-    for agent in self.agents:
-      agent._make_decisions_on_requests(action=action)
+    # for agent in self.agents:
+    #   agent._make_decisions_on_requests(action=action)
 
     communications = []
     for requester in self.agents:

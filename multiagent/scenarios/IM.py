@@ -159,6 +159,8 @@ class Scenario(BaseScenario):
 
         # return np.concatenate([agent.getCurState()] + entity_pos)
         # print('obs', torch.cat([agent_state_tensor] + entity_pos).shape)
+
+        import pdb; pdb.set_trace()
         return torch.cat([agent_state_tensor] + entity_pos)
     
     def rule_policy(self, obs):

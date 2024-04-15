@@ -1,39 +1,38 @@
 # DQN Parameters
-e: 1000000 # '--episode-number', type=int, help='Number of episodes'
-l: 0.00005 # '--learning-rate', type=float, help='Learning rate'
-op: 'RMSProp' #'--optimizer', choices=['Adam', 'RMSProp'], help='Optimization method')
-m: 1000000 # '--memory-capacity', type=int, help='Memory capacity')
-b: 64 # '--batch-size', type=int, help='Batch size')
-t: 10000 # '--target-frequency', type=int, help='Number of steps between the updates of target network')
-x: 100000 # '--maximum-exploration', type=int, help='Maximum exploration step')
-fsm: 0 # '--first-step-memory', type=float, help='Number of initial steps for just filling the memory')
-rs: 4 # '--replay-steps', type=float, help='Steps between updating the network')
-nn: 256 # '--number-nodes', type=int, help='Number of nodes in each layer of NN'
-tt: 'DDQN' # '--target-type', choices=['DQN', 'DDQN']
-mt: 'PER' # '--memory', choices=['UER', 'PER'], default=)
-pl: 0.5 # '--prioritization-scale', type=float, help='Scale for prioritization')
-du: false # '--dueling', action='store_true', help='Enable Dueling architecture if "store_false" ')
+episode_number: 1000000 #  type=int, help='Number of episodes'
+learning_rate: 0.00005 #  type=float, help='Learning rate'
+optimizer: 'RMSProp' # choices=['Adam', 'RMSProp'], help='Optimization method'
+memory_capacity: 1000000 #  type=int, help='Memory capacity'
+batch_size: 64 #  type=int, help='Batch size')
+target_frequency: 10000 #  type=int, help='Number of steps between the updates of target network')
+maximum_exploration: 100000 # type=int, help='Maximum exploration step'
+first_step_memory: 0 # type=float, help='Number of initial steps for just filling the memory'
+replay_steps: 4 # type=float, help='Steps between updating the network'
+number_nodes: 256 #  type=int, help='Number of nodes in each layer of NN'
+target_type: 'DDQN' #  choices=['DQN', 'DDQN']
+memory: 'PER' # choices=['UER', 'PER']
+prioritization_scale: 0.5 #  type=float, help='Scale for prioritization')
+dueling: false #  action='store_true', help='Enable Dueling architecture if "store_false" ')
 
-gn: 2 # '--gpu-num', help='Number of GPU to use')
+gpu_num: '2' # help='Number of GPU to use')
 test: false # '--test', action='store_true', help='Enable the test phase if "store_false"'
 
 # Game Parameters
-k: 5 # 'agents-number', type=int, help='The number of agents')
-g: 10 #'--grid-size', type=int, help='Grid size')
-ts: 100 # '--max-timestep', type=int, help='Maximum number of timesteps per episode')
-gm: 1 # '--game-mode', choices=[0, 1], type=int, help='Mode of the game, '
+env: 'IM' # help='environment to train on'
+grid_size: 10 # type=int, help='Grid size')
+env_steps: 100 # '--max-timestep', type=int, help='Maximum number of timesteps per episode')
+game_mode: 1 # choices=[0, 1], type=int, help='Mode of the game, '
                                 # '0: landmarks and agents fixed, '
                                 # '1: landmarks and agents random ')
 
-rw: 1 # '--reward-mode', choices=[0, 1, 2], type=int, default=1, help='Mode of the reward', '0: Only terminal rewards'
+reward_mode: 1 # choices=[0, 1, 2], type=int, help='Mode of the reward', '0: Only terminal rewards'
                                                                                          #  '1: Partial rewards '
                                                                                             #  '(number of unoccupied landmarks'
                                                                                             #  '2: Full rewards '
                                                                                             #  '(sum of dinstances of agents to landmarks)')
-
-rm: 0 # '--max-random-moves', type=int, help='Maximum number of random initial moves for the agents')
+max_random_moves: 0 # type=int, help='Maximum number of random initial moves for the agents')
 
 
 # Visualization Parameters
-r: true # '--render', action='store_false', help='Turn on visualization if "store_false"')
-re: false # '--recorder', action='store_true', help='Store the visualization as a movie' 'if "store_false"')
+render: true #  action='store_false', help='Turn on visualization if "store_false"')
+recorder: false #  action='store_true', help='Store the visualization as a movie' 'if "store_false"')

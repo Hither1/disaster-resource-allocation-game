@@ -48,6 +48,8 @@ Trade-off:
 
 ![AORPO](documents/AORPO.png)
 
+[Implementaion Details](https://juicy-kip-d62.notion.site/Implementation-Details-17084ec5f154450f9060be2a60b05fc5?pvs=4)
+
 ### Language multi-agent
 
 References:

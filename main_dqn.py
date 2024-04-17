@@ -12,14 +12,14 @@ from omegaconf import DictConfig, OmegaConf
 
 ARG_LIST = ['learning_rate', 'optimizer', 'memory_capacity', 'batch_size', 'target_frequency', 'maximum_exploration',
             'env_steps', 'first_step_memory', 'replay_steps', 'number_nodes', 'target_type', 'memory',
-            'prioritization_scale', 'dueling', 'grid_size', 'game_mode', 'reward_mode']
+            'prioritization_scale', 'dueling', 'game_mode', 'reward_mode']
 
 
 def get_name_brain(args, idx):
 
     file_name_str = '_'.join([str(args[x]) for x in ARG_LIST])
 
-    return './results_agents_/weights_files/' + file_name_str + '_' + str(idx) + '.h5'
+    return 'outputs/dqn/weight_files/' + file_name_str + '_' + str(idx) + '.h5'
 
 
 def get_name_rewards(args):
@@ -53,7 +53,8 @@ class Environment(object):
         self.num_agents = self.env.n
         self.num_landmarks = self.num_agents
         self.game_mode = arguments['game_mode']
-        self.grid_size = arguments['grid_size']
+
+        wandb.init(project="DRA", name=f"DQN-{arguments['target_type']}-{arguments['memory']}-dueling-{arguments['dueling']}")
 
     def run(self, agents, file1, file2):
         total_step = 0
@@ -98,11 +99,12 @@ class Environment(object):
                 total_step += 1
                 time_step += 1
                 state = next_state
-                reward_all += reward
+                reward_all += reward[0]
 
 
-            rewards_list.append(reward_all)
-            timesteps_list.append(time_step)
+            wandb.log({"score": reward_all}, step=total_step)
+            # rewards_list.append(reward_all)
+            # timesteps_list.append(time_step)
 
             print("Episode {p}, Score: {s}, Final Step: {t}, Goal: {g}".format(p=episode_num, s=reward_all,
                                                                                t=time_step, g=done))
@@ -119,11 +121,6 @@ class Environment(object):
 
             if not self.test:
                 if episode_num % 100 == 0:
-                    df = pd.DataFrame(rewards_list, columns=['score'])
-                    df.to_csv(file1)
-
-                    df = pd.DataFrame(timesteps_list, columns=['steps'])
-                    df.to_csv(file2)
 
                     if total_step >= self.filling_steps:
                         if reward_all > max_score:
@@ -133,7 +130,7 @@ class Environment(object):
 
 
 if __name__ =="__main__":
-    os.environ["WANDB_MODE"] = "disabled"
+    # os.environ["WANDB_MODE"] = "disabled"
     config1 = load_config("configs/model/model_free", "dqn")
     config2 = load_config("configs/exp", "leadtimes")
     args = OmegaConf.merge(config1, config2)
@@ -143,6 +140,7 @@ if __name__ =="__main__":
     env = Environment(args)
 
     state_size = env.env.observation_space.shape[-2] # env.env.state_size
+    state_size = state_size * env.env.n
     action_space = env.env.action_space.shape[-2]
 
     all_agents = []

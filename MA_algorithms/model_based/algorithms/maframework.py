@@ -144,7 +144,7 @@ class MA_Controller(BaseFramework):
         logger_iter: int = 0,
     ):
         """
-        Update parameters of a agent model based on sample from replay buffer
+        Update parameters of an agent model based on sample from replay buffer
         Inputs:
             sample: tuple of (observations, actions, rewards, next
                     observations, and episode end masks) sampled randomly from

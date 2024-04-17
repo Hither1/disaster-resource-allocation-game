@@ -17,7 +17,7 @@ from .environment import create_env
 def test(args, shared_model, optimizer, optimizer_ToM, train_modes, n_iters):
     ptitle('Test Agent')
     n_iter = 0
-    wandb.init(project='ToM2C', name='test')
+    wandb.init(project='DRA', name='test')
     gpu_id = args.gpu_id[-1]
     log = {}
     print(os.path.isdir(args.log_dir))

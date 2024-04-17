@@ -14,7 +14,7 @@ import wandb
 def worker(rank, args, shared_model, train_modes, n_iters, curr_env_steps, ToM_count, ToM_history, Policy_history, step_history, loss_history, env=None):
     n_iter = 0
     ptitle('worker: {}'.format(rank))
-    wandb.init(project='ToM2C', name='worker')
+    wandb.init(project='DRA', name='ToM2C-worker')
     gpu_id = args.gpu_id[rank % len(args.gpu_id)]
     torch.manual_seed(args.seed + rank)
     training_mode = args.train_mode

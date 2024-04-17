@@ -1,9 +1,9 @@
 # DQN Parameters
 episode_number: 1000000 #  type=int, help='Number of episodes'
 learning_rate: 0.00005 #  type=float, help='Learning rate'
-optimizer: 'RMSProp' # choices=['Adam', 'RMSProp'], help='Optimization method'
+optimizer: 'RMSprop' # choices=['Adam', 'RMSProp'], help='Optimization method'
 memory_capacity: 1000000 #  type=int, help='Memory capacity'
-batch_size: 64 #  type=int, help='Batch size')
+batch_size: 64 # type=int, help='Batch size')
 target_frequency: 10000 #  type=int, help='Number of steps between the updates of target network')
 maximum_exploration: 100000 # type=int, help='Maximum exploration step'
 first_step_memory: 0 # type=float, help='Number of initial steps for just filling the memory'
@@ -12,7 +12,7 @@ number_nodes: 256 #  type=int, help='Number of nodes in each layer of NN'
 target_type: 'DDQN' #  choices=['DQN', 'DDQN']
 memory: 'PER' # choices=['UER', 'PER']
 prioritization_scale: 0.5 #  type=float, help='Scale for prioritization')
-dueling: false #  action='store_true', help='Enable Dueling architecture if "store_false" ')
+dueling: false # action='store_true', help='Enable Dueling architecture if "store_false" ')
 
 gpu_num: '2' # help='Number of GPU to use')
 test: false # '--test', action='store_true', help='Enable the test phase if "store_false"'

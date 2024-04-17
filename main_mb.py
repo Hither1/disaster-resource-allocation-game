@@ -68,7 +68,7 @@ def run_eval(
 
 
 def run(config) -> Dict:
-    wandb.init(project='model_based', name='run')
+    wandb.init(project='DRA', name='model_based')
     model_dir = (
         Path(config.model_dir) / config.algorithm / config.env_id / config.model_name
     )

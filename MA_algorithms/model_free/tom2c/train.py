@@ -390,7 +390,7 @@ def load_data(args, history):
 
 def train(args, shared_model, optimizer_Policy, optimizer_ToM, train_modes, n_iters, curr_env_steps, ToM_count, ToM_history, Policy_history, step_history, loss_history, env=None):
     rank = args.workers
-    wandb.init(project='ToM2C', name='train')
+    wandb.init(project='DRA', name='ToM2C-train')
     ptitle('Training')
     gpu_id = args.gpu_id[rank % len(args.gpu_id)]
     torch.manual_seed(args.seed + rank)

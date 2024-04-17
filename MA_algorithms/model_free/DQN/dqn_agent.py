@@ -82,12 +82,12 @@ class Agent(object):
             t = p[i]
             old_value = t[a]
             if done:
-                t[a] = r
+                t[a] = r[0]
             else:
                 if self.target_type == 'DDQN':
-                    t[a] = r + self.gamma * pTarget_[i][np.argmax(p_[i])]
+                    t[a] = r[0] + self.gamma * pTarget_[i][np.argmax(p_[i])]
                 elif self.target_type == 'DQN':
-                    t[a] = r + self.gamma * np.amax(pTarget_[i])
+                    t[a] = r[0] + self.gamma * np.amax(pTarget_[i])
                 else:
                     print('Invalid type for target network!')
 
@@ -179,7 +179,7 @@ class Agent(object):
                                            for i in normalized_batch_priorities]
             normalized_importance_sampling_weights = [float(i) / max(importance_sampling_weights)
                                                       for i in importance_sampling_weights]
-            sample_weights = [errors[i] * normalized_importance_sampling_weights[i] for i in xrange(len(errors))]
+            sample_weights = [errors[i] * normalized_importance_sampling_weights[i] for i in range(len(errors))]
 
             self.brain.train(x, y, np.array(sample_weights))
 

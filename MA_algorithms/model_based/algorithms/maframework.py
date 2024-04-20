@@ -4,11 +4,11 @@ from typing import Dict, List, Tuple
 
 import numpy as np
 import torch
-from agent.model_based.agents import *
-from agent.model_based.agents.baseagent import AgentMB
+from ..agents import *
+from ..agents.baseagent import AgentMB
 from gym.spaces import Discrete
 import wandb
-from agent.model_based.utils.buffer import ReplayBuffer
+from ..utils.buffer import ReplayBuffer
 
 from .baseframework import BaseFramework
 
@@ -87,7 +87,6 @@ class MA_Controller(BaseFramework):
             )
         )
         for i, params in enumerate(agent_init_params):
-            print(params)
             self.agents.append(
                 self.name_to_alg[alg_types[i]](
                     lr=lr,
@@ -321,6 +320,7 @@ class MA_Controller(BaseFramework):
         for i, (acsp, obsp, algtype) in enumerate(
             zip(env.action_space, env.observation_space, alg_types)
         ):
+            
             dim_in_pol = obsp.shape[0] * obsp.shape[1]
             dim_obs_list.append(dim_in_pol)
 
@@ -339,6 +339,16 @@ class MA_Controller(BaseFramework):
 
             dim_in_critic = dim_in_pol + dim_out_pol
             # DDPG/SAC
+            print('dim_in_pol', {
+                    "dim_in_pol": dim_in_pol,
+                    "dim_out_pol": dim_out_pol,
+                    "dim_in_critic": dim_in_critic,
+                    "agent_index": i,
+                    "n_agent": n_agent,
+                    "alg_type": algtype,
+                    "gamma": gamma,
+                    "grad_bound": config.grad_bound,
+                })
             agent_init_params.append(
                 {
                     "dim_in_pol": dim_in_pol,
@@ -356,7 +366,6 @@ class MA_Controller(BaseFramework):
             dim_in_pol_list.append(dim_in_pol)
             dim_out_pol_list.append(dim_out_pol)
             action_shape_list.append(action_shape)
-        # import pdb; pdb.set_trace()
 
         for i in range(n_agent):
             agent_init_params[i].update({"action_shape_list": action_shape_list})
@@ -447,6 +456,7 @@ class MA_Controller(BaseFramework):
                     a_i = opp_i if opp_i < a.index else opp_i + 1
                     raw_opp_acts = opp_pol(obs[a_i])
                     action_shape_list = a.all_action_shape_list[a_i]
+                    # import pdb; pdb.set_trace()
                     loss = 0
                     match_rate = 0
                     for i, dim in enumerate(action_shape_list):

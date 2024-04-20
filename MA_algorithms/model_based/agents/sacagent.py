@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 from torch import Tensor
 from torch.optim import Adam
-from agent.model_based.utils.misc import (
+from ..utils.misc import (
     apply_with_grad,
     get_multi_discrete_action,
     gumbel_softmax,
@@ -13,7 +13,7 @@ from agent.model_based.utils.misc import (
     onehot_from_logits,
     soft_update,
 )
-from agent.model_based.utils.networks import MLPNetwork
+from ..utils.networks import MLPNetwork
 
 from .baseagent import *
 
@@ -73,6 +73,7 @@ class SACAgent(BaseAgent):
         )
         self.critic1 = MLPNetwork(dim_in_critic, 1, hidden_dim=hidden_dim)
         self.critic2 = MLPNetwork(dim_in_critic, 1, hidden_dim=hidden_dim)
+        print('target_critic1')
         self.target_critic1 = MLPNetwork(dim_in_critic, 1, hidden_dim=hidden_dim)
         self.target_critic2 = MLPNetwork(dim_in_critic, 1, hidden_dim=hidden_dim)
         hard_update(self.target_critic1, self.critic1)
@@ -139,10 +140,13 @@ class SACAgent(BaseAgent):
                     processfun,
                     return_log_prob=False,
                 )
+        
         if return_log_prob:
             return action, log_prob
         else:
             return action
+
+        
 
     def update(self, sample: Tuple[List]):
         """
@@ -425,6 +429,7 @@ class SACAgentOppMd(SACAgent, AgentOppMd):
 
         self.opp_policies = []
         for num_in_opp_pol, num_out_opp_pol in zip(dim_in_opp_pols, dim_out_opp_pols):
+            print('opp policy')
             self.opp_policies.append(
                 MLPNetwork(
                     num_in_opp_pol,
@@ -495,6 +500,7 @@ class SACAgentOppMd(SACAgent, AgentOppMd):
             opp_pol_loss
         """
         obs, acs, _, _, _ = sample
+ 
         # update opponent models
         opp_pol_losses = []
         match_rates = []
@@ -526,6 +532,7 @@ class SACAgentOppMd(SACAgent, AgentOppMd):
                     sum(action_shape_list[:opp_i]) : sum(action_shape_list[:opp_i])
                     + dim,
                 ]
+                # import pdb; pdb.set_trace()
                 acutal_opp_pl_ind = torch.argmax(actual_opp_pl, dim=1)
                 opp_pol_loss += NLLLoss(opp_pl_out, acutal_opp_pl_ind).mean()
                 opp_pl_ind = torch.argmax(action_, dim=-1)
@@ -629,7 +636,6 @@ class SACAgentOppMdCond(SACAgentOppMd, AgentCond):
         pol_in = torch.cat([agent_obs, *opp_acts], dim=1)
 
         if explore:
-
             def processfun(x, return_log_prob):
                 return gumbel_softmax(x, hard=True, return_log_prob=return_log_prob)
 
@@ -649,6 +655,8 @@ class SACAgentOppMdCond(SACAgentOppMd, AgentCond):
             action = get_multi_discrete_action(
                 action, self.all_action_shape_list[self.index], processfun
             )
+
+        
         if return_log_prob:
             return action, log_prob
         else:
@@ -671,6 +679,7 @@ class SACAgentOppMdCond(SACAgentOppMd, AgentCond):
             cf2_loss
         """
         obs, acs, rews, next_obs, dones = sample
+
         # update policy
         agent_obs = obs[self.index]
         obs_ = obs.copy()
@@ -696,7 +705,6 @@ class SACAgentOppMdCond(SACAgentOppMd, AgentCond):
         critic1_output = self.critic1(critic_in)
         critic2_output = self.critic2(critic_in)
         min_critic_output = torch.min(critic1_output, critic2_output)
-
         # update alpha
         if self.auto_target_entropy:
             alpha_loss = -(
@@ -715,6 +723,7 @@ class SACAgentOppMdCond(SACAgentOppMd, AgentCond):
         else:  # it seems useless
             raise NotImplementedError
         policy_loss = policy_kl + (raw_action**2).mean() * 1e-3  # regularizer
+        
 
         self.policy_optimizer.zero_grad()
         policy_loss.backward()

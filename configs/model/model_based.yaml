@@ -2,7 +2,7 @@
 env_id: "IM" # type=str, choices=Cooperative_env_list
 model_name: 'test' # help="Name of directory to store")
 seed: 1 # type=int, help="Random seed")
-episode_length: 25 # type=int
+episode_length: 20 # type=int
 
 # agent
 algorithm: "AORPO" # type=str, choices=algorithm_list
@@ -12,7 +12,7 @@ discrete_action: True # type=bool
 n_training_thread: 10 # type=int
 n_sample_thread: 15 # type=int
 n_epoch: 100 # 150, help="Epochs", type=int
-episode_per_epoch: 300 # type=int
+episode_per_epoch: 75 # 300 # type=int
 
 # eposide = n_epoch * episode_per_epoch
 update_step_interval: 100 # help="policy update interval", type=int
@@ -20,7 +20,7 @@ update_step_interval: 100 # help="policy update interval", type=int
 buffer_size: 100000 # int(1e6) # type=int
 hidden_dim: 64 # type=int
 grad_bound: 1.0 # type=float # not used
-batch_size: 1024 # type=int, help="Batch size for model training"
+batch_size: 2 # 1024 # type=int, help="Batch size for model training"
 
 rew_scale: 5.0 # type=float)
 lr: 0.01 # type=float)

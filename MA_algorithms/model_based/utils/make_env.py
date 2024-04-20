@@ -1,5 +1,5 @@
 import gym
-from agent.model_based.utils.env_wrappers import DummyVecEnv, SubprocVecEnv
+from env_wrappers import env_wrapper, DummyVecEnv, SubprocVecEnv
 import numpy as np
 import crafter
 
@@ -55,6 +55,7 @@ def make_env(scenario_name, benchmark: bool = False, discrete_action: bool = Tru
             scenario.benchmark_data,
             discrete_action=discrete_action,
         )
+        import pdb; pdb.set_trace()
     else:
         # env = MultiAgentEnv(
         #     world,
@@ -66,7 +67,9 @@ def make_env(scenario_name, benchmark: bool = False, discrete_action: bool = Tru
         env = crafter.Env(config, world, None, scenario.reset_world, scenario.reward, scenario.global_reward, scenario.observation)
         env = crafter.Recorder(env, config.record, save_stats=True)
         env.reset()
-    return env
+        env_wrap = env_wrapper(env)
+        
+    return env_wrap
 
 
 def make_parallel_env(
@@ -78,7 +81,6 @@ def make_parallel_env(
             env = make_env(env_id, discrete_action=discrete_action)
             env.seed(seed + rank * 1000)
             return env
-
         return init_env
 
     if n_rollout_threads == 1:

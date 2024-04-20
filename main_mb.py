@@ -11,11 +11,11 @@ import tqdm
 from gym.spaces import Box, Discrete
 import wandb
 
-from agent.model_based.agents import *
-from agent.model_based.algorithms.maframework import MA_Controller
-from agent.model_based.utils.buffer import ReplayBuffer
-from agent.model_based.utils.make_env import make_env, make_parallel_env
-from agent.model_based.utils.misc import n_2_t, optimizer_lr_multistep_scheduler, setup_seed, t_2_n
+from MA_algorithms.model_based.agents import *
+from MA_algorithms.model_based.algorithms.maframework import MA_Controller
+from MA_algorithms.model_based.utils.buffer import ReplayBuffer
+from MA_algorithms.model_based.utils.make_env import make_env, make_parallel_env
+from MA_algorithms.model_based.utils.misc import n_2_t, optimizer_lr_multistep_scheduler, setup_seed, t_2_n
 
 from utils import load_config
 from omegaconf import DictConfig, OmegaConf
@@ -41,7 +41,7 @@ Cooperative_env_list = [
 def run_eval(
     env_id: str,
     controller: MA_Controller,
-    episode_length: int = 25,
+    episode_length: int = 20,
     n_episode: int = 10,
 ):
     controller.prep_rollouts("cpu")
@@ -57,6 +57,7 @@ def run_eval(
             ]
             torch_act = controller.step(torch_obs, explore=False)
             act = [t_2_n(a_act).reshape(-1) for a_act in torch_act]
+            
             n_obs, rew, _, _ = env.step(act)
             obs = n_obs
 
@@ -85,9 +86,8 @@ def run(config) -> Dict:
         else:
             curr_run = "run%i" % (max(exst_run_nums) + 1)
     run_dir = model_dir / curr_run
-    log_dir = run_dir / "logs"
-    os.makedirs(log_dir)
-    print("run dir", run_dir)
+    log_dir = "logs" / run_dir / "logs"
+    os.makedirs(log_dir, exist_ok=True)
 
     # with open(os.path.join(run_dir, "config"), "w") as cf:
     #     json.dump(config.__dict__['_content'], cf)
@@ -95,7 +95,7 @@ def run(config) -> Dict:
     setup_seed(config.seed)
 
     eval_env = make_env(config.env_id)
-    n_agent = eval_env.n_agents
+    n_agent = eval_env.n
 
     torch.set_num_threads(config.n_training_thread)
 
@@ -146,7 +146,7 @@ def run(config) -> Dict:
     eval_ret_dict = {}
 
     # train the policy and opponent models but not the dynamics model
-    warmup_episode = int(1e6)
+    warmup_episode = int(1e0) #6
     if any([isinstance(a, AgentMB) for a in controller.agents]):
         warmup_episode = config.n_model_warmup_episode
         print("initialize episodes", warmup_episode)
@@ -282,8 +282,9 @@ def run(config) -> Dict:
                         model_trained = True
 
                 if (
-                    len(replay_buffer) >= config.batch_size * 5
-                    and (n_step % config.update_step_interval) < config.n_sample_thread
+                    True
+                    # len(replay_buffer) >= config.batch_size * 5
+                    # and (n_step % config.update_step_interval) < config.n_sample_thread
                 ):
                     if any([isinstance(a, AgentOppMd) for a in controller.agents]) or \
                         any([isinstance(a, AgentMB) for a in controller.agents]):
@@ -313,6 +314,7 @@ def run(config) -> Dict:
                             else:
                                 controller.prep_training(device="cpu")
 
+        
                             controller.update_opponent_models(
                                 latest_sample_train,
                                 epochs=1,
@@ -425,6 +427,7 @@ def run(config) -> Dict:
                                 for s, m_s in zip(sample, model_sample):
                                     for i, (a_s, a_m_s) in enumerate(zip(s, m_s)):
                                         s[i] = torch.cat([a_s, a_m_s], dim=0)
+                                print('----------------------------------------')
                                 controller.update(
                                     sample,
                                     a_i,
@@ -459,6 +462,7 @@ def run(config) -> Dict:
 
             wandb.log({"hypers/K": K, "hypers/Env_rate": env_rate}, step=logger_dynamics_iter)
         n_episode = (epoch + 1) * config.episode_per_epoch
+
         if (n_episode % config.save_episode_interval) == 0:
             os.makedirs(run_dir / "incremental", exist_ok=True)
             controller.save(

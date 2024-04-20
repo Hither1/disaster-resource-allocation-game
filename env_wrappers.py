@@ -1,11 +1,14 @@
 """
 Modified from Stable-baselines3 code to work with multi-agent envs
 """
+from __future__ import division
 from typing import List, Optional
 import numpy as np
 from multiprocessing import Process, Pipe
 from stable_baselines3.common.vec_env.base_vec_env import VecEnv, CloudpickleWrapper
 import torch
+import time
+import crafter
 
 def worker(remote, parent_remote, env_fn_wrapper: CloudpickleWrapper):
     parent_remote.close()
@@ -30,14 +33,98 @@ def worker(remote, parent_remote, env_fn_wrapper: CloudpickleWrapper):
         elif cmd == "get_spaces":
             remote.send((env.observation_space, env.action_space))
         elif cmd == "get_agent_types":
-            if all([hasattr(a, "adversary") for a in env.agents]):
+            if all([hasattr(a, "adversary") for a in env.env.agents]):
                 remote.send(
                     ["adversary" if a.adversary else "agent" for a in env.agents]
                 )
             else:
-                remote.send(["agent" for _ in env.agents])
+                remote.send(["agent" for _ in env.env.agents])
         else:
             raise NotImplementedError
+
+
+def create_env(env_id, args, rank=-1):
+    if 'RA' or 'IM' in env_id:  
+        import multiagent.scenarios as scenarios
+        scenario = scenarios.load(args.env + ".py").Scenario()
+        world, config = scenario.make_world()
+        env = crafter.Env(config, world, None, scenario.reset_world, scenario.reward, scenario.global_reward, scenario.observation)
+        env = crafter.Recorder(env, config.record, save_stats=True)
+        env.reset()
+        env_wrap = env_wrapper(env, args)
+        return env_wrap
+    else:
+        raise NotImplementedError
+
+class env_wrapper:
+    # wrap for CN low level execution
+    def __init__(self, env):
+        self.env = env
+        self.n = self.env.n_agents
+        self.num_target = len(self.env.world.landmarks)
+        # self.observation_space = np.zeros([self.n, self.num_target, *self.env.state_dim])
+        # self.action_space = np.zeros([self.n, self.num_target, 1])
+        self.observation_space = self.env.observation_space
+        self.action_space = self.env.action_space
+
+    # def step(self, goals_n):
+    #     goals_n = np.squeeze(goals_n)
+    #     keep = 10
+    #     rew_ave = 0
+    #     for step in range(keep):
+    #         # get low level obs
+    #         act_low_n = []
+    #         for i in range(self.n):
+    #         rew_ave += rew[0]
+    #     rew_all = np.array([rew_ave/keep])
+    #     return obs_n, rew_all, done_n, info_n
+        
+    def step(self, goals_n):
+        goals_n = np.squeeze(goals_n)
+        # goals_n = [[action.reshape(3, -1).argmax(-1) for action in thread] for thread in goals_n]
+        keep = 1
+        rew_ave = []
+        for step in range(keep):
+            obs_n, rew, done_n, info_n = self.env.step()
+
+            for i in range(self.n):
+                # goal = int(goals_n[i])
+                goals = goals_n[i].reshape(3, -1).argmax(-1)
+                bs_goal = [self.env.world.landmarks[int(goal)] for goal in goals]
+                # bs_goal = self.env.world.landmarks[int(goals_n[i])]
+                agent = self.env.world.agents[i]
+                agent._make_decisions_on_requests(self.decode_goal(bs_goal))
+            
+            if done_n: self.env.reset()
+            # if self.render:
+            #     self.env.render()
+            #     time.sleep(0.1)
+            rew_ave.append(rew)
+        rew_all = np.mean(np.array(rew_ave), 0)
+
+        return obs_n, rew_all, done_n, info_n
+    
+    def decode_goal(self, goal):
+        start = 1
+        pose_dim = 4
+        goal_ret = {'food': goal[0][0][0], 
+                    'drink': goal[0][1][0], 
+                    'staff': goal[0][2][0]}
+        # goal_ret = {'food': goal[0][0][0], 
+        #             'drink': goal[1][1][0], 
+        #             'staff': goal[2][2][0]}
+        return goal_ret
+
+    
+    def reset(self):
+        obs_n = self.env.reset()
+        return obs_n
+
+    def seed(self, s):
+        self.env.seed(s)
+    
+    def close(self):
+        self.env.close()
 
 
 class SubprocVecEnv(VecEnv):
@@ -127,7 +214,7 @@ class DummyVecEnv(VecEnv):
         self.envs = [fn() for fn in env_fns]
         env = self.envs[0]
         VecEnv.__init__(self, len(env_fns), env.observation_space, env.action_space)
-        if all([hasattr(a, "adversary") for a in env.agents]):
+        if all([hasattr(a, "adversary") for a in env.env.agents]):
             self.agent_types = [
                 "adversary" if a.adversary else "agent" for a in env.agents
             ]

@@ -5,8 +5,8 @@ from typing import List, Tuple
 import numpy as np
 import torch
 from torch.distributions import Normal
-from agent.model_based.utils.buffer import ReplayBuffer
-from agent.model_based.utils.networks import PtModel
+from ..utils.buffer import ReplayBuffer
+from ..utils.networks import PtModel
 import wandb
 
 MODEL_GRAD_BOUND = 200
@@ -246,7 +246,7 @@ class AgentMB(BaseAgent):
         Output:
             next_state (list): predicted observations to all agents
         """
-        means, stds = self.dynamics_model(model_in)
+        means, stds = self.dynamics_model(model_in)        
         means = means.detach()
         stds = stds.detach()
         ind = np.random.randint(0, self.ensemble_size)

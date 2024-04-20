@@ -112,7 +112,7 @@ class Env(BaseClass):
         else:
           act_space = spaces.Tuple(total_action_space)
         # self.action_space.append(act_space)
-        self.action_space.append(MultiDiscrete([[0, 41], [0, 41], [0, 41], [0, 41], [0, 41], [0, 41]]))
+        self.action_space.append(MultiDiscrete([[0, 2], [0, 2], [0, 2]]))
       
       # observation space
       # obs_dim = len(observation_callback(agent, self.world))
@@ -232,7 +232,7 @@ class Env(BaseClass):
     communications = []
     for requester in self.agents:
       if requester.out_requests:
-        print('out_requests', requester.out_requests)
+        # print('out_requests', requester.out_requests)
         # TODO: make this more efficient and less hard-coding
         for request in requester.out_requests:
           communications.extend(requester.out_requests)

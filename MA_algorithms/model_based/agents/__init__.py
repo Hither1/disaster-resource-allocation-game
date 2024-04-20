@@ -1,6 +1,6 @@
-from agent.model_based.agents.baseagent import *
-from agent.model_based.agents.ddpgagent import *
-from agent.model_based.agents.sacagent import *
+from .baseagent import *
+from .ddpgagent import *
+from .sacagent import *
 
 __all__ = [
     "BaseAgent",

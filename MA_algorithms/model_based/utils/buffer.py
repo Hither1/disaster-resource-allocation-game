@@ -48,6 +48,7 @@ class ReplayBuffer(object):
         self, observations, actions, rewards, next_observations, dones
     ):
         nentries = observations.shape[0] # handle multiple parallel environments
+        
         if self.curr_i + nentries > self.max_steps:
             rollover = self.max_steps - self.curr_i  # num of indices to roll over
             for agent_i in range(self.num_agents):
@@ -80,6 +81,7 @@ class ReplayBuffer(object):
             self.done_buffs[agent_i][self.curr_i : self.curr_i + nentries] = dones[
                 : #, agent_i
             ]
+        
         self.curr_i += nentries
         if self.filled_i < self.max_steps:
             self.filled_i += nentries
@@ -142,7 +144,7 @@ class ReplayBuffer(object):
                         self.rew_buffs[i][inds]
                         - self.rew_buffs[i][: self.filled_i].mean()
                     )
-                    / self.rew_buffs[i][: self.filled_i].std()
+                    / (self.rew_buffs[i][: self.filled_i].std() + 1e-8)
                 )
                 for i in range(self.num_agents)
             ]
@@ -182,4 +184,5 @@ class ReplayBuffer(object):
             )  # allow for negative indexing
         else:
             inds = np.arange(max(0, self.curr_i - ep_length * n_roll), self.curr_i)
+
         return [self.rew_buffs[i][inds].sum() / n_roll for i in range(self.num_agents)]

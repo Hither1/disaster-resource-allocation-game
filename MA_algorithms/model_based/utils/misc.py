@@ -227,21 +227,19 @@ def get_multi_discrete_action(
                 log_prob *= log_prob_
             return actions, log_prob
         else:
+            
             for i, dim in enumerate(action_shape_list):
                 actions = torch.cat(
                     [
                         actions,
                         fn(
-                            action[
-                                :,
-                                sum(action_shape_list[:i]) : sum(action_shape_list[:i])
-                                + dim,
-                            ],
+                            action[:, sum(action_shape_list[:i]) : sum(action_shape_list[:i]) + dim, ],
                             return_log_prob=False,
                         ),
                     ],
                     dim=1,
                 )
+
             return actions
 
 

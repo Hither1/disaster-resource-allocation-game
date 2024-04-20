@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.distributions import Normal
 
-from agent.model_based.utils.misc import get_affine_params, swish
+from .misc import get_affine_params, swish
 
 LOG_SIG_MAX = 2
 LOG_SIG_MIN = -20
@@ -40,6 +40,8 @@ class MLPNetwork(nn.Module):
             self.in_fn.bias.data.fill_(0)
         else:
             self.in_fn = lambda x: x
+
+
         self.fc1 = nn.Linear(input_dim, hidden_dim)
         self.fc2 = nn.Linear(hidden_dim, hidden_dim)
         self.fc3 = nn.Linear(hidden_dim, out_dim)
@@ -60,6 +62,7 @@ class MLPNetwork(nn.Module):
         h1 = self.nonlin(self.fc1(self.in_fn(X)))
         h2 = self.nonlin(self.fc2(h1))
         h3 = self.fc3(h2)
+        
         return self.out_fn(h3)
 
 

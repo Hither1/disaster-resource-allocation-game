@@ -6,14 +6,14 @@ import torch
 from torch import tensor
 from torch.optim import Adam
 
-from agent.model_based.utils.misc import (
+from ..utils.misc import (
     gumbel_softmax,
     hard_update,
     onehot_from_logits,
     soft_update,
     get_multi_discrete_action,
 )
-from agent.model_based.utils.networks import MLPNetwork
+from ..utils.networks import MLPNetwork
 
 from .baseagent import *
 
@@ -66,17 +66,23 @@ class DDPGAgent(BaseAgent):
         )
         self.dim_in_pol = dim_in_pol
 
+        print('Policy')
         self.policy = MLPNetwork(
             dim_in_pol,
             dim_out_pol,
             hidden_dim=hidden_dim,
         )
+        print('Critic')
         self.critic = MLPNetwork(dim_in_critic, 1, hidden_dim=hidden_dim)
+
+        print('T Policy')
         self.target_policy = MLPNetwork(
             dim_in_pol,
             dim_out_pol,
             hidden_dim=hidden_dim,
         )
+
+        print('T Critic')
         self.target_critic = MLPNetwork(dim_in_critic, 1, hidden_dim=hidden_dim)
         hard_update(self.target_policy, self.policy)
         hard_update(self.target_critic, self.critic)
@@ -343,6 +349,7 @@ class DDPGAgentOppMd(DDPGAgent, AgentOppMd):
         self.opp_lr = opp_lr
         self.opp_policies = []
         for num_in_opp_pol, num_out_opp_pol in zip(dim_in_opp_pols, dim_out_opp_pols):
+            print('Opp Policy')
             self.opp_policies.append(
                 MLPNetwork(
                     num_in_opp_pol,

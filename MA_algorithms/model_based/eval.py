@@ -15,7 +15,7 @@ Cooperative_env_list = [
 def run_eval(
     env_id: str,
     controller: MA_Controller,
-    episode_length: int = 25,
+    episode_length: int = 20,
     n_episode: int = 10,
     render: bool = False,
 ):

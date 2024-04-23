@@ -282,9 +282,8 @@ def run(config) -> Dict:
                         model_trained = True
 
                 if (
-                    True
-                    # len(replay_buffer) >= config.batch_size * 5
-                    # and (n_step % config.update_step_interval) < config.n_sample_thread
+                    len(replay_buffer) >= config.batch_size * 5
+                    and (n_step % config.update_step_interval) < config.n_sample_thread
                 ):
                     if any([isinstance(a, AgentOppMd) for a in controller.agents]) or \
                         any([isinstance(a, AgentMB) for a in controller.agents]):
@@ -427,7 +426,6 @@ def run(config) -> Dict:
                                 for s, m_s in zip(sample, model_sample):
                                     for i, (a_s, a_m_s) in enumerate(zip(s, m_s)):
                                         s[i] = torch.cat([a_s, a_m_s], dim=0)
-                                print('----------------------------------------')
                                 controller.update(
                                     sample,
                                     a_i,
@@ -446,21 +444,20 @@ def run(config) -> Dict:
                             )
 
                     controller.update_all_targets()
-
                     controller.prep_rollouts(device="cpu")
 
             ep_rews = replay_buffer.get_average_rewards(
                 config.episode_length, config.n_sample_thread
             )
             for a_i, a_ep_rew in enumerate(ep_rews):
-                wandb.log({"agent%i/mean_episode_return/dynamics_interaction" % a_i: a_ep_rew}, step=logger_dynamics_iter)
-                wandb.log({"agent%i/mean_episode_return/opponent_interaction" % a_i: a_ep_rew}, step=logger_oppo_iter)
+                wandb.log({"agent%i/mean_episode_return/dynamics_interaction" % a_i: a_ep_rew}) #, step=logger_dynamics_iter)
+                wandb.log({"agent%i/mean_episode_return/opponent_interaction" % a_i: a_ep_rew}) #, step=logger_oppo_iter)
 
             episode_2_epoch_iter.set_description(
                 f"train return {np.mean(ep_rews):.4f}  eval ret {eval_ret:.4f}"
             )
 
-            wandb.log({"hypers/K": K, "hypers/Env_rate": env_rate}, step=logger_dynamics_iter)
+            wandb.log({"hypers/K": K, "hypers/Env_rate": env_rate}) #, step=logger_dynamics_iter)
         n_episode = (epoch + 1) * config.episode_per_epoch
 
         if (n_episode % config.save_episode_interval) == 0:
@@ -480,10 +477,10 @@ def run(config) -> Dict:
         )
 
         eval_ret_dict[(epoch + 1) * config.episode_per_epoch] = eval_ret
-        wandb.log({"eval/mean_episode_return_dynamics_interaction": eval_ret}, step=(epoch + 1) * config.episode_per_epoch)
-        wandb.log({"eval/mean_episode_return_opponent_interaction": eval_ret}, step=controller.compute_cooperate_interaction(
-                (epoch + 1) * config.episode_per_epoch, config.episode_length
-            ))
+        wandb.log({"eval/mean_episode_return_dynamics_interaction": eval_ret}) #, step=(epoch + 1) * config.episode_per_epoch)
+        wandb.log({"eval/mean_episode_return_opponent_interaction": eval_ret}) #, step=controller.compute_cooperate_interaction(
+            #     (epoch + 1) * config.episode_per_epoch, config.episode_length
+            # ))
 
     eval_env.close()
     env.close()

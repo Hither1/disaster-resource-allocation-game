@@ -5,7 +5,7 @@ seed: 1 # type=int, help="Random seed")
 episode_length: 20 # type=int
 
 # agent
-algorithm: "AORPO" # type=str, choices=algorithm_list
+algorithm: "DDPG" # type=str, choices=algorithm_list
 discrete_action: True # type=bool
 
 # model-free

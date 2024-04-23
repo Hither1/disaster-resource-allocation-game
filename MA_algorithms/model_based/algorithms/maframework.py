@@ -159,7 +159,7 @@ class MA_Controller(BaseFramework):
             for key, value in loss_dict.items():
                 modified_key = "agent%i/losses/" % (agent_i) + key
                 new_dict[modified_key] = value
-            wandb.log(new_dict, step=logger_iter)
+            wandb.log(new_dict,) # step=logger_iter)
 
     def get_dynamics_model(self, agent_i: int) -> Dict:
         assert isinstance(self.agents[agent_i], AgentMB), "get dynamics model"
@@ -498,9 +498,8 @@ class MA_Controller(BaseFramework):
                 wandb.log({
                             "agent%i/evl_losses/epsilon_phi^-i" % (agent_i): torch.tensor(opp_pol_losses).sum(),
                             "agent%i/evl_losses/match_rate_phi^-i" % (agent_i): torch.tensor(match_rates).mean(),
-                        },
-                        ep_i,)
-                #         "agent%i/evl_losses" % (agent_i),
+                        })
+                        # ep_i,)
                 wandb.log(dict(
                             zip(
                                 [
@@ -509,8 +508,8 @@ class MA_Controller(BaseFramework):
                                 ],
                                 match_rates,
                             )
-                        ),
-                        step=ep_i)
+                        ), )
+                        # step=ep_i)
 
                 opp_pol_loss_list.append(torch.tensor(opp_pol_losses).sum())
                 match_rate_list.append(torch.tensor(match_rates).mean())
@@ -533,7 +532,7 @@ class MA_Controller(BaseFramework):
             model_pred = a.predict(model_in)
             loss = torch.abs(model_pred - model_target).mean()
 
-            wandb.log({"agent%i/evl_losses/abs_m_error" % (agent_i): loss},
-                step=logger_iter)
+            wandb.log({"agent%i/evl_losses/abs_m_error" % (agent_i): loss},)
+                # step=logger_iter)
             eval_loss_list.append(loss)
         return eval_loss_list
